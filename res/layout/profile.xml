@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="6dip" >
+
+    <TextView
+        android:id="@+id/member_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Voucher Code"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/vouchers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/member_name"
+        android:textStyle="bold"
+        android:layout_marginBottom="15dp"
+        android:text="Vouchers:   " />
+
+    <TextView
+        android:id="@+id/month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vouchers"
+        android:textStyle="bold"
+        android:text="Month:" />
+
+    <Button
+        android:id="@+id/scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/month"
+        android:layout_centerHorizontal="true"
+        android:text="Scan Item for this Member" />
+
+    <Button
+        android:id="@+id/what_can_get"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scan"
+        android:layout_alignRight="@+id/scan"
+        android:layout_below="@+id/scan"
+        android:layout_marginTop="36dp"
+        android:text="What I Can Get" />
+
+    <Button
+        android:id="@+id/already_added_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/what_can_get"
+        android:layout_alignRight="@+id/what_can_get"
+        android:layout_below="@+id/what_can_get"
+        android:layout_marginTop="31dp"
+        android:text="Regular Voucher Selections" />
+
+    <TextView
+        android:id="@+id/which_vouchers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/member_name"
+        android:layout_toRightOf="@+id/vouchers"
+        android:layout_marginBottom="15dp"
+        android:text="which_vouchers" />
+
+    <TextView
+        android:id="@+id/which_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scan"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/month"
+        android:text="month" />
+
+    <Button
+        android:id="@+id/already_added_cash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/already_added_regular"
+        android:layout_alignRight="@+id/already_added_regular"
+        android:layout_below="@+id/already_added_regular"
+        android:layout_marginTop="33dp"
+        android:text="Cash Voucher Selections" />
+
+</RelativeLayout>

@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/produce_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BuyingProduce" >
+
+    <LinearLayout
+        android:id="@+id/lay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:layout_width="152dp"
+            android:layout_height="100dp"
+            android:onClick="calcPackagedFresh"
+            android:text="Packaged Fresh" />
+
+        <Button
+            android:layout_width="152dp"
+            android:layout_height="100dp"
+            android:onClick="calcPackagedFrozen"
+            android:text="Packaged Frozen" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lay3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lay2"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:layout_width="152dp"
+            android:layout_height="100dp"
+            android:onClick="calcPricePerPound"
+            android:text="Loose Produce: Price per Pound" />
+
+        <Button
+            android:layout_width="152dp"
+            android:layout_height="100dp"
+            android:onClick="calcPricePerItem"
+            android:text="Loose Produce: Price per Item" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lay1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lay3"
+        android:orientation="vertical"
+        android:paddingLeft="10dip" >
+    </LinearLayout>
+
+</RelativeLayout>

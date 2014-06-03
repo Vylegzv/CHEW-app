@@ -1,0 +1,13 @@
+<resources>
+  <color name="transparent">#00000000</color>
+  <color name="grey">#e5e5e5</color>
+  <color name="greySeparator">#808080</color>
+  <color name="blue">#00abea</color>
+  <color name="white">#ffffff</color>
+  <color name="textcolor">#000000</color>
+  <color name="subtext">#343434</color>
+  <color name="background">#b5b5b5</color>
+  <color name="shadow">#696969</color>
+  <color name="lightgray">#f1f1f2</color>
+  <color name="midgray">#e7e7e8</color>
+</resources>

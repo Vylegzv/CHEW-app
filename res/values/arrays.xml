@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string-array name="category">
+        <item>A +VE</item>
+        <item>A -VE</item>
+        <item>B +VE</item>
+        <item>B -VE</item>
+        <item>O +VE</item>
+        <item>O -VE</item>
+        <item>AB +VE</item>
+        <item>AB -VE</item>
+    </string-array>
+
+    <integer-array name="quantity">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+
+</resources>
