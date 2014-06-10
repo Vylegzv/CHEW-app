@@ -48,17 +48,15 @@ public class ShoppingList extends ListActivity implements
 	public void clearShopList(View v) {
 		Log.d("Shopping", "clear called");
 		ContentValues updateValues = new ContentValues();
-		int rowsUpdate = 0;
-		updateValues.put(ChewContract.ShoppingItems.SHOW, false);
+		updateValues.put(ChewContract.ShoppingItems.SHOW, 0);
 
-		String where = ChewContract.ShoppingItems.SHOW + "=" + true + "";
+		String where = ChewContract.ShoppingItems.SHOW + "=" + 1 + "";
 
-		rowsUpdate = getContentResolver()
+		getContentResolver()
 				.update(ChewContract.ShoppingItems.CONTENT_URI,
 						updateValues,
 						where,
 						null);
-		Utils.assertDeleted(getApplicationContext(), rowsUpdate);
 
 		loadermanager
 				.restartLoader(
@@ -74,7 +72,7 @@ public class ShoppingList extends ListActivity implements
 				ChewContract.ShoppingItems.RECIPE_NAME,
 				ChewContract.ShoppingItems.INGREDIENT, };
 
-		String where = ChewContract.ShoppingItems.SHOW + "=" + true + "";;
+		String where = ChewContract.ShoppingItems.SHOW + "=" + 1 + "";;
 
 		String sortOrder = null;
 

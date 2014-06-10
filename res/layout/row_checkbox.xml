@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="4px"
-        android:layout_marginRight="10px" >
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="10dp" >
     </CheckBox>
 
     <TextView
@@ -19,9 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="10px"
-        android:text="Quantity: "
-        android:textSize="20dp" />
+        android:layout_marginLeft="10dp"
+        android:text="@string/quantity"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/quantity_number"
@@ -31,7 +31,7 @@
         android:layout_marginLeft="52dp"
         android:layout_toRightOf="@+id/name"
         android:textStyle="bold"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:text="0" />
 
     <TextView
@@ -49,8 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="Voucher Code"
-        android:layout_marginLeft="10px"
-        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
@@ -61,7 +61,7 @@
         android:layout_marginLeft="23dp"
         android:layout_toRightOf="@+id/voucherCode"
         android:text="Name"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

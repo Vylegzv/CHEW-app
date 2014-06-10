@@ -24,7 +24,7 @@
         android:layout_below="@+id/member_name"
         android:textStyle="bold"
         android:layout_marginBottom="15dp"
-        android:text="Vouchers:   " />
+        android:text="@string/vouchers" />
 
     <TextView
         android:id="@+id/month"
@@ -33,7 +33,7 @@
         android:layout_below="@+id/vouchers"
         android:textStyle="bold"
         android:layout_marginBottom="15dp"
-        android:text="Month:" />
+        android:text="@string/month" />
 
     <Button
         android:id="@+id/scan"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/month"
         android:layout_centerHorizontal="true"
-        android:text="Scan Item for this Member" />
+        android:text="@string/scan_for_member" />
 
     <Button
         android:id="@+id/what_can_get"
@@ -51,7 +51,7 @@
         android:layout_alignRight="@+id/scan"
         android:layout_below="@+id/scan"
         android:layout_marginTop="36dp"
-        android:text="What I Can Get" />
+        android:text="@string/what_can_get" />
 
     <Button
         android:id="@+id/already_added_regular"
@@ -61,7 +61,7 @@
         android:layout_alignRight="@+id/what_can_get"
         android:layout_below="@+id/what_can_get"
         android:layout_marginTop="31dp"
-        android:text="Regular Voucher Selections" />
+        android:text="@string/in_cart_regular" />
 
     <TextView
         android:id="@+id/which_vouchers"
@@ -69,8 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/member_name"
         android:layout_toRightOf="@+id/vouchers"
-        android:layout_marginBottom="15dp"
-        android:text="which_vouchers" />
+        android:textIsSelectable="false"
+        android:layout_marginBottom="15dp" />
 
     <TextView
         android:id="@+id/which_month"
@@ -79,8 +79,8 @@
         android:layout_above="@+id/scan"
         android:layout_marginLeft="14dp"
         android:layout_marginBottom="15dp"
-        android:layout_toRightOf="@+id/month"
-        android:text="month" />
+        android:textIsSelectable="false"
+        android:layout_toRightOf="@+id/month" />
 
     <Button
         android:id="@+id/already_added_cash"
@@ -90,6 +90,6 @@
         android:layout_alignRight="@+id/already_added_regular"
         android:layout_below="@+id/already_added_regular"
         android:layout_marginTop="33dp"
-        android:text="Cash Voucher Selections" />
+        android:text="@string/in_cart_cash" />
 
 </RelativeLayout>

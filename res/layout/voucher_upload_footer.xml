@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:onClick="upload"
-        android:text="Upload" />
+        android:text="@string/upload" />
     
 </RelativeLayout>

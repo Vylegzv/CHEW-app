@@ -11,6 +11,7 @@
         style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textIsSelectable="false"
         android:textColor="@android:color/white" />
 
     <LinearLayout
@@ -27,7 +28,7 @@
             android:ellipsize="end"
             android:paddingLeft="16dp"
             android:singleLine="true"
-            android:text="wrap_content"
+            android:textIsSelectable="false"
             android:textSize="20sp" />
     </LinearLayout>
 

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/textcolor"
         android:textSize="13sp"
-        android:text="Text"
+        android:textIsSelectable="false"
         android:textStyle="bold" >
     </TextView>
 

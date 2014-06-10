@@ -16,7 +16,7 @@
         android:id="@+id/step"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Text"
+        android:textIsSelectable="false"
         android:textColor="@color/textcolor"
         android:textSize="13sp"
         android:textStyle="bold"

@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:paddingLeft="8dp"
-        android:text="VCODE"
         android:textSize="20sp"
+        android:textIsSelectable="false"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -26,14 +26,14 @@
             android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:text="$"
+            android:text="@string/dollar_sign"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/producePrice"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:text="PRICE"
+            android:textIsSelectable="false"
             android:textSize="20sp" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:ellipsize="end"
             android:paddingLeft="16dp"
             android:singleLine="true"
-            android:text="wrap_content"
+            android:textIsSelectable="false"
             android:textSize="20sp" />
     </LinearLayout>
 

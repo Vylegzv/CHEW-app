@@ -15,13 +15,13 @@
             android:layout_width="152dp"
             android:layout_height="100dp"
             android:onClick="calcPackagedFresh"
-            android:text="Packaged Fresh" />
+            android:text="@string/packaged_fresh" />
 
         <Button
             android:layout_width="152dp"
             android:layout_height="100dp"
             android:onClick="calcPackagedFrozen"
-            android:text="Packaged Frozen" />
+            android:text="@string/packaged_frozen" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,13 +35,13 @@
             android:layout_width="152dp"
             android:layout_height="100dp"
             android:onClick="calcPricePerPound"
-            android:text="Loose Produce: Price per Pound" />
+            android:text="@string/loose_price_per_pound" />
 
         <Button
             android:layout_width="152dp"
             android:layout_height="100dp"
             android:onClick="calcPricePerItem"
-            android:text="Loose Produce: Price per Item" />
+            android:text="@string/loose_price_per_item" />
     </LinearLayout>
 
     <LinearLayout

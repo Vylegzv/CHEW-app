@@ -35,7 +35,7 @@
             android:id="@+id/spinnerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chose Family Member:" />
+            android:text="@string/choose_member" />
 
         <Spinner
             android:id="@+id/viewSpin"
@@ -56,13 +56,13 @@
             android:id="@+id/t2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Produce Name:" />
+            android:text="@string/produce_name" />
 
         <EditText
             android:id="@+id/produceName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:inputType="text"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -78,13 +78,13 @@
             android:id="@+id/t3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price per Pound: $" />
+            android:text="@string/price_per_pound" />
 
         <EditText
             android:id="@+id/priceEntered"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:inputType="numberDecimal"
             android:textSize="15sp" />
     </LinearLayout>
 
