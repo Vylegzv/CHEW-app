@@ -3,26 +3,47 @@
 
     <string name="app_name">CHEW</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="name">Name:</string>
+    <string name="month">Month:</string>
+    <string name="ethnicity">Ethnicity:</string>
     <string name="vouchers_title">Your Family Vouchers</string>
-
-    <string-array name="vouchercodes_array">
-        <item>A</item>
-        <item>A2</item>
-        <item>B</item>
-        <item>B2</item>
-        <item>L</item>
-        <item>L2</item>
-        <item>G</item>
-        <item>G2</item>
-        <item>T</item>
-        <item>T2</item>
-        <item>K</item>
-        <item>K2</item>
-        <item>E</item>
-        <item>E2</item>
-        <item>CVV6</item>
-        <item>CVV10</item>
-    </string-array>
+    <string name="which_store">Which store are you in?</string>
+    <string name="which_vouchers">Which vouchers will you be using today?</string>
+    <string name="want_to_get">Do you want to get it?</string>
+    <string name="cannot_get">You cannot get this item!</string>
+    <string name="select_wic_appr">Please select a WIC approved item at this store.</string>
+    <string name="no_matching_voucher">No family voucher matches this product!</string>
+    <string name="choose_voucher_matching_product">Please chose a product corresponding to your family vouchers</string>
+    <string name="warning">Many foods can be choking hazards for preschool-age children. Cut hard food into very thin, bite-size pieces before serving. Encourage your child to sit and chew their food well while under your watch.</string>
+	<string name="set_favorite">Set as Favorite!</string>
+	<string name="unset_favorite">Unset as Favorite</string>
+	<string name="set_favorite_toast">Recipe Set as Favorite</string>
+	<string name="unset_favorite_toast">Recipe Unset as Favorite</string>
+	<string name="problem">There was a problem</string>
+	<string name="add_to_shopping">Add to Shopping List!</string>
+	<string name="ingredients_added_toast">Ingredients were added to your shopping list</string>
+	<string name="ingredients">What You\'ll Need:</string>
+	<string name="steps">Steps:</string>
+	<string name="recipe_image">Recipe Image</string>
+	<string name="ready_to_shop">You are now ready to use your vouchers!</string>
+	<string name="vouchers_uploaded_msg">Vouchers got uploaded</string>
+	<string name="delete_item">Do You Want To Delete This Item?</string>
+	<string name="deleted_success_msg">Item deleted successfully</string>
+	<string name="select_delete_quantity">Please Select Quantity to Delete</string>
+	<string name="fruit_veg">FRUITS &amp; VEGETABLES</string>
+	<string name="spent">Spent:</string>
+	<string name="left">Left:</string>
+	<string name="calc_price">Calculate the Price</string>
+	<string name="enter_price">Enter the Price</string>
+	<string name="cost_limit">Cost is Over the Limit for</string>
+	<string name="choose_member">Chose a Family Member:</string>
+	<string name="enter_produce">Enter Produce Name:</string>
+	<string name="enter_price">Enter Price: $</string>
+	<string name="select_quantity">Select Quantity:</string>
+	<string name="clear_shop_list">Clear Shopping List</string>
 
 </resources>

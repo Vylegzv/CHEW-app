@@ -259,6 +259,7 @@ public class ChewContract {
 		/** Column names **/
 		public static final String RECIPE_NAME = "recipe_name";
 		public static final String INGREDIENT = "ingredient";
+		public static final String SHOW = "show";
 		
 	}
 }

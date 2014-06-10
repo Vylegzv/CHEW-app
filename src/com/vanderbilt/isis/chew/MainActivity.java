@@ -1,38 +1,30 @@
 package com.vanderbilt.isis.chew;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.vanderbilt.isis.chew.adapters.MainListViewAdapter;
 import com.vanderbilt.isis.chew.db.ChewContract;
-import com.vanderbilt.isis.chew.model.CheckBoxRowModel;
+import com.vanderbilt.isis.chew.model.MainListRowItem;
 import com.vanderbilt.isis.chew.utils.Utils;
-
 import android.os.Bundle;
-import android.os.RemoteException;
-import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.OperationApplicationException;
 import android.content.Loader.OnLoadCompleteListener;
-import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -48,39 +40,29 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	public static final int DONE = 4;
 	public static final int FAV_RECIPES = 5;
 	public static final int RECIPES = 6;
-	public static final int VIDEOS = 7;
-	public static final int SHOPLIST = 8;
+	public static final int SHOPLIST = 7;
+	public static final int TUTORIAL = 8;
 	public static final int UPLOAD = 9;
 
-	public static final String[] titles = new String[] { "Scan the Barcode",
-			"Choose a Family Member", "Buy Produce", "Start Shopping",
-			"Done Shopping", "Favorite Recipes", "Yummy Gallery", 
-			"Watch Snack Recipe Videos", "Shopping List", "Voucher Upload" };
-
-	public static final String[] descriptions = new String[] {
-			"Shop for all family", "Shop for a particular member",
-			"Calculate the prices", "Click here to start using your vouchers",
-			"Click here when you are done shopping", "View Your Favorite Recipes!",
-			"Easy and quick snack recipes!", "Watch how to fix snacks!", 
-			"Ingredients for recipes", "Upload your family vouchers" };
-
-	public static final Integer[] images = { R.drawable.barcode,
-			R.drawable.family, R.drawable.produce, R.drawable.shopping_cart,
-			R.drawable.done, R.drawable.favorite_recipes, R.drawable.recipes, 
-			R.drawable.videos, R.drawable.ic_launcher, R.drawable.upload };
+	public String[] titles;
+	public String[] descriptions;
+	public TypedArray images;
 
 	ListView listView;
 	List<MainListRowItem> rowItems;
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		titles = getResources().getStringArray(R.array.main_titles_array);
+		descriptions = getResources().getStringArray(R.array.main_descriptions_array);
+		images = getResources().obtainTypedArray(R.array.main_images_array);
+		
 		rowItems = new ArrayList<MainListRowItem>();
 		for (int i = 0; i < titles.length; i++) {
-			MainListRowItem item = new MainListRowItem(images[i], titles[i],
+			MainListRowItem item = new MainListRowItem(images.getResourceId(i, -1), titles[i],
 					descriptions[i]);
 			rowItems.add(item);
 		}
@@ -100,56 +82,49 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 		switch (position) {
 
-		case 0:
-
+		case SCAN:
 			scan();
 			break;
 
-		case 1:
-
+		case CHOOSE:
 			intent = new Intent(MainActivity.this, VouchersListView.class);
 			startActivity(intent);
 			break;
 
 		case PRODUCE:
-
 			intent = new Intent(MainActivity.this, Produce.class);
 			startActivity(intent);
 			break;
 
 		case SHOPPING:
-
-			Log.d(TAG, "in shopping");
 			showChooseStoresD();
 			break;
 			
-		case DONE:
-			
+		case DONE:			
 			done();
 			break;
 			
-		case FAV_RECIPES:
-			
+		case FAV_RECIPES:			
 			intent = new Intent(MainActivity.this, RecipesActivity.class);
 			intent.putExtra("isFavorite", true);
 			startActivity(intent);
 			break;
 
 		case RECIPES:
-
 			intent = new Intent(MainActivity.this, RecipesActivity.class);
 			intent.putExtra("isFavorite", false);
 			startActivity(intent);
 			break;
 
 		case SHOPLIST:
-
 			intent = new Intent(MainActivity.this, ShoppingList.class);
 			startActivity(intent);
 			break;
+			
+		case TUTORIAL:
+			break;
 
 		case UPLOAD:
-
 			intent = new Intent(MainActivity.this, VoucherUpload.class);
 			startActivity(intent);
 			break;
@@ -157,13 +132,6 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		default:
 
 		}
-
-		/*
-		 * Toast toast = Toast.makeText(getApplicationContext(), "Item " +
-		 * (position + 1) + ": " + rowItems.get(position), Toast.LENGTH_SHORT);
-		 * toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-		 * toast.show();
-		 */
 	}
 
 	public void scan() {
@@ -184,13 +152,14 @@ public class MainActivity extends Activity implements OnItemClickListener {
 					ChewContract.Store.VOUCHERS_ID, ChewContract.Store.SIZE, ChewContract.Store.SIZE_TYPE,
 					ChewContract.Store.FOOD_TYPE};
 			
-			String store = Utils.getStore(MainActivity.this);
+			//String store = Utils.getStore(MainActivity.this);
 			
 			// it could be either in one store or in both stores
-			String selection = ChewContract.Store.BARCODE + "='" + barcode + "'"
+			/*String selection = ChewContract.Store.BARCODE + "='" + barcode + "'"
 					+ " AND " + ChewContract.Store.STORE + "='" + store + "'"
 					+ " OR " + ChewContract.Store.BARCODE + "='" + barcode + "'"
-					+ " AND " + ChewContract.Store.STORE + "='" + Utils.ALL_STORES + "'";
+					+ " AND " + ChewContract.Store.STORE + "='" + Utils.ALL_STORES + "'";*/
+			String selection = ChewContract.Store.BARCODE + "='" + barcode + "'";
 			
 			CursorLoader loader = new CursorLoader(MainActivity.this, ChewContract.Store.CONTENT_URI, projection, selection, null, null);
 			loader.registerListener(50, new MyOnLoadCompleteListener2());
@@ -202,8 +171,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				MainActivity.this);
-		final CharSequence[] stores = { "Walmart", "Kroger" };
-		alertDialogBuilder.setTitle("Which store are you in?");
+		final CharSequence[] stores = getResources().getStringArray(R.array.stores_array);
+		alertDialogBuilder.setTitle(getString(R.string.which_store));
 		alertDialogBuilder
 				.setSingleChoiceItems(stores, 1,
 						new DialogInterface.OnClickListener() {
@@ -216,14 +185,12 @@ public class MainActivity extends Activity implements OnItemClickListener {
 						})
 
 				// set dialog message
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 
 						// not the same as 'which' above
 						Log.d(TAG, "Which value=" + id);
 						Log.d(TAG, "Selected value=" + selectedStore);
-						// Toast.makeText(MainActivity.this, "Select " +
-						// stores[selectedStore], Toast.LENGTH_SHORT).show();
 						
 						if(Utils.setStore(MainActivity.this, stores[selectedStore].toString()))
 							MainActivity.this.getVouchers();
@@ -232,7 +199,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 					}
 				})
 
-				.setNegativeButton("Cancel",
+				.setNegativeButton(getString(R.string.cancel),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								dialog.cancel();
@@ -249,10 +216,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	private void getVouchers() {
 
 		CursorLoader loader = null;
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat("MMMM");
-		String month = formatter.format(cal.getTime());
-		Log.d(TAG, month);
+		String month = Utils.getMonth();
 
 		String[] resultColumns = new String[] {
 				ChewContract.FamilyVouchers._ID,
@@ -279,7 +243,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				MainActivity.this);
-		alertDialogBuilder.setTitle("Which vouchers will you be using today?");
+		alertDialogBuilder.setTitle(getString(R.string.which_vouchers));
 		alertDialogBuilder.setMultiChoiceItems(voucherCodes, null,
 				new DialogInterface.OnMultiChoiceClickListener() {
 
@@ -291,7 +255,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 							selected.add(voucherCodes[which].toString());
 						}
 					}
-				}).setPositiveButton("OK",
+				}).setPositiveButton(getString(R.string.ok),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
  
@@ -302,9 +266,15 @@ public class MainActivity extends Activity implements OnItemClickListener {
 							vouchersUsed.add(item);	
 						} // save the vouchers
 					
-						Utils.setVouchers(MainActivity.this, vouchersUsed);
+						if(Utils.setVouchers(MainActivity.this, vouchersUsed)){
+							Toast.makeText(getApplicationContext(), getString(R.string.ready_to_shop),
+									   Toast.LENGTH_SHORT).show();
+						}else{
+							Toast.makeText(getApplicationContext(), getString(R.string.problem),
+									   Toast.LENGTH_SHORT).show();
+						}
 					}
-				}).setNegativeButton("Cancel",
+				}).setNegativeButton(getString(R.string.cancel),
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog,
 					int id) {
@@ -383,13 +353,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	 
 				// set dialog message
 				alertDialogBuilder
-					.setMessage("Do you want to get it?")
+					.setMessage(getString(R.string.want_to_get))
 					.setCancelable(false)
-					.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+					.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,int id) {
-							// if this button is clicked, close
-							// current activity
-							//MainActivity.this.finish();
+
 							Intent intent = new Intent(MainActivity.this, GetProducts.class);
 							intent.putExtra("member_name", "");
 							intent.putExtra("food_name", food_name);
@@ -402,10 +370,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 							startActivity(intent);
 						}
 					  })
-					.setNegativeButton("No",new DialogInterface.OnClickListener() {
+					.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,int id) {
-							// if this button is clicked, just close
-							// the dialog box and do nothing
 							dialog.cancel();
 						}
 					});
@@ -418,20 +384,16 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		}else{
 			
 				// set title
-				alertDialogBuilder.setTitle("You cannot get this item!");
+				alertDialogBuilder.setTitle(getString(R.string.cannot_get));
 
 				// set dialog message
 				alertDialogBuilder
-						.setMessage(
-								"Please select a WIC approved item at this store.")
+						.setMessage(getString(R.string.select_wic_appr))
 						.setCancelable(false)
-						.setPositiveButton("OK",
+						.setPositiveButton(getString(R.string.ok),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										// if this button is clicked, close
-										// current activity
-										// MainActivity.this.finish();
 										dialog.cancel();
 									}
 								});
@@ -443,5 +405,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
 				alertDialog.show();
 			}
 		}
+	}
+	
+	public void onStop() {
+		super.onStop();
+		Log.d(TAG, "onStop called");
+		images.recycle();
 	}
 }

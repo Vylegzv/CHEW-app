@@ -7,22 +7,18 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import com.vanderbilt.isis.chew.GetProducts;
-import com.vanderbilt.isis.chew.MainActivity;
+import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.vouchers.CashVoucher;
-import com.vanderbilt.isis.chew.vouchers.Voucher;
 import com.vanderbilt.isis.chew.vouchers.VoucherCode;
-
 import android.content.ContentProviderOperation;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Utils {
 
@@ -200,6 +196,21 @@ public class Utils {
 		s = s.replaceFirst("^0+(?!$)", "");
 		s = s.substring(0, s.length() - 1);
 		return s;
+	}
+	
+	public static void assertDeleted(Context context, int num){
+		
+		if (num > 0) {
+			Toast.makeText(
+					context,
+					context.getString(R.string.deleted_success_msg),
+					Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(
+					context,
+					context.getString(R.string.problem),
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	/*

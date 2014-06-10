@@ -1,4 +1,4 @@
-package com.vanderbilt.isis.chew;
+package com.vanderbilt.isis.chew.model;
 
 public class MainListRowItem {
 

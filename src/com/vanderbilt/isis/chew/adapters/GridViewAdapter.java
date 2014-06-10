@@ -1,7 +1,8 @@
-package com.vanderbilt.isis.chew;
+package com.vanderbilt.isis.chew.adapters;
 
 import java.util.ArrayList;
 
+import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.recipes.Recipe;
 
 import android.content.Context;
@@ -69,4 +70,3 @@ public class GridViewAdapter extends ArrayAdapter<Recipe> {
 		ImageView image;
 	}
 }
-

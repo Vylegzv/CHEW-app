@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.model.CheckBoxRowModel;
+import com.vanderbilt.isis.chew.utils.Utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -334,9 +335,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 
 			if (!alreadyBoughtOtherOption) {
 
-				Calendar cal = Calendar.getInstance();
-				SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
-				month_name = month_date.format(cal.getTime());
+				month_name = Utils.getMonth();
 
 				Log.d("*** MONTH", month_name);
 

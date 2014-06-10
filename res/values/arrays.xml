@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+    <string-array name="main_titles_array">
+        <item>Scan the Barcode</item>
+        <item>Choose a Family Member</item>
+        <item>Buy Produce</item>
+        <item>Start Shopping</item>
+        <item>Done Shopping</item>
+        <item>Favorite Recipes</item>
+        <item>Yummy Gallery</item>
+        <item>Shopping List</item>
+        <item>Video Tutorial</item>
+        <item>Voucher Upload</item>
+    </string-array>
+    <string-array name="main_descriptions_array">
+        <item>Shop for the whole family</item>
+        <item>Shop for a specific family member</item>
+        <item>Calculate the prices</item>
+        <item>Click here to start using your vouchers</item>
+        <item>Click here when you are done shopping</item>
+        <item>View Your Favorite Recipes!</item>
+        <item>Easy and quick snack recipes!</item>
+        <item>Check what you\'ll need to fix healthy snacks!</item>
+        <item>Watch this tutorial to help you using the app</item>
+        <item>Upload your family vouchers</item>
+    </string-array>
+    <string-array name="main_images_array">
+        <item>@drawable/barcode</item>
+        <item>@drawable/family</item>
+        <item>@drawable/produce</item>
+        <item>@drawable/shopping_cart</item>
+        <item>@drawable/done</item>
+        <item>@drawable/favorite_recipes</item>
+        <item>@drawable/recipes</item>
+        <item>@drawable/shopping_list</item>
+        <item>@drawable/tutorial</item>
+        <item>@drawable/upload</item>
+    </string-array>
+    <string-array name="stores_array">
+        <item>Walmart</item>
+        <item>Kroger</item>
+    </string-array>
     <string-array name="category">
         <item>A +VE</item>
         <item>A -VE</item>
@@ -10,6 +50,45 @@
         <item>O -VE</item>
         <item>AB +VE</item>
         <item>AB -VE</item>
+    </string-array>
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string-array name="ethnicities">
+        <item>White</item>
+        <item>Hispanic</item>
+        <item>Black</item>
+        <item>Asian</item>
+        <item>American Indian</item>
+    </string-array>
+    <string-array name="vouchercodes_array">
+        <item>A</item>
+        <item>A2</item>
+        <item>B</item>
+        <item>B2</item>
+        <item>L</item>
+        <item>L2</item>
+        <item>G</item>
+        <item>G2</item>
+        <item>T</item>
+        <item>T2</item>
+        <item>K</item>
+        <item>K2</item>
+        <item>E</item>
+        <item>E2</item>
+        <item>CVV6</item>
+        <item>CVV10</item>
     </string-array>
 
     <integer-array name="quantity">

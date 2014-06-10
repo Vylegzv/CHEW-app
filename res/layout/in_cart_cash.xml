@@ -6,6 +6,15 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp" >
 
+    <TextView
+        android:id="@+id/voucherCode"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:paddingLeft="8dp"
+        android:text="VCODE"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -17,7 +26,6 @@
             android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:paddingLeft="4dp"
             android:text="$"
             android:textSize="20sp" />
 

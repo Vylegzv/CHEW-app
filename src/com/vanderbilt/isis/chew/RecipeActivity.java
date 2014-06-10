@@ -1,24 +1,17 @@
 package com.vanderbilt.isis.chew;
 
 import java.util.ArrayList;
-
-import com.vanderbilt.isis.chew.adapters.IngredientsAdapter;
-import com.vanderbilt.isis.chew.adapters.IngredientsStepsAdapter;
 import com.vanderbilt.isis.chew.adapters.StepsAdapter;
-import com.vanderbilt.isis.chew.db.ChewContentProvider;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.recipes.Ingredient;
 import com.vanderbilt.isis.chew.recipes.Recipe;
 import com.vanderbilt.isis.chew.recipes.Step;
-
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +28,7 @@ public class RecipeActivity extends Activity {
 	String TAG = getClass().getSimpleName();
 	ImageView imageView;
 	TextView titleView;
-	TextView setFavorite;
+	TextView setFavoriteView;
 	ListView stepsLV;
 	Bitmap mainImage;
 	Recipe recipe;
@@ -45,41 +38,27 @@ public class RecipeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recipe_view);
 
+		Log.d(TAG, "on create called");
 		View header = getLayoutInflater().inflate(R.layout.recipe_header, null);
 
 		imageView = (ImageView) header.findViewById(R.id.recipeImage);
 		titleView = (TextView) header.findViewById(R.id.recipeTitle);
-		setFavorite = (TextView) header.findViewById(R.id.setFavorite);
+		setFavoriteView = (TextView) header.findViewById(R.id.setFavorite);
 		LinearLayout ll = (LinearLayout) header.findViewById(R.id.l2);
 		stepsLV = (ListView) findViewById(R.id.stepsListView);
 		stepsLV.addHeaderView(header);
 
 		Bundle data = getIntent().getExtras();
-		// int recipe_id = data.getInt("recipe_id");
 		recipe = (Recipe) data.getParcelable("recipe");
 		if(recipe.isFavorite()){
 			Log.d(TAG, "favorite");
-			setFavorite.setText("Unset as Favorite");
+			setFavoriteView.setText(getString(R.string.unset_favorite));
 		}
 
-		// Log.d(TAG, recipe_id+"");
 		Log.d(TAG, recipe.getTitle());
 
-		// ArrayList<Ingredient> ingredients = getIngredients(recipe.getId());
 		recipe.setIngredients(getIngredients(recipe.getId()));
-
-		/*
-		 * for(Ingredient i : ingredients){ Log.d(TAG,
-		 * i.getLongerDescription()); }
-		 * 
-		 * ArrayList<Step> steps = getSteps(recipe.getId());
-		 */
 		recipe.setSteps(getSteps(recipe.getId()));
-
-		/*
-		 * for(Step s : steps){ Log.d(TAG, s.getStep()); if(s.getImage() ==
-		 * null){ Log.d(TAG, "Image null"); } }
-		 */
 
 		titleView.setText(recipe.getTitle());
 
@@ -103,21 +82,9 @@ public class RecipeActivity extends Activity {
 
 		}
 
-		/*
-		 * IngredientsAdapter ingredientsAdapter = new
-		 * IngredientsAdapter(RecipeActivity.this, recipe.getIngredients());
-		 * ingredientsLV.setAdapter(ingredientsAdapter);
-		 */
-
 		StepsAdapter stepsAdapter = new StepsAdapter(RecipeActivity.this,
 				recipe.getSteps());
 		stepsLV.setAdapter(stepsAdapter);
-
-		/*
-		 * IngredientsStepsAdapter adapter = new
-		 * IngredientsStepsAdapter(RecipeActivity.this, recipe.getIngredients(),
-		 * recipe.getSteps()); ingredientsLV.setAdapter(adapter);
-		 */
 
 	}
 
@@ -161,9 +128,13 @@ public class RecipeActivity extends Activity {
 		
 		ContentValues updateValues = new ContentValues();
 		int rowsUpdate = 0;
+			
+		boolean setFavorite = true;
+		if(recipe.isFavorite())
+			setFavorite = false;
 		
 		updateValues.put(
-				ChewContract.Recipes.FAVORITE, 1);
+				ChewContract.Recipes.FAVORITE, setFavorite);
 		
 		String where = ChewContract.ProductsChosen._ID + "=" + recipe.getId();
 
@@ -172,10 +143,19 @@ public class RecipeActivity extends Activity {
 				updateValues, where, null);
 		
 		if(rowsUpdate == 1){
-			Toast.makeText(getApplicationContext(), "Recipe Set as Favorite",
+			
+			recipe.setFavorite(setFavorite);
+			if(recipe.isFavorite()){
+				setFavoriteView.setText(getString(R.string.unset_favorite));
+				Toast.makeText(getApplicationContext(), getString(R.string.set_favorite_toast),
 					   Toast.LENGTH_SHORT).show();
+			}else{
+				setFavoriteView.setText(getString(R.string.set_favorite));
+				Toast.makeText(getApplicationContext(), getString(R.string.unset_favorite_toast),
+						   Toast.LENGTH_SHORT).show();
+		    }
 		}else{
-			Toast.makeText(getApplicationContext(), "There was a problem",
+			Toast.makeText(getApplicationContext(), getString(R.string.problem),
 					   Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -193,14 +173,12 @@ public class RecipeActivity extends Activity {
 			count++;
 		}
 
-		//getContentResolver().bulkInsert(ChewContract.ShoppingItems.CONTENT_URI, cvs);
 		new InsertTask().execute(cvs);
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		/** **/
 		mainImage.recycle();
 		mainImage = null;
 	}
@@ -216,10 +194,10 @@ public class RecipeActivity extends Activity {
 		protected void onPostExecute(final Integer numInserted) {
 			
 			if(numInserted > 0){
-			Toast.makeText(getApplicationContext(), "Ingredients were added to your shopping list",
+			Toast.makeText(getApplicationContext(), getString(R.string.ingredients_added_toast),
 					   Toast.LENGTH_SHORT).show();
 			}else{
-				Toast.makeText(getApplicationContext(), "There was a problem",
+				Toast.makeText(getApplicationContext(), getString(R.string.problem),
 						   Toast.LENGTH_SHORT).show();
 			}
 		}

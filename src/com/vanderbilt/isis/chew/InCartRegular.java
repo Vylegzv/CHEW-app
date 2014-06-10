@@ -1,27 +1,16 @@
 package com.vanderbilt.isis.chew;
 
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,21 +40,14 @@ public class InCartRegular extends ListActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// setContentView(R.layout.testlistview);
 
 		name = "";
-		//voucherCode = "";
 		Bundle getName = getIntent().getExtras();
 		if (getName != null) {
 			name = getName.getString("name");
-			//voucherCode = getName.getString("voucherCode");
 		}
 
-		Log.d("NAME", name);
-		//Log.d("VCODE", voucherCode);
-
 		loadermanager = getLoaderManager();
-
 
 		mAdapter = new MySimpleCursorAdapter(InCartRegular.this,
 				R.layout.in_cart_listview, null, new String[] {
@@ -94,13 +76,13 @@ public class InCartRegular extends ListActivity implements
 						InCartRegular.this);
 
 				// set title
-				alertDialogBuilder.setTitle("Do You Want To Delete This Item?");
+				alertDialogBuilder.setTitle(getString(R.string.delete_item));
 
 				// set dialog message
 				alertDialogBuilder
 						// .setMessage("Please connect to Internet")
 						.setCancelable(false)
-						.setPositiveButton("Yes",
+						.setPositiveButton(getString(R.string.yes),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
@@ -112,7 +94,6 @@ public class InCartRegular extends ListActivity implements
 										Log.d("QUANT", c.getString(2));
 										Log.d("OZ", c.getString(3));
 										Log.d("Count", c.getString(4));
-										//Log.d("Cost", c.getString(6));
 
 										where = "";
 										productName = c.getString(1);
@@ -150,6 +131,9 @@ public class InCartRegular extends ListActivity implements
 											int numDeleted = getContentResolver()
 													.delete(ChewContract.ProductsChosen.CONTENT_URI,
 															where, null);
+											
+											Utils.assertDeleted(getApplicationContext(), numDeleted);
+											
 											// if quantity is more than 1, ask
 											// them how many they want to delete
 										} else if (quantity > 1) {
@@ -162,8 +146,7 @@ public class InCartRegular extends ListActivity implements
 
 											deleteOptionsDialog = new AlertDialog.Builder(
 													InCartRegular.this)
-													.setTitle(
-															"Please Select Quantity to Delete")
+													.setTitle(getString(R.string.select_delete_quantity))
 													.setSingleChoiceItems(
 															choices,
 															-1,
@@ -177,8 +160,7 @@ public class InCartRegular extends ListActivity implements
 																			.parseInt(choices[which]);
 																}
 															})
-													.setPositiveButton(
-															"Yes",
+													.setPositiveButton(getString(R.string.yes),
 															new DialogInterface.OnClickListener() {
 																public void onClick(
 																		DialogInterface dialog,
@@ -220,6 +202,8 @@ public class InCartRegular extends ListActivity implements
 																				.delete(ChewContract.ProductsChosen.CONTENT_URI,
 																						where,
 																						null);
+																		Utils.assertDeleted(getApplicationContext(), numDeleted);
+																		
 																		loadermanager
 																				.restartLoader(
 																						1,
@@ -270,9 +254,7 @@ public class InCartRegular extends ListActivity implements
 																						updateValues,
 																						where,
 																						null);
-																		Log.d("ROWSUPDATE",
-																				rowsUpdate
-																						+ "");
+																		Utils.assertDeleted(getApplicationContext(), rowsUpdate);
 
 																		loadermanager
 																				.restartLoader(
@@ -283,8 +265,7 @@ public class InCartRegular extends ListActivity implements
 
 																}
 															})
-													.setNegativeButton(
-															"No",
+													.setNegativeButton(getString(R.string.no),
 															new DialogInterface.OnClickListener() {
 																public void onClick(
 																		DialogInterface dialog,
@@ -327,6 +308,9 @@ public class InCartRegular extends ListActivity implements
 												int numDeleted = getContentResolver()
 														.delete(ChewContract.ProductsChosen.CONTENT_URI,
 																where, null);
+												
+												Utils.assertDeleted(getApplicationContext(), numDeleted);
+												
 												// if quantity is more than 1,
 												// ask them how many they want
 												// to delete
@@ -340,8 +324,7 @@ public class InCartRegular extends ListActivity implements
 
 												deleteOptionsDialog = new AlertDialog.Builder(
 														InCartRegular.this)
-														.setTitle(
-																"Please Select Quantity to Delete")
+														.setTitle(getString(R.string.select_delete_quantity))
 														.setSingleChoiceItems(
 																choices,
 																-1,
@@ -355,8 +338,7 @@ public class InCartRegular extends ListActivity implements
 																				.parseInt(choices[which]);
 																	}
 																})
-														.setPositiveButton(
-																"Yes",
+														.setPositiveButton(getString(R.string.yes),
 																new DialogInterface.OnClickListener() {
 																	public void onClick(
 																			DialogInterface dialog,
@@ -399,6 +381,9 @@ public class InCartRegular extends ListActivity implements
 																					.delete(ChewContract.ProductsChosen.CONTENT_URI,
 																							where,
 																							null);
+																			
+																			Utils.assertDeleted(getApplicationContext(), numDeleted);
+																			
 																			loadermanager
 																					.restartLoader(
 																							1,
@@ -455,9 +440,7 @@ public class InCartRegular extends ListActivity implements
 																							updateValues,
 																							where,
 																							null);
-																			Log.d("ROWSUPDATE",
-																					rowsUpdate
-																							+ "");
+																			Utils.assertDeleted(getApplicationContext(), rowsUpdate);
 
 																			loadermanager
 																					.restartLoader(
@@ -468,8 +451,7 @@ public class InCartRegular extends ListActivity implements
 
 																	}
 																})
-														.setNegativeButton(
-																"No",
+														.setNegativeButton(getString(R.string.no),
 																new DialogInterface.OnClickListener() {
 																	public void onClick(
 																			DialogInterface dialog,
@@ -492,12 +474,10 @@ public class InCartRegular extends ListActivity implements
 
 									}
 								})
-						.setNegativeButton("No",
+						.setNegativeButton(getString(R.string.no),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										// if this button is clicked, just close
-										// the dialog box and do nothing
 										dialog.cancel();
 									}
 								});
@@ -523,14 +503,6 @@ public class InCartRegular extends ListActivity implements
 				ChewContract.ProductsChosen.VOUCHER_CODE };
 
 		String month_name = Utils.getMonth();
-		Log.d("MONTH INCART", month_name);
-
-		/*String where = ChewContract.ProductsChosen.MONTH + "='" + month_name
-				+ "'" + " AND " + ChewContract.ProductsChosen.MEMBER_NAME
-				+ "='" + name + "'" + " AND "
-				+ ChewContract.ProductsChosen.VOUCHER_CODE + "='" + voucherCode
-				+ "'" + " AND " + ChewContract.ProductsChosen.VOUCHER_CODE
-				+ "='" + voucherCode + "'";*/
 		
 		String where = ChewContract.ProductsChosen.MONTH + "='" + month_name
 				+ "'" + " AND " + ChewContract.ProductsChosen.MEMBER_NAME
@@ -547,21 +519,17 @@ public class InCartRegular extends ListActivity implements
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-		// TODO Auto-generated method stub
-		// mAdapter.swapCursor(cursor);
 		mAdapter.changeCursor(cursor);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
-		// TODO Auto-generated method stub
-		// mAdapter.swapCursor(null);
 		mAdapter.changeCursor(null);
 	}
 
 	private class MySimpleCursorAdapter extends SimpleCursorAdapter {
 
-		private static final int STATE_UNKNOWN = 0;
+		/*private static final int STATE_UNKNOWN = 0;
 		private static final int STATE_SECTIONED_CELL = 1;
 		private static final int STATE_REGULAR_CELL = 2;
 
@@ -571,14 +539,14 @@ public class InCartRegular extends ListActivity implements
 		Cursor items;
 		private Context context;
 		private int layout;
-		private LayoutInflater mInflater;
+		private LayoutInflater mInflater;*/
 
 		public MySimpleCursorAdapter(Context context, int layout, Cursor c,
 				String[] from, int[] to, int flags) {
 			super(context, layout, c, from, to, 0);
-			this.context = context;
+			/*this.context = context;
 			this.layout = layout;
-			this.mCellStates = c == null ? null : new int[c.getCount()];
+			this.mCellStates = c == null ? null : new int[c.getCount()];*/
 		}
 
 		@Override
@@ -653,7 +621,7 @@ public class InCartRegular extends ListActivity implements
 							.getString(cursor
 									.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
 					if (cat.contains("FRUIT_VEG")) {
-						cat = "FRUITS & VEGETABLES";
+						cat = getString(R.string.fruit_veg);
 					}
 					holder.separator.setText(cat);
 					holder.separator.setTextColor(getResources().getColor(
@@ -677,7 +645,7 @@ public class InCartRegular extends ListActivity implements
 							.getString(cursor
 									.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
 					if (cat.contains("FRUIT_VEG")) {
-						cat = "FRUITS & VEGETABLES";
+						cat = getString(R.string.fruit_veg);
 					}
 					holder.separator.setText(cat);
 					holder.separator.setTextColor(getResources().getColor(

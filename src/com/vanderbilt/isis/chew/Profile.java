@@ -1,44 +1,26 @@
 package com.vanderbilt.isis.chew;
 
-import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.vanderbilt.isis.chew.CustomHandler.InsertDataHandler;
-import com.vanderbilt.isis.chew.CustomHandler.UpdateDataHandler;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.AsyncQueryHandler;
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 @SuppressLint("NewApi")
@@ -81,14 +63,11 @@ public class Profile extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile);
 
-		// Intent intent = new Intent();
-		// String name = intent.getStringExtra("name");
 		Bundle getName = getIntent().getExtras();
 		if (getName != null) {
 			name = getName.getString("name");
-			// voucherCode = getName.getString("voucherCode");
 		}
-		Log.d("PROFILE ACTIVITY", "test: " + name);
+		Log.d(TAG, "test: " + name);
 
 		memberName = (TextView) findViewById(R.id.member_name);
 		whichVouchers = (TextView) findViewById(R.id.which_vouchers);
@@ -124,11 +103,8 @@ public class Profile extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// Intent intent = new Intent(Profile.this,
-				// AlreadyAddedItems.class);
 				Intent intent = new Intent(Profile.this, InCartRegular.class);
 				intent.putExtra("name", name);
-				// intent.putExtra("voucherCode", voucherCode);
 				startActivity(intent);
 			}
 		});
@@ -138,11 +114,8 @@ public class Profile extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// Intent intent = new Intent(Profile.this,
-				// AlreadyAddedItems.class);
 				Intent intent = new Intent(Profile.this, InCartCash.class);
 				intent.putExtra("name", name);
-				// intent.putExtra("voucherCode", voucherCode);
 				startActivity(intent);
 			}
 		});
@@ -168,13 +141,15 @@ public class Profile extends Activity {
 					ChewContract.Store.VOUCHERS_ID, ChewContract.Store.SIZE, ChewContract.Store.SIZE_TYPE,
 					ChewContract.Store.FOOD_TYPE};
 			
-			String store = Utils.getStore(Profile.this);
+			//String store = Utils.getStore(Profile.this);
 			
 			// it could be either in one store or in both stores
-			String selection = ChewContract.Store.BARCODE + "='" + barcode + "'"
+			/*String selection = ChewContract.Store.BARCODE + "='" + barcode + "'"
 					+ " AND " + ChewContract.Store.STORE + "='" + store + "'"
 					+ " OR " + ChewContract.Store.BARCODE + "='" + barcode + "'"
-					+ " AND " + ChewContract.Store.STORE + "='" + Utils.ALL_STORES + "'";
+					+ " AND " + ChewContract.Store.STORE + "='" + Utils.ALL_STORES + "'";*/
+			
+			String selection = ChewContract.Store.BARCODE + "='" + barcode + "'";
 			
 			CursorLoader loader = new CursorLoader(Profile.this, ChewContract.Store.CONTENT_URI, projection, selection, null, null);
 			loader.registerListener(50, new MyOnLoadCompleteListener2());
@@ -186,9 +161,7 @@ public class Profile extends Activity {
 	private void populateScreen(String name) {
 
 		memberName.setText(name);
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
-		String month_name = month_date.format(cal.getTime());
+		String month_name = Utils.getMonth();
 		whichMonth.setText(month_name);
 		
 		CursorLoader loader = null;
@@ -217,8 +190,8 @@ public class Profile extends Activity {
 				String voucher = cursor.getString(0);
 				String used = cursor.getString(1);
 				
-				Log.d("Profile", voucher);
-				Log.d("Profile", used);
+				Log.d(TAG, voucher);
+				Log.d(TAG, used);
 				
 				vouchers.append(voucher);
 				vouchers.append(" (");
@@ -258,13 +231,12 @@ public class Profile extends Activity {
 	 
 				// set dialog message
 				alertDialogBuilder
-					.setMessage("Do you want to get it?")
+					.setMessage(getString(R.string.want_to_get))
 					.setCancelable(false)
-					.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+					.setPositiveButton(getString(R.string.yes),
+							new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,int id) {
-							// if this button is clicked, close
-							// current activity
-							//MainActivity.this.finish();
+
 							Intent intent = new Intent(Profile.this, GetProducts.class);
 							Log.d("Putting name", name);
 							intent.putExtra("member_name", name);
@@ -278,10 +250,9 @@ public class Profile extends Activity {
 							startActivity(intent);
 						}
 					  })
-					.setNegativeButton("No",new DialogInterface.OnClickListener() {
+					.setNegativeButton(getString(R.string.no),
+							new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,int id) {
-							// if this button is clicked, just close
-							// the dialog box and do nothing
 							dialog.cancel();
 						}
 					});
@@ -294,28 +265,21 @@ public class Profile extends Activity {
 		}else{
 			
 				// set title
-				alertDialogBuilder.setTitle("You cannot get this item!");
+				alertDialogBuilder.setTitle(getString(R.string.cannot_get));
 
 				// set dialog message
 				alertDialogBuilder
-						.setMessage(
-								"Please select a WIC approved item at this store.")
+						.setMessage(getString(R.string.select_wic_appr))
 						.setCancelable(false)
-						.setPositiveButton("OK",
+						.setPositiveButton(getString(R.string.ok),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										// if this button is clicked, close
-										// current activity
-										// MainActivity.this.finish();
 										dialog.cancel();
 									}
 								});
 
-				// create alert dialog
 				AlertDialog alertDialog = alertDialogBuilder.create();
-
-				// show it
 				alertDialog.show();
 			}
 		}

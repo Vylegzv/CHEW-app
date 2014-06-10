@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="10dip" >
+    android:paddingLeft="5dip" >
 
     <LinearLayout
         android:id="@+id/lin1"
@@ -22,14 +22,14 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    
-        <LinearLayout
+
+    <LinearLayout
+        android:id="@+id/lin2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_below="@+id/lin1"
-        android:id="@+id/lin2"
-        android:paddingLeft="10dip" >
+        android:orientation="horizontal"
+        android:paddingLeft="5dip" >
 
         <TextView
             android:id="@+id/spinnerText"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lin2"
         android:orientation="horizontal"
-        android:paddingLeft="12dp" >
+        android:paddingLeft="5dip" >
 
         <TextView
             android:id="@+id/t2"
@@ -62,8 +62,8 @@
             android:id="@+id/produceName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="" />
+            android:text=""
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lin3"
         android:orientation="horizontal"
-        android:paddingLeft="12dp" >
+        android:paddingLeft="5dip" >
 
         <TextView
             android:id="@+id/t3"
@@ -84,8 +84,8 @@
             android:id="@+id/priceEntered"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="" />
+            android:text=""
+            android:textSize="15sp" />
     </LinearLayout>
 
 </RelativeLayout>

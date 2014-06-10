@@ -3,10 +3,7 @@ package com.vanderbilt.isis.chew;
 import java.util.ArrayList;
 
 import com.vanderbilt.isis.chew.db.ChewContract;
-import com.vanderbilt.isis.chew.recipes.Ingredient;
 import com.vanderbilt.isis.chew.utils.Utils;
-import com.vanderbilt.isis.chew.vouchers.VoucherCode;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,12 +13,13 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 public class VoucherUpload extends Activity{
 
@@ -30,8 +28,8 @@ public class VoucherUpload extends Activity{
 	ListView lv;
 	ArrayAdapter<String> adapter;
 	EditText nameET;
-	EditText monthET;
-	EditText ethnicityET;
+	String month;
+	String ethnicity;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,8 +55,42 @@ public class VoucherUpload extends Activity{
         lv.setAdapter(adapter);
        
         nameET = (EditText) header.findViewById(R.id.name);
-        monthET = (EditText) header.findViewById(R.id.month);
-        ethnicityET = (EditText) header.findViewById(R.id.ethnicity);
+        
+        Spinner months = (Spinner) header.findViewById(R.id.month_spinner);
+		ArrayAdapter<String> monthsAdapter = new ArrayAdapter<String>(VoucherUpload.this,
+				android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.months));
+		monthsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		months.setAdapter(monthsAdapter);
+		
+        Spinner ethnicities = (Spinner) header.findViewById(R.id.ethnicity_spinner);
+		ArrayAdapter<String> ethnicitiesAdapter = new ArrayAdapter<String>(VoucherUpload.this,
+				android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.ethnicities));
+		ethnicitiesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ethnicities.setAdapter(ethnicitiesAdapter);
+		
+		months.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			public void onItemSelected(AdapterView<?> parent, View arg1,
+					int arg2, long arg3) {
+				month = parent.getSelectedItem().toString();
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
+		
+		ethnicities.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			public void onItemSelected(AdapterView<?> parent, View arg1,
+					int arg2, long arg3) {
+				ethnicity = parent.getSelectedItem().toString();
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
 	}
 	
 	public void upload(View v) {
@@ -67,8 +99,6 @@ public class VoucherUpload extends Activity{
 		
 		Log.d(TAG, "upload called");
 		String name = nameET.getText().toString();
-		String month = monthET.getText().toString();
-		String ethnicity = ethnicityET.getText().toString();
 		
         SparseBooleanArray checked = lv.getCheckedItemPositions();
         ArrayList<String> selectedVouchers = new ArrayList<String>();
@@ -94,7 +124,6 @@ public class VoucherUpload extends Activity{
 			cvs[i] = cv;
 		}
 
-		//getContentResolver().bulkInsert(ChewContract.ShoppingItems.CONTENT_URI, cvs);
 		new InsertTask().execute(cvs);
 	}
 	
@@ -114,16 +143,14 @@ public class VoucherUpload extends Activity{
 		protected void onPostExecute(final Integer numInserted) {
 			
 			if(numInserted > 0){
-			Toast.makeText(getApplicationContext(), "Vouchers got uploaded.",
+			Toast.makeText(getApplicationContext(), getString(R.string.vouchers_uploaded_msg),
 					   Toast.LENGTH_SHORT).show();
 			}else{
-				Toast.makeText(getApplicationContext(), "There was a problem",
+				Toast.makeText(getApplicationContext(), getString(R.string.problem),
 						   Toast.LENGTH_SHORT).show();
 			}
 			
-			nameET.setText("");
-			monthET.setText("");
-			ethnicityET.setText("");        
+			nameET.setText("");        
 	        lv.clearChoices();
 			
 		}

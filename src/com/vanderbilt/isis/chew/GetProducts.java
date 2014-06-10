@@ -1,15 +1,11 @@
 package com.vanderbilt.isis.chew;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Set;
-
 import com.vanderbilt.isis.chew.adapters.InteractiveArrayAdapter;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.model.CheckBoxRowModel;
 import com.vanderbilt.isis.chew.utils.Utils;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.ContentResolver;
@@ -17,12 +13,9 @@ import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Loader;
-import android.content.SharedPreferences;
 import android.content.Loader.OnLoadCompleteListener;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +31,6 @@ public class GetProducts extends ListActivity {
 
 	ArrayList<CheckBoxRowModel> list = new ArrayList<CheckBoxRowModel>();
 	ArrayAdapter<CheckBoxRowModel> adapter;
-	// String foodType = "";
 	TextView quantityN;
 	Button ok;
 	ListView listview;
@@ -46,14 +38,11 @@ public class GetProducts extends ListActivity {
 
 	int vouchersID = -1;
 	double sizeNo = -1.0;
-	String foodName = "", foodCategory = "";
-	String foodType = "";
-	String sizeType = "";
+	String foodName = "", foodCategory = "", foodType = "", sizeType = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// setContentView(R.layout.get_products_listview);
 
 		listview = (ListView) findViewById(R.id.getProductsListView);
 
@@ -101,11 +90,7 @@ public class GetProducts extends ListActivity {
 						Log.d("SELECTED", model.getQuantityNumber() + "");
 						Log.d("^^^VOUCHER^^^", model.getVoucherCode());
 
-						Calendar cal = Calendar.getInstance();
-						SimpleDateFormat month_date = new SimpleDateFormat(
-								"MMMM");
-						String month_name = month_date.format(cal.getTime());
-
+						String month_name = Utils.getMonth();
 						String name = model.getPersonName();
 						String vCode = model.getVoucherCode();
 						int quant = Integer.parseInt(model.getQuantityNumber());
@@ -275,7 +260,7 @@ public class GetProducts extends ListActivity {
 							ContentResolver cr = getContentResolver();
 
 							// Insert the row into your table
-							Uri myRowUri = cr.insert(
+							cr.insert(
 									ChewContract.ProductsChosen.CONTENT_URI,
 									newValues);
 
@@ -347,19 +332,16 @@ public class GetProducts extends ListActivity {
 
 				// set title
 				alertDialogBuilder
-						.setTitle("No family voucher matches this product!");
+						.setTitle(getString(R.string.no_matching_voucher));
 
 				// set dialog message
 				alertDialogBuilder
-						.setMessage(
-								"Please chose a product corresponding to your family vouchers")
+						.setMessage(getString(R.string.choose_voucher_matching_product))
 						.setCancelable(false)
-						.setPositiveButton("OK",
+						.setPositiveButton(getString(R.string.ok),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										// if this button is clicked, close
-										// current activity
 										GetProducts.this.finish();
 									}
 								});
@@ -376,7 +358,7 @@ public class GetProducts extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		String item = (String) getListAdapter().getItem(position);
-		Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, item, Toast.LENGTH_LONG).show();
 	}
 
 	private CheckBoxRowModel get(String n, String v, String q) {

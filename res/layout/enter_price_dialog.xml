@@ -3,19 +3,19 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:paddingLeft="10dip" >
+    android:paddingLeft="5dip" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dip" >
+        android:paddingLeft="5dip" >
 
         <TextView
             android:id="@+id/spinnerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chose Family Member:" />
+            android:text="@string/choose_member" />
 
         <Spinner
             android:id="@+id/viewSpin"
@@ -28,18 +28,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dip" >
+        android:paddingLeft="5dip" >
 
         <TextView
             android:id="@+id/t1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter Produce Name:" />
+            android:text="@string/enter_produce" />
 
         <EditText
             android:id="@+id/produceEntered"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="text"
             android:text="" />
     </LinearLayout>
 
@@ -47,18 +48,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dip" >
+        android:paddingLeft="5dip" >
 
         <TextView
             android:id="@+id/t2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter Price: $" />
+            android:text="@string/enter_price" />
 
         <EditText
             android:id="@+id/priceEntered"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
             android:text="" />
     </LinearLayout>
 
@@ -66,15 +68,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dip" >
+        android:paddingLeft="5dip" >
 
         <TextView
             android:id="@+id/t3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Quantity:" />
+            android:text="@string/select_quantity" />
 
-                <Spinner
+        <Spinner
             android:id="@+id/quantity_selected"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

@@ -1,6 +1,7 @@
 package com.vanderbilt.isis.chew;
 
 import com.vanderbilt.isis.chew.db.ChewContract;
+import com.vanderbilt.isis.chew.utils.Utils;
 
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
@@ -22,30 +24,47 @@ public class ShoppingList extends ListActivity implements
 
 	private MySimpleCursorAdapter mAdapter;
 	LoaderManager loadermanager;
+	ListView lv;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		loadermanager = getLoaderManager();
-
-		int[] uiBindTo = { android.R.id.text1, android.R.id.text2 };
-
-		/*
-		 * mAdapter = new SimpleCursorAdapter(InCart.this,
-		 * android.R.layout.simple_list_item_2, null, new String[] {
-		 * OverallContentProvider.ProductsChosen.PRODUCT_NAME,
-		 * OverallContentProvider.ProductsChosen.QUANTITY}, uiBindTo, 0);
-		 */
 
 		mAdapter = new MySimpleCursorAdapter(ShoppingList.this,
 				R.layout.shopping_list_listview, null, new String[] {
 						ChewContract.ShoppingItems.RECIPE_NAME,
 						ChewContract.ShoppingItems.INGREDIENT }, null, 0);
+		
+		View header = getLayoutInflater().inflate(R.layout.shopping_list_header, null);
+		ListView lv = getListView();
+		lv.addHeaderView(header);
 
 		setListAdapter(mAdapter);
 		loadermanager.initLoader(1, null, this);
+	}
+	
+	public void clearShopList(View v) {
+		Log.d("Shopping", "clear called");
+		ContentValues updateValues = new ContentValues();
+		int rowsUpdate = 0;
+		updateValues.put(ChewContract.ShoppingItems.SHOW, false);
 
+		String where = ChewContract.ShoppingItems.SHOW + "=" + true + "";
+
+		rowsUpdate = getContentResolver()
+				.update(ChewContract.ShoppingItems.CONTENT_URI,
+						updateValues,
+						where,
+						null);
+		Utils.assertDeleted(getApplicationContext(), rowsUpdate);
+
+		loadermanager
+				.restartLoader(
+						1,
+						null,
+						ShoppingList.this);
 	}
 
 	@Override
@@ -55,7 +74,7 @@ public class ShoppingList extends ListActivity implements
 				ChewContract.ShoppingItems.RECIPE_NAME,
 				ChewContract.ShoppingItems.INGREDIENT, };
 
-		String where = null;
+		String where = ChewContract.ShoppingItems.SHOW + "=" + true + "";;
 
 		String sortOrder = null;
 
@@ -85,20 +104,10 @@ public class ShoppingList extends ListActivity implements
 
 	private class MySimpleCursorAdapter extends SimpleCursorAdapter {
 
-		private int[] mCellStates;
-
-		private int mSelectedPosition;
-		Cursor items;
-		private Context context;
-		private int layout;
-		private LayoutInflater mInflater;
 
 		public MySimpleCursorAdapter(Context context, int layout, Cursor c,
 				String[] from, int[] to, int flags) {
 			super(context, layout, c, from, to, 0);
-			this.context = context;
-			this.layout = layout;
-			this.mCellStates = c == null ? null : new int[c.getCount()];
 		}
 
 		@Override
@@ -111,7 +120,7 @@ public class ShoppingList extends ListActivity implements
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-			v = inflater.inflate(R.layout.shopping_list, null);
+			v = inflater.inflate(R.layout.shopping_list_row, null);
 			holder.separator = (TextView) v.findViewById(R.id.separator);
 			holder.ingredientTV = (TextView) v
 					.findViewById(R.id.ingredientName);

@@ -5,52 +5,67 @@
     android:background="@color/lightgray"
     tools:context=".VoucherUpload" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <LinearLayout
+        android:id="@+id/lin1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Name" />
+        android:orientation="horizontal"
+        android:paddingLeft="10dip" >
 
-    <EditText
-        android:id="@+id/month"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView2"
-        android:ems="10" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/month"
-        android:text="Ethnicity" />
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/ethnicity"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/lin2"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView3"
-        android:ems="10" />
+        android:layout_below="@+id/lin1"
+        android:orientation="horizontal"
+        android:paddingLeft="10dip" >
 
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:ems="10" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/month" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/month_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@array/months" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin3"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/name"
-        android:text="Month" />
+        android:layout_below="@+id/lin2"
+        android:orientation="horizontal"
+        android:paddingLeft="10dip" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ethnicity" />
+
+        <Spinner
+            android:id="@+id/ethnicity_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@array/ethnicities" />
+    </LinearLayout>
 
 </RelativeLayout>
