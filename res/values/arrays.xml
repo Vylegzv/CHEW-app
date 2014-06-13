@@ -86,7 +86,12 @@
         <item>K</item>
         <item>K2</item>
         <item>E</item>
-        <item>E2</item>
+        <item>E2</item>    
+        <item>P</item>
+        <item>P2</item>
+        <item>PPW</item>
+        <item>PC1</item>
+        <item>PC</item>   
         <item>CVV6</item>
         <item>CVV10</item>
     </string-array>
