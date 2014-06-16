@@ -87,7 +87,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			break;
 
 		case CHOOSE:
-			intent = new Intent(MainActivity.this, VouchersListView.class);
+			intent = new Intent(MainActivity.this, MembersListView.class);
 			startActivity(intent);
 			break;
 

@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class VouchersListView extends ListActivity implements
+public class MembersListView extends ListActivity implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
 	private SimpleCursorAdapter dataAdapter;
@@ -39,7 +39,7 @@ public class VouchersListView extends ListActivity implements
 		loadermanager = getLoaderManager();
 
 		int[] uiBindTo = { R.id.name };
-		dataAdapter = new SimpleCursorAdapter(VouchersListView.this,
+		dataAdapter = new SimpleCursorAdapter(MembersListView.this,
 				R.layout.display_vouchers_row, null,
 				new String[] { ChewContract.FamilyVouchers.NAME },
 				uiBindTo, 0);
@@ -60,7 +60,7 @@ public class VouchersListView extends ListActivity implements
 
 				String name = c.getString(1);
 				Log.d("NAME", name);
-				Intent intent = new Intent(VouchersListView.this, Profile.class);
+				Intent intent = new Intent(MembersListView.this, Profile.class);
 				intent.putExtra("name", name);
 				startActivity(intent);
 
@@ -77,7 +77,7 @@ public class VouchersListView extends ListActivity implements
 
 		String where = null;
 
-		CursorLoader loader = new CursorLoader(VouchersListView.this,
+		CursorLoader loader = new CursorLoader(MembersListView.this,
 				ChewContract.CONTENT_URI_DISTINCT_NAMES, projection,
 				where, null, null);
 		return loader;

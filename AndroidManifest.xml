@@ -38,7 +38,7 @@
         <activity
             android:name=".GetProducts"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name=".VouchersListView" />
+        <activity android:name=".MembersListView" />
         <activity
             android:name=".Profile"
             android:configChanges="orientation|keyboardHidden|screenSize" />

@@ -1,9 +1,9 @@
 package com.vanderbilt.isis.chew;
 
 import com.vanderbilt.isis.chew.db.ChewContract;
-import com.vanderbilt.isis.chew.utils.Utils;
-
 import android.app.ListActivity;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Context;
@@ -50,19 +51,8 @@ public class ShoppingList extends ListActivity implements
 		ContentValues updateValues = new ContentValues();
 		updateValues.put(ChewContract.ShoppingItems.SHOW, 0);
 
-		String where = ChewContract.ShoppingItems.SHOW + "=" + 1 + "";
+		new UpdateTask().execute(updateValues);
 
-		getContentResolver()
-				.update(ChewContract.ShoppingItems.CONTENT_URI,
-						updateValues,
-						where,
-						null);
-
-		loadermanager
-				.restartLoader(
-						1,
-						null,
-						ShoppingList.this);
 	}
 
 	@Override
@@ -173,6 +163,32 @@ public class ShoppingList extends ListActivity implements
 			holder.ingredientTV.setText(cursor.getString(cursor
 					.getColumnIndex(ChewContract.ShoppingItems.INGREDIENT)));
 
+		}
+	}
+	
+	private class UpdateTask extends AsyncTask<ContentValues, Void, Integer> {
+
+		@Override
+		protected Integer doInBackground(ContentValues... params) {
+
+			String where = ChewContract.ShoppingItems.SHOW + "=" + 1 + "";
+
+			return getContentResolver()
+					.update(ChewContract.ShoppingItems.CONTENT_URI,
+							params[0],
+							where,
+							null);
+			
+		}
+
+		protected void onPostExecute(final Integer numUpdated) {
+
+			if (numUpdated == 0) {
+				Toast.makeText(getApplicationContext(), getString(R.string.problem),
+						Toast.LENGTH_SHORT).show();
+			} else {
+				loadermanager.restartLoader(1, null, ShoppingList.this);
+			}
 		}
 	}
 }
