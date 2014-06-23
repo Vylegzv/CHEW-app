@@ -86,14 +86,170 @@
         <item>K</item>
         <item>K2</item>
         <item>E</item>
-        <item>E2</item>    
+        <item>E2</item>
         <item>P</item>
         <item>P2</item>
         <item>PPW</item>
         <item>PC1</item>
-        <item>PC</item>   
+        <item>PC</item>
         <item>CVV6</item>
         <item>CVV10</item>
+    </string-array>
+    <string-array name="A2">
+        <item>Two (2) gallons of milk  (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>One (1) dozen large white grade A  eggs</item>
+        <item>Two (2) 11.5&#8211;12 oz containers of frozen juice or two (2) 46&#8211;48  oz containers of juice</item>
+        <item>Sixteen (16) oz dried beans/peas or Four (4) cans 15oz-16oz canned beans</item>
+        <item>One (1) 16&#8211;18 oz jar peanut butter</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="A">
+        <item>Two (2) gallons of milk  (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Choose 3(any combination) of: 14&#8211;16 oz tofu, quart buttermilk, 12 oz can evaporated milk or choose one (1) 9.6 oz container nonfat dry milk</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) 11.5&#8211;12 oz container of frozen juice or 46&#8211;48 oz container of juice</item>
+        <item>Thirty-six (36) oz of cereal (buy 11 oz or larger)</item>
+    </string-array>
+    <string-array name="B">
+        <item>One (1) gallon of milk  (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Choose one of these:  1&#8211;quart lowfat buttermilk, 1&#8211;12 oz can evaporated milk or 14&#8211;16 oz tofu</item>
+        <item>One (1) 11.5&#8211;12 oz container of frozen juice or 46&#8211;48 oz container of juice</item>
+        <item>Thirty-six (36) oz of cereal (buy 11 oz or larger)</item>
+    </string-array>
+    <string-array name="B2">
+        <item>Two (2) gallons of milk  (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large white grade A  eggs</item>
+        <item>One (1) 11.5&#8211;12 oz container of frozen juice or 46&#8211;48 oz container of juice</item>
+        <item>Sixteen (16) oz dried beans/peas or Four (4) cans 15oz&#8211;16oz canned beans or One (1) 16&#8211;18 oz jar peanut butter</item>
+    </string-array>
+    <string-array name="L">
+        <item>Two (2) gallons of milk  (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Choose 3 (any combination) of: 14&#8211;16 oz tofu, quart buttermilk, 12 oz can evaporated milk or choose one (1) 9.6 oz container nonfat dry milk</item>
+        <item>Sixteen (16) oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) 11.5&#8211;12 oz container of frozen juice or 46&#8211;48 oz container of juice</item>
+        <item>Thirty-six (36) oz of cereal (buy 11 oz or larger)</item>
+    </string-array>
+    <string-array name="L2">
+        <item>Two (2) gallons of milk  (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>One (1) dozen large white grade A  eggs</item>
+        <item>Two (2) 11.5&#8211;12 oz containers of frozen juice or two (2) 46&#8211;48  oz containers of juice</item>
+        <item>Sixteen (16) oz dried beans/peas or Four (4) cans 15oz&#8211;16oz canned beans</item>
+        <item>One (1) 16&#8211;18 oz jar peanut butter</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="G">
+        <item>Three (3) gallons of milk (no whole milk)</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large white grade A  eggs</item>
+        <item>One (1) 11.5&#8211;12 oz container of frozen juice or 46&#8211;48 oz container of juice</item>
+        <item>16 oz dried beans/peas or four 15&#8211;16 oz cans beans</item>
+        <item>Thirty&#8211;six (36) oz of cereal (buy 11 oz or larger)</item>
+        <item>One (1) 16&#8211;18 oz jar peanut butter</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="G2">
+        <item>Two (2) gallons of milk (no whole milk)</item>
+        <item>Choose one of these: 1 &#8211; quart lowfat buttermilk, 1 &#8211; 12 oz can evaporated milk or 14&#8211;16 oz tofu</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large white grade A  eggs</item>
+        <item>Two (2) 11.5&#8211;12 oz containers of frozen juice or two (2) 46&#8211;48  oz containers of juice</item>
+        <item>Thirty (30) oz of fish (6&#8211;5oz or 5&#8211;6 oz tuna or 2&#8211;14.75 oz Salmon or 8&#8211;3.75 oz Sardines)</item>
+    </string-array>
+    <string-array name="T">
+        <item>One (1) gallon of whole milk</item>
+        <item>Choose one of these: (1) quart buttermilk or 1 &#8211; 12 oz can evaporated milk</item>
+        <item>One (1) 64 oz container of juice</item>
+        <item>Thirty-six (36) oz of cereal (buy 11 oz or larger)</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="T2">
+        <item>Two (2) gallons of whole milk</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large white grade A  eggs</item>
+        <item>One (1) 64 oz container of juice</item>
+        <item>Sixteen (16) oz dried beans/peas or Four (4) cans 15oz&#8211;16oz canned beans</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="K">
+        <item>One (1) gallon of milk  (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Choose one of these: 1 &#8211; quart lowfat buttermilk or 1 &#8211; 12 oz can evaporated milk</item>
+        <item>One (1) 64 oz container of juice</item>
+        <item>Thirty&#8211;six (36) oz of cereal (buy 11 oz or larger)</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="K2">
+        <item>Two (2) gallons of milk  (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large white grade A eggs</item>
+        <item>One (1) 64 oz container of juice</item>
+        <item>Sixteen (16) oz dried beans/peas or Four (4) cans 15oz-16oz canned beans</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="E">
+        <item>One (1) gallon of milk  (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Choose one of these: 1 &#8211; quart lowfat buttermilk or 1 &#8211; 12 oz can evaporated milk</item>
+        <item>One (1) 64 oz container of juice</item>
+        <item>Thirty&#8211;six (36) oz of cereal (buy 11 oz or larger)</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="E2">
+        <item>Two (2) gallons of milk (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large white grade A  eggs</item>
+        <item>One (1) 64 oz container of juice</item>
+        <item>Sixteen (16) oz dried beans/peas or Four (4) cans 15oz&#8211;16oz canned beans or One (1) 16&#8211;18 oz jar peanut butter</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="P">
+        <item>Two (2) gallons of milk (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large grade A white eggs</item>
+        <item>Two (2) 11.5&#8211;12 oz containers of frozen juice or two (2) 46&#8211;48  oz containers of juice</item>
+        <item>Eighteen (18) oz of cereal (buy 11 oz or larger)</item>
+        <item>One (1) 16&#8211;18 oz jar peanut butter</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="P2">
+        <item>Two (2) gallons of milk (no whole milk)</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large grade A white eggs</item>
+        <item>Two (2) 11.5&#8211;12 oz containers of frozen juice or two (2) 46&#8211;48 oz containers of juice</item>
+        <item>One (1) 16&#8211;18 oz jar peanut butter</item>
+        <item>Thirty (30) oz of fish (6&#8211;5oz or 5&#8211;6 oz tuna or 2&#8211;14.75 oz Salmon or 8&#8211;3.75 oz Sardines)</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="PPW">
+        <item>Two (2) gallons of milk (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large grade A white eggs</item>
+        <item>Two (2) 11.5&#8211;12 oz containers of frozen juice or two (2) 46&#8211;48  oz containers of juice</item>
+        <item>Eighteen (18) oz of cereal (buy 11 oz  or larger)</item>
+        <item>One (1) 16&#8211;18 oz jar peanut butter</item>
+    </string-array>
+    <string-array name="PC1">
+        <item>Two (2) gallons of whole milk</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large grade A white eggs</item>
+        <item>One (1) 64 oz container of juice</item>
+        <item>Eighteen (18) oz of cereal (buy 11 oz  or larger)</item>
+        <item>16 oz dried beans/peas or four 15&#8211;16 oz cans beans</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+    <string-array name="PC">
+        <item>Two (2) gallons of milk  (reduced fat, low fat, fat free, or sweet acidophilus)</item>
+        <item>Sixteen(16)oz store brand cheese (8 or 16 oz pkg)</item>
+        <item>One (1) dozen large grade A white eggs </item>
+        <item>One (1) 64 oz container of juice</item>
+        <item>Eighteen (18) oz of cereal (buy 11 oz  or larger)</item>
+        <item>16 oz dried beans/peas or four 15&#8211;16 oz cans beans</item>
+        <item>16 oz Whole Wheat Bread/Whole Grain Product</item>
+    </string-array>
+        <string-array name="CVV10">
+        <item>This Voucher is Valid for up to $10 (Ten dollars) of Fresh / Frozen Fruits / Vegetables</item>
+    </string-array>
+        <string-array name="CVV6">
+        <item>This Voucher is Valid for up to $6 (Six dollars) of Fresh / Frozen Fruits / Vegetables</item>
     </string-array>
 
     <integer-array name="quantity">

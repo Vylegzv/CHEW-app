@@ -224,7 +224,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 				ChewContract.FamilyVouchers.NAME};
 
 		String where = ChewContract.FamilyVouchers.VOUCHER_MONTH + "='" + month
-				+ "'";
+				+ "'" + " AND " + ChewContract.FamilyVouchers.USED + "='" + Utils.NOTUSED + "'";;
 
 		loader = new CursorLoader(MainActivity.this,
 				ChewContract.FamilyVouchers.CONTENT_URI, resultColumns, where,
@@ -292,17 +292,39 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	
 	private void done(){
 		
-		String where = ChewContract.FamilyVouchers.USED
-				+ "='"
-				+ Utils.INUSE
-				+ "'";
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				MainActivity.this);
+		alertDialogBuilder.setTitle(getString(R.string.done_shop))
+		.setPositiveButton(getString(R.string.yes),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+ 
+						String where = ChewContract.FamilyVouchers.USED
+								+ "='"
+								+ Utils.INUSE
+								+ "'";
+						
+						ContentValues updateValues = new ContentValues();
+						updateValues.put(ChewContract.FamilyVouchers.USED, Utils.USED); 
+						int rowsUpdate = getContentResolver().update(
+								ChewContract.FamilyVouchers.CONTENT_URI,
+								updateValues, where, null);
+						Log.d("ROWSUPDATE", rowsUpdate + "");
+					}
+				}).setNegativeButton(getString(R.string.cancel),
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,
+					int id) {
+				
+			}
+		});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
 		
-		ContentValues updateValues = new ContentValues();
-		updateValues.put(ChewContract.FamilyVouchers.USED, Utils.USED); 
-		int rowsUpdate = getContentResolver().update(
-				ChewContract.FamilyVouchers.CONTENT_URI,
-				updateValues, where, null);
-		Log.d("ROWSUPDATE", rowsUpdate + "");
 	}
 
 	private class MyOnLoadCompleteListener implements

@@ -74,55 +74,31 @@ public class Profile extends Activity {
 		whichMonth = (TextView) findViewById(R.id.which_month);
 
 		populateScreen(name);
-
-		Button whatCanGet = (Button) findViewById(R.id.what_can_get);
-		whatCanGet.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				/*
-				 * Intent intent = new Intent(Profile.this, WhatCanGet.class);
-				 * intent.putExtra("voucherID", voucherCategoryId);
-				 * startActivity(intent);
-				 */
-			}
-		});
-
-		Button shopForMember = (Button) findViewById(R.id.scan);
-		shopForMember.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				
-				scan();
-			}
-		});
-
-		Button already_added_regular = (Button) findViewById(R.id.already_added_regular);
-		already_added_regular.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(Profile.this, InCartRegular.class);
-				intent.putExtra("name", name);
-				startActivity(intent);
-			}
-		});
-		
-		Button already_added_cash = (Button) findViewById(R.id.already_added_cash);
-		already_added_cash.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(Profile.this, InCartCash.class);
-				intent.putExtra("name", name);
-				startActivity(intent);
-			}
-		});
 	}
 	
-	public void scan() {
+	public void scan(View v) {
 		(new IntentIntegrator(this)).initiateScan();
+	}
+	
+	public void getVouchers(View v){
+		
+		Intent intent = new Intent(Profile.this, VouchersListView.class);
+		intent.putExtra("name", name);
+		startActivity(intent);
+	}
+	
+	public void inCartRegular(View v){
+		
+		Intent intent = new Intent(Profile.this, InCartRegular.class);
+		intent.putExtra("name", name);
+		startActivity(intent);
+	}
+	
+	public void inCartCash(View v){
+		
+		Intent intent = new Intent(Profile.this, InCartCash.class);
+		intent.putExtra("name", name);
+		startActivity(intent);
 	}
 
 	@SuppressLint("NewApi")

@@ -11,6 +11,8 @@ import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.dboperations.CustomHandler.InsertDataHandler;
 import com.vanderbilt.isis.chew.utils.Utils;
 import com.vanderbilt.isis.chew.vouchers.CashVoucher;
+import com.vanderbilt.isis.chew.vouchers.Voucher;
+
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import android.app.Activity;
@@ -46,7 +48,7 @@ public class Produce extends Activity {
 	String produceName = "";
 	String month_name = "";
 	Integer selectedQuantity = 0;
-	Map<String, CashVoucher> cashVouchers;
+	Map<String, Voucher> cashVouchers;
 	LinearLayout ll;
 
 	public final String TAG = getClass().getSimpleName();
@@ -74,7 +76,7 @@ public class Produce extends Activity {
 		ll = (LinearLayout) findViewById(R.id.lay1);
 		DecimalFormat df = new DecimalFormat("0.00");
 
-		for (Map.Entry<String, CashVoucher> entry : cashVouchers.entrySet()) {
+		for (Map.Entry<String, Voucher> entry : cashVouchers.entrySet()) {
 			LinearLayout l = new LinearLayout(this);
 			l.setTag(entry.getKey());
 			l.setOrientation(LinearLayout.VERTICAL);
@@ -86,8 +88,8 @@ public class Produce extends Activity {
 			tv.setText(entry.getKey());
 			TextView tv1 = new TextView(this);
 			
-			double spent = entry.getValue().getAmountSpent(Produce.this);
-			double left = entry.getValue().getAmountAllowed() - spent;
+			double spent = ((CashVoucher) entry.getValue()).getAmountSpent(Produce.this);
+			double left = ((CashVoucher) entry.getValue()).getAmountAllowed() - spent;
 			
 			tv1.setText(getString(R.string.left) + " " + df.format(left));
 			tv1.setTag(1);
@@ -246,8 +248,8 @@ public class Produce extends Activity {
 
 				DecimalFormat df = new DecimalFormat("0.00");
 
-				double totalSpentForPerson = cashVouchers.get(voucherNameChosen).getAmountSpent(Produce.this);
-				double totalAllowedForPerson = cashVouchers.get(voucherNameChosen).getAmountAllowed();
+				double totalSpentForPerson = ((CashVoucher) cashVouchers.get(voucherNameChosen)).getAmountSpent(Produce.this);
+				double totalAllowedForPerson = ((CashVoucher) cashVouchers.get(voucherNameChosen)).getAmountAllowed();
 
 				Log.d("TOTALSPENTFORPERSON", totalSpentForPerson + "");
 				Log.d("TOTALALLOWEDFORPERSON", totalAllowedForPerson + "");
@@ -398,8 +400,8 @@ public class Produce extends Activity {
 
 				DecimalFormat df = new DecimalFormat("0.00");
 
-				double totalSpentForPerson = cashVouchers.get(voucherNameChosen).getAmountSpent(Produce.this);
-				double totalAllowedForPerson = cashVouchers.get(voucherNameChosen).getAmountAllowed();
+				double totalSpentForPerson = ((CashVoucher) cashVouchers.get(voucherNameChosen)).getAmountSpent(Produce.this);
+				double totalAllowedForPerson = ((CashVoucher) cashVouchers.get(voucherNameChosen)).getAmountAllowed();
 				
 				Log.d("TOTALSPENTFORPERSON", totalSpentForPerson + "");
 				Log.d("TOTALALLOWEDFORPERSON", totalAllowedForPerson + "");
@@ -483,9 +485,9 @@ public class Produce extends Activity {
 	public double getTotalAllowed() {
 
 		double allowed = 0;
-		for (Map.Entry<String, CashVoucher> entry : cashVouchers.entrySet()) {
+		for (Map.Entry<String, Voucher> entry : cashVouchers.entrySet()) {
 
-			allowed = allowed + entry.getValue().getAmountAllowed();
+			allowed = allowed + ((CashVoucher) entry.getValue()).getAmountAllowed();
 		}
 		return allowed;
 	}

@@ -71,7 +71,7 @@ public class GetProducts extends ListActivity {
 		}
 		
 		Log.d("Getting name", memberName);
-		vouchers = Utils.getVouchers(GetProducts.this, memberName);
+		vouchers = Utils.getInUseVouchersForMember(GetProducts.this, memberName);
 		Log.d("GetProducts", vouchers.size()+"");
 		
 		Log.d("GETPRODUCTS", "test: " + vouchersID + " " + foodType);

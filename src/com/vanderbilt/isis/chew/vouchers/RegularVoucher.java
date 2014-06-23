@@ -5,18 +5,15 @@ import com.vanderbilt.isis.chew.vouchers.VoucherCode;
 
 public class RegularVoucher extends Voucher {
 	
-	private ArrayList<Entry> entries;
+	private ArrayList<String> descriptions;
 
-	public RegularVoucher(VoucherCode vCode, String month, String name) {
-		super(vCode, month, name);
+	public RegularVoucher(VoucherCode vCode, String month, String name, String used, ArrayList<String> ds) {
+		super(vCode, month, name, used);
+		descriptions = ds;
 	}
 
-	public ArrayList<Entry> getEntries(){
-		return entries;
-	}
-	
-	public void setEntries(ArrayList<Entry> entries){
-		this.entries = entries;
+	public ArrayList<String> getDescriptions(){
+		return descriptions;
 	}
 	
 	@Override

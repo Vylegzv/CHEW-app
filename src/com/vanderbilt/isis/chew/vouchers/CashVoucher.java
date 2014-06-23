@@ -1,12 +1,8 @@
 package com.vanderbilt.isis.chew.vouchers;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
-
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
 import com.vanderbilt.isis.chew.vouchers.VoucherCode;
@@ -16,13 +12,12 @@ public class CashVoucher extends Voucher{
 	private double amountAllowed;
 	//private double amountSpent;
 	
-	public CashVoucher(VoucherCode vCode, String month, String name) {
-		super(vCode, month, name);
-		
-		amountAllowed = getAllowed(vCode);
+	public CashVoucher(VoucherCode vCode, String month, String name, double allowed, String used) {
+		super(vCode, month, name, used);
+		amountAllowed = allowed;
 	}
 
-	private double getAllowed(VoucherCode vCode){
+	/*private double getAllowed(VoucherCode vCode){
 		
 		if(vCode.equals(VoucherCode.CV6)){
 			return 6.0;
@@ -31,7 +26,7 @@ public class CashVoucher extends Voucher{
 		}else{
 			return 0.0;
 		}
-	}
+	}*/
 	
 	public double getAmountAllowed(){		
 		return amountAllowed;

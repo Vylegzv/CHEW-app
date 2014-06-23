@@ -9,12 +9,16 @@ import java.util.Map;
 import java.util.Set;
 import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.db.ChewContract;
+import com.vanderbilt.isis.chew.factories.CashVoucherFactory;
+import com.vanderbilt.isis.chew.factories.RegularVoucherFactory;
 import com.vanderbilt.isis.chew.vouchers.CashVoucher;
+import com.vanderbilt.isis.chew.vouchers.Voucher;
 import com.vanderbilt.isis.chew.vouchers.VoucherCode;
 import android.content.ContentProviderOperation;
 import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -102,7 +106,7 @@ public class Utils {
 		return editor.commit();
 	}
 
-	public static Set<String> getVouchers(Context context, String memberName) {
+	public static Set<String> getInUseVouchersForMember(Context context, String memberName) {
 
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
@@ -147,18 +151,45 @@ public class Utils {
 
 		return null;
 	}
+	
+	public static Set<Voucher> getRegVouchersForMember(Context context, String memberName) {
+
+		Set<Voucher> vouchers = new HashSet<Voucher>();
+		
+		String[] projection = new String[] {
+				ChewContract.FamilyVouchers.VOUCHER_CODE,
+				ChewContract.FamilyVouchers.USED };
+		
+		String month = Utils.getMonth();
+		
+		String selection = ChewContract.FamilyVouchers.NAME + "='" + memberName + "'" + " AND " 
+		+ ChewContract.ProductsChosen.MONTH + "='" + month + "'";
+		
+		Cursor cursor = context.getContentResolver().query(ChewContract.FamilyVouchers.CONTENT_URI, projection, selection, null, null);
+		
+		while (cursor != null && cursor.moveToNext()) {
+			
+			VoucherCode vCode = VoucherCode.getVoucherCodeFromValue(cursor.getString(0));
+			String used = cursor.getString(1);
+			
+			Voucher voucher = new RegularVoucherFactory().createVoucher(vCode, month, memberName, used);
+			vouchers.add(voucher);
+		}
+
+		return vouchers;
+	}
 
 	/**
 	 * 
 	 * @param context
 	 * @return Map<"vcode - name", CashVoucher>
 	 */
-	public static Map<String, CashVoucher> getCashVouchers(Context context) {
+	public static Map<String, Voucher> getCashVouchers(Context context) {
 
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		Set<String> vouchers = preferences.getStringSet(Utils.VOUCHERS, null);
-		Map<String, CashVoucher> cashVouchers = new HashMap<String, CashVoucher>();
+		Map<String, Voucher> cashVouchers = new HashMap<String, Voucher>();
 
 		// debug
 		if (vouchers != null) {
@@ -171,8 +202,7 @@ public class Utils {
 						.getVoucherCodeFromValue(voucher);
 
 				if (VoucherCode.isCashCode(voucher)) {
-					CashVoucher cashVoucher = new CashVoucher(vcode,
-							getMonth(), name);
+					Voucher cashVoucher = new CashVoucherFactory().createVoucher(vcode, getMonth(), name, Utils.INUSE);
 					cashVouchers.put(v, cashVoucher);
 				}
 			}

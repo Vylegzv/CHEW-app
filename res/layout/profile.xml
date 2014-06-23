@@ -41,7 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/month"
         android:layout_centerHorizontal="true"
-        android:text="@string/scan_for_member" />
+        android:text="@string/scan_for_member"
+        android:onClick="scan" />
 
     <Button
         android:id="@+id/what_can_get"
@@ -51,7 +52,8 @@
         android:layout_alignRight="@+id/scan"
         android:layout_below="@+id/scan"
         android:layout_marginTop="36dp"
-        android:text="@string/what_can_get" />
+        android:text="@string/what_can_get"
+        android:onClick="getVouchers" />
 
     <Button
         android:id="@+id/already_added_regular"
@@ -61,7 +63,8 @@
         android:layout_alignRight="@+id/what_can_get"
         android:layout_below="@+id/what_can_get"
         android:layout_marginTop="31dp"
-        android:text="@string/in_cart_regular" />
+        android:text="@string/in_cart_regular"
+        android:onClick="inCartRegular" />
 
     <TextView
         android:id="@+id/which_vouchers"
@@ -90,6 +93,7 @@
         android:layout_alignRight="@+id/already_added_regular"
         android:layout_below="@+id/already_added_regular"
         android:layout_marginTop="33dp"
-        android:text="@string/in_cart_cash" />
+        android:text="@string/in_cart_cash"
+        android:onClick="inCartCash" />
 
 </RelativeLayout>

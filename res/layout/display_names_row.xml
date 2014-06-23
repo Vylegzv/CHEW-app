@@ -15,23 +15,13 @@
      	android:layout_centerVertical="true"/>
 
      <TextView
-         android:id="@+id/voucher"
+         android:id="@+id/name"
          android:layout_width="wrap_content"
          android:layout_height="35dp"
-         android:text="Voucher"
+         android:text="Name"
          android:textColor="#040404"
          android:textSize="15sp"
          android:textStyle="bold"
          android:typeface="sans" />
-
-     <TextView
-         android:id="@+id/used"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignBaseline="@+id/voucher"
-         android:layout_alignBottom="@+id/voucher"
-         android:layout_marginLeft="33dp"
-         android:layout_toRightOf="@+id/voucher"
-         android:text="Used" />
 
 </RelativeLayout>
