@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,8 +23,10 @@ import android.content.Loader.OnLoadCompleteListener;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -125,17 +128,66 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			break;
 
 		case UPLOAD:
-			intent = new Intent(MainActivity.this, VoucherUpload.class);
-			startActivity(intent);
+			askForPassword();
 			break;
 
 		default:
 
 		}
 	}
+	
+	private void askForPassword(){
+		
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				MainActivity.this);
+		alertDialogBuilder.setTitle(getString(R.string.enter_pwd));
+		
+		LayoutInflater li = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View dialogView = li.inflate(R.layout.enter_password, null);
+		alertDialogBuilder.setView(dialogView);
+		
+		final EditText pwdEntered = (EditText) dialogView
+				.findViewById(R.id.pwd);
+		
+		alertDialogBuilder
+				// set dialog message
+				.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+
+						String pwd = pwdEntered.getText().toString();
+						if(pwd.equals(Utils.getPwd())){
+							
+							Intent intent = new Intent(MainActivity.this, VoucherUpload.class);
+							startActivity(intent);
+						}else{
+							
+							Toast.makeText(getApplicationContext(), getString(R.string.wrong_pwd),
+									   Toast.LENGTH_SHORT).show();
+						}
+					}
+				})
+				.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						dialog.cancel();
+					}
+				});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+	}
 
 	public void scan() {
-		(new IntentIntegrator(this)).initiateScan();
+		if(Utils.isShopping(MainActivity.this)){
+			(new IntentIntegrator(this)).initiateScan();
+		}else{
+			showChooseStoresD();
+		}
 	}
 
 	public void onActivityResult(int request, int result, Intent i) {
@@ -267,6 +319,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 						} // save the vouchers
 					
 						if(Utils.setVouchers(MainActivity.this, vouchersUsed)){
+							Utils.setShoppingStatus(MainActivity.this, true);
 							Toast.makeText(getApplicationContext(), getString(R.string.ready_to_shop),
 									   Toast.LENGTH_SHORT).show();
 						}else{
@@ -310,6 +363,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 								ChewContract.FamilyVouchers.CONTENT_URI,
 								updateValues, where, null);
 						Log.d("ROWSUPDATE", rowsUpdate + "");
+						Utils.setShoppingStatus(MainActivity.this, false);
 					}
 				}).setNegativeButton(getString(R.string.cancel),
 				new DialogInterface.OnClickListener() {

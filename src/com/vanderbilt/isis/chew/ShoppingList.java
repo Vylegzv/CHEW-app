@@ -2,7 +2,6 @@ package com.vanderbilt.isis.chew;
 
 import com.vanderbilt.isis.chew.db.ChewContract;
 import android.app.ListActivity;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
