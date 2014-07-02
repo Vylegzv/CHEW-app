@@ -37,7 +37,7 @@ public class Utils {
 	public static final String INUSE = "in use";
 	public static final String USED = "used";
 	public static final String SHOPKEY = "shopping";
-	private static final String PWD = "Chew2014TN";
+	private static final String PWD = "password";
 
 	/**
 	 * private constructor to avoid this class from being instantiated

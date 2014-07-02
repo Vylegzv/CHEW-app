@@ -46,6 +46,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	public static final int SHOPLIST = 7;
 	public static final int TUTORIAL = 8;
 	public static final int UPLOAD = 9;
+	public static final int EDIT = 10;
 
 	public String[] titles;
 	public String[] descriptions;
@@ -128,7 +129,14 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			break;
 
 		case UPLOAD:
-			askForPassword();
+			//askForPassword();
+			intent = new Intent(MainActivity.this, VoucherUpload.class);
+			startActivity(intent);
+			break;
+			
+		case EDIT:
+			intent = new Intent(MainActivity.this, EditVouchers.class);
+			startActivity(intent);
 			break;
 
 		default:
@@ -347,7 +355,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				MainActivity.this);
-		alertDialogBuilder.setTitle(getString(R.string.done_shop))
+		alertDialogBuilder.setTitle(getString(R.string.sure_done_shop))
 		.setPositiveButton(getString(R.string.yes),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
@@ -365,7 +373,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 						Log.d("ROWSUPDATE", rowsUpdate + "");
 						Utils.setShoppingStatus(MainActivity.this, false);
 					}
-				}).setNegativeButton(getString(R.string.cancel),
+				}).setNegativeButton(getString(R.string.no),
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog,
 					int id) {
