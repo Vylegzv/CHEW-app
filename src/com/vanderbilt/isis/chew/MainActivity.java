@@ -1,27 +1,42 @@
 package com.vanderbilt.isis.chew;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.vanderbilt.isis.chew.adapters.MainListViewAdapter;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.model.MainListRowItem;
+import com.vanderbilt.isis.chew.notificationmsg.ChewAppLibrary;
+import com.vanderbilt.isis.chew.notificationmsg.ConfigurationActivity;
+import com.vanderbilt.isis.chew.notificationmsg.NotificationHistoryActivity;
+import com.vanderbilt.isis.chew.notificationmsg.SetAlarmService;
 import com.vanderbilt.isis.chew.utils.Utils;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.Loader.OnLoadCompleteListener;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -31,6 +46,8 @@ import android.widget.ListView;
 
 public class MainActivity extends Activity implements OnItemClickListener {
 
+	private static final Logger logger = LoggerFactory.getLogger(MainActivity.class);
+	
 	public final String TAG = getClass().getSimpleName();
 
 	public static final int SCAN = 0;
@@ -43,6 +60,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	public static final int SHOPLIST = 7;
 	public static final int TUTORIAL = 8;
 	public static final int UPLOAD = 9;
+	public static final int HISTORY = 10;
 
 	public String[] titles;
 	public String[] descriptions;
@@ -54,8 +72,96 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		logger.trace("onCreate()");
 		setContentView(R.layout.main);
+		
+		logger.info("Home Page has been opened");
 
+		/**********Pankaj Chand's Code BEGIN********/
+		//setting the default values from the preferences.xml file in the res/xml folder
+				PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+				
+				Log.e(TAG, "Main Activity oncreate()");
+
+				//Only EXECUTE ONCE
+
+				SharedPreferences preferencesDefault = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+				SharedPreferences preferences = getSharedPreferences("preferences", Context.MODE_MULTI_PROCESS);
+				////
+				boolean isFirstRun = preferences.getBoolean("FIRSTRUN", true);
+				if(!isFirstRun) {
+					Log.e(TAG, "isFirstRun is False, MAIN ACTIVITY STARTED BUT NOT DOING INSTALLATION CODE");
+				}
+				else if (isFirstRun == true)
+				{
+					Log.e(TAG, "isFirstRun is TRUE, DOING INSTALLATION");
+					// Code to run once
+					{{
+						//if(preferences.getString("pref_language", "DEFAULT").equals("DEFAULT")) {
+							preferences.edit().putString("pref_language", preferencesDefault.getString("pref_language", "ENGLISH")).apply();
+						//}
+						//if(preferences.getString("pref_time", "DEFAULT").equals("DEFAULT")) {
+							preferences.edit().putString("pref_time", preferencesDefault.getString("pref_time", "10")).apply();
+						//}
+						
+						Log.e(TAG, "Preferences Language is " + preferences.getString("pref_language", "ERROR"));
+						Log.e(TAG, "Preferences Time is " + preferences.getString("pref_time", "ERROR"));
+						/****************************/
+						/****************************/
+						//Calculation of TargetWeekNumber and Today
+						Calendar cToday = Calendar.getInstance(Locale.US);
+						cToday.setTimeInMillis(System.currentTimeMillis());
+						Log.e(TAG, "SUPER ATTENTION TODAY IS: " + cToday.toString());
+						
+						////////begin JavaRanch 1
+						int weekday = cToday.get(Calendar.DAY_OF_WEEK);  
+						int days = Calendar.SUNDAY - weekday;  
+						if (days < 0)  
+						{  
+						    // this will usually be the case since Calendar.SUNDAY is the smallest  
+						    days += 7;  
+						}  
+				        ////////end JavaRanch 1	
+						
+						 //Put in a separate function
+						Calendar cTargetDay = Calendar.getInstance(Locale.US);
+						cTargetDay.setTimeInMillis(System.currentTimeMillis());
+						////////begin JR 2
+						cTargetDay.add(Calendar.DAY_OF_YEAR, days);
+						///////end JR 2
+						
+					    ////cStartDay.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+					    cTargetDay.set(Calendar.HOUR_OF_DAY, Integer.parseInt(ChewAppLibrary.DEFAULT_CONF_TIME));
+				        cTargetDay.set(Calendar.MINUTE,0);
+				        cTargetDay.set(Calendar.SECOND,0);
+				        Log.e(TAG, "SUPER ATTENTION Target Day IS: " + cTargetDay.toString());
+				        
+						if (cTargetDay.getTimeInMillis() < cToday.getTimeInMillis()) {
+					    	 Log.e(TAG, "cTargetDay Time in Milliseconds is negative, so taking cTargetDay of next week");
+						     cTargetDay.add(Calendar.DATE,7);
+					     }
+						
+						int targetWeek = cTargetDay.get(Calendar.WEEK_OF_YEAR);
+						Log.e(TAG, "SUPER ATTENTION TARGETWEEK IS: " + targetWeek);
+						
+						//preferences.edit().putInt("pref_cToday", cToday).apply();
+						preferences.edit().putInt("pref_targetWeek", targetWeek).apply();
+						////////END OF EXECUTE ONLY ONCE
+				
+					}}
+					Log.e(TAG, "Making FirstRun as False so it will never run again");
+				    SharedPreferences.Editor editor = preferences.edit();
+				    editor.putBoolean("FIRSTRUN", false);
+				    editor.apply();
+				}
+		/**********Pankaj Chand's Code END********/
+				
+		/*****Pankaj Application Object Code BEGIN****/		
+				Intent service = new Intent(this/*context*/, SetAlarmService.class);
+				service.putExtra("calledOn", "APPLICATION_OBJECT");
+		        this/*context*/.startService(service);
+		/*****Pankaj Application Object Code END****/
+		
 		titles = getResources().getStringArray(R.array.main_titles_array);
 		descriptions = getResources().getStringArray(R.array.main_descriptions_array);
 		images = getResources().obtainTypedArray(R.array.main_images_array);
@@ -77,55 +183,71 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-
+		logger.trace("onItemClick()");
 		Intent intent = null;
 
 		switch (position) {
 
 		case SCAN:
+			logger.info("Clicked SCAN on Homepage");
 			scan();
 			break;
 
 		case CHOOSE:
+			logger.info("Clicked CHOOSE on Homepage");
 			intent = new Intent(MainActivity.this, MembersListView.class);
 			startActivity(intent);
 			break;
 
 		case PRODUCE:
+			logger.info("Clicked PRODUCE on Homepage");
 			intent = new Intent(MainActivity.this, Produce.class);
 			startActivity(intent);
 			break;
 
 		case SHOPPING:
+			logger.info("Clicked SHOPPING on Homepage");
 			showChooseStoresD();
 			break;
 			
 		case DONE:			
+			logger.info("Clicked DONE on Homepage");
 			done();
 			break;
 			
 		case FAV_RECIPES:			
+			logger.info("Clicked FAV_RECIPES on Homepage");
 			intent = new Intent(MainActivity.this, RecipesActivity.class);
 			intent.putExtra("isFavorite", true);
 			startActivity(intent);
 			break;
 
 		case RECIPES:
+			logger.info("Clicked RECIPES on Homepage");
 			intent = new Intent(MainActivity.this, RecipesActivity.class);
 			intent.putExtra("isFavorite", false);
 			startActivity(intent);
 			break;
 
 		case SHOPLIST:
+			logger.info("Clicked SHOPLIST on Homepage");
 			intent = new Intent(MainActivity.this, ShoppingList.class);
 			startActivity(intent);
 			break;
 			
 		case TUTORIAL:
+			logger.info("Clicked TUTORIAL on Homepage");
 			break;
 
 		case UPLOAD:
+			logger.info("Clicked UPLOAD on Homepage");
 			intent = new Intent(MainActivity.this, VoucherUpload.class);
+			startActivity(intent);
+			break;
+			
+		case HISTORY:
+			logger.info("Clicked HISTORY on Homepage");
+			intent = new Intent(MainActivity.this, NotificationHistoryActivity.class);
 			startActivity(intent);
 			break;
 
@@ -135,18 +257,22 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	}
 
 	public void scan() {
+		logger.trace("scan()");
 		(new IntentIntegrator(this)).initiateScan();
 	}
 
 	public void onActivityResult(int request, int result, Intent i) {
+		logger.trace("onActivityResult()");
 		IntentResult scan = IntentIntegrator.parseActivityResult(request,
 				result, i);
 
 		if (scan != null && result == RESULT_OK) {
 			Log.d(TAG, scan.getContents());
+			logger.debug(" {}", scan.getContents());
 			String b = scan.getContents();
 			String barcode = Utils.removeZeros(b);
 			Log.d(TAG, barcode);
+			logger.debug(" {}", barcode);
 			
 			String[] projection = {ChewContract.Store._ID, ChewContract.Store.FOOD_NAME, ChewContract.Store.FOOD_CATEGORY,
 					ChewContract.Store.VOUCHERS_ID, ChewContract.Store.SIZE, ChewContract.Store.SIZE_TYPE,
@@ -168,7 +294,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	}
 
 	private void showChooseStoresD() {
-
+		logger.trace("showChooseStoresD()");
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				MainActivity.this);
 		final CharSequence[] stores = getResources().getStringArray(R.array.stores_array);
@@ -180,6 +306,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
+								logger.trace("alertDialogBuilder.setSingleChoiceItems().onClick()");
 								selectedStore = which;
 							}
 						})
@@ -187,21 +314,27 @@ public class MainActivity extends Activity implements OnItemClickListener {
 				// set dialog message
 				.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-
+						logger.trace("alertDialogBuilder.setPositiveButton().onClick()");
+						logger.info("Continuing to Store {} with id {}", selectedStore, id);
 						// not the same as 'which' above
+						logger.debug("Which value = {}, Selected value = {}", id, selectedStore);
 						Log.d(TAG, "Which value=" + id);
 						Log.d(TAG, "Selected value=" + selectedStore);
 						
 						if(Utils.setStore(MainActivity.this, stores[selectedStore].toString()))
 							MainActivity.this.getVouchers();
-						else
+						else {
+							logger.debug("error saving store in shared preferences");
 							Log.d(TAG, "error saving store in shared preferences");
+						}
 					}
 				})
 
 				.setNegativeButton(getString(R.string.cancel),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
+								logger.trace("alertDialogBuilder.setNegativeButton().onClick()");
+								logger.info("Cancelled choice of Store id {}", id);
 								dialog.cancel();
 							}
 						});
@@ -214,7 +347,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	}
 
 	private void getVouchers() {
-
+		logger.trace("getVouchers()");
 		CursorLoader loader = null;
 		String month = Utils.getMonth();
 
@@ -237,7 +370,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	int selectedStore;
 
 	private void showChooseVouchersD(final CharSequence[] voucherCodes) {
-
+		logger.trace("showChooseVouchersD()");
 		//boolean[] selections = new boolean[voucherCodes.length];
 		selected = new ArrayList<String>();
 
@@ -250,7 +383,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 					@Override
 					public void onClick(DialogInterface dialog, int which,
 							boolean isChecked) {
-
+						logger.trace("showChooseVouchersD().alertDialogBuilder.setSingleMultiChoiceItems().onClick()");
 						if (isChecked) {
 							selected.add(voucherCodes[which].toString());
 						}
@@ -258,11 +391,13 @@ public class MainActivity extends Activity implements OnItemClickListener {
 				}).setPositiveButton(getString(R.string.ok),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
- 
+						logger.trace("showChooseVouchersD().alertDialogBuilder.setPositiveButton().onClick()");
 						Set<String> vouchersUsed = new HashSet<String>();
 						
 						for (String item : selected) {
+							logger.info("Selected voucher {}", item);
 							Log.d("Selected", item);
+							logger.debug("Selected item {}", item);
 							vouchersUsed.add(item);	
 						} // save the vouchers
 					
@@ -278,6 +413,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog,
 					int id) {
+				logger.trace("showChooseVouchersD().alertDialogBuilder.setNegativeButton().onClick()");
+				logger.info("Cancelled choice of vouchers");
 				
 			}
 		});
@@ -291,13 +428,14 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	}
 	
 	private void done(){
-		
+		logger.trace("done()");
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				MainActivity.this);
 		alertDialogBuilder.setTitle(getString(R.string.done_shop))
 		.setPositiveButton(getString(R.string.yes),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
+						logger.info("YES, Done Shopping");
  
 						String where = ChewContract.FamilyVouchers.USED
 								+ "='"
@@ -310,11 +448,13 @@ public class MainActivity extends Activity implements OnItemClickListener {
 								ChewContract.FamilyVouchers.CONTENT_URI,
 								updateValues, where, null);
 						Log.d("ROWSUPDATE", rowsUpdate + "");
+						logger.debug("ROWSUPDATE {}", rowsUpdate);
 					}
 				}).setNegativeButton(getString(R.string.cancel),
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog,
 					int id) {
+				logger.info("Cancelled, Done Shopping");
 				
 			}
 		});
@@ -331,15 +471,16 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			OnLoadCompleteListener<Cursor> {
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-
+			logger.trace("MyOnLoadCompleteListener.onLoadComplete()");
 			Log.d(TAG, "on load complete called");
 			Log.d(TAG, cursor.getCount() + " rows");
-
+			logger.debug("on load complete called {} rows", cursor.getCount());
 			CharSequence[] vcodes = new CharSequence[cursor.getCount()];
 
 			while (cursor != null && cursor.moveToNext()) {
 				Log.d(TAG, cursor.getString(1));
 				Log.d(TAG, cursor.getString(2));
+				logger.debug("{} {} ", cursor.getString(1), cursor.getString(2));
 				vcodes[cursor.getPosition()] = cursor.getString(1) + " - " + cursor.getString(2);
 			}
 
@@ -351,7 +492,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-			
+			logger.trace("MyOnLoadCompleteListener2.onLoadComplete()");
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 			
 			if (cursor != null && cursor.moveToNext()) {
@@ -369,7 +510,9 @@ public class MainActivity extends Activity implements OnItemClickListener {
 				Log.d(TAG, size+"");
 				Log.d(TAG, size_type+"");
 				Log.d(TAG, food_type+"");
-				
+				logger.debug("food_name {} food_category {} and ", food_name, food_category);
+				logger.debug("vouchersID {} size {} and ", vouchersID, size);
+				logger.debug("size_type {} food_type {} ", size_type, food_type);
 				// set title
 				alertDialogBuilder.setTitle(food_name);
 	 
@@ -379,6 +522,10 @@ public class MainActivity extends Activity implements OnItemClickListener {
 					.setCancelable(false)
 					.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,int id) {
+							logger.info("Yes, Get Item for Family Member {} with", "");
+							logger.info("food_name {}, food_category {} and ", food_name, food_category);
+							logger.info("vouchersID {}, size {} and ", vouchersID, size);
+							logger.info("Yes, size_type {}, food_type {}", size_type, food_type);
 
 							Intent intent = new Intent(MainActivity.this, GetProducts.class);
 							intent.putExtra("member_name", "");
@@ -394,6 +541,10 @@ public class MainActivity extends Activity implements OnItemClickListener {
 					  })
 					.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,int id) {
+							logger.info("No, Do Not Get Item for Family Member {} with ", "");
+							logger.info("food_name {}, food_category {} and ", food_name, food_category);
+							logger.info("vouchersID {}, size {} and ", vouchersID, size);
+							logger.info("Yes, size_type {}, food_type {}", size_type, food_type);
 							dialog.cancel();
 						}
 					});
@@ -404,6 +555,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 					// show it
 					alertDialog.show();
 		}else{
+			
+			logger.info("Scanned an WIC unapproved Item");
 			
 				// set title
 				alertDialogBuilder.setTitle(getString(R.string.cannot_get));
@@ -416,6 +569,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
+										
 										dialog.cancel();
 									}
 								});
@@ -431,7 +585,38 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	
 	public void onStop() {
 		super.onStop();
+		logger.trace("onStop()");
 		Log.d(TAG, "onStop called");
+		logger.debug("onStop called");
 		images.recycle();
+	}
+	
+	/*******Pankaj Chand's Functions*/
+	
+	//Options Menu
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		logger.trace("onCreateOptionsMenu()");
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		logger.trace("onOptionsItemSelected()");
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		else if (id == R.id.action_notification) {
+			Intent intent = new Intent(MainActivity.this, ConfigurationActivity.class);
+			startActivity(intent);
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

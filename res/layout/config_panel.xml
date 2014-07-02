@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/configurationListView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+</ListView>
+ -->
+ 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <fragment android:name="com.pankaj.testapp.SettingsFragment"
+        android:id="@+id/settings_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
+ 

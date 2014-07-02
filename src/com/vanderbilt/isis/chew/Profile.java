@@ -1,5 +1,8 @@
 package com.vanderbilt.isis.chew;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.vanderbilt.isis.chew.db.ChewContract;
@@ -22,10 +25,19 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+//When you choose a Famliy member name from list in MembeListView
+
+//Button - What I can Get - goes to VouchersListView
+
+//Regular Voucher Selections goes to IncartRegular.java
+
+//Cash Voucher Selections goes to IncartCash.java
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 @SuppressLint("NewApi")
 public class Profile extends Activity {
 
+	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
+	
 	public final String TAG = getClass().getSimpleName();
 	
 	TextView memberName;
@@ -61,6 +73,10 @@ public class Profile extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		logger.trace("onCreate()");
+		
+		//logger.info("");
+		
 		setContentView(R.layout.profile);
 
 		Bundle getName = getIntent().getExtras();
@@ -68,6 +84,7 @@ public class Profile extends Activity {
 			name = getName.getString("name");
 		}
 		Log.d(TAG, "test: " + name);
+		logger.debug("test: {}", name );
 
 		memberName = (TextView) findViewById(R.id.member_name);
 		whichVouchers = (TextView) findViewById(R.id.which_vouchers);
@@ -77,25 +94,31 @@ public class Profile extends Activity {
 	}
 	
 	public void scan(View v) {
+		logger.trace("scan()");
+		//logger.info("");
+		
 		(new IntentIntegrator(this)).initiateScan();
 	}
 	
 	public void getVouchers(View v){
-		
+		logger.trace("getVouchers()");
+		//logger.info("");
 		Intent intent = new Intent(Profile.this, VouchersListView.class);
 		intent.putExtra("name", name);
 		startActivity(intent);
 	}
 	
 	public void inCartRegular(View v){
-		
+		logger.trace("inCartRegular()");
+		//logger.info("");
 		Intent intent = new Intent(Profile.this, InCartRegular.class);
 		intent.putExtra("name", name);
 		startActivity(intent);
 	}
 	
 	public void inCartCash(View v){
-		
+		logger.trace("inCartCash()");
+		//logger.info("");
 		Intent intent = new Intent(Profile.this, InCartCash.class);
 		intent.putExtra("name", name);
 		startActivity(intent);
@@ -103,15 +126,17 @@ public class Profile extends Activity {
 
 	@SuppressLint("NewApi")
 	public void onActivityResult(int request, int result, Intent i) {
-		
+		logger.trace("onActivityResult()");
 		IntentResult scan = IntentIntegrator.parseActivityResult(request,
 				result, i);
 
 		if (scan != null && result == RESULT_OK) {
 			Log.d(TAG, scan.getContents());
+			logger.debug(" {}", scan.getContents());
 			String b = scan.getContents();
 			String barcode = Utils.removeZeros(b);
 			Log.d(TAG, barcode);
+			logger.debug(" {}", barcode);
 			
 			String[] projection = {ChewContract.Store._ID, ChewContract.Store.FOOD_NAME, ChewContract.Store.FOOD_CATEGORY,
 					ChewContract.Store.VOUCHERS_ID, ChewContract.Store.SIZE, ChewContract.Store.SIZE_TYPE,
@@ -135,7 +160,7 @@ public class Profile extends Activity {
 
 	@SuppressLint("NewApi")
 	private void populateScreen(String name) {
-
+		logger.trace("populateScreen()");
 		memberName.setText(name);
 		String month_name = Utils.getMonth();
 		whichMonth.setText(month_name);
@@ -160,7 +185,7 @@ public class Profile extends Activity {
 
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-			
+			logger.trace("MyOnLoadCompleteListener.onLoadComplete()");
 			StringBuffer vouchers = new StringBuffer();
 			while (cursor != null && cursor.moveToNext()) {
 				String voucher = cursor.getString(0);
@@ -168,6 +193,7 @@ public class Profile extends Activity {
 				
 				Log.d(TAG, voucher);
 				Log.d(TAG, used);
+				logger.debug("Voucher {} Used {}", voucher, used);
 				
 				vouchers.append(voucher);
 				vouchers.append(" (");
@@ -183,7 +209,7 @@ public class Profile extends Activity {
 
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-			
+			logger.trace("MyOnLoadCompleteListener2.onLoadComplete()");
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Profile.this);
 			
 			if (cursor != null && cursor.moveToNext()) {
@@ -201,6 +227,9 @@ public class Profile extends Activity {
 				Log.d(TAG, size+"");
 				Log.d(TAG, size_type+"");
 				Log.d(TAG, food_type+"");
+				logger.debug("Food Name {} Food Category {}", food_name, food_category);
+				logger.debug("VouchersID {} Size{}", vouchersID, size);
+				logger.debug("Size Type {} Food Type {}", size_type, food_type);
 				
 				// set title
 				alertDialogBuilder.setTitle(food_name);
@@ -212,9 +241,10 @@ public class Profile extends Activity {
 					.setPositiveButton(getString(R.string.yes),
 							new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,int id) {
-
+							//logger.info("");
 							Intent intent = new Intent(Profile.this, GetProducts.class);
 							Log.d("Putting name", name);
+							logger.debug("Putting name {}", name);
 							intent.putExtra("member_name", name);
 							intent.putExtra("food_name", food_name);
 							intent.putExtra("food_category", food_category);
@@ -240,6 +270,7 @@ public class Profile extends Activity {
 					alertDialog.show();
 		}else{
 			
+		    	//logger.info("");
 				// set title
 				alertDialogBuilder.setTitle(getString(R.string.cannot_get));
 

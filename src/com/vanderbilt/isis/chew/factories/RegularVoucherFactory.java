@@ -3,15 +3,22 @@ package com.vanderbilt.isis.chew.factories;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.R;
+import com.vanderbilt.isis.chew.dboperations.CustomHandler;
 import com.vanderbilt.isis.chew.vouchers.Voucher;
 import com.vanderbilt.isis.chew.vouchers.RegularVoucher;
 import com.vanderbilt.isis.chew.vouchers.VoucherCode;
 
 public class RegularVoucherFactory extends VoucherFactory {
 
+	//static Logger logger = LoggerFactory.getLogger(RegularVoucherFactory.class);
+	
 	@Override
 	public Voucher createVoucher(VoucherCode vCode, String month, String name, String used) {
+		logger.trace("createVoucher()");
 
 		if (vCode.equals(VoucherCode.A)) {
 			return new RegularVoucher(vCode, month, name, used,

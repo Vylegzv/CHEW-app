@@ -3,6 +3,11 @@ package com.vanderbilt.isis.chew.db;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.vanderbilt.isis.chew.adapters.StepsAdapter;
 import com.vanderbilt.isis.chew.db.ChewContract.FamilyVouchers;
 import com.vanderbilt.isis.chew.db.ChewContract.VouchersIDsToCategories;
 
@@ -20,6 +25,8 @@ import android.util.Log;
 
 public class ChewContentProvider extends ContentProvider {
 
+	private static final Logger logger = LoggerFactory.getLogger(ChewContentProvider.class);
+	
 	private String TAG = getClass().getSimpleName();
 	
 	private static final HashMap<String, String> voucherCategoriesMap;
@@ -133,6 +140,7 @@ public class ChewContentProvider extends ContentProvider {
 	
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
+		logger.trace("delete()");
 
 		String rowId = null;
 		String table = null;
@@ -254,6 +262,7 @@ public class ChewContentProvider extends ContentProvider {
 		default:
 
 			Log.e(TAG, "Unsupported URI: " + uri);
+			logger.error("Unsupported URI:  {}", uri);
 			return 0;
 		}
 
@@ -274,7 +283,7 @@ public class ChewContentProvider extends ContentProvider {
 
 	@Override
 	public String getType(Uri uri) {
-		
+		logger.trace("getType()");
 		switch (uriMatcher.match(uri)) {
 
 		case VOUCHERFOOD_ID:
@@ -327,6 +336,7 @@ public class ChewContentProvider extends ContentProvider {
 			return ChewContract.ShoppingItems.CONTENT_TYPE;
 		default:
 			Log.e(TAG, "Unsupported URI: " + uri);
+			logger.error("Unsupported URI:  {}", uri);
 			return null;
 
 		}
@@ -334,7 +344,7 @@ public class ChewContentProvider extends ContentProvider {
 
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
-		
+		logger.trace("insert()");
 		long rowId = 0;
 		Uri _uri = null;
 
@@ -427,6 +437,7 @@ public class ChewContentProvider extends ContentProvider {
 		default:
 
 			Log.e(TAG, "Unsupported URI: " + uri);
+			logger.error("Unsupported URI:  {}", uri);
 			return null;
 		}
 		
@@ -439,7 +450,7 @@ public class ChewContentProvider extends ContentProvider {
 
 	@Override
 	public boolean onCreate() {
-		
+		logger.trace("onCreate()");
 		myDbOpenHelper = new ChewDBHelper(getContext());
 		return ((myDbOpenHelper == null) ? false : true);
 	}
@@ -447,7 +458,7 @@ public class ChewContentProvider extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
-		
+		logger.trace("query()");
 		String rowId = null;
 		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
@@ -631,6 +642,7 @@ public class ChewContentProvider extends ContentProvider {
 			 
 		case SUM_PRODUCE:
 			Log.d("INCP", "incp");
+			logger.debug("INCP {}", "incp");
 			Calendar cal=Calendar.getInstance();
 			SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
 			String month_name = month_date.format(cal.getTime());
@@ -646,6 +658,7 @@ public class ChewContentProvider extends ContentProvider {
 		default:
 
 			Log.e(TAG, "Unsupported URI: " + uri);
+			logger.error("Unsupported URI:  {}", uri);
 			return null;
 		}
 
@@ -659,7 +672,7 @@ public class ChewContentProvider extends ContentProvider {
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
-		
+		logger.trace("update()");
 		String rowId = null;
 		String table = null;
 
@@ -780,6 +793,7 @@ public class ChewContentProvider extends ContentProvider {
 		default:
 
 			Log.e(TAG, "Unsupported URI: " + uri);
+			logger.error("Unsupported URI:  {}", uri);
 			return 0;
 		}
 
@@ -794,7 +808,7 @@ public class ChewContentProvider extends ContentProvider {
 	
 	@Override
 	public int bulkInsert(Uri uri, ContentValues[] values){
-		
+		logger.trace("bulkInsert()");
 		int numInserted = 0;
 		String table = null;
 		

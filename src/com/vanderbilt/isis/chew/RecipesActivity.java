@@ -2,6 +2,9 @@ package com.vanderbilt.isis.chew;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.adapters.GridViewAdapter;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.recipes.Recipe;
@@ -18,9 +21,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
-
+//Yummy Gallery and Favorite Recipes
+//Yummy Gallery is superset of Favorite
 public class RecipesActivity extends Activity implements OnItemClickListener {
 
+	private static final Logger logger = LoggerFactory.getLogger(RecipesActivity.class);
+	
 	String TAG = getClass().getSimpleName();
 	
 	private GridView gridView;
@@ -30,9 +36,11 @@ public class RecipesActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		logger.trace("onCreate()");
 		setContentView(R.layout.recipe_grid_layout);
 		
 		Log.d(TAG, "on create called");
+		logger.debug("onCreate called");
 
 		gridView = (GridView) findViewById(R.id.gridView);
 		gridView.setOnItemClickListener(this);
@@ -48,7 +56,7 @@ public class RecipesActivity extends Activity implements OnItemClickListener {
 	}
 
 	private void getData(boolean isShowFavorite) {
-
+		logger.trace("getData()");
 		CursorLoader loader = null;
 
 		String[] resultColumns = new String[] { ChewContract.Recipes._ID,
@@ -73,13 +81,14 @@ public class RecipesActivity extends Activity implements OnItemClickListener {
 
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-
+			logger.trace("MyOnLoadCompleteListener.onLoadComplete()");
 			int id = 0;
 			String recipeName = "";
 			String recipeImage = "";
 			boolean isFavorite = false;
 
 			Log.d("DEBUG", "onLoadComplete called");
+			logger.debug("onLoadComplete caled");
 
 			if (cursor != null) {
 
@@ -121,7 +130,7 @@ public class RecipesActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(final AdapterView<?> arg0, final View view,
 			final int position, final long id) {
-
+		logger.trace("onItemClick()");
 		Intent intent = new Intent(RecipesActivity.this, RecipeActivity.class);
 		intent.putExtra("recipe", data.get(position));
 		startActivity(intent);

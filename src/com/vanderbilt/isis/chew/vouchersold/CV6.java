@@ -9,11 +9,13 @@ public class CV6 extends CashVoucher {
 	public CV6(VoucherCode code, Month month) {
 		
 		super(code, month);
+		logger.trace("CV6()");
         amountAllowed = AMT;
 	}
 
 	@Override
 	public String getDescription() {
+		logger.trace("getDescription()");
 		// TODO Auto-generated method stub
 		return null;
 	}

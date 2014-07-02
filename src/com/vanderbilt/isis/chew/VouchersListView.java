@@ -1,5 +1,9 @@
 package com.vanderbilt.isis.chew;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -17,9 +21,19 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
 
+
+//From Profile.java
+//You can see all the vouchers belonging to the person
+
+//When u click on a voucher, it will go to VoucherDescription.java
+
+//Knock of items from this VoucherDescription.java as they choose them, so that when they click on Done Shopping, they can go back and see if they can get anything more.
+
 public class VouchersListView extends ListActivity implements
 LoaderManager.LoaderCallbacks<Cursor> {
 
+	private static final Logger logger = LoggerFactory.getLogger(VouchersListView.class);
+	
 	private SimpleCursorAdapter dataAdapter;
 	LoaderManager loadermanager;
 	CursorLoader cursorLoader;
@@ -28,6 +42,7 @@ LoaderManager.LoaderCallbacks<Cursor> {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		logger.trace("onCreate()");
 		
 		Bundle getName = getIntent().getExtras();
 		if (getName != null) {
@@ -55,10 +70,12 @@ LoaderManager.LoaderCallbacks<Cursor> {
 						.getCursor();
 				c.moveToPosition(position);
 				Log.d("CLICK", c.getString(1) + " clicked");
-
+				logger.debug("CLICK {} clicked", c.getString(1));
+				
 				String voucher = c.getString(1);
 				String used = c.getString(2);
 				Log.d("Voucher", voucher);
+				logger.debug("Voucher {} ", voucher);
 				Intent intent = new Intent(VouchersListView.this, VoucherDescription.class);
 				intent.putExtra("voucher", voucher);
 				intent.putExtra("used", used);
@@ -71,7 +88,7 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		
+		logger.trace("onCreateLoader()");
 		String[] projection = new String[] {
 				ChewContract.FamilyVouchers._ID,
 				ChewContract.FamilyVouchers.VOUCHER_CODE,
@@ -89,11 +106,13 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		logger.trace("onLoadFinished()");
 		dataAdapter.changeCursor(cursor);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
+		logger.trace("onLoaderReset()");
 		dataAdapter.changeCursor(null);
 	}
 }

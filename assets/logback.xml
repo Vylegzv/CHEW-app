@@ -1,0 +1,126 @@
+<configuration>
+  <appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>/sdcard/chewAppLogFile.log</file>
+    <append>true</append>
+    
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        
+        <!-- Archived Weekly as this Filename -->
+        <fileNamePattern>/sdcard/ChewAppLogArchive/chewLogFile-%d{yyyy-ww}.%i.zip</fileNamePattern>
+        
+        <!-- Will archive this Max number of log files before writing over -->
+        <maxHistory>52</maxHistory>
+       
+        <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <!-- or whenever the file size reaches 1MB i.e. 200 pages of text -->
+            <maxFileSize>1MB</maxFileSize>
+        </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+        
+    <encoder>
+        <!-- Print IP address, DateTime, (relative) Milliseconds since Start of Program, Thread which makes Log request,
+                             Level of Log request, Logger name - Log Message  -->
+        <pattern>Proxy forwarding for %X{req.xForwardedFor} %n %d{dd-mm-yyyy hh:mm:ss}- %-11relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  
+  <!-- Loggers for each package and class -->
+  
+  <logger name="com.vanderbilt.isis.chew"  level="TRACE"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.GetProducts"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.InCartCash"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.InCartRegular"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.MainActivity"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.MembersListView"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.Produce"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.Profile"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.RecipeActivity"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.RecipesActivity"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.ShoppingList"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.VoucherDescription"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.VouchersListView"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.VoucherUpload"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+  <logger name="com.vanderbilt.isis.chew.adapters"  level="TRACE"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.adapters.GridViewAdapter"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.adapters.IngredientsAdapter"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.adapters.IngredientsStepsAdapter"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.adapters.InteractiveArrayAdapter"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.adapters.MainListViewAdapter"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.adapters.StepsAdapter"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+  <logger name="com.vanderbilt.isis.chew.db"  level="TRACE"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.db.ChewContentProvider"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.db.ChewContract"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.db.ChewDBHelper"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+  
+  <logger name="com.vanderbilt.isis.chew.dboperations"  level="INFO"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.dboperations.CustomHandler"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+  
+  <logger name="com.vanderbilt.isis.chew.factories"  level="INFO"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.factories.CashVoucherFactory"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.factories.RegularVoucherFactory"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.factories.VoucherFactory"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+  <logger name="com.vanderbilt.isis.chew.model"  level="INFO"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.model.CheckBoxRowModel"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.model.MainListRowItem"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+  <logger name="com.vanderbilt.isis.chew.notificationmsg"  level="INFO"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.notificationmsg.AlarmReceiver"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.notificationmsg.BootCompleteBroadcastReceiver"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.notificationmsg.ConfigurationActivity"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.notificationmsg.NotificationDialogActivity"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.notificationmsg.NotificationHistoryActivity"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.notificationmsg.NotificationProvider"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.notificationmsg.SendNotificationService"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.notificationmsg.SetAlarmService"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.notificationmsg.SettingsFragment"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+  <logger name="com.vanderbilt.isis.chew.recipes"  level="INFO"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.recipes.Ingredient"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.recipes.Recipe"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.recipes.Step"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+  <logger name="com.vanderbilt.isis.chew.stores"  level="INFO"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.stores.Kroger"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.stores.Store"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.stores.Walmart"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+  <logger name="com.vanderbilt.isis.chew.users"  level="INFO"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.users.User"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+  <logger name="com.vanderbilt.isis.chew.utils"  level="INFO"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.utils.Utils"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+  <logger name="com.vanderbilt.isis.chew.vouchers"  level="INFO"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.vouchers.CashVoucher"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchers.Entry"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchers.Month"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchers.RegularVoucher"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchers.Voucher"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchers.VoucherCode"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+  <logger name="com.vanderbilt.isis.chew.vouchersold"  level="INFO"> <appender-ref ref="ROLLINGFILE" /> </logger>
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.A"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.A2"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.B"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.B2"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.CashVoucher"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.CV10"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.CV6"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.G"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.G2"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.L"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.L2"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.Month"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.RegularVoucher"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.T"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+<!--       <logger name="com.vanderbilt.isis.chew.vouchersold.T2"  level="INHERITED"> <appender-ref ref="ROLLINGFILE" /> </logger> -->
+      
+
+<!--   <root level="DEBUG"> -->
+<!--     <appender-ref ref="ROLLINGFILE" /> -->
+<!--   </root> -->
+
+</configuration>

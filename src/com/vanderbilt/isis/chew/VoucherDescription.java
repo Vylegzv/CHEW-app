@@ -1,5 +1,8 @@
 package com.vanderbilt.isis.chew;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -7,9 +10,12 @@ import android.widget.ListView;
 
 public class VoucherDescription extends Activity {
 
+	private static final Logger logger = LoggerFactory.getLogger(VoucherDescription.class);
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		logger.trace("onCreate()");
 		setContentView(R.layout.voucher_description);
 
 		Bundle getVoucher = getIntent().getExtras();

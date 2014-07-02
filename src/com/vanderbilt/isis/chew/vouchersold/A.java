@@ -9,13 +9,14 @@ public class A extends RegularVoucher {
 	public A(Month month) {
 
 		super(month);
+		logger.trace("A()");
 		voucherCode = VoucherCode.A;
 		voucherType = "Prenatal";
 	}
 
 	@Override
 	public ArrayList<String> getDescription() {
-
+		logger.trace("getDescription()");
 		ArrayList<String> description = new ArrayList<String>();
 
 		description

@@ -49,7 +49,8 @@
 	<string name="choose_member">Chose a Family Member:</string>
 	<string name="choose_members">Choose Family Members</string>
 	<string name="enter_produce">Enter Produce Name:</string>
-	<string name="enter_price">Enter Price: $</string>
+	<!--<string name="enter_price">Enter Price: $</string>  -->
+	
 	<string name="select_quantity">Select Quantity:</string>
 	<string name="clear_shop_list">Clear Shopping List</string>
 	<string name="packaged_fresh">Packaged Fresh</string>
@@ -63,4 +64,63 @@
 	<string name="quantity">Quantity: </string>
 	<string name="done_shop">Done Shopping?</string>
 
+	<!-- Pankaj's Strings -->
+	
+    <string name="notification_settings">Notifications</string>
+    <string name="snackgallery">______SNACK GALLERY______</string>
+    <string name="family_member_list">FAMILY MEMBER LIST</string>
+    <string name="calculator">_______CALCULATOR________</string>
+    <string name="main">SHOPPING TOOL</string>
+    <string name="configButton">CONFIGURATION PANEL</string>
+    <string name="listParameterTitle">List Parameter Title</string>
+    <string name="listParameterOptions">List Parameter Options</string>
+    <string-array name="language_keys">
+        <item>ENGLISH</item>
+        <item>SPANISH</item>
+        </string-array>
+    <string-array name="language_values">
+        <item>ENGLISH</item>
+        <item>SPANISH</item>
+        </string-array>
+    <string-array name="conf_time_keys">
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        </string-array>
+    <string-array name="conf_time_values">
+        <item>6:00 AM</item>
+        <item>7:00 AM</item>
+        <item>8:00 AM</item>
+        <item>9:00 AM</item>
+        <item>10:00 AM</item>
+        <item>11:00 AM</item>
+        <item>12:00 Noon</item>
+        <item>1:00 PM</item>
+        <item>2:00 PM</item>
+        <item>3:00 PM</item>
+        <item>4:00 PM</item>
+        <item>5:00 PM</item>
+        <item>6:00 PM</item>
+        <item>7:00 PM</item>
+        <item>8:00 PM</item>
+        <item>9:00 PM</item>
+        </string-array>
+       
+        <string name="notificationHistory">NOTIFICATION HISTORY</string>
+        <string name="alertMessage">Alert Message</string>
+        <string name="fullText">Full Text</string>
+	
 </resources>

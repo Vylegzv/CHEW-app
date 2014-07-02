@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.model.CheckBoxRowModel;
 import com.vanderbilt.isis.chew.utils.Utils;
@@ -28,6 +31,8 @@ import com.vanderbilt.isis.chew.R;
 
 public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 
+	private static final Logger logger = LoggerFactory.getLogger(InteractiveArrayAdapter.class);
+	
 	private ArrayList<CheckBoxRowModel> list;
 	private final Activity context;
 	private final String productType;
@@ -62,6 +67,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 	public InteractiveArrayAdapter(Activity context,
 			ArrayList<CheckBoxRowModel> list, String productType, double sizeNum) {
 		super(context, R.layout.row_checkbox, list);
+		logger.trace("InteractiveArrayAdapter()");
 		this.context = context;
 		this.list = new ArrayList<CheckBoxRowModel>();
 		this.list.addAll(list);
@@ -79,6 +85,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
+		logger.trace("getView()");
 
 		if (convertView == null) {
 			LayoutInflater inflator = context.getLayoutInflater();
@@ -97,6 +104,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 						@Override
 						public void onCheckedChanged(CompoundButton buttonView,
 								boolean isChecked) {
+							logger.trace("getView().onCheckedChanged()");
 							CheckBoxRowModel element = (CheckBoxRowModel) viewHolder.checkbox
 									.getTag();
 							element.setSelected(buttonView.isChecked());
@@ -104,11 +112,13 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 							if (buttonView.isChecked()) {
 								listPosition = position;
 								Log.d("CHECKBOX:", "checked");
+								logger.debug("CHECKBOX: {}", "checked" );
 								name = list.get(position).getPersonName();
 								voucherCode = list.get(position)
 										.getVoucherCode();
 								Log.d("CHECKBOX NAME:", name);
 								Log.d("CHECKBOX CODE:", voucherCode);
+								logger.debug("CHECKBOX NAME: {} CHECKBOX CODE: {}", name, voucherCode);
 								CheckBoxRowModel model = list.get(listPosition);
 								model.setSpecialCase(false);
 								combinationAllowed = false;
@@ -120,6 +130,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 								// see if works
 								view.setTag(viewHolder);
 								Log.d("SEEVH", view.getTag().toString());
+								logger.debug("SEEVH {}", view.getTag().toString());
 
 								CursorLoader loader = null;
 
@@ -151,6 +162,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 
 							} else {
 								Log.d("CHECKBOX:", "unchecked");
+								logger.debug("CHECKBOX {}", "unchecked");
 								CheckBoxRowModel m = list.get(position);
 								m.setSelected(false);
 								m.setQuantityNumber(0 + "");
@@ -177,8 +189,9 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 			OnLoadCompleteListener<Cursor> {
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor c1) {
-
+			logger.trace("MyOnLoadCompleteListener3.onLoadComplete()");
 			Log.d("Listener3", "called");
+			logger.debug("Listener3 {}", "called");
 			
 			String where = "";
 
@@ -212,11 +225,14 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				Log.d("CURSOR1", "option1: " + op1 + ", option2: " + op2
 						+ ", option3 " + op3 + ", option4 " + op4 + ", fID: " + fID + ", op2Quant: "
 						+ op1CombQuant);
-
+				logger.debug("CURSOR1 {}", "option1: " + op1 + ", option2: " + op2
+						+ ", option3 " + op3 + ", option4 " + op4 + ", fID: " + fID + ", op2Quant: "
+						+ op1CombQuant);
 				// if we are buying the first option and option1 quantity = 3
 				if (Integer.parseInt(options[0]) == Integer.parseInt(fID)
 						&& op1CombQuant == 3) {
 					Log.d("COMBINATION", "true");
+					logger.debug("COMBINATION", "true");
 					combinationAllowed = true;
 				}
 
@@ -229,7 +245,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				}
 
 				Log.d("Combination Before", combinationItemsBoughtBefore + "");
-
+				logger.debug("Combination Before {}", combinationItemsBoughtBefore);
 				// if combinationAllowed = false
 				// if(!combinationAllowed){
 				
@@ -237,10 +253,12 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				for (int i = 0; i < options.length; ++i) {
 					// which option doesn't equal fID and which option is not -1
 					Log.d("options" + i, options[i]);
+					logger.debug("options" + i + " {}", options[i]);
 					if (Integer.parseInt(options[i]) != Integer.parseInt(fID)
 							&& Integer.parseInt(options[i]) != -1) {
 						// get their food type
 						Log.d("INIF", "inif");
+						logger.debug("INIF {}", "inif");
 						where = ChewContract.VoucherFood.FOOD_TYPE_ID + "='"
 								+ options[i] + "'" + " AND "
 								+ ChewContract.ProductsChosen.MEMBER_NAME
@@ -269,15 +287,19 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 							}
 							Log.d("CURSOR10", "otherOptionType: "
 									+ otherOptionType);
+							logger.debug("CURSOR10 {}", "otherOptionType: " + otherOptionType);
 							Log.d("CURSOR11", "cannot buy " + productType + ""
 									+ " because already bought "
 									+ otherOptionType);
+							logger.debug("CURSOR11 {}", "cannot buy " + productType + "" + " because already bought "+ otherOptionType);
 							alreadyBoughtOtherOption = true;
 							Log.d("ALREADYBOUTHOTHEROPTION",
 									alreadyBoughtOtherOption + "");
+							logger.debug("ALREADYBOUTHOTHEROPTION {}", alreadyBoughtOtherOption + "");
 							break firstWhile;
 						} else {
 							Log.d("CURSOR10", "empty");
+							logger.debug("CURSOR10 {}", "empty" );
 						}
 					}
 				}
@@ -305,6 +327,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				loader1.startLoading();
 			}else{
 				Log.d("First Cursor", "EMPTY");
+				logger.debug("First Cursor {}", "EMPTY");
 			}
 
 		}
@@ -314,7 +337,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 			OnLoadCompleteListener<Cursor> {
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor c2) {
-
+			logger.trace("MyOnLoadCompleteListener4.onLoadComplete()");
 			String max = "";
 			String where = "";
 
@@ -328,7 +351,12 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 						+ ", max: " + maxSizeAllowed + ", min "
 						+ minSizeAllowed + ", sizeType: " + 0 + ", sizeType: "
 						+ sizeType + ", substitute " + substitute1);
+				logger.debug("CURSOR2 {}", "quantityAllowed: " + quantityAllowed
+						+ ", max: " + maxSizeAllowed + ", min "
+						+ minSizeAllowed + ", sizeType: " + 0 + ", sizeType: "
+						+ sizeType + ", substitute " + substitute1);
 				Log.d("SUBSTITUTE1", substitute1 + "");
+				logger.debug("SUBSTITUTE1 {}", substitute1 + "");
 			}
 
 			
@@ -338,7 +366,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				month_name = Utils.getMonth();
 
 				Log.d("*** MONTH", month_name);
-
+				logger.debug("*** MONTH {}", month_name);
 				CursorLoader loader2 = null;
 
 				if (!combinationAllowed) {
@@ -418,15 +446,18 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 										// list.get(listPosition)+"");
 										m.setDeleteOld(true);
 										Log.d("DELETEOLD", m.isDeleteOld() + "");
+										logger.debug("DELETEOLD {}", m.isDeleteOld());
 										if (combinationItemsBoughtBefore) {
 											m.setCombinationItemsBoughtBefore(true);
 											Log.d("COMBINATIONBEFORE",
 													m.isCombinationItemsBoughtBefore()
 															+ "");
+											logger.debug("COMBINATIONBEFORE {}", m.isCombinationItemsBoughtBefore());
 										} else {
 											m.setOtherOptionType(otherOptionType);
 											Log.d("OTHERTYPE",
 													m.getOtherOptionType());
+											logger.debug("OTHERTYPE {}", m.getOtherOptionType());
 										}
 										/*
 										 * Calendar cal=Calendar.getInstance();
@@ -539,7 +570,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 			OnLoadCompleteListener<Cursor> {
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor c3) {
-
+			logger.trace("MyOnLoadCompleteListener5.onLoadComplete()");
 			String sizeT = "";
 			double sizeNChosen = 0.0;
 			int quant = 0;
@@ -554,15 +585,20 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				Log.d("CURSOR3", "quant: " + quant + ", quantOverall: "
 						+ quantOverall + ", sizeNChosen " + sizeNChosen
 						+ ", sizeT: " + sizeT);
+				logger.debug("CURSOR3 {}", "quant: " + quant + ", quantOverall: "
+						+ quantOverall + ", sizeNChosen " + sizeNChosen
+						+ ", sizeT: " + sizeT);
 			}
 
 			if (combinationAllowed) {
 				quantityAllowed = 3;
 				Log.d("COMBINATIONALLOWED", "true");
+				logger.debug("COMBINATIONALLOWED {}", "true");
 				CheckBoxRowModel model = list.get(listPosition);
 				model.setCombinationItem(true);
 				Log.d("COMBINATIONALLOWED", "true");
 				Log.d("QUANTITYALLOWED", "=3");
+				logger.debug("COMBINATIONALLOWED {} and QUANTITYALLOWED {}", "true", "=3");
 			}
 
 			int quantRunning = 0;
@@ -572,20 +608,25 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				CheckBoxRowModel model = list.get(listPosition);
 				model.setSpecialCase(true);
 				Log.d("SET SPECIALCASE", model.isSpecialCase() + "");
+				logger.debug("SET SPECIALCASE {}", model.isSpecialCase());
 
 				// sizeDiff = minSizeAllowed - sizeNChosen;
 				sizeDiff = maxSizeAllowed - sizeNChosen;
 				Log.d("LIFEDIFF", maxSizeAllowed + "-" + sizeNChosen + "="
 						+ sizeDiff);
+				logger.debug("LIFEDIFF, maxSizeAllowed - {} = {}", sizeNChosen, sizeDiff);
 				if (sizeDiff > 0) {
 					quantRunning = (int) (sizeDiff / sizeNum);
 					Log.d("DIVISION", sizeDiff + "/" + sizeNum + "="
 							+ quantRunning);
+					logger.debug("DIVISION {}", sizeDiff + "/" + sizeNum + "=" + quantRunning);
 				}
 			} else {
 
 				quantRunning = quantityAllowed - quantOverall;
 				Log.d("QUANT SUBSTR", quantityAllowed + "-" + quantOverall
+						+ "=" + quantRunning);
+				logger.debug(" QUANT SUBSTR {}", quantityAllowed + "-" + quantOverall
 						+ "=" + quantRunning);
 			}
 
@@ -613,7 +654,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-
+										logger.trace("MyOnLoadCompleteListener5.setPositiveButton().onClick()");
 										/*
 										 * // later before inserting it, check
 										 * if this produt is already there, and
@@ -635,16 +676,25 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 										 */
 
 										Log.d("ID", id + "");
+										logger.debug("ID {}", id);
+										
 										CheckBoxRowModel model = list
 												.get(listPosition);
 										Log.d("PROBLEM", listPosition + "");
+										logger.debug("PROBLEM {}", listPosition);
 										model.setQuantityNumber(ch + "");
 										Log.d("SET NUMBER",
 												model.getQuantityNumber());
-
+										logger.debug("SET NUMBER {}", model.getQuantityNumber());
+										
 										ViewHolder h = (ViewHolder) view
 												.getTag();
 										Log.d("TEST1", h.quantity.getText()
+												.toString()
+												+ ch
+												+ " "
+												+ h.name.getText().toString());
+										logger.debug("TEST1 {}", h.quantity.getText()
 												.toString()
 												+ ch
 												+ " "
@@ -671,12 +721,13 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
+										logger.trace("MyOnLoadCompleteListener5.setNegativeButton().onClick()");
 										CheckBoxRowModel model = list
 												.get(listPosition);
 										model.setSelected(false);
 										Log.d("SET NUMBER",
 												model.getQuantityNumber());
-
+										logger.debug("SET NUMBER {}", model.getQuantityNumber());
 										ViewHolder holder = (ViewHolder) view
 												.getTag();
 										holder.checkbox.setChecked(list.get(
@@ -710,6 +761,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 												.get(listPosition);
 										Log.d("CHECKPROBLEM",
 												list.get(listPosition) + "");
+										logger.debug("CHECKPROBLEM {}", list.get(listPosition));
 										m.setSelected(false);
 										ViewHolder h = (ViewHolder) view
 												.getTag();
@@ -718,6 +770,8 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 										Log.d("CHECKPROBLEM",
 												list.get(listPosition)
 														.isSelected() + "");
+										logger.debug("CHECKPROBLEM {}", list.get(listPosition)
+												.isSelected());
 									}
 								});
 

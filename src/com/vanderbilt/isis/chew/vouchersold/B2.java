@@ -5,17 +5,20 @@ import java.util.ArrayList;
 import com.vanderbilt.isis.chew.vouchers.VoucherCode;
 
 public class B2 extends RegularVoucher {
+	
+	
 
 	public B2(Month month) {
 		
 		super(month);
+		logger.trace("B2()");
 		voucherCode = VoucherCode.B2;
 		voucherType = "PostPartum";
 	}
 
 	@Override
 	public ArrayList<String> getDescription() {
-		
+		logger.trace("getDescription()");
 		ArrayList<String> description = new ArrayList<String>();
 		
 		description.add("Two (2) gallons of milk (reduced fat, " +

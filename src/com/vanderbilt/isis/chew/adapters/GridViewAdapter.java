@@ -2,7 +2,11 @@ package com.vanderbilt.isis.chew.adapters;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.R;
+import com.vanderbilt.isis.chew.VoucherDescription;
 import com.vanderbilt.isis.chew.recipes.Recipe;
 
 import android.content.Context;
@@ -18,6 +22,9 @@ import android.widget.TextView;
 
 
 public class GridViewAdapter extends ArrayAdapter<Recipe> {
+	
+	private static final Logger logger = LoggerFactory.getLogger(GridViewAdapter.class);
+	
 	Context context;
 	int layoutResourceId;
 	ArrayList<Recipe> data = new ArrayList<Recipe>();
@@ -25,16 +32,18 @@ public class GridViewAdapter extends ArrayAdapter<Recipe> {
 	public GridViewAdapter(Context context, int layoutResourceId,
 			ArrayList<Recipe> data) {
 		super(context, layoutResourceId, data);
+		logger.trace("GridViewAdapter()");
 		
 		this.layoutResourceId = layoutResourceId;
 		this.context = context;
 		this.data = data;
 		Log.d("DATA COUNT3", data.size()+"");
+		logger.debug("DATA COUNT3 {}", data.size());
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		
+		logger.trace("getView()");
         View itemView = convertView;
         ViewHolder holder = null;
 

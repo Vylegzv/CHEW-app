@@ -9,13 +9,14 @@ public class B extends RegularVoucher {
 	public B(Month month) {
 
 		super(month);
+		logger.trace("B()");
 		voucherCode = VoucherCode.B;
 		voucherType = "Postpartum";
 	}
 
 	@Override
 	public ArrayList<String> getDescription() {
-
+		logger.trace("getDescription()");
 		ArrayList<String> description = new ArrayList<String>();
 
 		description.add("One (1) gallon of milk (reduced fat, low fat, fat free, or sweet acidophilus)");

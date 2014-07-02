@@ -1,19 +1,26 @@
 package com.vanderbilt.isis.chew.vouchers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import com.vanderbilt.isis.chew.db.ChewContract;
+import com.vanderbilt.isis.chew.stores.Walmart;
 import com.vanderbilt.isis.chew.utils.Utils;
 import com.vanderbilt.isis.chew.vouchers.VoucherCode;
 
 public class CashVoucher extends Voucher{
 
+	//static Logger logger = LoggerFactory.getLogger(CashVoucher.class);
+	
 	private double amountAllowed;
 	//private double amountSpent;
 	
 	public CashVoucher(VoucherCode vCode, String month, String name, double allowed, String used) {
 		super(vCode, month, name, used);
+		logger.trace("CashVoucher()");
 		amountAllowed = allowed;
 	}
 
@@ -28,12 +35,14 @@ public class CashVoucher extends Voucher{
 		}
 	}*/
 	
-	public double getAmountAllowed(){		
+	public double getAmountAllowed(){
+		logger.trace("getAmountAllowed()");
 		return amountAllowed;
 	}
 	
 	/** Getter/setter for amount spent **/
-	public double getAmountSpent(Context context){	
+	public double getAmountSpent(Context context){
+		logger.trace("getAmountSpent()");
 		
 		String where = ChewContract.ProduceChosen.MONTH + "='"
 				+ Utils.getMonth() + "'" + " AND "
@@ -53,6 +62,7 @@ public class CashVoucher extends Voucher{
 					+ Double.parseDouble(c.getString(0));
 		}
 		Log.d("CashVoucher", spent+"");
+		logger.debug("CashVoucher {}", spent);
 		return spent;
 	}
 	
@@ -66,6 +76,7 @@ public class CashVoucher extends Voucher{
 	
 	@Override
 	public String getDescription() {
+		logger.trace("getDescription()");
 		// TODO Auto-generated method stub
 		return null;
 	}

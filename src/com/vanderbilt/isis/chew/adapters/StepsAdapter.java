@@ -1,6 +1,10 @@
 package com.vanderbilt.isis.chew.adapters;
 
 import java.util.ArrayList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.R;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,12 +20,15 @@ import com.vanderbilt.isis.chew.recipes.Step;
 
 public class StepsAdapter extends ArrayAdapter<Step> {
 
+	private static final Logger logger = LoggerFactory.getLogger(StepsAdapter.class);
+	
 	private final Context context;
 	private final ArrayList<Step> values;
 
 	public StepsAdapter(Context context, ArrayList<Step> values) {
 
 		super(context, R.layout.step_row_woi, values);
+		logger.trace("StepsAdapter()");
 		this.context = context;
 		this.values = values;
 	}
@@ -31,7 +38,7 @@ public class StepsAdapter extends ArrayAdapter<Step> {
 
 	@Override
 	public int getItemViewType(int position) {
-
+		logger.trace("getItemViewType()");
 		Step s = getItem(position);
 		/*
 		 * if (s.hasImage()) { Log.d("IMAGE", "not null"); return WITH_IMAGE; }
@@ -47,7 +54,7 @@ public class StepsAdapter extends ArrayAdapter<Step> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
+		logger.trace("getView()");
 		final Step step = values.get(position);
 		View row = convertView;
 		LayoutInflater inflater = null;
@@ -57,11 +64,13 @@ public class StepsAdapter extends ArrayAdapter<Step> {
 
 			if (type == WITH_IMAGE) {
 				Log.d("TYPE", "with_image");
+				logger.debug("TYPE {}", "with image" );
 				inflater = (LayoutInflater) context
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				row = inflater.inflate(R.layout.step_row_wi, null);
 			} else if (type == NO_IMAGE) {
 				Log.d("TYPE", "NO_image");
+				logger.debug("TYPE {}", "NO_image");
 				inflater = (LayoutInflater) context
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				row = inflater.inflate(R.layout.step_row_woi, null);
@@ -87,8 +96,10 @@ public class StepsAdapter extends ArrayAdapter<Step> {
 
 			if(txtView != null)
 				txtView.setText(values.get(position).getStep());
-			else
+			else {
 				Log.d("StepsAdapter", "txtView is null");
+			    logger.debug("StepsAdapter {}", "txtView is null");
+			}
 		}
 
 		return row;

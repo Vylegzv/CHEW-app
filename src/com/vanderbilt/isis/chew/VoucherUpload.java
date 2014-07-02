@@ -2,6 +2,9 @@ package com.vanderbilt.isis.chew;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
 import android.app.Activity;
@@ -23,6 +26,8 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 public class VoucherUpload extends Activity{
 
+	private static final Logger logger = LoggerFactory.getLogger(VoucherUpload.class);
+	
 	String TAG = getClass().getSimpleName();
 	
 	ListView lv;
@@ -34,13 +39,14 @@ public class VoucherUpload extends Activity{
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        logger.trace("onCreate()");
         setContentView(R.layout.voucher_upload);
        
         initialize();
 	}
 	
 	private void initialize(){
-		
+		logger.trace("initialize()");
         lv = (ListView) findViewById(R.id.voucherCodesLV);
         View header = getLayoutInflater().inflate(R.layout.voucher_upload_header, null);
         View footer = getLayoutInflater().inflate(R.layout.voucher_upload_footer, null);
@@ -94,10 +100,11 @@ public class VoucherUpload extends Activity{
 	}
 	
 	public void upload(View v) {
-		
+		logger.trace("upload()");
 		hideKeyboard();
 		
 		Log.d(TAG, "upload called");
+		logger.debug("upload called");
 		String name = nameET.getText().toString();
 		
         SparseBooleanArray checked = lv.getCheckedItemPositions();
@@ -108,6 +115,7 @@ public class VoucherUpload extends Activity{
             int position = checked.keyAt(i) - 1;
             if (checked.valueAt(i)){
             	Log.d(TAG, adapter.getItem(position));
+            	logger.debug(" {}", adapter.getItem(position));
             	selectedVouchers.add(adapter.getItem(position));
             }
         }
@@ -128,6 +136,7 @@ public class VoucherUpload extends Activity{
 	}
 	
 	private void hideKeyboard() {
+		logger.trace("hideKeyboard()");
 		InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		mgr.hideSoftInputFromWindow(lv.getWindowToken(), 0);
 	}
@@ -136,12 +145,12 @@ public class VoucherUpload extends Activity{
 
 		@Override
 		protected Integer doInBackground(ContentValues[]... params) {
-			
+			logger.trace("InsertTask.doInBackground()");
 			return getContentResolver().bulkInsert(ChewContract.FamilyVouchers.CONTENT_URI, params[0]);
 		}
 		
 		protected void onPostExecute(final Integer numInserted) {
-			
+			logger.trace("InsertTask.onPostExecute()");
 			if(numInserted > 0){
 			Toast.makeText(getApplicationContext(), getString(R.string.vouchers_uploaded_msg),
 					   Toast.LENGTH_SHORT).show();

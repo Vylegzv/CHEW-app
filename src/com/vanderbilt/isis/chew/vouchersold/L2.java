@@ -9,13 +9,14 @@ public class L2 extends RegularVoucher {
 	public L2(Month month) {
 		
 		super(month);
+		logger.trace("L2()");
 		voucherCode = VoucherCode.L2;
 		voucherType = "Partially Breastfeeding Woman";
 	}
 
 	@Override
 	public ArrayList<String> getDescription() {
-		
+		logger.trace("getDescription()");
 		ArrayList<String> description = new ArrayList<String>();
 
 		description.add("Two (2) gallons of milk (reduced fat, low fat, " +

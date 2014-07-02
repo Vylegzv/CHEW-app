@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.vanderbilt.isis.chew.db.ChewContract;
@@ -41,6 +45,8 @@ import android.widget.TextView;
 
 public class Produce extends Activity {
 
+	private static final Logger logger = LoggerFactory.getLogger(Produce.class);
+	
 	ArrayList<String> voucherNameArray = new ArrayList<String>();
 	Map<String, Double> incrementsMap = new HashMap<String, Double>();
 	SharedPreferences preferences;
@@ -56,8 +62,9 @@ public class Produce extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		logger.trace("onCreate()");
 		setContentView(R.layout.produce);
-
+		logger.info("Opened Calculator");
 		cashVouchers = Utils.getCashVouchers(Produce.this);
 		initializeLayout();
 
@@ -72,7 +79,7 @@ public class Produce extends Activity {
 	}
 
 	private void initializeLayout() {
-
+		logger.trace("initializeLayout()");
 		ll = (LinearLayout) findViewById(R.id.lay1);
 		DecimalFormat df = new DecimalFormat("0.00");
 
@@ -104,28 +111,37 @@ public class Produce extends Activity {
 	}
 
 	public void calcPackagedFresh(View view) {
+		logger.trace("calcPackagedFresh()");
+		logger.info("Calculate Packaged Fresh");
 		callScanner();
 
 	}
 
 	public void calcPackagedFrozen(View view) {
+		logger.trace("calcPackagedFrozen()");
+		logger.info("Calculate Packaged Frozen");
 		callScanner();
 	}
 
 	private void callScanner() {
+		logger.trace("callScanner()");
 		(new IntentIntegrator(this)).initiateScan();
 	}
 
 	public void calcPricePerItem(View view) {
+		logger.trace("calcPricePerItem()");
+		logger.info("Calculate Price per Item");
 		enterPrice("");
 	}
 
 	public void onActivityResult(int request, int result, Intent i) {
+		logger.trace("onActivityResult()");
 		IntentResult scan = IntentIntegrator.parseActivityResult(request,
 				result, i);
 
 		if (scan != null && result == RESULT_OK) {
 			Log.d("TEST", "called");
+			logger.debug("TEST {}", "called");
 			String b = scan.getContents();
 			String barcode = Utils.removeZeros(b);
 
@@ -163,9 +179,9 @@ public class Produce extends Activity {
 
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-
+			logger.trace("MyOnLoadCompleteListener.onLoadComplete()");
 			Log.d("ONLOADCOMPLETE", "onLoadComplete called");
-
+			logger.debug("ONLOADCOMPLETE {}", "onLoadComplete called");
 			// also check if it is CASH
 			if (cursor != null && cursor.moveToFirst()) {
 				String tagDescription = cursor.getString(1);
@@ -174,13 +190,16 @@ public class Produce extends Activity {
 				Log.d("ONLOADCOMPLETE", tagDescription);
 				Log.d("ONLOADCOMPLETE", category);
 				Log.d("ONLOADCOMPLETE", foodTypeName);
+				logger.debug("ONLOADCOMPLETE {} and {}", tagDescription, category);
+				logger.debug("ONLOADCOMPLETE {} and {}", tagDescription, foodTypeName);
 				enterPrice(tagDescription);
 			}
 		}
 	}
 
 	public void calcPricePerPound(View view) {
-
+		logger.trace("calcPricePerPound()");
+		logger.info("Calculate Price per Pound");
 		AlertDialog.Builder alert = new AlertDialog.Builder(Produce.this);
 		alert.setTitle(getString(R.string.calc_price));
 
@@ -199,10 +218,12 @@ public class Produce extends Activity {
 
 			public void onItemSelected(AdapterView<?> parent, View arg1,
 					int arg2, long arg3) {
+				logger.trace("calcPricePerPound().onItemSelected()");
 				voucherNameChosen = parent.getSelectedItem().toString();
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
+				logger.trace("calcPricePerPound.onNothingSelected()");
 				// TODO Auto-generated method stub
 			}
 		});
@@ -231,13 +252,17 @@ public class Produce extends Activity {
 
 		alert.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-
+				
 				String produce = produceEntered.getText().toString();
 				double price = Double.parseDouble(priceEntered.getText()
 						.toString());
+				logger.info("Selected Voucher {} for", voucherNameChosen);
+				logger.info("Produce {} with Price {}", produce, price);
 				Log.d("SELECTED", voucherNameChosen);
 				Log.d("PRODUCEEENTERED", produce);
 				Log.d("PRICEENTERED", price + "");
+				logger.debug("SELECTED {} and PRODUCEENTERED {}", voucherNameChosen, produce);
+				logger.debug("PRICEENTERED {}", price + "");
 
 				Integer pound = poundNums[poundsWheel.getCurrentItem()];
 				String incrKey = incrementNums[incrementsWheel.getCurrentItem()];
@@ -245,7 +270,8 @@ public class Produce extends Activity {
 				price = price * incr * pound;
 
 				Log.d(TAG, price + "");
-
+				logger.debug("PRICE {}", price + "");
+				
 				DecimalFormat df = new DecimalFormat("0.00");
 
 				double totalSpentForPerson = ((CashVoucher) cashVouchers.get(voucherNameChosen)).getAmountSpent(Produce.this);
@@ -253,7 +279,7 @@ public class Produce extends Activity {
 
 				Log.d("TOTALSPENTFORPERSON", totalSpentForPerson + "");
 				Log.d("TOTALALLOWEDFORPERSON", totalAllowedForPerson + "");
-
+				logger.debug("TOTALSPENTFORPERSON {} and TOTALALLOWEDFORPERSON {}", totalSpentForPerson + totalAllowedForPerson);
 				if (totalSpentForPerson + price <= totalAllowedForPerson) {
 
 					InsertDataHandler myInsertHandler = new InsertDataHandler(
@@ -284,6 +310,8 @@ public class Produce extends Activity {
 
 				} else {
 					Log.d("PRODUCE", "over the limit");
+					logger.debug("over the limit");
+					logger.info("Chosen Produce was over the Cost Limit");
 					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 							Produce.this);
 					// set title
@@ -310,11 +338,14 @@ public class Produce extends Activity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						Log.d(TAG, poundNums[poundsWheel.getCurrentItem()] + "");
+						logger.debug(" {}", poundNums[poundsWheel.getCurrentItem()] + "");
 						String s = incrementNums[incrementsWheel
 								.getCurrentItem()];
 						Log.d(TAG, s);
+						logger.debug(" {}", s);
 						double test = incrementsMap.get(s);
 						Log.d(TAG, test + "");
+						logger.debug(" {}", test + "");
 					}
 				});
 
@@ -323,7 +354,7 @@ public class Produce extends Activity {
 	}
 
 	private void enterPrice(String produceName) {
-
+		logger.trace("enterPrice()");
 		AlertDialog.Builder alert = new AlertDialog.Builder(Produce.this);
 		alert.setTitle(getString(R.string.enter_price));
 
@@ -357,10 +388,12 @@ public class Produce extends Activity {
 
 			public void onItemSelected(AdapterView<?> parent, View arg1,
 					int arg2, long arg3) {
+				
 				voucherNameChosen = parent.getSelectedItem().toString();
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
+				
 				// TODO Auto-generated method stub
 			}
 		});
@@ -372,6 +405,7 @@ public class Produce extends Activity {
 
 				selectedQuantity = (Integer) parent.getSelectedItem();
 				Log.d(TAG, selectedQuantity + "");
+				logger.debug(" {}", selectedQuantity + "");
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
@@ -391,6 +425,12 @@ public class Produce extends Activity {
 				String produce = produceEntered.getText().toString();
 				double price = Double.parseDouble(priceEntered.getText()
 						.toString());
+				logger.info("Selected Voucher {} for Product {} with ", voucherNameChosen, produce);
+				logger.info("Price {} and Selected Quantity {} with ", price, selectedQuantity);
+				logger.info("Total Cost {}", price * selectedQuantity);
+				logger.debug("Selected Voucher {} for Product {} with ", voucherNameChosen, produce);
+				logger.debug("Price {} and Selected Quantity {} with ", price, selectedQuantity);
+				logger.debug("AFTERMULTIPLYING {}", price * selectedQuantity);
 				Log.d("SELECTED", voucherNameChosen);
 				Log.d("PRODUCEEENTERED", produce);
 				Log.d("PRICEENTERED", price + "");
@@ -405,6 +445,7 @@ public class Produce extends Activity {
 				
 				Log.d("TOTALSPENTFORPERSON", totalSpentForPerson + "");
 				Log.d("TOTALALLOWEDFORPERSON", totalAllowedForPerson + "");
+				logger.debug("TOTALSPENTFORPERSON {} and TOTALALLOWEDFORPERSON", totalSpentForPerson, totalAllowedForPerson);
 
 				if (totalSpentForPerson + price <= totalAllowedForPerson) {
 
@@ -436,6 +477,8 @@ public class Produce extends Activity {
 
 				} else {
 					Log.d("PRODUCE", "over the limit");
+					logger.debug("over the limit");
+					logger.info("Chosen Produce was over the Cost Limit");
 					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 							Produce.this);
 					// set title
@@ -468,12 +511,12 @@ public class Produce extends Activity {
 	}
 
 	public void populateNameVoucherArray() {
-
+		logger.trace("populateNameVoucherArray()");
 		voucherNameArray.addAll(cashVouchers.keySet());
 	}
 
 	public void getMemberNames(ArrayList<String> a) {
-
+		logger.trace("getMemberNames()");
 		Set<String> memberNamesSet = preferences.getStringSet("memberNames",
 				null);
 
@@ -483,7 +526,7 @@ public class Produce extends Activity {
 	}
 
 	public double getTotalAllowed() {
-
+		logger.trace("getTotalAllowed()");
 		double allowed = 0;
 		for (Map.Entry<String, Voucher> entry : cashVouchers.entrySet()) {
 
@@ -496,7 +539,9 @@ public class Produce extends Activity {
 	protected void onResume() {
 		
 		super.onResume();
+		logger.trace("onResume()");
 		Log.d("Produce", "onResume called");
+		logger.debug("onResume called");
 		cashVouchers = Utils.getCashVouchers(Produce.this);
 	}
 }
