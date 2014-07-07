@@ -3,24 +3,34 @@
     <file>/sdcard/chewAppLogFile.log</file>
     <append>true</append>
     
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        
-        <!-- Archived Weekly as this Filename -->
-        <fileNamePattern>/sdcard/ChewAppLogArchive/chewLogFile-%d{yyyy-ww}.%i.zip</fileNamePattern>
-        
-        <!-- Will archive this Max number of log files before writing over -->
-        <maxHistory>52</maxHistory>
-       
-        <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-            <!-- or whenever the file size reaches 1MB i.e. 200 pages of text -->
-            <maxFileSize>1MB</maxFileSize>
-        </timeBasedFileNamingAndTriggeringPolicy>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>/sdcard/ChewAppLogArchive/chewLogFile.%i.log.zip</fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>4</maxIndex>
     </rollingPolicy>
+
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>50MB</maxFileSize>
+    </triggeringPolicy>
+    
+<!--     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
+        
+<!--         Archived Weekly as this Filename -->
+<!--         <fileNamePattern>/sdcard/ChewAppLogArchive/chewLogFile-%d{yyyy-ww}.%i.zip</fileNamePattern> -->
+        
+<!--         Will archive this Max number of log files before writing over -->
+<!--         <maxHistory>4</maxHistory> -->
+       
+<!--         <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"> -->
+<!--             or whenever the file size reaches 1MB i.e. 200 pages of text -->
+<!--             <maxFileSize>50MB</maxFileSize> -->
+<!--         </timeBasedFileNamingAndTriggeringPolicy> -->
+<!--     </rollingPolicy> -->
         
     <encoder>
         <!-- Print IP address, DateTime, (relative) Milliseconds since Start of Program, Thread which makes Log request,
                              Level of Log request, Logger name - Log Message  -->
-        <pattern>Proxy forwarding for %X{req.xForwardedFor} %n %d{dd-mm-yyyy hh:mm:ss}- %-11relative [%thread] %-5level %logger{50} - %msg%n</pattern>
+        <pattern>%d{dd-mm-yyyy hh:mm:ss}- %-11relative [%thread] %-5level %logger{50} - %msg%n</pattern>
     </encoder>
   </appender>
   
