@@ -64,7 +64,7 @@ public class Produce extends Activity {
 		super.onCreate(savedInstanceState);
 		logger.trace("onCreate()");
 		setContentView(R.layout.produce);
-		logger.info("Opened Calculator");
+		logger.info("Opened Produce - Calculator");
 		cashVouchers = Utils.getCashVouchers(Produce.this);
 		initializeLayout();
 

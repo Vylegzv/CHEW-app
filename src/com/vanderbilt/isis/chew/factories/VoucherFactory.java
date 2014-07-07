@@ -28,4 +28,8 @@ public abstract class VoucherFactory extends Application {
 	public static Context getContext(){
 		return mContext;
 	}
+	
+	public static void nullContext(){
+		mContext = null;
+	}
 }

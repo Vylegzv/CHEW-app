@@ -85,7 +85,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		logger.trace("getView()");
+		//logger.trace("getView()");
 
 		if (convertView == null) {
 			LayoutInflater inflator = context.getLayoutInflater();
@@ -416,27 +416,10 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 										+ otherOptionType.toUpperCase()
 										+ " will be DELETED.")
 						.setCancelable(false)
-						.setPositiveButton("Yes",
+						.setPositiveButton(context.getResources().getString(R.string.yes),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										// if this button is clicked, close
-										// current activity
-										// MainActivity.this.finish();
-										/*
-										 * CheckBoxRowModel m =
-										 * list.get(listPosition);
-										 * Log.d("CHECKPROBLEM",
-										 * list.get(listPosition)+"");
-										 * m.setSelected(false); ViewHolder h =
-										 * (ViewHolder) view.getTag();
-										 * h.checkbox
-										 * .setChecked(list.get(listPosition
-										 * ).isSelected());
-										 * Log.d("CHECKPROBLEM",
-										 * list.get(listPosition
-										 * ).isSelected()+"");
-										 */
 
 										// delete old
 										deleteOld = true;
@@ -459,44 +442,6 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 													m.getOtherOptionType());
 											logger.debug("OTHERTYPE {}", m.getOtherOptionType());
 										}
-										/*
-										 * Calendar cal=Calendar.getInstance();
-										 * SimpleDateFormat month_date = new
-										 * SimpleDateFormat("MMMMMMMMM");
-										 * month_name =
-										 * month_date.format(cal.getTime());
-										 * 
-										 * Log.d("DELETE", otherOptionType);
-										 * Log.d("DELETE", name);
-										 * Log.d("DELETE", month_name);
-										 * 
-										 * String where = "";
-										 * 
-										 * if(!combinationItemsBoughtBefore){
-										 * where =
-										 * OverallContentProvider.ProductsChosen
-										 * .PRODUCT_TYPE + "='" +
-										 * otherOptionType + "'" + " AND " +
-										 * OverallContentProvider
-										 * .ProductsChosen.NAME + "='" + name +
-										 * "'" + " AND " +
-										 * OverallContentProvider
-										 * .ProductsChosen.MONTH + "='" +
-										 * month_name + "'"; }else{ where =
-										 * OverallContentProvider
-										 * .ProductsChosen.COMBINATION_ITEM +
-										 * "=" + 1 + " AND " +
-										 * OverallContentProvider
-										 * .ProductsChosen.NAME + "='" + name +
-										 * "'" + " AND " +
-										 * OverallContentProvider
-										 * .ProductsChosen.MONTH + "='" +
-										 * month_name + "'"; } int numDeleted =
-										 * context.getContentResolver().delete(
-										 * OverallContentProvider
-										 * .ProductsChosen.CONTENT_URI8, where,
-										 * null);
-										 */
 
 										// insert new
 										CursorLoader loader2 = null;
@@ -553,6 +498,13 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 										loader2.registerListener(50,
 												new MyOnLoadCompleteListener5());
 										loader2.startLoading();
+									}
+								})
+								.setPositiveButton(context.getResources().getString(R.string.no),
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										dialog.cancel();
 									}
 								});
 

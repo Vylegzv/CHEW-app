@@ -18,9 +18,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 
-//Choose Family Member
-
-//Then when you choose a person name, you go to Profile.java
 public class MembersListView extends ListActivity implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 

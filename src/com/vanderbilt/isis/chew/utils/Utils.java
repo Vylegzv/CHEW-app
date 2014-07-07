@@ -15,12 +15,13 @@ import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.factories.CashVoucherFactory;
 import com.vanderbilt.isis.chew.factories.RegularVoucherFactory;
-import com.vanderbilt.isis.chew.stores.Walmart;
-import com.vanderbilt.isis.chew.vouchers.CashVoucher;
 import com.vanderbilt.isis.chew.vouchers.Voucher;
 import com.vanderbilt.isis.chew.vouchers.VoucherCode;
+import android.app.AlertDialog;
 import android.content.ContentProviderOperation;
 import android.content.Context;
+import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -41,12 +42,38 @@ public class Utils {
 	public static final String NOTUSED = "not used";
 	public static final String INUSE = "in use";
 	public static final String USED = "used";
+	public static final String SHOPKEY = "shopping";
+	private static final String PWD = "password";
 
 	/**
 	 * private constructor to avoid this class from being instantiated
 	 */
 	private Utils() {
-		logger.trace("Utils()");
+        logger.trace("Utils()");
+	}
+	
+	public static String getPwd(){
+        logger.trace("getPwd()");
+		return PWD;
+	}
+
+	public static boolean setShoppingStatus(Context context, boolean shopping) {
+        logger.trace("setShoppingStatus()");
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = preferences.edit();
+
+		editor.putBoolean(SHOPKEY, shopping);
+
+		return editor.commit();
+
+	}
+
+	public static boolean isShopping(Context context) {
+        logger.trace("isShopping()");
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		return prefs.getBoolean(SHOPKEY, false);
 	}
 
 	public static boolean setStore(Context context, String store) {
@@ -68,7 +95,7 @@ public class Utils {
 		logger.trace("getStore()");
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
-		String store = String.valueOf(prefs.getInt(Utils.STOREKEY, 0));
+		String store = String.valueOf(prefs.getInt(STOREKEY, 0));
 		return store;
 	}
 
@@ -114,15 +141,16 @@ public class Utils {
 		return editor.commit();
 	}
 
-	public static Set<String> getInUseVouchersForMember(Context context, String memberName) {
-		logger.trace("getInUseVouchersForMember()");
+	public static Set<String> getInUseVouchersForMember(Context context,
+			String memberName) {
+        logger.trace("getInUseVouchersForMember()");
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		Set<String> vouchers = preferences.getStringSet(Utils.VOUCHERS, null);
 
 		// debug
 		if (vouchers != null) {
-			
+
 			if (memberName.isEmpty()) {
 
 				for (String v : vouchers) {
@@ -133,7 +161,7 @@ public class Utils {
 					Log.d("Voucher Used", vCode + ", " + name);
 					logger.debug("Voucher Used {}", vCode + ", " + name);
 				}
-				
+
 				return vouchers;
 			} else {
 
@@ -144,15 +172,14 @@ public class Utils {
 
 					String vCode = v.split(" - ")[0];
 					String name = v.split(" - ")[1];
-					
-					if(name.equals(memberName))
+
+					if (name.equals(memberName))
 						memberVouchers.add(v);
 
-					
 					Log.d("Voucher Used", vCode + ", " + name);
 					logger.debug("Voucher Used {}", vCode + ", " + name);
 				}
-				
+
 				return memberVouchers;
 			}
 
@@ -163,28 +190,34 @@ public class Utils {
 
 		return null;
 	}
-	
-	public static Set<Voucher> getRegVouchersForMember(Context context, String memberName) {
-		logger.trace("getRegVouchersForMember()");
+
+	public static Set<Voucher> getRegVouchersForMember(Context context,
+			String memberName) {
+        logger.trace("getRegVouchersForMember()");
 		Set<Voucher> vouchers = new HashSet<Voucher>();
-		
+
 		String[] projection = new String[] {
 				ChewContract.FamilyVouchers.VOUCHER_CODE,
 				ChewContract.FamilyVouchers.USED };
-		
+
 		String month = Utils.getMonth();
-		
-		String selection = ChewContract.FamilyVouchers.NAME + "='" + memberName + "'" + " AND " 
-		+ ChewContract.ProductsChosen.MONTH + "='" + month + "'";
-		
-		Cursor cursor = context.getContentResolver().query(ChewContract.FamilyVouchers.CONTENT_URI, projection, selection, null, null);
-		
+
+		String selection = ChewContract.FamilyVouchers.NAME + "='" + memberName
+				+ "'" + " AND " + ChewContract.ProductsChosen.MONTH + "='"
+				+ month + "'";
+
+		Cursor cursor = context.getContentResolver().query(
+				ChewContract.FamilyVouchers.CONTENT_URI, projection, selection,
+				null, null);
+
 		while (cursor != null && cursor.moveToNext()) {
-			
-			VoucherCode vCode = VoucherCode.getVoucherCodeFromValue(cursor.getString(0));
+
+			VoucherCode vCode = VoucherCode.getVoucherCodeFromValue(cursor
+					.getString(0));
 			String used = cursor.getString(1);
-			
-			Voucher voucher = new RegularVoucherFactory().createVoucher(vCode, month, memberName, used);
+
+			Voucher voucher = new RegularVoucherFactory().createVoucher(vCode,
+					month, memberName, used);
 			vouchers.add(voucher);
 		}
 
@@ -214,7 +247,8 @@ public class Utils {
 						.getVoucherCodeFromValue(voucher);
 
 				if (VoucherCode.isCashCode(voucher)) {
-					Voucher cashVoucher = new CashVoucherFactory().createVoucher(vcode, getMonth(), name, Utils.INUSE);
+					Voucher cashVoucher = new CashVoucherFactory()
+							.createVoucher(vcode, getMonth(), name, Utils.INUSE);
 					cashVouchers.put(v, cashVoucher);
 				}
 			}
@@ -240,18 +274,15 @@ public class Utils {
 		s = s.substring(0, s.length() - 1);
 		return s;
 	}
-	
-	public static void assertDeleted(Context context, int num){
-		logger.trace("assertDeleted()");
+
+	public static void assertDeleted(Context context, int num) {
+        logger.trace("assertDeleted()");
 		if (num > 0) {
-			Toast.makeText(
-					context,
+			Toast.makeText(context,
 					context.getString(R.string.deleted_success_msg),
 					Toast.LENGTH_SHORT).show();
 		} else {
-			Toast.makeText(
-					context,
-					context.getString(R.string.problem),
+			Toast.makeText(context, context.getString(R.string.problem),
 					Toast.LENGTH_SHORT).show();
 		}
 	}

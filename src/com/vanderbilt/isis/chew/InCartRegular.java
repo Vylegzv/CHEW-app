@@ -41,18 +41,28 @@ public class InCartRegular extends ListActivity implements
 	String productName = "";
 	String voucherCode = "";
 	String month_name = "";
+	TextView nameTV;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		logger.trace("onCreate()");
-		//logger.info(" {}", );
+
+		View header = getLayoutInflater().inflate(R.layout.in_cart_header, null);
+		nameTV = (TextView) header.findViewById(R.id.name);
+
 		name = "";
 		Bundle getName = getIntent().getExtras();
 		if (getName != null) {
 			name = getName.getString("name");
+			nameTV.setText(name);
+			logger.info("Opened Regular Voucher Selections for person {}", name);
 		}
 
+		ListView listview = getListView();
+		listview.addHeaderView(header);
+		
 		loadermanager = getLoaderManager();
 
 		mAdapter = new MySimpleCursorAdapter(InCartRegular.this,
@@ -64,7 +74,7 @@ public class InCartRegular extends ListActivity implements
 		setListAdapter(mAdapter);
 		loadermanager.initLoader(1, null, this);
 
-		ListView listview = getListView();
+		
 
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,

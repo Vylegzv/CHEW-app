@@ -43,7 +43,7 @@ public class GridViewAdapter extends ArrayAdapter<Recipe> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		logger.trace("getView()");
+		//logger.trace("getView()");
         View itemView = convertView;
         ViewHolder holder = null;
 

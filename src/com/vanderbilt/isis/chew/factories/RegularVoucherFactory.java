@@ -21,81 +21,100 @@ public class RegularVoucherFactory extends VoucherFactory {
 		logger.trace("createVoucher()");
 
 		if (vCode.equals(VoucherCode.A)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.A))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.A)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.A2)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.A2))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.A2)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.B)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.B))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.B)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.B2)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.B2))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.B2)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.E)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.E))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.E)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.E2)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.E2))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.E2)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.G)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.G))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.G)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.G2)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.G2))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.G2)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.K)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.K))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.K)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.K2)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.K2))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.K2)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.L)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.L))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.L)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.L2)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.L2))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.L2)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.P)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.P))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.P)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.P2)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.P2))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.P2)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.T)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.T))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.T)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.T2)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.T2))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.T2)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.PC)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.PC))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.PC)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.PC1)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.PC1))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.PC1)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else if (vCode.equals(VoucherCode.PPW)) {
-			return new RegularVoucher(vCode, month, name, used,
-					new ArrayList<String>(Arrays.asList(getContext()
-							.getResources().getStringArray(R.array.PPW))));
+			ArrayList<String> descr = new ArrayList<String>(Arrays.asList(getContext()
+					.getResources().getStringArray(R.array.PPW)));
+			nullContext(); // to avoid memory leaks
+			return new RegularVoucher(vCode, month, name, used, descr);
 		} else {
 			return null;
 		}

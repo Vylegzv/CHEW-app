@@ -50,7 +50,7 @@ public class GetProducts extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		logger.trace("onCreate()");
-		//logger.info(" {}", );
+		
 		
 		listview = (ListView) findViewById(R.id.getProductsListView);
 
@@ -77,6 +77,10 @@ public class GetProducts extends ListActivity {
 			sizeType = getStuff.getString("size_type");
 			foodType = getStuff.getString("food_type");
 		}
+		logger.info("Confirming whether Family Member {} wants to Get item with Food_Name {}, and ", memberName, foodName);
+		logger.info("Food_Category {}, Vouchers_ID {}, and ", foodCategory, vouchersID);
+		logger.info("Size_No. {}, Size_Type{}, and ", sizeNo, sizeType);
+		logger.info("Food_Type {}", foodType);
 		
 		Log.d("Getting name", memberName);
 		logger.debug("Getting name {}.", memberName);
@@ -93,7 +97,7 @@ public class GetProducts extends ListActivity {
 			@Override
 			public void onClick(View v) {
 				logger.trace("onClick");
-				logger.info("OK. Get chosen item for Person");
+				logger.info("OK, Confirmed. Get chosen item for Person with Food_Name {}", foodName);
 
 				for (int i = 0; i < list.size(); i++) {
 					CheckBoxRowModel model = list.get(i);

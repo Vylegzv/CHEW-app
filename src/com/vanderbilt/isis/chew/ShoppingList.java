@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import com.vanderbilt.isis.chew.db.ChewContract;
 import android.app.ListActivity;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +36,7 @@ public class ShoppingList extends ListActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		logger.trace("onCreate()");
+		logger.info("Opened the Shopping List");
 		
 		loadermanager = getLoaderManager();
 
@@ -55,6 +55,7 @@ public class ShoppingList extends ListActivity implements
 	
 	public void clearShopList(View v) {
 		logger.trace("clearShopList()");
+		logger.info("Cleared the Shopping List");
 		Log.d("Shopping", "clear called");
 		logger.debug("clear called");
 		ContentValues updateValues = new ContentValues();

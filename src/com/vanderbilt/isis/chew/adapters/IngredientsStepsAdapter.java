@@ -66,7 +66,7 @@ public class IngredientsStepsAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		logger.trace("getView()");
+		//logger.trace("getView()");
 		View curView = convertView;
 
 		if (curView == null) {

@@ -32,7 +32,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> {
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent){
-		logger.trace("getView()");
+		//logger.trace("getView()");
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.step_row_woi, parent, false);
 		

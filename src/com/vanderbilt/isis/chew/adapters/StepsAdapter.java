@@ -54,7 +54,7 @@ public class StepsAdapter extends ArrayAdapter<Step> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		logger.trace("getView()");
+		//logger.trace("getView()");
 		final Step step = values.get(position);
 		View row = convertView;
 		LayoutInflater inflater = null;

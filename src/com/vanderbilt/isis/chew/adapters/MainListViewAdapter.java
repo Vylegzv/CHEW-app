@@ -38,7 +38,7 @@ public class MainListViewAdapter extends ArrayAdapter<MainListRowItem> {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		logger.trace("getView()");
+		//logger.trace("getView()");
 		ViewHolder holder = null;
 		MainListRowItem rowItem = getItem(position);
 

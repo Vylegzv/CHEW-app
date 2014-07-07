@@ -21,14 +21,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
 
-
-//From Profile.java
-//You can see all the vouchers belonging to the person
-
-//When u click on a voucher, it will go to VoucherDescription.java
-
-//Knock of items from this VoucherDescription.java as they choose them, so that when they click on Done Shopping, they can go back and see if they can get anything more.
-
 public class VouchersListView extends ListActivity implements
 LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -44,9 +36,11 @@ LoaderManager.LoaderCallbacks<Cursor> {
 		super.onCreate(savedInstanceState);
 		logger.trace("onCreate()");
 		
+
 		Bundle getName = getIntent().getExtras();
 		if (getName != null) {
 			name = getName.getString("name");
+			logger.info("Opening the VouchersListView to see the Vouchers for Family Member - {}", name);
 		}
 
 		loadermanager = getLoaderManager();
@@ -76,6 +70,7 @@ LoaderManager.LoaderCallbacks<Cursor> {
 				String used = c.getString(2);
 				Log.d("Voucher", voucher);
 				logger.debug("Voucher {} ", voucher);
+				logger.info("Clicked on Voucher {} with status {} to see the items available to Family Member - {}", voucher, used, name);
 				Intent intent = new Intent(VouchersListView.this, VoucherDescription.class);
 				intent.putExtra("voucher", voucher);
 				intent.putExtra("used", used);

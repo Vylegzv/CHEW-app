@@ -37,8 +37,10 @@ import android.database.Cursor;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -60,7 +62,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	public static final int SHOPLIST = 7;
 	public static final int TUTORIAL = 8;
 	public static final int UPLOAD = 9;
-	public static final int HISTORY = 10;
+	public static final int EDIT = 10;
+    public static final int HISTORY = 11;
 
 	public String[] titles;
 	public String[] descriptions;
@@ -194,36 +197,36 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			break;
 
 		case CHOOSE:
-			logger.info("Clicked CHOOSE on Homepage");
+			logger.info("Clicked CHOOSE A Family Member on Homepage");
 			intent = new Intent(MainActivity.this, MembersListView.class);
 			startActivity(intent);
 			break;
 
 		case PRODUCE:
-			logger.info("Clicked PRODUCE on Homepage");
+			logger.info("Clicked PRODUCE - CALCULATOR on Homepage");
 			intent = new Intent(MainActivity.this, Produce.class);
 			startActivity(intent);
 			break;
 
 		case SHOPPING:
-			logger.info("Clicked SHOPPING on Homepage");
+			logger.info("Clicked Start SHOPPING on Homepage");
 			showChooseStoresD();
 			break;
 			
 		case DONE:			
-			logger.info("Clicked DONE on Homepage");
+			logger.info("Clicked DONE Shopping on Homepage");
 			done();
 			break;
 			
 		case FAV_RECIPES:			
-			logger.info("Clicked FAV_RECIPES on Homepage");
+			logger.info("Clicked FAVORITE_RECIPES on Homepage");
 			intent = new Intent(MainActivity.this, RecipesActivity.class);
 			intent.putExtra("isFavorite", true);
 			startActivity(intent);
 			break;
 
 		case RECIPES:
-			logger.info("Clicked RECIPES on Homepage");
+			logger.info("Clicked RECIPES - Yummy Gallery on Homepage");
 			intent = new Intent(MainActivity.this, RecipesActivity.class);
 			intent.putExtra("isFavorite", false);
 			startActivity(intent);
@@ -236,17 +239,24 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			break;
 			
 		case TUTORIAL:
-			logger.info("Clicked TUTORIAL on Homepage");
+			logger.info("Clicked Video TUTORIAL on Homepage");
 			break;
 
 		case UPLOAD:
-			logger.info("Clicked UPLOAD on Homepage");
+			logger.info("Clicked UPLOAD Vouchers on Homepage");
+            //askForPassword();
 			intent = new Intent(MainActivity.this, VoucherUpload.class);
 			startActivity(intent);
 			break;
 			
-		case HISTORY:
-			logger.info("Clicked HISTORY on Homepage");
+		case EDIT:
+			logger.info("Clicked EDIT Vouchers on Homepage");
+			intent = new Intent(MainActivity.this, EditVouchers.class);
+			startActivity(intent);
+			break;
+
+        case HISTORY:
+			logger.info("Clicked NOTIFICATION HISTORY on Homepage");
 			intent = new Intent(MainActivity.this, NotificationHistoryActivity.class);
 			startActivity(intent);
 			break;
@@ -255,10 +265,60 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 		}
 	}
+	
+	private void askForPassword(){
+		logger.trace("askForPassword()");
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				MainActivity.this);
+		alertDialogBuilder.setTitle(getString(R.string.enter_pwd));
+		
+		LayoutInflater li = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View dialogView = li.inflate(R.layout.enter_password, null);
+		alertDialogBuilder.setView(dialogView);
+		
+		final EditText pwdEntered = (EditText) dialogView
+				.findViewById(R.id.pwd);
+		
+		alertDialogBuilder
+				// set dialog message
+				.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+
+						String pwd = pwdEntered.getText().toString();
+						if(pwd.equals(Utils.getPwd())){
+							
+							Intent intent = new Intent(MainActivity.this, VoucherUpload.class);
+							startActivity(intent);
+						}else{
+							
+							Toast.makeText(getApplicationContext(), getString(R.string.wrong_pwd),
+									   Toast.LENGTH_SHORT).show();
+						}
+					}
+				})
+				.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						dialog.cancel();
+					}
+				});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+	}
 
 	public void scan() {
-		logger.trace("scan()");
-		(new IntentIntegrator(this)).initiateScan();
+        logger.trace("scan()");
+		if(Utils.isShopping(MainActivity.this)){
+			(new IntentIntegrator(this)).initiateScan();
+		}else{
+			showChooseStoresD();
+		}
 	}
 
 	public void onActivityResult(int request, int result, Intent i) {
@@ -295,6 +355,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 	private void showChooseStoresD() {
 		logger.trace("showChooseStoresD()");
+		logger.info("Choosing between Stores like Walmart, Kroger, etc.");
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				MainActivity.this);
 		final CharSequence[] stores = getResources().getStringArray(R.array.stores_array);
@@ -402,6 +463,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 						} // save the vouchers
 					
 						if(Utils.setVouchers(MainActivity.this, vouchersUsed)){
+							Utils.setShoppingStatus(MainActivity.this, true);
 							Toast.makeText(getApplicationContext(), getString(R.string.ready_to_shop),
 									   Toast.LENGTH_SHORT).show();
 						}else{
@@ -431,7 +493,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		logger.trace("done()");
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				MainActivity.this);
-		alertDialogBuilder.setTitle(getString(R.string.done_shop))
+		alertDialogBuilder.setTitle(getString(R.string.sure_done_shop))
 		.setPositiveButton(getString(R.string.yes),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
@@ -448,13 +510,14 @@ public class MainActivity extends Activity implements OnItemClickListener {
 								ChewContract.FamilyVouchers.CONTENT_URI,
 								updateValues, where, null);
 						Log.d("ROWSUPDATE", rowsUpdate + "");
-						logger.debug("ROWSUPDATE {}", rowsUpdate);
+                        logger.debug("ROWSUPDATE {}", rowsUpdate);
+						Utils.setShoppingStatus(MainActivity.this, false);
 					}
-				}).setNegativeButton(getString(R.string.cancel),
+				}).setNegativeButton(getString(R.string.no),
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog,
 					int id) {
-				logger.info("Cancelled, Done Shopping");
+				logger.info("Cancelled, Not Done Shopping as yet");
 				
 			}
 		});
@@ -525,7 +588,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 							logger.info("Yes, Get Item for Family Member {} with", "");
 							logger.info("food_name {}, food_category {} and ", food_name, food_category);
 							logger.info("vouchersID {}, size {} and ", vouchersID, size);
-							logger.info("Yes, size_type {}, food_type {}", size_type, food_type);
+							logger.info("size_type {}, food_type {}", size_type, food_type);
 
 							Intent intent = new Intent(MainActivity.this, GetProducts.class);
 							intent.putExtra("member_name", "");
@@ -544,7 +607,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 							logger.info("No, Do Not Get Item for Family Member {} with ", "");
 							logger.info("food_name {}, food_category {} and ", food_name, food_category);
 							logger.info("vouchersID {}, size {} and ", vouchersID, size);
-							logger.info("Yes, size_type {}, food_type {}", size_type, food_type);
+							logger.info("size_type {}, food_type {}", size_type, food_type);
 							dialog.cancel();
 						}
 					});
@@ -569,7 +632,6 @@ public class MainActivity extends Activity implements OnItemClickListener {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										
 										dialog.cancel();
 									}
 								});

@@ -40,6 +40,7 @@ public class VoucherUpload extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         logger.trace("onCreate()");
+        logger.info("Opened Upload Vouchers");
         setContentView(R.layout.voucher_upload);
        
         initialize();

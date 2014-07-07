@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
@@ -37,20 +38,26 @@ public class InCartCash extends ListActivity implements
 	String produceName = "";
 	String month_name = "";
 	String voucherCode;
+	TextView nameTV;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		logger.trace("onCreate()");
 		//logger.info(" {}", );
+		View header = getLayoutInflater().inflate(R.layout.in_cart_header, null);
+		nameTV = (TextView) header.findViewById(R.id.name);
+		
 		name = "";
 		Bundle getName = getIntent().getExtras();
 		if (getName != null) {
 			name = getName.getString("name");
+			nameTV.setText(name);
+			logger.info("Opened Cash Voucher Selections for person {}", name);
 		}
 
-		Log.d("NAME", name);
-		logger.debug("NAME: {}", name);
+		ListView listview = getListView();
+		listview.addHeaderView(header);
 
 		int[] uiBindTo = { R.id.producePrice, R.id.produceName, R.id.voucherCode };
 
@@ -65,7 +72,7 @@ public class InCartCash extends ListActivity implements
 		loadermanager = getLoaderManager();
 		loadermanager.initLoader(1, null, this);
 
-		ListView listview = getListView();
+		
 
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -79,8 +86,7 @@ public class InCartCash extends ListActivity implements
 				Log.d("CLICK", c.getString(1) + " clicked");
 				Log.d("CLICK", c.getString(2) + " clicked");
 				Log.d("CLICK", c.getString(3) + " clicked");
-				logger.debug("CLICK {} clicked and {} clicked and ", c.getString(0), c.getString(1));
-				logger.debug("CLICK {} clicked and {} clicked", c.getString(2), c.getString(3));
+
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						InCartCash.this);
 

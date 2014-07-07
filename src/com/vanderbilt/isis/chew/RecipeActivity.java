@@ -26,7 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-//Comes here if you choose any one recipe in RecipesActivity.java (i.e. in Yummy Gallery or Favorite Recipes)
+
 public class RecipeActivity extends Activity {
 
 	private static final Logger logger = LoggerFactory.getLogger(RecipeActivity.class);
@@ -44,6 +44,7 @@ public class RecipeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recipe_view);
 		logger.trace("onCreate()");
+		
 		Log.d(TAG, "on create called");
 		logger.debug("onCreate Called");
 		View header = getLayoutInflater().inflate(R.layout.recipe_header, null);
@@ -65,7 +66,8 @@ public class RecipeActivity extends Activity {
 
 		Log.d(TAG, recipe.getTitle());
 		logger.debug(" {}", recipe.getTitle());
-
+		logger.info("Opened a Single Recipe with the Recipe Title - {}", recipe.getTitle());
+		
 		recipe.setIngredients(getIngredients(recipe.getId()));
 		recipe.setSteps(getSteps(recipe.getId()));
 
@@ -139,8 +141,13 @@ public class RecipeActivity extends Activity {
 		int rowsUpdate = 0;
 			
 		boolean setFavorite = true;
-		if(recipe.isFavorite())
+		if(recipe.isFavorite()) {
 			setFavorite = false;
+			logger.info("Un-Set Recipe Title - {} as Favorite", recipe.getTitle());
+		}
+		else {
+			logger.info("Set Recipe Title - {}as Favorite", recipe.getTitle());
+		}
 		
 		updateValues.put(
 				ChewContract.Recipes.FAVORITE, setFavorite);
@@ -171,6 +178,8 @@ public class RecipeActivity extends Activity {
 	
 	public void addToShoppingList(View v) {
 		logger.trace("addToShoppingList()");
+		logger.info("Add the ingredients of Recipe Title - {} to Shopping List", recipe.getTitle());
+		
 		ContentValues[] cvs = new ContentValues[recipe.getIngredients().size()];
 		int count = 0;
 		for (Ingredient i : recipe.getIngredients()) {

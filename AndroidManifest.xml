@@ -57,7 +57,9 @@
         <activity
             android:name=".Produce"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        
+        <activity
+            android:name=".EditVouchers"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <!-- Pankaj Chand's Components -->
         
         <receiver android:enabled="true" android:name=".notificationmsg.BootCompleteBroadcastReceiver"
