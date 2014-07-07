@@ -1,5 +1,8 @@
 package com.vanderbilt.isis.chew;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.db.ChewContract;
 import android.app.ListActivity;
 import android.os.AsyncTask;
@@ -18,10 +21,13 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+//ShoppingList is unrelated to the vouchers and only hasa the items from Recipes which they have added to the shiopping list
 
 public class ShoppingList extends ListActivity implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
+	private static final Logger logger = LoggerFactory.getLogger(ShoppingList.class);
+	
 	private MySimpleCursorAdapter mAdapter;
 	LoaderManager loadermanager;
 	ListView lv;
@@ -29,6 +35,8 @@ public class ShoppingList extends ListActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		logger.trace("onCreate()");
+		logger.info("Opened the Shopping List");
 		
 		loadermanager = getLoaderManager();
 
@@ -46,7 +54,10 @@ public class ShoppingList extends ListActivity implements
 	}
 	
 	public void clearShopList(View v) {
+		logger.trace("clearShopList()");
+		logger.info("Cleared the Shopping List");
 		Log.d("Shopping", "clear called");
+		logger.debug("clear called");
 		ContentValues updateValues = new ContentValues();
 		updateValues.put(ChewContract.ShoppingItems.SHOW, 0);
 
@@ -56,7 +67,7 @@ public class ShoppingList extends ListActivity implements
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
+		logger.trace("onCreateLoader()");
 		String[] projection = new String[] { ChewContract.ShoppingItems._ID,
 				ChewContract.ShoppingItems.RECIPE_NAME,
 				ChewContract.ShoppingItems.INGREDIENT, };
@@ -73,13 +84,13 @@ public class ShoppingList extends ListActivity implements
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
+		logger.trace("onLoadFinished()");
 		mAdapter.changeCursor(cursor);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
-
+		logger.trace("onLoaderReset()");
 		mAdapter.changeCursor(null);
 	}
 
@@ -95,12 +106,14 @@ public class ShoppingList extends ListActivity implements
 		public MySimpleCursorAdapter(Context context, int layout, Cursor c,
 				String[] from, int[] to, int flags) {
 			super(context, layout, c, from, to, 0);
+			logger.trace("MySimpleCursorAdapter.MySimpleCursorAdapter()");
 		}
 
 		@Override
 		public View newView(Context context, Cursor cursor, ViewGroup parent) {
-
+			logger.trace("MySimpleCursorAdapter.newView()");
 			Log.d("NEWVIEW", "called");
+			logger.debug("NEWVIEW called");
 
 			ViewHolder holder = new ViewHolder();
 			View v = null;
@@ -119,9 +132,9 @@ public class ShoppingList extends ListActivity implements
 
 		@Override
 		public void bindView(View view, Context context, Cursor cursor) {
-
+			logger.trace("MySimpleCursorAdapter.bindView()");
 			Log.d("BINDVIEW", "called");
-
+			logger.debug("BINDVIEW called");
 			ViewHolder holder = (ViewHolder) view.getTag();
 
 			boolean needSeparator = false;
@@ -169,7 +182,7 @@ public class ShoppingList extends ListActivity implements
 
 		@Override
 		protected Integer doInBackground(ContentValues... params) {
-
+			logger.trace("UpdateTask.doInBackground()");
 			String where = ChewContract.ShoppingItems.SHOW + "=" + 1 + "";
 
 			return getContentResolver()
@@ -181,7 +194,7 @@ public class ShoppingList extends ListActivity implements
 		}
 
 		protected void onPostExecute(final Integer numUpdated) {
-
+			logger.trace("UpdateTask.onPostExecute()");
 			if (numUpdated == 0) {
 				Toast.makeText(getApplicationContext(), getString(R.string.problem),
 						Toast.LENGTH_SHORT).show();

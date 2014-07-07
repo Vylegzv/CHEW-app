@@ -1,5 +1,8 @@
 package com.vanderbilt.isis.chew.vouchers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public enum VoucherCode {
 	
 	CV6("CVV6"), CV10("CVV10"), A("A"), A2("A2"), B("B"), B2("B2"),
@@ -7,22 +10,30 @@ public enum VoucherCode {
 	K2("K2"), E("E"), E2("E2"), P("P"), P2("P2"), PPW("PPW"),
 	PC1("PC1"), PC("PC");
 	
+
+	
+	private static final Logger logger = LoggerFactory.getLogger(VoucherCode.class);
+	//private static final Logger logger = LoggerFactory.getLogger(VoucherCode.class.getName());
+	
 	private String code;
 	
-	private VoucherCode(String code){		
+	private VoucherCode(String code){	
+		
 		this.code = code;
 	}
 	
-	public String getCode(){		
+	public String getCode(){
+		logger.trace("getCode()");
 		return this.code;
 	}
 	
-	public String toString(){		
+	public String toString(){
+		logger.trace("toString()");
 		return this.code;
 	}
 	
 	public static VoucherCode getVoucherCodeFromValue(String value) {
-		
+		logger.trace("getVoucherCodeFromValue()");
 		if(value.equals(A.getCode())){
 			return VoucherCode.A;
 		}else if(value.equals(A2.getCode())){
@@ -71,7 +82,7 @@ public enum VoucherCode {
 	}
 	
 	public static boolean isCashCode(String value){
-		
+		logger.trace("isCashCode()");
 		if(value.equals(CV6.getCode()))
 			return true;
 		else if (value.equals(CV10.getCode()))

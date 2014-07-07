@@ -1,5 +1,8 @@
 package com.vanderbilt.isis.chew;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.LoaderManager;
@@ -29,6 +32,8 @@ import com.vanderbilt.isis.chew.utils.Utils;
 public class EditVouchers extends ListActivity implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
+	private static final Logger logger = LoggerFactory.getLogger(EditVouchers.class);
+	
 	private SimpleCursorAdapter dataAdapter;
 	LoaderManager loadermanager;
 	CursorLoader cursorLoader;
@@ -36,7 +41,8 @@ public class EditVouchers extends ListActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		logger.trace("onCreate()");
+		logger.info("Opened the Edit Vouchers Page");
 		loadermanager = getLoaderManager();
 
 		int[] uiBindTo = { R.id.voucherCode, R.id.name, R.id.month, R.id.ethnicity };
@@ -77,6 +83,8 @@ public class EditVouchers extends ListActivity implements
 	public void delete(View view) {
 		//Log.d("DELETE", "called");
 		final int position = getListView().getPositionForView(view);
+		logger.trace("delete()");
+		logger.debug("DELETE {}", position);
 		Log.d("DELETE", position+"");
 		
 		RelativeLayout parentRow = (RelativeLayout) view.getParent();
@@ -93,6 +101,7 @@ public class EditVouchers extends ListActivity implements
 		LinearLayout ll4 = (LinearLayout) parentRow.getChildAt(3);
 		final TextView ethnicityTV = (TextView) ll4.getChildAt(1);
 		
+		logger.debug("Edit Vouchers {}, {}, {}, {}", vCodeTV.getText().toString(), nameTV.getText().toString(), monthTV.getText().toString(), ethnicityTV.getText().toString());
 		Log.d("Edit", vCodeTV.getText().toString());
 		Log.d("Edit", nameTV.getText().toString());
 		Log.d("Edit", monthTV.getText().toString());
@@ -149,7 +158,7 @@ public class EditVouchers extends ListActivity implements
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
+		logger.trace("onCreateLoader()");
 		String[] projection = new String[] { ChewContract.FamilyVouchers._ID,
 				ChewContract.FamilyVouchers.VOUCHER_CODE,
 				ChewContract.FamilyVouchers.NAME,
@@ -170,11 +179,13 @@ public class EditVouchers extends ListActivity implements
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		logger.trace("onLoadFinished()");
 		dataAdapter.changeCursor(cursor);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
+		logger.trace("onLoaderReset()");
 		dataAdapter.changeCursor(null);
 	}
 }

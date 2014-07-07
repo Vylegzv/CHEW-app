@@ -1,5 +1,9 @@
 package com.vanderbilt.isis.chew;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -20,6 +24,8 @@ import com.vanderbilt.isis.chew.utils.Utils;
 public class VouchersListView extends ListActivity implements
 LoaderManager.LoaderCallbacks<Cursor> {
 
+	private static final Logger logger = LoggerFactory.getLogger(VouchersListView.class);
+	
 	private SimpleCursorAdapter dataAdapter;
 	LoaderManager loadermanager;
 	CursorLoader cursorLoader;
@@ -28,10 +34,13 @@ LoaderManager.LoaderCallbacks<Cursor> {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		logger.trace("onCreate()");
 		
+
 		Bundle getName = getIntent().getExtras();
 		if (getName != null) {
 			name = getName.getString("name");
+			logger.info("Opening the VouchersListView to see the Vouchers for Family Member - {}", name);
 		}
 
 		loadermanager = getLoaderManager();
@@ -55,10 +64,13 @@ LoaderManager.LoaderCallbacks<Cursor> {
 						.getCursor();
 				c.moveToPosition(position);
 				Log.d("CLICK", c.getString(1) + " clicked");
-
+				logger.debug("CLICK {} clicked", c.getString(1));
+				
 				String voucher = c.getString(1);
 				String used = c.getString(2);
 				Log.d("Voucher", voucher);
+				logger.debug("Voucher {} ", voucher);
+				logger.info("Clicked on Voucher {} with status {} to see the items available to Family Member - {}", voucher, used, name);
 				Intent intent = new Intent(VouchersListView.this, VoucherDescription.class);
 				intent.putExtra("voucher", voucher);
 				intent.putExtra("used", used);
@@ -71,7 +83,7 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		
+		logger.trace("onCreateLoader()");
 		String[] projection = new String[] {
 				ChewContract.FamilyVouchers._ID,
 				ChewContract.FamilyVouchers.VOUCHER_CODE,
@@ -89,11 +101,13 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		logger.trace("onLoadFinished()");
 		dataAdapter.changeCursor(cursor);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
+		logger.trace("onLoaderReset()");
 		dataAdapter.changeCursor(null);
 	}
 }

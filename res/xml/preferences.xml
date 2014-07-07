@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ListPreference
+        android:key="pref_language" 
+        android:dialogTitle="LANGUAGE"
+        android:title="LANGUAGE"
+        android:entryValues="@array/language_keys"
+        android:entries="@array/language_values"
+        android:defaultValue="ENGLISH"
+        android:summary="Language Preference" />
+    <ListPreference 
+        android:entryValues="@array/conf_time_keys" 
+        android:key="pref_time" 
+        android:dialogTitle="Time of Notification" 
+        android:title="Time of Notification" 
+        android:entries="@array/conf_time_values"
+        android:defaultValue="10"
+        android:summary="Time Preference" />
+</PreferenceScreen>

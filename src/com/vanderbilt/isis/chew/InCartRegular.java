@@ -1,5 +1,8 @@
 package com.vanderbilt.isis.chew;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
 import android.app.AlertDialog;
@@ -25,6 +28,8 @@ import android.widget.TextView;
 public class InCartRegular extends ListActivity implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
+	private static final Logger logger = LoggerFactory.getLogger(InCartRegular.class);
+	
 	private MySimpleCursorAdapter mAdapter;
 	LoaderManager loadermanager;
 	CursorLoader cursorLoader;
@@ -41,7 +46,9 @@ public class InCartRegular extends ListActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
+		logger.trace("onCreate()");
+
 		View header = getLayoutInflater().inflate(R.layout.in_cart_header, null);
 		nameTV = (TextView) header.findViewById(R.id.name);
 
@@ -50,6 +57,7 @@ public class InCartRegular extends ListActivity implements
 		if (getName != null) {
 			name = getName.getString("name");
 			nameTV.setText(name);
+			logger.info("Opened Regular Voucher Selections for person {}", name);
 		}
 
 		ListView listview = getListView();
@@ -66,9 +74,13 @@ public class InCartRegular extends ListActivity implements
 		setListAdapter(mAdapter);
 		loadermanager.initLoader(1, null, this);
 
+		
+
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				
+				//logger.info(" {}", );
 
 				final Cursor c = ((SimpleCursorAdapter) parent.getAdapter())
 						.getCursor();
@@ -77,7 +89,9 @@ public class InCartRegular extends ListActivity implements
 				Log.d("CLICK", c.getString(1) + " clicked");
 				Log.d("CLICK", c.getString(2) + " clicked");
 				Log.d("CLICK", c.getString(3) + " clicked");
-
+				logger.debug("CLICK {} clicked and {} clicked and ", c.getString(0), c.getString(1));
+				logger.debug("CLICK {} clicked and {} clicked", c.getString(2), c.getString(3));
+			
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						InCartRegular.this);
 
@@ -92,7 +106,7 @@ public class InCartRegular extends ListActivity implements
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-
+										//logger.info(" {}", );
 										month_name = Utils.getMonth();
 
 										Log.d("C", c.getString(0));
@@ -100,7 +114,10 @@ public class InCartRegular extends ListActivity implements
 										Log.d("QUANT", c.getString(2));
 										Log.d("OZ", c.getString(3));
 										Log.d("Count", c.getString(4));
-
+										logger.debug("C {} and C{} and ", c.getString(0), c.getString(1));
+										logger.debug("QUANT {} and OZ {}", c.getString(2), c.getString(3));
+										logger.debug("Count {}", c.getString(4));
+										
 										where = "";
 										productName = c.getString(1);
 										voucherCode = c.getString(6);
@@ -161,7 +178,7 @@ public class InCartRegular extends ListActivity implements
 																public void onClick(
 																		DialogInterface dialog,
 																		int which) {
-
+																	//logger.info(" {}", );
 																	deleteQuantity = Integer
 																			.parseInt(choices[which]);
 																}
@@ -171,7 +188,8 @@ public class InCartRegular extends ListActivity implements
 																public void onClick(
 																		DialogInterface dialog,
 																		int id) {
-
+																	//logger.info(" {}", );
+																	logger.debug("deleteQuantity {}", deleteQuantity);
 																	Log.d("deleteQuantity",
 																			deleteQuantity
 																					+ "");
@@ -224,6 +242,7 @@ public class InCartRegular extends ListActivity implements
 																			&& deleteQuantity < quantity) {
 																		Log.d("INSIDIE ELSE",
 																				"inside else");
+																		logger.debug("INSIDE ELSE {}", "inside else");
 																		ContentValues updateValues = new ContentValues();
 																		int rowsUpdate = 0;
 																		updateValues
@@ -276,6 +295,7 @@ public class InCartRegular extends ListActivity implements
 																public void onClick(
 																		DialogInterface dialog,
 																		int id) {
+																	//logger.info(" {}", );
 																	dialog.cancel();
 																}
 															});
@@ -339,7 +359,7 @@ public class InCartRegular extends ListActivity implements
 																	public void onClick(
 																			DialogInterface dialog,
 																			int which) {
-
+																		//logger.info(" {}", );
 																		deleteCount = Integer
 																				.parseInt(choices[which]);
 																	}
@@ -349,7 +369,8 @@ public class InCartRegular extends ListActivity implements
 																	public void onClick(
 																			DialogInterface dialog,
 																			int id) {
-
+																		//logger.info(" {}", );
+																		logger.debug("deleteQuantity {}", deleteQuantity);
 																		Log.d("deleteQuantity",
 																				deleteQuantity
 																						+ "");
@@ -404,13 +425,14 @@ public class InCartRegular extends ListActivity implements
 																				&& deleteCount < count) {
 																			Log.d("INSIDIE ELSE",
 																					"inside else");
-
+																			logger.debug("INSIDE ELSE {}", "inside else");
 																			ContentValues updateValues = new ContentValues();
 																			int rowsUpdate = 0;
 																			Log.d("NEWOZ",
 																					ounces
 																							/ (deleteCount + 1.0)
 																							+ "");
+																			logger.debug("NEWOZ {}", ounces/(deleteCount + 1.0));
 
 																			updateValues
 																					.put(ChewContract.ProductsChosen.SIZE_NUM,
@@ -462,6 +484,7 @@ public class InCartRegular extends ListActivity implements
 																	public void onClick(
 																			DialogInterface dialog,
 																			int id) {
+																		//logger.info(" {}", );
 																		dialog.cancel();
 																	}
 																});
@@ -484,6 +507,7 @@ public class InCartRegular extends ListActivity implements
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
+										//logger.info(" {}", );
 										dialog.cancel();
 									}
 								});
@@ -500,6 +524,7 @@ public class InCartRegular extends ListActivity implements
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		// TODO Auto-generated method stub
+		logger.trace("onCreateLoader()");
 		String[] projection = new String[] { ChewContract.ProductsChosen._ID,
 				ChewContract.ProductsChosen.PRODUCT_NAME,
 				ChewContract.ProductsChosen.QUANTITY,
@@ -525,11 +550,13 @@ public class InCartRegular extends ListActivity implements
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		logger.trace("onLoadFinished()");
 		mAdapter.changeCursor(cursor);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
+		logger.trace("onLoaderReset()");
 		mAdapter.changeCursor(null);
 	}
 
@@ -550,6 +577,7 @@ public class InCartRegular extends ListActivity implements
 		public MySimpleCursorAdapter(Context context, int layout, Cursor c,
 				String[] from, int[] to, int flags) {
 			super(context, layout, c, from, to, 0);
+			logger.trace("MySimpleCursorAdapter.MySimpleCursorAdapter()");
 			/*this.context = context;
 			this.layout = layout;
 			this.mCellStates = c == null ? null : new int[c.getCount()];*/
@@ -557,9 +585,9 @@ public class InCartRegular extends ListActivity implements
 
 		@Override
 		public View newView(Context context, Cursor cursor, ViewGroup parent) {
-
+			logger.trace("MySimpleCursorAdapter.newView()");
 			Log.d("NEWVIEW", "called");
-
+			logger.debug("NEWVIEW {}", "called");
 			ViewHolder holder = new ViewHolder();
 			View v = null;
 			LayoutInflater inflater = (LayoutInflater) context
@@ -592,9 +620,9 @@ public class InCartRegular extends ListActivity implements
 
 		@Override
 		public void bindView(View view, Context context, Cursor cursor) {
-
+			logger.trace("MySimpleCursorAdapter.bindView()");
 			Log.d("BINDVIEW", "called");
-
+			logger.debug("BINDVIEW {}", "called");
 			ViewHolder holder = (ViewHolder) view.getTag();
 
 			boolean needSeparator = false;

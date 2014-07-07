@@ -13,6 +13,7 @@
         <item>Video Tutorial</item>
         <item>Voucher Upload</item>
         <item>Edit Vouchers</item>
+        <item>Notification History</item>
     </string-array>
     <string-array name="main_descriptions_array">
         <item>Shop for the whole family</item>
@@ -26,6 +27,7 @@
         <item>Watch this tutorial to help you using the app</item>
         <item>Upload your family vouchers</item>
         <item>Edit vouchers if you entered them incorrectly</item>
+        <item>Notification History</item>
     </string-array>
     <string-array name="main_images_array">
         <item>@drawable/barcode</item>
@@ -39,6 +41,7 @@
         <item>@drawable/tutorial</item>
         <item>@drawable/upload</item>
         <item>@drawable/ic_launcher</item>
+        <item>@drawable/notification_history</item>
     </string-array>
     <string-array name="stores_array">
         <item>Walmart</item>

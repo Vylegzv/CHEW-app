@@ -1,5 +1,7 @@
 package com.vanderbilt.isis.chew;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +31,8 @@ import android.widget.Toast;
 @SuppressLint("NewApi")
 public class Profile extends Activity {
 
+	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
+	
 	public final String TAG = getClass().getSimpleName();
 
 	TextView memberName;
@@ -64,6 +68,9 @@ public class Profile extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		logger.trace("onCreate()");
+		
+		
 		setContentView(R.layout.profile);
 
 		Bundle getName = getIntent().getExtras();
@@ -71,38 +78,54 @@ public class Profile extends Activity {
 			name = getName.getString("name");
 		}
 		Log.d(TAG, "test: " + name);
+		logger.debug("test: {}", name );
 
 		memberName = (TextView) findViewById(R.id.member_name);
 		whichVouchers = (TextView) findViewById(R.id.which_vouchers);
 		whichMonth = (TextView) findViewById(R.id.which_month);
 
 		populateScreen(name);
+		
+		logger.info("Opened the Profile of Family Member {}", name);
 	}
 
 	public void scan(View v) {
+        logger.trace("scan()");
+        if(name != null) {
+            logger.info("Trying to Scan Item for {}", name);
+        }
+        
 		if (Utils.isShopping(Profile.this)) {
+            //logger.info("");
 			(new IntentIntegrator(this)).initiateScan();
 		} else {
+            //logger.info("");
 			showChooseStoresD();
 		}
 	}
 
 	public void getVouchers(View v) {
-
+		logger.trace("getVouchers()");
+		if(name != null) {
+            logger.info("WHAT I CAN GET for {} with the vouchers {}", name, whichVouchers.getText().toString());
+        }
+		
 		Intent intent = new Intent(Profile.this, VouchersListView.class);
 		intent.putExtra("name", name);
 		startActivity(intent);
 	}
 
 	public void inCartRegular(View v) {
-
+		logger.trace("inCartRegular()");
+		logger.info("Clicking to viewing Regular Voucher Selections");
 		Intent intent = new Intent(Profile.this, InCartRegular.class);
 		intent.putExtra("name", name);
 		startActivity(intent);
 	}
 
 	public void inCartCash(View v) {
-
+		logger.trace("inCartCash()");
+		logger.info("Clicking to viewing Cash Voucher Selections");
 		Intent intent = new Intent(Profile.this, InCartCash.class);
 		intent.putExtra("name", name);
 		startActivity(intent);
@@ -110,15 +133,17 @@ public class Profile extends Activity {
 
 	@SuppressLint("NewApi")
 	public void onActivityResult(int request, int result, Intent i) {
-
+		logger.trace("onActivityResult()");
 		IntentResult scan = IntentIntegrator.parseActivityResult(request,
 				result, i);
 
 		if (scan != null && result == RESULT_OK) {
 			Log.d(TAG, scan.getContents());
+			logger.debug(" {}", scan.getContents());
 			String b = scan.getContents();
 			String barcode = Utils.removeZeros(b);
 			Log.d(TAG, barcode);
+            logger.debug(" {}", barcode);
 
 			String[] projection = { ChewContract.Store._ID,
 					ChewContract.Store.FOOD_NAME,
@@ -150,11 +175,13 @@ public class Profile extends Activity {
 
 	@SuppressLint("NewApi")
 	private void populateScreen(String name) {
-
+		logger.trace("populateScreen()");
 		memberName.setText(name);
 		String month_name = Utils.getMonth();
 		whichMonth.setText(month_name);
-
+		
+		logger.info("Family Member's Name is {}, for the Month {}", memberName.getText().toString(), whichMonth.getText().toString());
+		
 		CursorLoader loader = null;
 
 		String[] resultColumns = new String[] {
@@ -176,7 +203,7 @@ public class Profile extends Activity {
 
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-
+			logger.trace("MyOnLoadCompleteListener.onLoadComplete()");
 			StringBuffer vouchers = new StringBuffer();
 			while (cursor != null && cursor.moveToNext()) {
 				String voucher = cursor.getString(0);
@@ -184,7 +211,8 @@ public class Profile extends Activity {
 
 				Log.d(TAG, voucher);
 				Log.d(TAG, used);
-
+				logger.debug("Voucher {} Used {}", voucher, used);
+				
 				vouchers.append(voucher);
 				vouchers.append(" (");
 				vouchers.append(used);
@@ -192,6 +220,7 @@ public class Profile extends Activity {
 			}
 
 			whichVouchers.setText(vouchers);
+			logger.info("Having vouchers {}", whichVouchers.getText().toString());
 		}
 	}
 
@@ -200,7 +229,7 @@ public class Profile extends Activity {
 
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-
+            logger.trace("MyOnLoadCompleteListener2.onLoadComplete()");
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 					Profile.this);
 
@@ -219,7 +248,10 @@ public class Profile extends Activity {
 				Log.d(TAG, size + "");
 				Log.d(TAG, size_type + "");
 				Log.d(TAG, food_type + "");
-
+                logger.debug("Food Name {} Food Category {}", food_name, food_category);
+				logger.debug("VouchersID {} Size{}", vouchersID, size);
+				logger.debug("Size Type {} Food Type {}", size_type, food_type);
+				
 				// set title
 				alertDialogBuilder.setTitle(food_name);
 
@@ -231,7 +263,7 @@ public class Profile extends Activity {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-
+                                        //logger.info("");
 										Intent intent = new Intent(
 												Profile.this, GetProducts.class);
 										Log.d("Putting name", name);
@@ -262,7 +294,7 @@ public class Profile extends Activity {
 				// show it
 				alertDialog.show();
 			} else {
-
+                //logger.info("");
 				// set title
 				alertDialogBuilder.setTitle(getString(R.string.cannot_get));
 
@@ -285,7 +317,8 @@ public class Profile extends Activity {
 	}
 
 	private void showChooseStoresD() {
-
+		logger.trace("showChooseStoresD()");
+		logger.info("Choosing between Stores like Walmart, Kroger, etc.");
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				Profile.this);
 		final CharSequence[] stores = getResources().getStringArray(
@@ -298,6 +331,7 @@ public class Profile extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
+								logger.trace("alertDialogBuilder.setSingleChoiceItems().onClick()");
 								selectedStore = which;
 							}
 						})
@@ -306,23 +340,29 @@ public class Profile extends Activity {
 				.setPositiveButton(getString(R.string.ok),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-
+								logger.trace("alertDialogBuilder.setPositiveButton().onClick()");
+								logger.info("Continuing to Store {} with id {}", selectedStore, id);
 								// not the same as 'which' above
+								logger.debug("Which value = {}, Selected value = {}", id, selectedStore);
 								Log.d(TAG, "Which value=" + id);
 								Log.d(TAG, "Selected value=" + selectedStore);
 
 								if (Utils.setStore(Profile.this,
 										stores[selectedStore].toString()))
 									Profile.this.getVouchers();
-								else
+								else {
+									logger.debug("error saving store in shared preferences");
 									Log.d(TAG,
 											"error saving store in shared preferences");
+								}
 							}
 						})
 
 				.setNegativeButton(getString(R.string.cancel),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
+								logger.trace("alertDialogBuilder.setNegativeButton().onClick()");
+								logger.info("Cancelled choice of Store id {}", id);
 								dialog.cancel();
 							}
 						});
@@ -335,6 +375,7 @@ public class Profile extends Activity {
 	}
 
 	private void getVouchers() {
+		logger.trace("getVouchers()");
 
 		CursorLoader loader = null;
 		String month = Utils.getMonth();
@@ -360,7 +401,7 @@ public class Profile extends Activity {
 	int selectedStore;
 
 	private void showChooseVouchersD(final CharSequence[] voucherCodes) {
-
+		logger.trace("showChooseVouchersD()");
 		// boolean[] selections = new boolean[voucherCodes.length];
 		selected = new ArrayList<String>();
 
@@ -374,6 +415,7 @@ public class Profile extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which, boolean isChecked) {
+								logger.trace("showChooseVouchersD().alertDialogBuilder.setSingleMultiChoiceItems().onClick()");
 
 								if (isChecked) {
 									selected.add(voucherCodes[which].toString());
@@ -383,10 +425,13 @@ public class Profile extends Activity {
 				.setPositiveButton(getString(R.string.ok),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
+								logger.trace("showChooseVouchersD().alertDialogBuilder.setPositiveButton().onClick()");
 
 								Set<String> vouchersUsed = new HashSet<String>();
 
 								for (String item : selected) {
+									logger.info("Selected voucher {}", item);
+									logger.debug("Selected item {}", item);
 									Log.d("Selected", item);
 									vouchersUsed.add(item);
 								} // save the vouchers
@@ -407,7 +452,8 @@ public class Profile extends Activity {
 				.setNegativeButton(getString(R.string.cancel),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-
+								logger.trace("showChooseVouchersD().alertDialogBuilder.setNegativeButton().onClick()");
+								logger.info("Cancelled choice of vouchers");
 							}
 						});
 

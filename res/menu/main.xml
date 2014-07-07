@@ -1,9 +1,18 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.vanderbilt.isis.chew.MainActivity" >
+ 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never"
         android:title="@string/action_settings"/>
-
+       <!-- app:showAsAction="never"-->
+       
+    <item
+        android:id="@+id/action_notification"
+        android:orderInCategory="99"
+        android:title="@string/notification_settings"/>
+        <!-- app:showAsAction="never" -->
+ 
 </menu>

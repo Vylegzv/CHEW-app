@@ -1,6 +1,10 @@
 package com.vanderbilt.isis.chew;
 
 import java.util.ArrayList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.adapters.StepsAdapter;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.recipes.Ingredient;
@@ -25,6 +29,8 @@ import android.widget.Toast;
 
 public class RecipeActivity extends Activity {
 
+	private static final Logger logger = LoggerFactory.getLogger(RecipeActivity.class);
+	
 	String TAG = getClass().getSimpleName();
 	ImageView imageView;
 	TextView titleView;
@@ -37,8 +43,10 @@ public class RecipeActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recipe_view);
-
+		logger.trace("onCreate()");
+		
 		Log.d(TAG, "on create called");
+		logger.debug("onCreate Called");
 		View header = getLayoutInflater().inflate(R.layout.recipe_header, null);
 
 		imageView = (ImageView) header.findViewById(R.id.recipeImage);
@@ -52,11 +60,14 @@ public class RecipeActivity extends Activity {
 		recipe = (Recipe) data.getParcelable("recipe");
 		if(recipe.isFavorite()){
 			Log.d(TAG, "favorite");
+			logger.debug("favorite");
 			setFavoriteView.setText(getString(R.string.unset_favorite));
 		}
 
 		Log.d(TAG, recipe.getTitle());
-
+		logger.debug(" {}", recipe.getTitle());
+		logger.info("Opened a Single Recipe with the Recipe Title - {}", recipe.getTitle());
+		
 		recipe.setIngredients(getIngredients(recipe.getId()));
 		recipe.setSteps(getSteps(recipe.getId()));
 
@@ -89,7 +100,7 @@ public class RecipeActivity extends Activity {
 	}
 
 	private ArrayList<Ingredient> getIngredients(int id) {
-
+		logger.trace("getIngredients()");
 		String selection = ChewContract.Ingredients.RECIPE_ID + "=?";
 		String selectionArgs[] = { id + "" };
 		Cursor curIngrs = getContentResolver().query(
@@ -107,7 +118,7 @@ public class RecipeActivity extends Activity {
 	}
 
 	private ArrayList<Step> getSteps(int id) {
-
+		logger.trace("getSteps()");
 		String selection = ChewContract.Steps.RECIPE_ID + "=?";
 		String selectionArgs[] = { id + "" };
 		Cursor curSteps = getContentResolver().query(
@@ -125,13 +136,18 @@ public class RecipeActivity extends Activity {
 	}
 
 	public void setFavorite(View v) {
-		
+		logger.trace("setFavourite()");
 		ContentValues updateValues = new ContentValues();
 		int rowsUpdate = 0;
 			
 		boolean setFavorite = true;
-		if(recipe.isFavorite())
+		if(recipe.isFavorite()) {
 			setFavorite = false;
+			logger.info("Un-Set Recipe Title - {} as Favorite", recipe.getTitle());
+		}
+		else {
+			logger.info("Set Recipe Title - {}as Favorite", recipe.getTitle());
+		}
 		
 		updateValues.put(
 				ChewContract.Recipes.FAVORITE, setFavorite);
@@ -161,7 +177,9 @@ public class RecipeActivity extends Activity {
 	}
 	
 	public void addToShoppingList(View v) {
-
+		logger.trace("addToShoppingList()");
+		logger.info("Add the ingredients of Recipe Title - {} to Shopping List", recipe.getTitle());
+		
 		ContentValues[] cvs = new ContentValues[recipe.getIngredients().size()];
 		int count = 0;
 		for (Ingredient i : recipe.getIngredients()) {
@@ -179,6 +197,7 @@ public class RecipeActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		logger.trace("onDestroy()");
 		mainImage.recycle();
 		mainImage = null;
 	}
@@ -187,12 +206,12 @@ public class RecipeActivity extends Activity {
 
 		@Override
 		protected Integer doInBackground(ContentValues[]... params) {
-			
+			logger.trace("InsertTask.doInBackground()");
 			return getContentResolver().bulkInsert(ChewContract.ShoppingItems.CONTENT_URI, params[0]);
 		}
 		
 		protected void onPostExecute(final Integer numInserted) {
-			
+			logger.trace("InsertTask.onPostExecute()");
 			if(numInserted > 0){
 			Toast.makeText(getApplicationContext(), getString(R.string.ingredients_added_toast),
 					   Toast.LENGTH_SHORT).show();

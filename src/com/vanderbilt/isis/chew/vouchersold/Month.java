@@ -1,5 +1,9 @@
 package com.vanderbilt.isis.chew.vouchersold;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 public enum Month {
 
 	January(0),
@@ -15,6 +19,10 @@ public enum Month {
 	November(10),
 	December(11);
 	
+	
+	private static final Logger logger = LoggerFactory.getLogger(Month.class);
+	//private static final Logger logger = LoggerFactory.getLogger(Month.class.getName());
+	
 	private int value;
 	
 	private Month(int value){
@@ -23,17 +31,17 @@ public enum Month {
 	}
 	
 	public int getValue(){
-		
+		logger.trace("getValue()");
 		return this.value;
 	}
 	
 	public boolean equals(Month m){
-		
+		logger.trace("equals()");
 		return this.value == m.value;
 	}
 	
 	public String toString(){
-		
+		logger.trace("toString()");
 		switch(value){
 		
 		case 0:

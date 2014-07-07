@@ -1,17 +1,24 @@
 package com.vanderbilt.isis.chew.db;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+import com.vanderbilt.isis.chew.adapters.StepsAdapter;
 
 import android.content.Context;
 
 public class ChewDBHelper extends SQLiteAssetHelper {
 
+	private static final Logger logger = LoggerFactory.getLogger(ChewDBHelper.class);
+	
 	private static final String DATABASE_NAME = "ChewDB.db";
     private static final int DATABASE_VERSION = 1;
 	
     public ChewDBHelper(Context context) {
     	
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		logger.trace("ChewDBHelper()");
 	}
 
 /*

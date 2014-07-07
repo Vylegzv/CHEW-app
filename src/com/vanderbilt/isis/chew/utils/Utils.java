@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.factories.CashVoucherFactory;
@@ -27,6 +31,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class Utils {
+	
+	private static final Logger logger = LoggerFactory.getLogger(Utils.class);
 
 	public static final int WALMART = 1;
 	public static final int KROGER = 2;
@@ -43,15 +49,16 @@ public class Utils {
 	 * private constructor to avoid this class from being instantiated
 	 */
 	private Utils() {
-
+        logger.trace("Utils()");
 	}
 	
 	public static String getPwd(){
+        logger.trace("getPwd()");
 		return PWD;
 	}
 
 	public static boolean setShoppingStatus(Context context, boolean shopping) {
-
+        logger.trace("setShoppingStatus()");
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = preferences.edit();
@@ -63,14 +70,14 @@ public class Utils {
 	}
 
 	public static boolean isShopping(Context context) {
-
+        logger.trace("isShopping()");
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		return prefs.getBoolean(SHOPKEY, false);
 	}
 
 	public static boolean setStore(Context context, String store) {
-
+		logger.trace("setStore()");
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = preferences.edit();
@@ -85,7 +92,7 @@ public class Utils {
 	}
 
 	public static String getStore(Context context) {
-
+		logger.trace("getStore()");
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		String store = String.valueOf(prefs.getInt(STOREKEY, 0));
@@ -100,7 +107,7 @@ public class Utils {
 	 * @return
 	 */
 	public static boolean setVouchers(Context context, Set<String> vouchersUsed) {
-
+		logger.trace("setVouchers()");
 		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
 
 		for (String voucher : vouchersUsed) {
@@ -118,6 +125,7 @@ public class Utils {
 
 		try {
 			Log.d("Batch Update", "in try");
+			logger.debug("Batch Update {}", "in try");
 			context.getContentResolver()
 					.applyBatch(ChewContract.AUTHORITY, ops);
 		} catch (RemoteException e) {
@@ -135,7 +143,7 @@ public class Utils {
 
 	public static Set<String> getInUseVouchersForMember(Context context,
 			String memberName) {
-
+        logger.trace("getInUseVouchersForMember()");
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		Set<String> vouchers = preferences.getStringSet(Utils.VOUCHERS, null);
@@ -151,12 +159,14 @@ public class Utils {
 					String name = v.split(" - ")[1];
 
 					Log.d("Voucher Used", vCode + ", " + name);
+					logger.debug("Voucher Used {}", vCode + ", " + name);
 				}
 
 				return vouchers;
 			} else {
 
 				Log.d("Utils", "get vouchers for member");
+				logger.debug("Utils {}", "get vouchers for member");
 				Set<String> memberVouchers = new HashSet<String>();
 				for (String v : vouchers) {
 
@@ -167,6 +177,7 @@ public class Utils {
 						memberVouchers.add(v);
 
 					Log.d("Voucher Used", vCode + ", " + name);
+					logger.debug("Voucher Used {}", vCode + ", " + name);
 				}
 
 				return memberVouchers;
@@ -174,6 +185,7 @@ public class Utils {
 
 		} else {
 			Log.d("Voucher Used", "null");
+			logger.debug("Voucher Used {}", "null");
 		}
 
 		return null;
@@ -181,7 +193,7 @@ public class Utils {
 
 	public static Set<Voucher> getRegVouchersForMember(Context context,
 			String memberName) {
-
+        logger.trace("getRegVouchersForMember()");
 		Set<Voucher> vouchers = new HashSet<Voucher>();
 
 		String[] projection = new String[] {
@@ -218,7 +230,7 @@ public class Utils {
 	 * @return Map<"vcode - name", CashVoucher>
 	 */
 	public static Map<String, Voucher> getCashVouchers(Context context) {
-
+		logger.trace("getCashVouchers()");
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		Set<String> vouchers = preferences.getStringSet(Utils.VOUCHERS, null);
@@ -243,27 +255,28 @@ public class Utils {
 
 		} else {
 			Log.d("Voucher Used", "null");
+			logger.debug("Voucher Used {}", "null");
 		}
 
 		return cashVouchers;
 	}
 
 	public static String getMonth() {
-
+		logger.trace("getMonth()");
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
 		return month_date.format(cal.getTime());
 	}
 
 	public static String removeZeros(String s) {
-
+		logger.trace("removeZeros()");
 		s = s.replaceFirst("^0+(?!$)", "");
 		s = s.substring(0, s.length() - 1);
 		return s;
 	}
 
 	public static void assertDeleted(Context context, int num) {
-
+        logger.trace("assertDeleted()");
 		if (num > 0) {
 			Toast.makeText(context,
 					context.getString(R.string.deleted_success_msg),

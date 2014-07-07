@@ -1,5 +1,8 @@
 package com.vanderbilt.isis.chew;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.LoaderManager;
@@ -22,6 +25,8 @@ import com.vanderbilt.isis.chew.utils.Utils;
 public class InCartCash extends ListActivity implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
+	private static final Logger logger = LoggerFactory.getLogger(InCartCash.class);
+	
 	public final String TAG = getClass().getSimpleName();
 
 	private SimpleCursorAdapter mAdapter;
@@ -38,7 +43,8 @@ public class InCartCash extends ListActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		logger.trace("onCreate()");
+		//logger.info(" {}", );
 		View header = getLayoutInflater().inflate(R.layout.in_cart_header, null);
 		nameTV = (TextView) header.findViewById(R.id.name);
 		
@@ -47,6 +53,7 @@ public class InCartCash extends ListActivity implements
 		if (getName != null) {
 			name = getName.getString("name");
 			nameTV.setText(name);
+			logger.info("Opened Cash Voucher Selections for person {}", name);
 		}
 
 		ListView listview = getListView();
@@ -65,9 +72,12 @@ public class InCartCash extends ListActivity implements
 		loadermanager = getLoaderManager();
 		loadermanager.initLoader(1, null, this);
 
+		
+
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				//logger.info(" {}", );
 
 				final Cursor c = ((SimpleCursorAdapter) parent.getAdapter())
 						.getCursor();
@@ -90,7 +100,7 @@ public class InCartCash extends ListActivity implements
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-
+										//logger.info(" {}", );
 										month_name = Utils.getMonth();
 										produceName = c.getString(2);
 										voucherCode = c.getString(3);
@@ -127,6 +137,7 @@ public class InCartCash extends ListActivity implements
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
+										//logger.info(" {}", );
 										dialog.cancel();
 									}
 								});
@@ -139,16 +150,16 @@ public class InCartCash extends ListActivity implements
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
+		logger.trace("onCreateLoader()");
 		Log.d(TAG, "onCreateLoader called");
-
+		logger.debug("onCreateLoader called");
 		String[] projection = new String[] { ChewContract.ProduceChosen._ID,
 				ChewContract.ProduceChosen.COST,
 				ChewContract.ProduceChosen.PRODUCE_NAME,
 				ChewContract.ProduceChosen.VOUCHER_CODE };
 
 		String month_name = Utils.getMonth();
-
+		logger.debug("Month name: {} and Name: {}", month_name, name);
 		Log.d(TAG, month_name);
 		Log.d(TAG, name);
 
@@ -166,11 +177,13 @@ public class InCartCash extends ListActivity implements
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		logger.trace("onLoadFinished()");
 		mAdapter.changeCursor(cursor);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
+		logger.trace("onLoaderReset()");
 		mAdapter.changeCursor(null);
 	}
 }

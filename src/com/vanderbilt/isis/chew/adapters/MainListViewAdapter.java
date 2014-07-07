@@ -2,6 +2,9 @@ package com.vanderbilt.isis.chew.adapters;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.model.MainListRowItem;
 
@@ -16,11 +19,14 @@ import android.widget.TextView;
 
 public class MainListViewAdapter extends ArrayAdapter<MainListRowItem> {
 
+	private static final Logger logger = LoggerFactory.getLogger(MainListViewAdapter.class);
+	
 	Context context;
 
 	public MainListViewAdapter(Context context, int resourceId,
 			List<MainListRowItem> items) {
 		super(context, resourceId, items);
+		logger.trace("MainListViewAdapter()");
 		this.context = context;
 	}
 
@@ -32,6 +38,7 @@ public class MainListViewAdapter extends ArrayAdapter<MainListRowItem> {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
+		//logger.trace("getView()");
 		ViewHolder holder = null;
 		MainListRowItem rowItem = getItem(position);
 

@@ -2,6 +2,10 @@ package com.vanderbilt.isis.chew;
 
 import java.util.ArrayList;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vanderbilt.isis.chew.adapters.InteractiveArrayAdapter;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.model.CheckBoxRowModel;
@@ -29,6 +33,8 @@ import android.widget.Toast;
 
 public class GetProducts extends ListActivity {
 
+	private static final Logger logger = LoggerFactory.getLogger(GetProducts.class);
+	
 	ArrayList<CheckBoxRowModel> list = new ArrayList<CheckBoxRowModel>();
 	ArrayAdapter<CheckBoxRowModel> adapter;
 	TextView quantityN;
@@ -43,7 +49,9 @@ public class GetProducts extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		logger.trace("onCreate()");
+		
+		
 		listview = (ListView) findViewById(R.id.getProductsListView);
 
 		listview = getListView();
@@ -69,27 +77,40 @@ public class GetProducts extends ListActivity {
 			sizeType = getStuff.getString("size_type");
 			foodType = getStuff.getString("food_type");
 		}
+		logger.info("Confirming whether Family Member {} wants to Get item with Food_Name {}, and ", memberName, foodName);
+		logger.info("Food_Category {}, Vouchers_ID {}, and ", foodCategory, vouchersID);
+		logger.info("Size_No. {}, Size_Type{}, and ", sizeNo, sizeType);
+		logger.info("Food_Type {}", foodType);
 		
 		Log.d("Getting name", memberName);
+		logger.debug("Getting name {}.", memberName);
+		
 		vouchers = Utils.getInUseVouchersForMember(GetProducts.this, memberName);
 		Log.d("GetProducts", vouchers.size()+"");
+		logger.debug("GetProducts {}.", vouchers.size()+"");
 		
 		Log.d("GETPRODUCTS", "test: " + vouchersID + " " + foodType);
-
+		logger.debug("GETPRODUCTS {}.", "test: " + vouchersID + " " + foodType);
+		
 		ok.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				logger.trace("onClick");
+				logger.info("OK, Confirmed. Get chosen item for Person with Food_Name {}", foodName);
 
 				for (int i = 0; i < list.size(); i++) {
 					CheckBoxRowModel model = list.get(i);
 					Log.d("LIST ITEM", list.get(i).toString());
+					logger.debug("LIST ITEM {}", list.get(i).toString());
 					if (model.isSelected()) {
 						Log.d("SELECTED", model.getPersonName());
 						Log.d("SELECTED", model.getVoucherCode());
+						logger.debug("SELECTED {} and {}.", model.getPersonName(), model.getVoucherCode());
 						Log.d("SELECTED", model.getQuantityNumber() + "");
 						Log.d("^^^VOUCHER^^^", model.getVoucherCode());
-
+						logger.debug("SELECTED {} and ^^^VOUCHER^^^ {}.", model.getQuantityNumber() + "", model.getVoucherCode());
+						
 						String month_name = Utils.getMonth();
 						String name = model.getPersonName();
 						String vCode = model.getVoucherCode();
@@ -100,9 +121,13 @@ public class GetProducts extends ListActivity {
 						Log.d("***DELETEOLD***", model.isDeleteOld() + "");
 						Log.d("***COMBBEFORE***",
 								model.isCombinationItemsBoughtBefore() + "");
+						logger.debug("***DELETEOLD*** {} and ***COMBBEFORE*** {}.", model.isDeleteOld() + "", model.isCombinationItemsBoughtBefore() + "");
+						
 						Log.d("***OTHEROPTIONTYPE***",
 								model.getOtherOptionType());
 						Log.d("***TESTNAME***", model.getPersonName());
+						
+						logger.debug("***OTHEROPTIONTYPE*** {} and ***TESTNAME*** {}.", model.getOtherOptionType(), model.getPersonName());
 						if (model.isDeleteOld()) {
 							String where = "";
 
@@ -140,6 +165,7 @@ public class GetProducts extends ListActivity {
 									ChewContract.ProductsChosen.CONTENT_URI,
 									where, null);
 							Log.d("****NUMDELETED****", numDeleted + "");
+							logger.debug("****NUMDELETED**** {}", numDeleted + "");
 						}
 
 						String[] resultColumns = new String[] {
@@ -165,6 +191,7 @@ public class GetProducts extends ListActivity {
 						// already there, and just update
 
 						Log.d("***QUANT***", quant + "");
+						logger.debug("***QUANT*** {}", quant + "");
 
 						int count = quant;
 						double size = sizeNo;
@@ -172,6 +199,7 @@ public class GetProducts extends ListActivity {
 						if (model.isSpecialCase()) {
 							Log.d("MODELSPECIALCASE", model.isSpecialCase()
 									+ "");
+							logger.debug("MODELSPECIALCASE {}", model.isSpecialCase() + "");
 							size = quant * sizeNo;
 							quant = 0;
 						}
@@ -184,6 +212,9 @@ public class GetProducts extends ListActivity {
 						Log.d("***TAGSIZE***", sizeNo + "");
 						Log.d("***SIZE***", size + "");
 						Log.d("***ISCOMBINATION***", isCombination + "");
+						logger.debug("***TAGSIZE*** {}", sizeNo + "");
+						logger.debug("***SIZE*** {}", size + "");
+						logger.debug("***ISCOMBINATION*** {}", isCombination + "");
 
 						// if row exists, update it
 						if (cur.moveToFirst()) {
@@ -220,6 +251,7 @@ public class GetProducts extends ListActivity {
 									ChewContract.ProductsChosen.CONTENT_URI,
 									updateValues, where, null);
 							Log.d("ROWSUPDATE", rowsUpdate + "");
+							logger.debug("ROWSUPDATE {}", rowsUpdate + "");
 							// else if row doesn't exist
 						} else {
 
@@ -266,6 +298,7 @@ public class GetProducts extends ListActivity {
 
 							Log.d("CODE", vCode);
 							Log.d("INSERTED", "inserted");
+							logger.debug("The CODE is {} and INSERTED {}.", vCode, "inserted");
 						}
 					}
 				}
@@ -277,8 +310,9 @@ public class GetProducts extends ListActivity {
 	}
 
 	private void whoCanGetIt(int vouchersID) {
-
+		logger.trace("whoCanGetIt()");
 		Log.d("WHOCANGETIT", vouchersID+"");
+		logger.debug("WHOCANGETIT {}.", vouchersID+"");
 		
 		// worked
 		CursorLoader loader = null;
@@ -296,12 +330,16 @@ public class GetProducts extends ListActivity {
 
 	private class MyOnLoadCompleteListener implements
 			OnLoadCompleteListener<Cursor> {
+		
+		
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-
+			logger.trace("MyOnLoadCompleteListener.onLoadComplete()");
+			logger.debug("ONLOADCOMPLETE {}", "onLoadComplete called");
 			Log.d("ONLOADCOMPLETE", "onLoadComplete called");
 			String vcode = "", name = "", quantity = "";
 
+			logger.debug("ONLOADCOMPLETE {}", cursor.getCount() + "");
 			Log.d("ONLOADCOMPLETE", cursor.getCount() + "");
 
 			while (cursor.moveToNext()) {
@@ -309,6 +347,7 @@ public class GetProducts extends ListActivity {
 				vcode = cursor.getString(1);
 				// /quantity = cursor.getString(2);
 				// categoryID = cursor.getString(2);
+				logger.debug("FROMVOUCHERSTABLE", vcode + "-" + name + "-" + quantity);
 				Log.d("FROMVOUCHERSTABLE", vcode + "-" + name + "-" + quantity);
 				
 				for(String v : vouchers){
@@ -342,6 +381,8 @@ public class GetProducts extends ListActivity {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
+										logger.info("OK, Choose Voucher to Match Chosen Product with food_name {} and food_category {} and", foodName, foodCategory);
+										logger.info("food_type {} and size_type {}", foodType, sizeType); 
 										GetProducts.this.finish();
 									}
 								});
@@ -357,11 +398,14 @@ public class GetProducts extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
+		logger.trace("onListItemClick()");
 		String item = (String) getListAdapter().getItem(position);
+		logger.info("Show item {}", item);
 		Toast.makeText(this, item, Toast.LENGTH_LONG).show();
 	}
 
 	private CheckBoxRowModel get(String n, String v, String q) {
+		logger.trace("get()");
 		return new CheckBoxRowModel(n, v, q);
 	}
 }

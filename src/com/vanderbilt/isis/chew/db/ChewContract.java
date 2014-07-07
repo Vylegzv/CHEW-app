@@ -1,5 +1,10 @@
 package com.vanderbilt.isis.chew.db;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.vanderbilt.isis.chew.adapters.StepsAdapter;
+
 import android.net.Uri;
 import android.provider.BaseColumns;
 
