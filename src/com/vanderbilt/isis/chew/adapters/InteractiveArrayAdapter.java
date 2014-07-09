@@ -281,7 +281,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 						if (c10.moveToNext()) {
 							int otherOpSub = Integer.parseInt(c10.getString(5));
 							if (otherOpSub != -1) {
-								otherOptionType = "buttermilk and/or evaporated milk and/or tofu";
+								otherOptionType = context.getResources().getString(R.string.exception_case);
 							} else {
 								otherOptionType = c10.getString(0);
 							}
@@ -406,15 +406,19 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				// tell that you already bought enough
 				// set title
 				otherOptionDialog = new AlertDialog.Builder(context);
-				otherOptionDialog.setTitle("You cannot buy " + productType
-						+ " because you already bought " + otherOptionType);
+				otherOptionDialog.setTitle(context.getResources().getString(R.string.cannot_get_product) 
+						+ " " + productType
+						+ " " + context.getResources().getString(R.string.because_already_bought)
+						+ " " + otherOptionType);
 
 				// set dialog message
 				otherOptionDialog
 						.setMessage(
-								"Do you want to replace it? All choices of "
+								context.getResources().getString(R.string.want_to_replace)
+								+ " "
 										+ otherOptionType.toUpperCase()
-										+ " will be DELETED.")
+										+ " "
+										+ context.getResources().getString(R.string.will_be_deleted))
 						.setCancelable(false)
 						.setPositiveButton(context.getResources().getString(R.string.yes),
 								new DialogInterface.OnClickListener() {
@@ -592,7 +596,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 
 				// show another dialog with allowed quantities
 				alertDialogBuilder2 = new AlertDialog.Builder(context)
-						.setTitle("Please Select Quantity")
+						.setTitle(context.getResources().getString(R.string.select_quantity))
 						.setSingleChoiceItems(choices, -1,
 								new DialogInterface.OnClickListener() {
 									@Override
@@ -602,7 +606,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 										ch = Integer.parseInt(choices[which]);
 									}
 								})
-						.setPositiveButton("OK",
+						.setPositiveButton(context.getResources().getString(R.string.ok),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
@@ -669,7 +673,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 
 									}
 								})
-						.setNegativeButton("Cancel",
+						.setNegativeButton(context.getResources().getString(R.string.cancel),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
@@ -696,13 +700,13 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				// tell that you already bought enough
 				// set title
 				noMoreDialog = new AlertDialog.Builder(context);
-				noMoreDialog.setTitle("You cannot get anymore of "
-						+ productType + " for this voucher");
+				noMoreDialog.setTitle(context.getResources().getString(R.string.cannot_get_anymore)+ " "
+						+ productType + " " + context.getResources().getString(R.string.on_this_voucher));
 
 				// set dialog message
 				noMoreDialog
 				// .setMessage("Please select a WIC approved item.")
-						.setCancelable(false).setPositiveButton("OK",
+						.setCancelable(false).setPositiveButton(context.getResources().getString(R.string.ok),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {

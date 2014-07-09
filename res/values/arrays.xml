@@ -2,7 +2,7 @@
 <resources>
 
     <string-array name="main_titles_array">
-        <item>Scan the Barcode</item>
+        <item>Scan a Barcode</item>
         <item>Choose a Family Member</item>
         <item>Buy Produce</item>
         <item>Start Shopping</item>
@@ -12,19 +12,19 @@
         <item>Shopping List</item>
         <item>Video Tutorial</item>
         <item>Voucher Upload</item>
-        <item>Edit Vouchers</item>
+        <item>Edit/Delete Vouchers</item>
         <item>Notification History</item>
     </string-array>
     <string-array name="main_descriptions_array">
-        <item>Shop for the whole family</item>
-        <item>Shop for a specific family member</item>
+        <item>Shop for the family</item>
+        <item>Shop for a family member</item>
         <item>Calculate the prices</item>
-        <item>Click here to start using your vouchers</item>
-        <item>Click here when you are done shopping</item>
-        <item>View Your Favorite Recipes!</item>
-        <item>Easy and quick snack recipes!</item>
+        <item>Start using vouchers</item>
+        <item>Done using vouchers</item>
+        <item>View your favorite recipes!</item>
+        <item>Easy and quick snack ideas!</item>
         <item>Check what you\'ll need to fix healthy snacks!</item>
-        <item>Watch this tutorial to help you using the app</item>
+        <item>Tutorial: How to use the app</item>
         <item>Upload your family vouchers</item>
         <item>Edit vouchers if you entered them incorrectly</item>
         <item>Notification History</item>
@@ -77,6 +77,8 @@
         <item>Black</item>
         <item>Asian</item>
         <item>American Indian</item>
+        <item>Other</item>
+        <item>Decline to answer</item>
     </string-array>
     <string-array name="vouchercodes_array">
         <item>A</item>
