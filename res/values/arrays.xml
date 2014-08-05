@@ -11,8 +11,8 @@
         <item>Yummy Gallery</item>
         <item>Shopping List</item>
         <item>Video Tutorial</item>
-        <item>Voucher Upload</item>
-        <item>Edit/Delete Vouchers</item>
+        <item>Add Vouchers</item>
+        <item>Delete Vouchers</item>
         <item>Notification History</item>
     </string-array>
     <string-array name="main_descriptions_array">
@@ -25,8 +25,8 @@
         <item>Easy and quick snack ideas!</item>
         <item>Check what you\'ll need to fix healthy snacks!</item>
         <item>Tutorial: How to use the app</item>
-        <item>Upload your family vouchers</item>
-        <item>Edit vouchers if you entered them incorrectly</item>
+        <item>Add new vouchers for family members</item>
+        <item>Delete vouchers no longer being used</item>
         <item>Notification History</item>
     </string-array>
     <string-array name="main_images_array">
