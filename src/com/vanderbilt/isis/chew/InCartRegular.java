@@ -41,7 +41,7 @@ public class InCartRegular extends ListActivity implements
 	String productName = "";
 	String voucherCode = "";
 	String month_name = "";
-	TextView nameTV;
+//	TextView nameTV;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,19 +49,19 @@ public class InCartRegular extends ListActivity implements
 
 		logger.trace("onCreate()");
 
-		View header = getLayoutInflater().inflate(R.layout.in_cart_header, null);
-		nameTV = (TextView) header.findViewById(R.id.name);
+//		View header = getLayoutInflater().inflate(R.layout.in_cart_header, null);
+//		nameTV = (TextView) header.findViewById(R.id.name);
 
 		name = "";
 		Bundle getName = getIntent().getExtras();
 		if (getName != null) {
 			name = getName.getString("name");
-			nameTV.setText(name);
+//			nameTV.setText(name);
 			logger.info("Opened Regular Voucher Selections for person {}", name);
 		}
 
 		ListView listview = getListView();
-		listview.addHeaderView(header);
+//		listview.addHeaderView(header);
 		
 		loadermanager = getLoaderManager();
 

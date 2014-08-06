@@ -151,17 +151,6 @@ public class Profile extends Activity {
 					ChewContract.Store.VOUCHERS_ID, ChewContract.Store.SIZE,
 					ChewContract.Store.SIZE_TYPE, ChewContract.Store.FOOD_TYPE };
 
-			// String store = Utils.getStore(Profile.this);
-
-			// it could be either in one store or in both stores
-			/*
-			 * String selection = ChewContract.Store.BARCODE + "='" + barcode +
-			 * "'" + " AND " + ChewContract.Store.STORE + "='" + store + "'" +
-			 * " OR " + ChewContract.Store.BARCODE + "='" + barcode + "'" +
-			 * " AND " + ChewContract.Store.STORE + "='" + Utils.ALL_STORES +
-			 * "'";
-			 */
-
 			String selection = ChewContract.Store.BARCODE + "='" + barcode
 					+ "'";
 

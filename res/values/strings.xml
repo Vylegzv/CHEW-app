@@ -77,6 +77,7 @@
 	<string name="exception_case">buttermilk and/or evaporated milk and/or tofu</string>
 	<string name="cannot_get_anymore">You cannot get anymore of</string>
 	<string name="on_this_voucher">on this voucher</string>
+	<string name="not_cash">This is not a CASH item!</string>
 
 	<!-- Pankaj's Strings -->
 	
