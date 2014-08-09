@@ -25,6 +25,8 @@ import android.content.DialogInterface;
 import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -50,6 +52,71 @@ public class Utils {
 	 */
 	private Utils() {
         logger.trace("Utils()");
+	}
+	
+	public static Bitmap decodeImage(Context context, int id){
+		
+		// use this to specify image decoding options
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		// setting this property to true while decoding avoids memory
+		// allocation, returning null for the bitmap, but setting
+		// outWidth, outHeight, and outMimeType. This allows to read
+		// the dimensions and type of the image data prior to
+		// construction and memory allocation of the bitmap
+		options.inJustDecodeBounds = true;
+		
+		BitmapFactory.decodeResource(context.getResources(), id, options);
+
+		// calculate the inSampleSize that will result in the final decoded
+		// bitmap having a width and height equal to or larger than the
+		// requested width and height.
+		options.inSampleSize = calculateInSampleSize(options, 100, 100);
+
+		// now set this to false to actually construct a bitmap and
+		// allocate memory for it
+		options.inJustDecodeBounds = false;
+		// decode image using options we just defined with the set inSampleSize
+		Bitmap decoded = BitmapFactory.decodeResource(context.getResources(), id, options);
+
+		return decoded;
+	}
+	
+	/**
+	 * This method calculates an inSampleSize for use in the
+	 * {@link BitmapFactory.Options} object when decoding a bitmap via decode()
+	 * from {@link BitmapFactory}. It calculates the closest inSampleSize that
+	 * will result in the final decoded bitmap having a width and height equal
+	 * to or larger than the requested width and height.
+	 * 
+	 * @param options
+	 *            An options object with "out" params already populated (run
+	 *            through a decode() method with inJustDecodeBounds == true)
+	 * @param reqWidth
+	 *            The requested width of the resulting bitmap
+	 * @param reqHeight
+	 *            The requested height of the resulting bitmap
+	 * @return The value to be used for inSampleSize
+	 */
+	private static int calculateInSampleSize(BitmapFactory.Options options,
+			int reqWidth, int reqHeight) {
+
+		// get row height and width of an image
+		final int height = options.outHeight;
+		final int width = options.outWidth;
+		int inSampleSize = 1;
+
+		// calculate ratios of height and width to requested height and width
+		if (height > reqHeight || width > reqWidth) {
+			// choose the smallest ratio as inSampleSize, which will guarantee
+			// a final image with both dimensions larger than or equal to the
+			// requested height and width
+			if (width > height) {
+				inSampleSize = Math.round((float) height / (float) reqHeight);
+			} else {
+				inSampleSize = Math.round((float) width / (float) reqWidth);
+			}
+		}
+		return inSampleSize;
 	}
 	
 	public static String getPwd(){

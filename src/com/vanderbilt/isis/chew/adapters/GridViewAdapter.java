@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.VoucherDescription;
 import com.vanderbilt.isis.chew.recipes.Recipe;
+import com.vanderbilt.isis.chew.utils.Utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -65,9 +66,11 @@ public class GridViewAdapter extends ArrayAdapter<Recipe> {
 
         Recipe item = getItem(position);
         String recipeImage = item.getImage();
-        int path = context.getResources().getIdentifier(recipeImage, "drawable", "com.vanderbilt.isis.chew");
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), path);
-        holder.image.setImageBitmap(bitmap);
+        
+        int id = context.getResources().getIdentifier(recipeImage, "drawable", "com.vanderbilt.isis.chew");
+        Bitmap decodedBitmap = Utils.decodeImage(context, id);
+        
+        holder.image.setImageBitmap(decodedBitmap);    
         holder.imageTitle.setText(item.getTitle());
         
         return itemView;

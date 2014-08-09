@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.vanderbilt.isis.chew.recipes.Step;
+import com.vanderbilt.isis.chew.utils.Utils;
 
 public class StepsAdapter extends ArrayAdapter<Step> {
 
@@ -92,15 +93,11 @@ public class StepsAdapter extends ArrayAdapter<Step> {
 		if (type == WITH_IMAGE) {
 
 			Log.d("TYPE", "with_image");
-			int path = context.getResources().getIdentifier(step.getImage(),
+			int id = context.getResources().getIdentifier(step.getImage(),
 					"drawable", "com.vanderbilt.isis.chew");
-			Bitmap b = BitmapFactory.decodeResource(context.getResources(),
-					path);
+			Bitmap decodedBitmap = Utils.decodeImage(context, id);
 
-			if (viewHolder.stepImage == null)
-				Log.d("IMAGE VIEW", "null");
-
-			viewHolder.stepImage.setImageBitmap(b);
+			viewHolder.stepImage.setImageBitmap(decodedBitmap);
 			viewHolder.step.setText(values.get(position).getStep());
 
 		} else if (type == NO_IMAGE) {
@@ -117,26 +114,3 @@ public class StepsAdapter extends ArrayAdapter<Step> {
 		public ImageView stepImage;
 	}
 }
-
-/*
- * public class StepsAdapter extends ArrayAdapter<Step> {
- * 
- * private final Context context; private final ArrayList<Step> values;
- * 
- * public StepsAdapter(Context context, ArrayList<Step> values){
- * 
- * super(context, R.layout.step_row, values); this.context = context;
- * this.values = values; }
- * 
- * @Override public View getView(int position, View convertView, ViewGroup
- * parent){
- * 
- * LayoutInflater inflater = (LayoutInflater)
- * context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); View rowView =
- * inflater.inflate(R.layout.step_row, parent, false);
- * 
- * TextView tv = (TextView) rowView.findViewById(R.id.step);
- * tv.setText(values.get(position).getStep());
- * 
- * return rowView; } }
- */

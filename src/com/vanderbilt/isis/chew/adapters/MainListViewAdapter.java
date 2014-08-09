@@ -7,9 +7,12 @@ import org.slf4j.LoggerFactory;
 
 import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.model.MainListRowItem;
+import com.vanderbilt.isis.chew.utils.Utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +22,9 @@ import android.widget.TextView;
 
 public class MainListViewAdapter extends ArrayAdapter<MainListRowItem> {
 
-	private static final Logger logger = LoggerFactory.getLogger(MainListViewAdapter.class);
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(MainListViewAdapter.class);
+
 	Context context;
 
 	public MainListViewAdapter(Context context, int resourceId,
@@ -38,7 +42,7 @@ public class MainListViewAdapter extends ArrayAdapter<MainListRowItem> {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		//logger.trace("getView()");
+		// logger.trace("getView()");
 		ViewHolder holder = null;
 		MainListRowItem rowItem = getItem(position);
 
@@ -57,7 +61,20 @@ public class MainListViewAdapter extends ArrayAdapter<MainListRowItem> {
 
 		holder.txtDesc.setText(rowItem.getDesc());
 		holder.txtTitle.setText(rowItem.getTitle());
-		holder.imageView.setImageResource(rowItem.getImageId());
+
+		// use this to specify image decoding options
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		// setting this property to true while decoding avoids memory
+		// allocation, returning null for the bitmap, but setting
+		// outWidth, outHeight, and outMimeType. This allows to read
+		// the dimensions and type of the image data prior to
+		// construction and memory allocation of the bitmap
+		options.inJustDecodeBounds = true;
+		
+		int id = rowItem.getImageId();
+		Bitmap decodedBitmap = Utils.decodeImage(context, id);
+
+		holder.imageView.setImageBitmap(decodedBitmap);
 
 		return convertView;
 	}
