@@ -77,6 +77,8 @@
         <item>Black</item>
         <item>Asian</item>
         <item>American Indian</item>
+        <item>Other</item>
+        <item>Decline to answer</item>
     </string-array>
     <string-array name="vouchercodes_array">
         <item>A</item>

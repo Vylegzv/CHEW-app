@@ -49,7 +49,7 @@ import android.widget.TextView;
 public class Produce extends Activity {
 
 	private static final Logger logger = LoggerFactory.getLogger(Produce.class);
-	
+
 	ArrayList<String> voucherNameArray = new ArrayList<String>();
 	Map<String, Double> incrementsMap = new HashMap<String, Double>();
 	SharedPreferences preferences;
@@ -65,6 +65,7 @@ public class Produce extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		logger.trace("onCreate()");
 		setContentView(R.layout.produce);
 		logger.info("Opened Produce - Calculator");
@@ -78,7 +79,16 @@ public class Produce extends Activity {
 		incrementsMap.put("3/4", 0.75);
 
 		populateNameVoucherArray();
-
+		
+		// we may get intent from Main activity if user scanned CASH item
+		Intent intent = getIntent();
+		if(intent != null){
+			Bundle extras = intent.getExtras();
+			if(extras != null){
+				String foodName = extras.getString("food_name");
+				enterPrice(foodName);
+			}
+		}
 	}
 
 	private void initializeLayout() {
@@ -97,10 +107,12 @@ public class Produce extends Activity {
 			TextView tv = new TextView(this);
 			tv.setText(entry.getKey());
 			TextView tv1 = new TextView(this);
-			
-			double spent = ((CashVoucher) entry.getValue()).getAmountSpent(Produce.this);
-			double left = ((CashVoucher) entry.getValue()).getAmountAllowed() - spent;
-			
+
+			double spent = ((CashVoucher) entry.getValue())
+					.getAmountSpent(Produce.this);
+			double left = ((CashVoucher) entry.getValue()).getAmountAllowed()
+					- spent;
+
 			tv1.setText(getString(R.string.left) + " " + df.format(left));
 			tv1.setTag(1);
 			TextView tv2 = new TextView(this);
@@ -139,6 +151,7 @@ public class Produce extends Activity {
 
 	public void onActivityResult(int request, int result, Intent i) {
 		logger.trace("onActivityResult()");
+		Log.d("OnActivityRes", "on activity result");
 		IntentResult scan = IntentIntegrator.parseActivityResult(request,
 				result, i);
 
@@ -156,14 +169,8 @@ public class Produce extends Activity {
 					ChewContract.Store.FOOD_CATEGORY,
 					ChewContract.Store.FOOD_TYPE };
 
-			String store = Utils.getStore(Produce.this);
-
 			// it could be either in one store or in both stores
-			String where = ChewContract.Store.BARCODE + "='" + barcode + "'"
-					+ " AND " + ChewContract.Store.STORE + "='" + store + "'"
-					+ " OR " + ChewContract.Store.BARCODE + "='" + barcode
-					+ "'" + " AND " + ChewContract.Store.STORE + "='"
-					+ Utils.ALL_STORES + "'";
+			String where = ChewContract.Store.BARCODE + "='" + barcode + "'";
 
 			loader = new CursorLoader(Produce.this,
 					ChewContract.Store.CONTENT_URI, resultColumns, where, null,
@@ -193,9 +200,31 @@ public class Produce extends Activity {
 				Log.d("ONLOADCOMPLETE", tagDescription);
 				Log.d("ONLOADCOMPLETE", category);
 				Log.d("ONLOADCOMPLETE", foodTypeName);
-				logger.debug("ONLOADCOMPLETE {} and {}", tagDescription, category);
-				logger.debug("ONLOADCOMPLETE {} and {}", tagDescription, foodTypeName);
-				enterPrice(tagDescription);
+				logger.debug("ONLOADCOMPLETE {} and {}", tagDescription,
+						category);
+				logger.debug("ONLOADCOMPLETE {} and {}", tagDescription,
+						foodTypeName);
+
+				if (!category.equals("CASH")) {
+					AlertDialog.Builder alert = new AlertDialog.Builder(
+							Produce.this);
+					alert.setTitle(getString(R.string.not_cash));
+
+					alert.setPositiveButton(getString(R.string.ok),
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									dialog.cancel();
+								}
+							});
+					
+					AlertDialog alertDialog = alert.create();
+					alertDialog.show();
+					
+				} else {
+
+					enterPrice(tagDescription);
+				}
 			}
 		}
 	}
@@ -253,95 +282,121 @@ public class Produce extends Activity {
 		final EditText priceEntered = (EditText) dialogView
 				.findViewById(R.id.priceEntered);
 
-		alert.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				
-				String produce = produceEntered.getText().toString();
-				double price = Double.parseDouble(priceEntered.getText()
-						.toString());
-				logger.info("Selected Voucher {} for", voucherNameChosen);
-				logger.info("Produce {} with Price {}", produce, price);
-				Log.d("SELECTED", voucherNameChosen);
-				Log.d("PRODUCEEENTERED", produce);
-				Log.d("PRICEENTERED", price + "");
-				logger.debug("SELECTED {} and PRODUCEENTERED {}", voucherNameChosen, produce);
-				logger.debug("PRICEENTERED {}", price + "");
+		alert.setPositiveButton(getString(R.string.ok),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
 
-				Integer pound = poundNums[poundsWheel.getCurrentItem()];
-				String incrKey = incrementNums[incrementsWheel.getCurrentItem()];
-				double incr = incrementsMap.get(incrKey);
-				price = price * incr * pound;
+						String produce = produceEntered.getText().toString();
+						double price = Double.parseDouble(priceEntered
+								.getText().toString());
+						logger.info("Selected Voucher {} for",
+								voucherNameChosen);
+						logger.info("Produce {} with Price {}", produce, price);
+						Log.d("SELECTED", voucherNameChosen);
+						Log.d("PRODUCEEENTERED", produce);
+						Log.d("PRICEENTERED", price + "");
+						logger.debug("SELECTED {} and PRODUCEENTERED {}",
+								voucherNameChosen, produce);
+						logger.debug("PRICEENTERED {}", price + "");
 
-				Log.d(TAG, price + "");
-				logger.debug("PRICE {}", price + "");
-				
-				DecimalFormat df = new DecimalFormat("0.00");
+						Integer pound = poundNums[poundsWheel.getCurrentItem()];
+						String incrKey = incrementNums[incrementsWheel
+								.getCurrentItem()];
+						double incr = incrementsMap.get(incrKey);
+						price = price * incr * pound;
 
-				double totalSpentForPerson = ((CashVoucher) cashVouchers.get(voucherNameChosen)).getAmountSpent(Produce.this);
-				double totalAllowedForPerson = ((CashVoucher) cashVouchers.get(voucherNameChosen)).getAmountAllowed();
+						Log.d(TAG, price + "");
+						logger.debug("PRICE {}", price + "");
 
-				Log.d("TOTALSPENTFORPERSON", totalSpentForPerson + "");
-				Log.d("TOTALALLOWEDFORPERSON", totalAllowedForPerson + "");
-				logger.debug("TOTALSPENTFORPERSON {} and TOTALALLOWEDFORPERSON {}", totalSpentForPerson + totalAllowedForPerson);
-				if (totalSpentForPerson + price <= totalAllowedForPerson) {
+						DecimalFormat df = new DecimalFormat("0.00");
 
-					InsertDataHandler myInsertHandler = new InsertDataHandler(
-							Produce.this);
+						double totalSpentForPerson = ((CashVoucher) cashVouchers
+								.get(voucherNameChosen))
+								.getAmountSpent(Produce.this);
+						double totalAllowedForPerson = ((CashVoucher) cashVouchers
+								.get(voucherNameChosen)).getAmountAllowed();
 
-					ContentValues newValues = new ContentValues();
+						Log.d("TOTALSPENTFORPERSON", totalSpentForPerson + "");
+						Log.d("TOTALALLOWEDFORPERSON", totalAllowedForPerson
+								+ "");
+						logger.debug(
+								"TOTALSPENTFORPERSON {} and TOTALALLOWEDFORPERSON {}",
+								totalSpentForPerson + totalAllowedForPerson);
+						if (totalSpentForPerson + price <= totalAllowedForPerson) {
 
-					newValues.put(ChewContract.ProduceChosen.PRODUCE_NAME,
-							produce);
-					newValues.put(ChewContract.ProduceChosen.COST,
-							df.format(price));
-					newValues.put(ChewContract.ProduceChosen.MONTH, Utils.getMonth());
-					newValues.put(ChewContract.ProduceChosen.VOUCHER_CODE,
-							voucherNameChosen.split(" - ")[0]);
-					newValues.put(ChewContract.ProductsChosen.MEMBER_NAME,
-							voucherNameChosen.split(" - ")[1]);
+							InsertDataHandler myInsertHandler = new InsertDataHandler(
+									Produce.this);
 
-					myInsertHandler.startInsert(0, 0,
-							ChewContract.ProduceChosen.CONTENT_URI, newValues);
-					
-					totalSpentForPerson = totalSpentForPerson + price;
-					
-					LinearLayout l = (LinearLayout) ll.findViewWithTag(voucherNameChosen);
-					TextView left = (TextView) l.findViewWithTag(1);
-					left.setText(getString(R.string.left) + " " + df.format((totalAllowedForPerson - totalSpentForPerson)));
-					TextView spent = (TextView) l.findViewWithTag(2);
-					spent.setText(getString(R.string.spent) + " " + df.format(totalSpentForPerson));
+							ContentValues newValues = new ContentValues();
 
-				} else {
-					Log.d("PRODUCE", "over the limit");
-					logger.debug("over the limit");
-					logger.info("Chosen Produce was over the Cost Limit");
-					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-							Produce.this);
-					// set title
-					alertDialogBuilder.setTitle(getString(R.string.cost_limit)
-							+ " " + voucherNameChosen + "!");
+							newValues.put(
+									ChewContract.ProduceChosen.PRODUCE_NAME,
+									produce);
+							newValues.put(ChewContract.ProduceChosen.COST,
+									df.format(price));
+							newValues.put(ChewContract.ProduceChosen.MONTH,
+									Utils.getMonth());
+							newValues.put(
+									ChewContract.ProduceChosen.VOUCHER_CODE,
+									voucherNameChosen.split(" - ")[0]);
+							newValues.put(
+									ChewContract.ProductsChosen.MEMBER_NAME,
+									voucherNameChosen.split(" - ")[1]);
 
-					// set dialog message
-					alertDialogBuilder.setCancelable(false).setPositiveButton(
-							getString(R.string.ok), new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									dialog.cancel();
-								}
-							});
+							myInsertHandler.startInsert(0, 0,
+									ChewContract.ProduceChosen.CONTENT_URI,
+									newValues);
 
-					AlertDialog alertDialog = alertDialogBuilder.create();
-					alertDialog.show();
-				}
-			}
+							totalSpentForPerson = totalSpentForPerson + price;
 
-		});
+							LinearLayout l = (LinearLayout) ll
+									.findViewWithTag(voucherNameChosen);
+							TextView left = (TextView) l.findViewWithTag(1);
+							left.setText(getString(R.string.left)
+									+ " "
+									+ df.format((totalAllowedForPerson - totalSpentForPerson)));
+							TextView spent = (TextView) l.findViewWithTag(2);
+							spent.setText(getString(R.string.spent) + " "
+									+ df.format(totalSpentForPerson));
+
+						} else {
+							Log.d("PRODUCE", "over the limit");
+							logger.debug("over the limit");
+							logger.info("Chosen Produce was over the Cost Limit");
+							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+									Produce.this);
+							// set title
+							alertDialogBuilder
+									.setTitle(getString(R.string.cost_limit)
+											+ " " + voucherNameChosen + "!");
+
+							// set dialog message
+							alertDialogBuilder
+									.setCancelable(false)
+									.setPositiveButton(
+											getString(R.string.ok),
+											new DialogInterface.OnClickListener() {
+												public void onClick(
+														DialogInterface dialog,
+														int id) {
+													dialog.cancel();
+												}
+											});
+
+							AlertDialog alertDialog = alertDialogBuilder
+									.create();
+							alertDialog.show();
+						}
+					}
+
+				});
 
 		alert.setNegativeButton(getString(R.string.cancel),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						Log.d(TAG, poundNums[poundsWheel.getCurrentItem()] + "");
-						logger.debug(" {}", poundNums[poundsWheel.getCurrentItem()] + "");
+						logger.debug(" {}",
+								poundNums[poundsWheel.getCurrentItem()] + "");
 						String s = incrementNums[incrementsWheel
 								.getCurrentItem()];
 						Log.d(TAG, s);
@@ -391,12 +446,12 @@ public class Produce extends Activity {
 
 			public void onItemSelected(AdapterView<?> parent, View arg1,
 					int arg2, long arg3) {
-				
+
 				voucherNameChosen = parent.getSelectedItem().toString();
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
-				
+
 				// TODO Auto-generated method stub
 			}
 		});
@@ -422,85 +477,113 @@ public class Produce extends Activity {
 		final EditText priceEntered = (EditText) dialogView
 				.findViewById(R.id.priceEntered);
 
-		alert.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
+		alert.setPositiveButton(getString(R.string.ok),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
 
-				String produce = produceEntered.getText().toString();
-				double price = Double.parseDouble(priceEntered.getText()
-						.toString());
-				logger.info("Selected Voucher {} for Product {} with ", voucherNameChosen, produce);
-				logger.info("Price {} and Selected Quantity {} with ", price, selectedQuantity);
-				logger.info("Total Cost {}", price * selectedQuantity);
-				logger.debug("Selected Voucher {} for Product {} with ", voucherNameChosen, produce);
-				logger.debug("Price {} and Selected Quantity {} with ", price, selectedQuantity);
-				logger.debug("AFTERMULTIPLYING {}", price * selectedQuantity);
-				Log.d("SELECTED", voucherNameChosen);
-				Log.d("PRODUCEEENTERED", produce);
-				Log.d("PRICEENTERED", price + "");
-				Log.d("QUANTITYSELECTED", selectedQuantity + "");
-				price = price * selectedQuantity;
-				Log.d("AFTERMULTIPLYING", price + "");
+						String produce = produceEntered.getText().toString();
+						double price = Double.parseDouble(priceEntered
+								.getText().toString());
+						logger.info("Selected Voucher {} for Product {} with ",
+								voucherNameChosen, produce);
+						logger.info("Price {} and Selected Quantity {} with ",
+								price, selectedQuantity);
+						logger.info("Total Cost {}", price * selectedQuantity);
+						logger.debug(
+								"Selected Voucher {} for Product {} with ",
+								voucherNameChosen, produce);
+						logger.debug("Price {} and Selected Quantity {} with ",
+								price, selectedQuantity);
+						logger.debug("AFTERMULTIPLYING {}", price
+								* selectedQuantity);
+						Log.d("SELECTED", voucherNameChosen);
+						Log.d("PRODUCEEENTERED", produce);
+						Log.d("PRICEENTERED", price + "");
+						Log.d("QUANTITYSELECTED", selectedQuantity + "");
+						price = price * selectedQuantity;
+						Log.d("AFTERMULTIPLYING", price + "");
 
-				DecimalFormat df = new DecimalFormat("0.00");
+						DecimalFormat df = new DecimalFormat("0.00");
 
-				double totalSpentForPerson = ((CashVoucher) cashVouchers.get(voucherNameChosen)).getAmountSpent(Produce.this);
-				double totalAllowedForPerson = ((CashVoucher) cashVouchers.get(voucherNameChosen)).getAmountAllowed();
-				
-				Log.d("TOTALSPENTFORPERSON", totalSpentForPerson + "");
-				Log.d("TOTALALLOWEDFORPERSON", totalAllowedForPerson + "");
-				logger.debug("TOTALSPENTFORPERSON {} and TOTALALLOWEDFORPERSON", totalSpentForPerson, totalAllowedForPerson);
+						double totalSpentForPerson = ((CashVoucher) cashVouchers
+								.get(voucherNameChosen))
+								.getAmountSpent(Produce.this);
+						double totalAllowedForPerson = ((CashVoucher) cashVouchers
+								.get(voucherNameChosen)).getAmountAllowed();
 
-				if (totalSpentForPerson + price <= totalAllowedForPerson) {
+						Log.d("TOTALSPENTFORPERSON", totalSpentForPerson + "");
+						Log.d("TOTALALLOWEDFORPERSON", totalAllowedForPerson
+								+ "");
+						logger.debug(
+								"TOTALSPENTFORPERSON {} and TOTALALLOWEDFORPERSON",
+								totalSpentForPerson, totalAllowedForPerson);
 
-					InsertDataHandler myInsertHandler = new InsertDataHandler(
-							Produce.this);
+						if (totalSpentForPerson + price <= totalAllowedForPerson) {
 
-					ContentValues newValues = new ContentValues();
+							InsertDataHandler myInsertHandler = new InsertDataHandler(
+									Produce.this);
 
-					newValues.put(ChewContract.ProduceChosen.PRODUCE_NAME,
-							produce);
-					newValues.put(ChewContract.ProduceChosen.COST,
-							df.format(price));
-					newValues.put(ChewContract.ProduceChosen.MONTH, Utils.getMonth());
-					newValues.put(ChewContract.ProduceChosen.VOUCHER_CODE,
-							voucherNameChosen.split(" - ")[0]);
-					newValues.put(ChewContract.ProduceChosen.MEMBER_NAME,
-							voucherNameChosen.split(" - ")[1]);
+							ContentValues newValues = new ContentValues();
 
-					myInsertHandler.startInsert(0, 0,
-							ChewContract.ProduceChosen.CONTENT_URI, newValues);
-					
-					totalSpentForPerson = totalSpentForPerson + price;
+							newValues.put(
+									ChewContract.ProduceChosen.PRODUCE_NAME,
+									produce);
+							newValues.put(ChewContract.ProduceChosen.COST,
+									df.format(price));
+							newValues.put(ChewContract.ProduceChosen.MONTH,
+									Utils.getMonth());
+							newValues.put(
+									ChewContract.ProduceChosen.VOUCHER_CODE,
+									voucherNameChosen.split(" - ")[0]);
+							newValues.put(
+									ChewContract.ProduceChosen.MEMBER_NAME,
+									voucherNameChosen.split(" - ")[1]);
 
-					LinearLayout l = (LinearLayout) ll.findViewWithTag(voucherNameChosen);
-					TextView left = (TextView) l.findViewWithTag(1);
-					left.setText(getString(R.string.left) + " "+ df.format((totalAllowedForPerson - totalSpentForPerson)));
-					TextView spent = (TextView) l.findViewWithTag(2);
-					spent.setText(getString(R.string.spent) + " "+ df.format(totalSpentForPerson));
+							myInsertHandler.startInsert(0, 0,
+									ChewContract.ProduceChosen.CONTENT_URI,
+									newValues);
 
-				} else {
-					Log.d("PRODUCE", "over the limit");
-					logger.debug("over the limit");
-					logger.info("Chosen Produce was over the Cost Limit");
-					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-							Produce.this);
-					// set title
-					alertDialogBuilder.setTitle(getString(R.string.cost_limit)
-							+ " " + voucherNameChosen + "!");
-					alertDialogBuilder.setCancelable(false).setPositiveButton(
-							getString(R.string.ok), new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									dialog.cancel();
-								}
-							});
+							totalSpentForPerson = totalSpentForPerson + price;
 
-					AlertDialog alertDialog = alertDialogBuilder.create();
-					alertDialog.show();
-				}
-			}
+							LinearLayout l = (LinearLayout) ll
+									.findViewWithTag(voucherNameChosen);
+							TextView left = (TextView) l.findViewWithTag(1);
+							left.setText(getString(R.string.left)
+									+ " "
+									+ df.format((totalAllowedForPerson - totalSpentForPerson)));
+							TextView spent = (TextView) l.findViewWithTag(2);
+							spent.setText(getString(R.string.spent) + " "
+									+ df.format(totalSpentForPerson));
 
-		});
+						} else {
+							Log.d("PRODUCE", "over the limit");
+							logger.debug("over the limit");
+							logger.info("Chosen Produce was over the Cost Limit");
+							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+									Produce.this);
+							// set title
+							alertDialogBuilder
+									.setTitle(getString(R.string.cost_limit)
+											+ " " + voucherNameChosen + "!");
+							alertDialogBuilder
+									.setCancelable(false)
+									.setPositiveButton(
+											getString(R.string.ok),
+											new DialogInterface.OnClickListener() {
+												public void onClick(
+														DialogInterface dialog,
+														int id) {
+													dialog.cancel();
+												}
+											});
+
+							AlertDialog alertDialog = alertDialogBuilder
+									.create();
+							alertDialog.show();
+						}
+					}
+
+				});
 
 		alert.setNegativeButton(getString(R.string.cancel),
 				new DialogInterface.OnClickListener() {
@@ -533,14 +616,15 @@ public class Produce extends Activity {
 		double allowed = 0;
 		for (Map.Entry<String, Voucher> entry : cashVouchers.entrySet()) {
 
-			allowed = allowed + ((CashVoucher) entry.getValue()).getAmountAllowed();
+			allowed = allowed
+					+ ((CashVoucher) entry.getValue()).getAmountAllowed();
 		}
 		return allowed;
 	}
-	
+
 	@Override
 	protected void onResume() {
-		
+
 		super.onResume();
 		logger.trace("onResume()");
 		Log.d("Produce", "onResume called");

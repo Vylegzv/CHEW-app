@@ -20,8 +20,9 @@ import com.vanderbilt.isis.chew.recipes.Step;
 
 public class StepsAdapter extends ArrayAdapter<Step> {
 
-	private static final Logger logger = LoggerFactory.getLogger(StepsAdapter.class);
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(StepsAdapter.class);
+
 	private final Context context;
 	private final ArrayList<Step> values;
 
@@ -54,52 +55,58 @@ public class StepsAdapter extends ArrayAdapter<Step> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		//logger.trace("getView()");
+		// logger.trace("getView()");
 		final Step step = values.get(position);
 		View row = convertView;
 		LayoutInflater inflater = null;
 		int type = getItemViewType(position);
+		ViewHolder viewHolder;
 
-		if (row == null) {
+		viewHolder = new ViewHolder();
 
-			if (type == WITH_IMAGE) {
-				Log.d("TYPE", "with_image");
-				logger.debug("TYPE {}", "with image" );
-				inflater = (LayoutInflater) context
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				row = inflater.inflate(R.layout.step_row_wi, null);
-			} else if (type == NO_IMAGE) {
-				Log.d("TYPE", "NO_image");
-				logger.debug("TYPE {}", "NO_image");
-				inflater = (LayoutInflater) context
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				row = inflater.inflate(R.layout.step_row_woi, null);
-			}
+		if (type == WITH_IMAGE) {
+			Log.d("TYPE", "with_image");
+			logger.debug("TYPE {}", "with image");
+			inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+			row = inflater.inflate(R.layout.step_row_wi, parent, false);
+
+			viewHolder.step = (TextView) row.findViewById(R.id.step);
+			viewHolder.stepImage = (ImageView) row
+					.findViewById(R.id.step_image);
+			row.setTag(viewHolder);
+
+		} else if (type == NO_IMAGE) {
+			Log.d("TYPE", "NO_image");
+			logger.debug("TYPE {}", "NO_image");
+			inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+			row = inflater.inflate(R.layout.step_row_woi, parent, false);
+
+			viewHolder.step = (TextView) row.findViewById(R.id.step1);
+			row.setTag(viewHolder);
 		}
 
 		if (type == WITH_IMAGE) {
 
-			ImageView imgView = (ImageView) row.findViewById(R.id.step_image);
-			TextView txtView = (TextView) row.findViewById(R.id.step);
-
+			Log.d("TYPE", "with_image");
 			int path = context.getResources().getIdentifier(step.getImage(),
 					"drawable", "com.vanderbilt.isis.chew");
 			Bitmap b = BitmapFactory.decodeResource(context.getResources(),
 					path);
-			imgView.setImageBitmap(b);
 
-			txtView.setText(values.get(position).getStep());
+			if (viewHolder.stepImage == null)
+				Log.d("IMAGE VIEW", "null");
+
+			viewHolder.stepImage.setImageBitmap(b);
+			viewHolder.step.setText(values.get(position).getStep());
 
 		} else if (type == NO_IMAGE) {
 
-			TextView txtView = (TextView) row.findViewById(R.id.step1);
-
-			if(txtView != null)
-				txtView.setText(values.get(position).getStep());
-			else {
-				Log.d("StepsAdapter", "txtView is null");
-			    logger.debug("StepsAdapter {}", "txtView is null");
-			}
+			Log.d("TYPE", "NO_image");
+			viewHolder.step.setText(values.get(position).getStep());
 		}
 
 		return row;

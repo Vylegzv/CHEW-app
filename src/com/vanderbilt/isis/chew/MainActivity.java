@@ -204,6 +204,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 		case PRODUCE:
 			logger.info("Clicked PRODUCE - CALCULATOR on Homepage");
+			// first check if they are using cash vouchers
+			//nn
 			intent = new Intent(MainActivity.this, Produce.class);
 			startActivity(intent);
 			break;
@@ -333,21 +335,19 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			String barcode = Utils.removeZeros(b);
 			Log.d(TAG, barcode);
 			logger.debug(" {}", barcode);
-			
-			String[] projection = {ChewContract.Store._ID, ChewContract.Store.FOOD_NAME, ChewContract.Store.FOOD_CATEGORY,
-					ChewContract.Store.VOUCHERS_ID, ChewContract.Store.SIZE, ChewContract.Store.SIZE_TYPE,
-					ChewContract.Store.FOOD_TYPE};
-			
-			//String store = Utils.getStore(MainActivity.this);
-			
-			// it could be either in one store or in both stores
-			/*String selection = ChewContract.Store.BARCODE + "='" + barcode + "'"
-					+ " AND " + ChewContract.Store.STORE + "='" + store + "'"
-					+ " OR " + ChewContract.Store.BARCODE + "='" + barcode + "'"
-					+ " AND " + ChewContract.Store.STORE + "='" + Utils.ALL_STORES + "'";*/
-			String selection = ChewContract.Store.BARCODE + "='" + barcode + "'";
-			
-			CursorLoader loader = new CursorLoader(MainActivity.this, ChewContract.Store.CONTENT_URI, projection, selection, null, null);
+
+			String[] projection = { ChewContract.Store._ID,
+					ChewContract.Store.FOOD_NAME,
+					ChewContract.Store.FOOD_CATEGORY,
+					ChewContract.Store.VOUCHERS_ID, ChewContract.Store.SIZE,
+					ChewContract.Store.SIZE_TYPE, ChewContract.Store.FOOD_TYPE };
+
+			String selection = ChewContract.Store.BARCODE + "='" + barcode
+					+ "'";
+
+			CursorLoader loader = new CursorLoader(MainActivity.this,
+					ChewContract.Store.CONTENT_URI, projection, selection,
+					null, null);
 			loader.registerListener(50, new MyOnLoadCompleteListener2());
 			loader.startLoading(); 
 		}
@@ -373,23 +373,30 @@ public class MainActivity extends Activity implements OnItemClickListener {
 						})
 
 				// set dialog message
-				.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						logger.trace("alertDialogBuilder.setPositiveButton().onClick()");
-						logger.info("Continuing to Store {} with id {}", selectedStore, id);
-						// not the same as 'which' above
-						logger.debug("Which value = {}, Selected value = {}", id, selectedStore);
-						Log.d(TAG, "Which value=" + id);
-						Log.d(TAG, "Selected value=" + selectedStore);
-						
-						if(Utils.setStore(MainActivity.this, stores[selectedStore].toString()))
-							MainActivity.this.getVouchers();
-						else {
-							logger.debug("error saving store in shared preferences");
-							Log.d(TAG, "error saving store in shared preferences");
-						}
-					}
-				})
+				.setPositiveButton(getString(R.string.ok),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								logger.trace("alertDialogBuilder.setPositiveButton().onClick()");
+								logger.info(
+										"Continuing to Store {} with id {}",
+										selectedStore, id);
+								// not the same as 'which' above
+								logger.debug(
+										"Which value = {}, Selected value = {}",
+										id, selectedStore);
+								Log.d(TAG, "Which value=" + id);
+								Log.d(TAG, "Selected value=" + selectedStore);
+
+								if (Utils.setStore(MainActivity.this,
+										stores[selectedStore].toString()))
+									MainActivity.this.getVouchers();
+								else {
+									logger.debug("error saving store in shared preferences");
+									Log.d(TAG,
+											"error saving store in shared preferences");
+								}
+							}
+						})
 
 				.setNegativeButton(getString(R.string.cancel),
 						new DialogInterface.OnClickListener() {
@@ -438,8 +445,9 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				MainActivity.this);
 		alertDialogBuilder.setTitle(getString(R.string.which_vouchers));
-		alertDialogBuilder.setMultiChoiceItems(voucherCodes, null,
-				new DialogInterface.OnMultiChoiceClickListener() {
+		alertDialogBuilder
+				.setMultiChoiceItems(voucherCodes, null,
+						new DialogInterface.OnMultiChoiceClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which,
@@ -581,46 +589,90 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	 
 				// set dialog message
 				alertDialogBuilder
-					.setMessage(getString(R.string.want_to_get))
-					.setCancelable(false)
-					.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,int id) {
-							logger.info("Yes, Get Item for Family Member {} with", "");
-							logger.info("food_name {}, food_category {} and ", food_name, food_category);
-							logger.info("vouchersID {}, size {} and ", vouchersID, size);
-							logger.info("size_type {}, food_type {}", size_type, food_type);
+						.setMessage(getString(R.string.want_to_get))
+						.setCancelable(false)
+						.setPositiveButton(getString(R.string.yes),
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										logger.info(
+												"Yes, Get Item for Family Member {} with",
+												"");
+										logger.info(
+												"food_name {}, food_category {} and ",
+												food_name, food_category);
+										logger.info(
+												"vouchersID {}, size {} and ",
+												vouchersID, size);
+										logger.info(
+												"size_type {}, food_type {}",
+												size_type, food_type);
 
-							Intent intent = new Intent(MainActivity.this, GetProducts.class);
-							intent.putExtra("member_name", "");
-							intent.putExtra("food_name", food_name);
-							intent.putExtra("food_category", food_category);
-							intent.putExtra("vouchersID", vouchersID);
-							intent.putExtra("size", size);
-							intent.putExtra("size_type", size_type);
-							intent.putExtra("food_type", food_type);
-							
-							startActivity(intent);
-						}
-					  })
-					.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,int id) {
-							logger.info("No, Do Not Get Item for Family Member {} with ", "");
-							logger.info("food_name {}, food_category {} and ", food_name, food_category);
-							logger.info("vouchersID {}, size {} and ", vouchersID, size);
-							logger.info("size_type {}, food_type {}", size_type, food_type);
-							dialog.cancel();
-						}
-					});
-	 
-					// create alert dialog
-					AlertDialog alertDialog = alertDialogBuilder.create();
-	 
-					// show it
-					alertDialog.show();
-		}else{
-			
-			logger.info("Scanned an WIC unapproved Item");
-			
+										// if it is a CASH item, go to Produce
+										// activity
+										// also check if they are using cash vouchers 
+										//nn
+										if (food_category.equals("CASH")) {
+
+											Intent intent = new Intent(
+													MainActivity.this,
+													Produce.class);
+											intent.putExtra("food_name",
+													food_name);
+
+											startActivity(intent);
+											
+										} else {
+
+											Intent intent = new Intent(
+													MainActivity.this,
+													GetProducts.class);
+											intent.putExtra("member_name", "");
+											intent.putExtra("food_name",
+													food_name);
+											intent.putExtra("food_category",
+													food_category);
+											intent.putExtra("vouchersID",
+													vouchersID);
+											intent.putExtra("size", size);
+											intent.putExtra("size_type",
+													size_type);
+											intent.putExtra("food_type",
+													food_type);
+
+											startActivity(intent);
+										}
+									}
+								})
+						.setNegativeButton(getString(R.string.no),
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										logger.info(
+												"No, Do Not Get Item for Family Member {} with ",
+												"");
+										logger.info(
+												"food_name {}, food_category {} and ",
+												food_name, food_category);
+										logger.info(
+												"vouchersID {}, size {} and ",
+												vouchersID, size);
+										logger.info(
+												"size_type {}, food_type {}",
+												size_type, food_type);
+										dialog.cancel();
+									}
+								});
+
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+			} else {
+
+				logger.info("Scanned an WIC unapproved Item");
+
 				// set title
 				alertDialogBuilder.setTitle(getString(R.string.cannot_get));
 

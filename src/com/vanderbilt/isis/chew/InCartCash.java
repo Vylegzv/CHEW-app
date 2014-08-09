@@ -15,9 +15,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.HeaderViewListAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
@@ -38,26 +40,26 @@ public class InCartCash extends ListActivity implements
 	String produceName = "";
 	String month_name = "";
 	String voucherCode;
-	TextView nameTV;
+//	TextView nameTV;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		logger.trace("onCreate()");
 		//logger.info(" {}", );
-		View header = getLayoutInflater().inflate(R.layout.in_cart_header, null);
-		nameTV = (TextView) header.findViewById(R.id.name);
+//		View header = getLayoutInflater().inflate(R.layout.in_cart_header, null);
+//		nameTV = (TextView) header.findViewById(R.id.name);
 		
 		name = "";
 		Bundle getName = getIntent().getExtras();
 		if (getName != null) {
 			name = getName.getString("name");
-			nameTV.setText(name);
+//			nameTV.setText(name);
 			logger.info("Opened Cash Voucher Selections for person {}", name);
 		}
 
-		ListView listview = getListView();
-		listview.addHeaderView(header);
+		final ListView listview = getListView();
+//		listview.addHeaderView(header);
 
 		int[] uiBindTo = { R.id.producePrice, R.id.produceName, R.id.voucherCode };
 
@@ -79,8 +81,12 @@ public class InCartCash extends ListActivity implements
 					int position, long id) {
 				//logger.info(" {}", );
 
-				final Cursor c = ((SimpleCursorAdapter) parent.getAdapter())
-						.getCursor();
+				final Cursor c = ((SimpleCursorAdapter) parent.getAdapter()).getCursor();
+				
+//				HeaderViewListAdapter hlva = (HeaderViewListAdapter) listview.getAdapter();
+//				SimpleCursorAdapter scAdapter = (SimpleCursorAdapter) hlva.getWrappedAdapter();
+//				final Cursor c = scAdapter.getCursor();
+				
 				c.moveToPosition(position);
 				Log.d("CLICK", c.getString(0) + " clicked");
 				Log.d("CLICK", c.getString(1) + " clicked");
