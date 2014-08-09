@@ -52,19 +52,19 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	
 	public final String TAG = getClass().getSimpleName();
 
-	public static final int SCAN = 0;
-	public static final int CHOOSE = 1;
-	public static final int PRODUCE = 2;
-	public static final int SHOPPING = 3;
-	public static final int DONE = 4;
-	public static final int FAV_RECIPES = 5;
-	public static final int RECIPES = 6;
-	public static final int SHOPLIST = 7;
-	public static final int TUTORIAL = 8;
-	public static final int UPLOAD = 9;
-	public static final int EDIT = 10;
-    public static final int HISTORY = 11;
-
+	public static final int SCAN = 6;//4;//0;
+	public static final int CHOOSE = 7;//5;//1;
+	public static final int PRODUCE = 8;//6;//2;
+	public static final int SHOPPING = 4;//7;//3;
+	public static final int DONE = 5;//8;//4;
+	public static final int FAV_RECIPES = 1;//5;
+	public static final int RECIPES = 0;//6;
+	public static final int SHOPLIST = 2;//7;
+	public static final int TUTORIAL = 9;//8;
+	public static final int UPLOAD = 10;//9;
+	public static final int EDIT = 11;//10;
+    public static final int HISTORY = 3;//11;
+    
 	public String[] titles;
 	public String[] descriptions;
 	public TypedArray images;

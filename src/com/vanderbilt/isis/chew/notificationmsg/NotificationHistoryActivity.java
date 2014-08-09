@@ -63,7 +63,7 @@ public class NotificationHistoryActivity extends Activity implements LoaderManag
 
 		notificationListView.setOnItemClickListener(this);
 
-		String[] from = {ChewAppLibrary.NOTIFICATION_ID, "notification_text"};
+		String[] from = {"row_number"/*ChewAppLibrary.NOTIFICATION_ID*/, "notification_text"};
 
 	    int []to = new int [] {R.id.textView101, R.id.textView102};
         mAdapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.listview_notification, 
@@ -147,28 +147,49 @@ public class NotificationHistoryActivity extends Activity implements LoaderManag
 		if(chosenLanguage.equals("ENGLISH")) {
 			Log.d(TAG, "Language ENGLISH");
 			logger.debug("Language ENGLISH");
-			projection = new String[] {ChewAppLibrary.NOTIFICATION_ID,
-					ChewAppLibrary.NOTIFICATION_FULLTEXT + " as 'notification_text'", ChewAppLibrary.NOTIFICATION_ACTION};
+			projection = new String[] {"(SELECT COUNT(0) from " + ChewAppLibrary.NOTIFICATION_TABLE + " t2 " + 
+					" WHERE " + ChewAppLibrary.NOTIFICATION_STOP + "= 'TRUE' AND "+
+					ChewAppLibrary.NOTIFICATION_ID + " < " + 43 + " AND " +
+					ChewAppLibrary.NOTIFICATION_CATEGORY + " != 'Program Week' " +
+							"and  t2._id <= Notification._id) as 'row_number',"+
+					ChewAppLibrary.NOTIFICATION_FULLTEXT + " as 'notification_text'", ChewAppLibrary.NOTIFICATION_ACTION,
+			ChewAppLibrary.NOTIFICATION_ID};
+			//projection = new String[] {ChewAppLibrary.NOTIFICATION_ID,
+			//		ChewAppLibrary.NOTIFICATION_FULLTEXT + " as 'notification_text'", ChewAppLibrary.NOTIFICATION_ACTION};
 		}
 		
 		else if(chosenLanguage.equals("SPANISH")) {
 			Log.d(TAG, "Language SPANISH");
 			logger.debug("Language SPANISH");
-			projection = new String[] {ChewAppLibrary.NOTIFICATION_ID,
-					ChewAppLibrary.NOTIFICATION_ESFULLTEXT + " as 'notification_text'", ChewAppLibrary.NOTIFICATION_ACTION};
+			projection = new String[] {"(SELECT COUNT(0) from " + ChewAppLibrary.NOTIFICATION_TABLE + " t2 " + 
+					" WHERE " + ChewAppLibrary.NOTIFICATION_STOP + "= 'TRUE' AND "+
+					ChewAppLibrary.NOTIFICATION_ID + " < " + 43 + " AND " +
+					ChewAppLibrary.NOTIFICATION_CATEGORY + " != 'Program Week' " +
+							"and  t2._id <= Notification._id) as 'row_number',"+
+					ChewAppLibrary.NOTIFICATION_ESFULLTEXT + " as 'notification_text'", ChewAppLibrary.NOTIFICATION_ACTION,
+			ChewAppLibrary.NOTIFICATION_ID};
+			//projection = new String[] {ChewAppLibrary.NOTIFICATION_ID,
+			//		ChewAppLibrary.NOTIFICATION_ESFULLTEXT + " as 'notification_text'", ChewAppLibrary.NOTIFICATION_ACTION};
 		}
 		else {
 			Log.e(TAG, "ERROR: Language DEFAULT");
 			logger.error("ERROR: Language DEFAULT");
-			projection = new String[] {ChewAppLibrary.NOTIFICATION_ID, 
-					ChewAppLibrary.NOTIFICATION_FULLTEXT + " as 'notification_text'", ChewAppLibrary.NOTIFICATION_ACTION};
+			projection = new String[] {"(SELECT COUNT(0) from " + ChewAppLibrary.NOTIFICATION_TABLE + " t2 " + 
+					" WHERE " + ChewAppLibrary.NOTIFICATION_STOP + "= 'TRUE' AND "+
+					ChewAppLibrary.NOTIFICATION_ID + " < " + 43 + " AND " +
+					ChewAppLibrary.NOTIFICATION_CATEGORY + " != 'Program Week' " +
+							"and  t2._id <= Notification._id) as 'row_number',"+
+					ChewAppLibrary.NOTIFICATION_FULLTEXT + " as 'notification_text'", ChewAppLibrary.NOTIFICATION_ACTION,
+			ChewAppLibrary.NOTIFICATION_ID};
+			//projection = new String[] {ChewAppLibrary.NOTIFICATION_ID, 
+			//		ChewAppLibrary.NOTIFICATION_FULLTEXT + " as 'notification_text'", ChewAppLibrary.NOTIFICATION_ACTION};
 		}
 
-		String stop = "TRUE";
-		String where = ChewAppLibrary.NOTIFICATION_STOP + "=?";
-	    String [] selectionArgs = {stop};
+		String stop = "TRUE", category = "Program Week";
+		String where = ChewAppLibrary.NOTIFICATION_STOP + "=? AND " + ChewAppLibrary.NOTIFICATION_ID + " < " + 43 + " AND " + ChewAppLibrary.NOTIFICATION_CATEGORY + " != ?";//String where = ChewAppLibrary.NOTIFICATION_STOP + "=?";
+		String [] selectionArgs = {stop, category};//String [] selectionArgs = {stop};
 		
-		CursorLoader cLoader = new CursorLoader(this, ChewAppLibrary.CONTENT_URI, projection, where, selectionArgs, null);
+		CursorLoader cLoader = new CursorLoader(this, ChewAppLibrary.CONTENT_URI, projection, where, selectionArgs, /*null*/ChewAppLibrary.NOTIFICATION_TIME);
 		
 		cursor = cLoader.loadInBackground();
 		if(cursor != null) {
