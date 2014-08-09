@@ -6,14 +6,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vanderbilt.isis.chew.db.ChewContract;
+import com.vanderbilt.isis.chew.notificationmsg.ConfigurationActivity;
 import com.vanderbilt.isis.chew.utils.Utils;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -165,4 +169,34 @@ public class VoucherUpload extends Activity{
 			
 		}
 	}
+	
+	/*******Pankaj Chand's Functions*/
+	
+	//Options Menu
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		logger.trace("onCreateOptionsMenu()");
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		logger.trace("onOptionsItemSelected()");
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		else if (id == R.id.action_notification) {
+			Intent intent = new Intent(VoucherUpload.this, ConfigurationActivity.class);
+			startActivity(intent);
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 }
