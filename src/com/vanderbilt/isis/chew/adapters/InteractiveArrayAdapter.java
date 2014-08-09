@@ -1,17 +1,14 @@
 package com.vanderbilt.isis.chew.adapters;
 
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.model.CheckBoxRowModel;
 import com.vanderbilt.isis.chew.utils.Utils;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.CursorLoader;
@@ -416,7 +413,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 						.setMessage(
 								context.getResources().getString(R.string.want_to_replace)
 								+ " "
-										+ otherOptionType.toUpperCase()
+										+ otherOptionType.toUpperCase(Locale.ENGLISH)
 										+ " "
 										+ context.getResources().getString(R.string.will_be_deleted))
 						.setCancelable(false)
@@ -504,11 +501,17 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 										loader2.startLoading();
 									}
 								})
-								.setPositiveButton(context.getResources().getString(R.string.no),
+								.setNegativeButton(context.getResources().getString(R.string.no),
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										dialog.cancel();
+										CheckBoxRowModel model = list
+												.get(listPosition);
+										model.setSelected(false);
+										ViewHolder holder = (ViewHolder) view
+												.getTag();
+										holder.checkbox.setChecked(list.get(
+												listPosition).isSelected());
 									}
 								});
 
