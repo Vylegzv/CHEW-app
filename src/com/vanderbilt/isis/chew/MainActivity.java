@@ -6,12 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.vanderbilt.isis.chew.adapters.MainListViewAdapter;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.model.MainListRowItem;
@@ -44,6 +40,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import com.vanderbilt.isis.chew.scanner.*;
 
 
 public class MainActivity extends Activity implements OnItemClickListener {

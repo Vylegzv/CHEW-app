@@ -131,6 +131,10 @@ public class Utils {
 		SharedPreferences.Editor editor = preferences.edit();
 
 		editor.putBoolean(SHOPKEY, shopping);
+		
+		// remove used vouchers
+		if(!shopping)
+			editor.remove(VOUCHERS);
 
 		return editor.commit();
 

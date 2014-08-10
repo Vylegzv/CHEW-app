@@ -5,19 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.dboperations.CustomHandler.InsertDataHandler;
 import com.vanderbilt.isis.chew.notificationmsg.ConfigurationActivity;
 import com.vanderbilt.isis.chew.utils.Utils;
 import com.vanderbilt.isis.chew.vouchers.CashVoucher;
 import com.vanderbilt.isis.chew.vouchers.Voucher;
-
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import android.app.Activity;
@@ -45,6 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView;
+import com.vanderbilt.isis.chew.scanner.*;
 
 public class Produce extends Activity {
 

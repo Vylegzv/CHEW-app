@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 public enum VoucherCode {
 	
-	CV6("CVV6"), CV10("CVV10"), A("A"), A2("A2"), B("B"), B2("B2"),
+	CV8("CVV8"), CV10("CVV10"), A("A"), A2("A2"), B("B"), B2("B2"),
 	L("L"), L2("L2"), G("G"), G2("G2"), T2("T2"), T("T"), K("K"),
 	K2("K2"), E("E"), E2("E2"), P("P"), P2("P2"), PPW("PPW"),
 	PC1("PC1"), PC("PC");
@@ -72,8 +72,8 @@ public enum VoucherCode {
 			return VoucherCode.PC1;
 		}else if(value.equals(PC.getCode())){
 			return VoucherCode.PC;
-		}else if(value.equals(CV6.getCode())){
-			return VoucherCode.CV6;
+		}else if(value.equals(CV8.getCode())){
+			return VoucherCode.CV8;
 		}else if (value.equals(CV10.getCode())){
 			return VoucherCode.CV10;
 		}else{
@@ -83,7 +83,7 @@ public enum VoucherCode {
 	
 	public static boolean isCashCode(String value){
 		logger.trace("isCashCode()");
-		if(value.equals(CV6.getCode()))
+		if(value.equals(CV8.getCode()))
 			return true;
 		else if (value.equals(CV10.getCode()))
 			return true;

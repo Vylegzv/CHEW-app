@@ -15,8 +15,8 @@ public class CashVoucherFactory extends VoucherFactory{
 	@Override
 	public Voucher createVoucher(VoucherCode vCode, String month, String name, String used) {
 		logger.trace("createVoucher()");
-		if(vCode.equals(VoucherCode.CV6)){
-			return new CashVoucher(vCode, month, name, 6.0, used);
+		if(vCode.equals(VoucherCode.CV8)){
+			return new CashVoucher(vCode, month, name, 8.0, used);
 		}else if(vCode.equals(VoucherCode.CV10)){
 			return new CashVoucher(vCode, month, name, 10.0, used);
 		}else{
