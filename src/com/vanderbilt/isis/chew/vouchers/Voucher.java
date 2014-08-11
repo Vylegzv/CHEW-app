@@ -5,6 +5,9 @@ import java.util.Calendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import android.content.Context;
+
+import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.stores.Walmart;
 import com.vanderbilt.isis.chew.utils.Utils;
 import com.vanderbilt.isis.chew.vouchers.Month;
@@ -43,9 +46,9 @@ public abstract class Voucher {
 		return memberName;
 	}
 	
-	public boolean isUsed(){
+	public boolean isUsed(Context c){
 		logger.trace("isUsed()");
-		return used.equals(Utils.USED) ? true : false;
+		return used.equals(c.getString(R.string.used)) ? true : false;
 	}
 	
 	public boolean isExpired(){

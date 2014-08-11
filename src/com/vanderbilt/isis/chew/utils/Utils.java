@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,9 +42,9 @@ public class Utils {
 	public static final int ALL_STORES = 3;
 	public static final String STOREKEY = "store";
 	public static final String VOUCHERS = "vouchers";
-	public static final String NOTUSED = "not used";
-	public static final String INUSE = "in use";
-	public static final String USED = "used";
+//	public static final String NOTUSED = "not used";
+//	public static final String INUSE = "in use";
+//	public static final String USED = "used";
 	public static final String SHOPKEY = "shopping";
 	private static final String PWD = "password";
 
@@ -190,7 +191,7 @@ public class Utils {
 			ops.add(ContentProviderOperation
 					.newUpdate(ChewContract.FamilyVouchers.CONTENT_URI)
 					.withSelection(selection, null)
-					.withValue(ChewContract.FamilyVouchers.USED, Utils.INUSE)
+					.withValue(ChewContract.FamilyVouchers.USED, context.getString(R.string.in_use))
 					.build());
 		}
 
@@ -319,7 +320,7 @@ public class Utils {
 
 				if (VoucherCode.isCashCode(voucher)) {
 					Voucher cashVoucher = new CashVoucherFactory()
-							.createVoucher(vcode, getMonth(), name, Utils.INUSE);
+							.createVoucher(vcode, getMonth(), name, context.getString(R.string.in_use));
 					cashVouchers.put(v, cashVoucher);
 				}
 			}
@@ -334,9 +335,11 @@ public class Utils {
 
 	public static String getMonth() {
 		logger.trace("getMonth()");
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
-		return month_date.format(cal.getTime());
+		Calendar cal = Calendar.getInstance(Locale.getDefault());
+		SimpleDateFormat month_date = new SimpleDateFormat("MMMM", Locale.getDefault());
+		String month = month_date.format(cal.getTime());
+		month = month.substring(0, 1).toUpperCase(Locale.getDefault()) + month.substring(1);
+		return month;
 	}
 
 	public static String removeZeros(String s) {

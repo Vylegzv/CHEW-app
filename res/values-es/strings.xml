@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CHEW</string>
+    <string name="action_settings">Configuración </string>
+    <string name="ok">OK</string>
+    <string name="yes">Sí </string>
+    <string name="no">No</string>
+    <string name="cancel">Cancelar</string>
+    <string name="upload">Cargar</string>
+    <string name="name">Nombre:</string>
+    <string name="month">Mes:</string>
+    <string name="ethnicity">Ethnicidad:</string>
+    <string name="vouchers_title">Cupones de su familia</string>
+    <string name="vouchers">Cupones:</string>
+    <string name="which_store">¿En que tienda se encuentra?</string>
+    <string name="which_vouchers">¿Qué cupones va a usar hoy?</string>
+    <string name="want_to_get">¿Quiere comprar este producto?</string>
+    <string name="cannot_get">No es producto de WIC</string>
+    <string name="select_wic_appr">Lo sentimos, este producto no está aprobado por WIC. </string>
+    <string name="no_matching_voucher">No permitido en este cupón</string>
+    <string name="choose_voucher_matching_product">Lo sentimos, este producto no está indicado en el cupón de WIC de esta persona.</string>
+    <string name="scan_for_member">Escanear Producto para esta Persona</string>
+    <string name="what_can_get">¿Qué hay en el Cupón?</string>
+    <string name="in_cart_regular">Cupón regular: Ver Carrito de Compras</string>
+    <string name="in_cart_cash">Cupón de efectivo: Ver carrito de Compras</string>
+    <string name="warning">ADVERTENCIA! Muchos alimentos pueden ser un peligro de asfixia para niños en edad preescolar. Corte los alimentos duros en trozos finos y pequeños antes de servir. Bajo su supervision, anime a su niño a sentarse y masticar bien la comida</string>
+    <string name="set_favorite">Marcar como Favorito!</string>
+    <string name="unset_favorite">Borrar como Favorito</string>
+    <string name="set_favorite_toast">La receta es ahora un Favorito!</string>
+    <string name="unset_favorite_toast">La receta ya no es un Favorito</string>
+    <string name="problem">Hubo un problema</string>
+    <string name="add_to_shopping">Aumentar a la Lista de Compras!</string>
+    <string name="ingredients_added_toast">Ingredientes ahora están en su lista de compras</string>
+    <string name="ingredients">Lo que Necesitará:</string>
+    <string name="steps">Pasos:</string>
+    <string name="recipe_image">Imagen de la Receta</string>
+    <string name="ready_to_shop">Ahora está lista para usar sus cupones!</string>
+    <string name="vouchers_uploaded_msg">Los cupones están listos ahora</string>
+    <string name="delete_item">¿Borrar este producto?</string>
+    <string name="deleted_success_msg">Producto fue borrado</string>
+    <string name="select_delete_quantity">Escoja el número que desea borrar</string>
+    <string name="fruit_veg">FRUTAS Y VERDURAS</string>
+    <string name="spent">Monto Gastado:</string>
+    <string name="left">Saldo:</string>
+    <string name="calc_price">Calcular Precio por Libra </string>
+    <string name="cost_limit">El Costo Está Sobre el Límite para</string>
+    <string name="choose_member">Elija un Familiar:</string>
+    <string name="choose_members">Elija los cupones que va a usar para comprar este producto. Después escoja cuántos.</string>
+    <string name="enter_produce">Escriba el Nombre del Producto:</string>
+    <string name="enter_price_$">Marque el Precio por Cada Uno:</string>
+    <string name="enter_price">Marque el Precio</string>
+    <string name="select_quantity">Escoja número de productos:</string>
+    <string name="clear_shop_list">Borrar Lista de Compras</string>
+    <string name="packaged_fresh">Envase de Productos Frescos</string>
+    <string name="packaged_frozen">Envase de Productos Frescos</string>
+    <string name="loose_price_per_pound">Precio por Libra</string>
+    <string name="loose_price_per_item">Precio por Cada Fruta o Verdura</string>
+    <string name="produce_name">Ingrese el Nombre del Producto:</string>
+    <string name="price_per_pound">Precio por Libra: $</string>
+    <string name="dollar_sign">$</string>
+    <string name="ounces">onzas</string>
+    <string name="quantity">¿Cuántos?</string>
+    <string name="done_shop">¿Terminó sus Compras? </string>
+    <string name="sure_done_shop">¿Está segura de que quiere terminar las compras de WIC hoy? Todos los cupones seleccionados hoy serán marcados como UTILIZADO.</string>
+    <string name="enter_pwd">Por favor, Introduzca su Clave</string>
+    <string name="wrong_pwd">Clave equivocada</string>
+    <string name="pwd">Clave:</string>
+    <string name="vcode">Código de Cupón:</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Borrar</string>
+    <string name="sure_want_delete">¿Segura que desea borrar este cupón?</string>
+    <string name="cannot_get_product">No se puede comprar</string>
+    <string name="because_already_bought">porque usted ya compró </string>
+    <string name="want_to_replace">¿Quiere reemplazarlo? Todas las selecciones de</string>
+    <string name="will_be_deleted">serán BORRADAS.</string>
+    <string name="exception_case">Suero de leche y/o leche evaporada y/o tofu </string>
+    <string name="cannot_get_anymore">Usted no puede obtener más de </string>
+    <string name="on_this_voucher">con este cupón.</string>
+    <!-- this was not translated -->
+    <string name="not_cash">This is not a CASH item!</string>
+    <string name="not_used">no utilizan</string>
+    <string name="in_use">en uso</string>
+    <string name="used">utilizadas</string>
+    <string name="cv_not_selected">You did not select any CASH voucher for this shopping trip!</string>
+
+    <!-- Recipes -->
+    <string name="peach_banana">Licuado de plátano y durazno</string>
+    <string name="slice_up">Rebanadas de plátano</string>
+    <string name="ice_cream">Helado de plátano</string>
+    <string name="crunchers">Plátano congelado</string>
+    <string name="cin_apples">Manzanas con canela</string>
+    <string name="app_quesadilla">Quesadilla de manzana</string>
+    <string name="grape_dunkers">Uvas congeladas</string>
+    <string name="sunshine">Licuado brillante</string>
+    <string name="strawberry_dippers">Fresas bañadas</string>
+    <string name="strawberry_freezers">Helado de fresas</string>
+    <string name="smashwich">Sandwich de cacahuate y fruta</string>
+    <string name="sweet_carrot">Zanahorias dulces</string>
+    <string name="carrot_slaw">Ensalada de zanahoria</string>
+    <string name="salsa">Salsa fresca</string>
+    <string name="green_bean">Ejote con queso</string>
+    <string name="cuke_sandwich">Sandwich de pepino</string>
+    <string name="sushi">Sushi para niños</string>
+    <string name="slushy">Cubitos de fruta</string>
+    <string name="scramble">Huevos revueltos</string>
+    <string name="guacamole">Guacamole</string>
+    <string name="toast">Tostada con aguacate</string>
+    <string name="filled_avo">Aguacates rellenos</string>
+    <string name="chayote_salad">Ensalada de chayote</string>
+    <string name="monster_smoothie">Licuado gigante</string>
+    <string name="mango_salsa">Salsa de mango</string>
+    <string name="mango_parfait">Postre helado de mango</string>
+    <string name="tropical_fruit_mix">Mezcla de fruta tropical</string>
+    <string name="pear_fries">Palitos de pera</string>
+    <string name="fruit_jumble">Ensalada de frutas</string>
+    <string name="veg_quesadilla">Quesadilla de verduras</string>
+    <string name="sweet_potato_smash">Puré de camote</string>
+    <string name="butternut">Calabacitas rápidas</string>
+    <string name="fast_greens">Col rápida</string>
+    <string name="veggie_boats">Botecitos de verdura</string>
+    <string name="fruity_faces">Caritas de fruta</string>
+
+    <!-- Short Ingredients -->
+    <string name="bananas">Plátanos</string>
+    <string name="peaches">Duraznos</string>
+    <string name="low_fat_yogurt">Yogurt bajo en grasa</string>
+    <string name="low_fat_skim_milk">Leche baja en grasa o descremada</string>
+    <string name="whole_grain_cereal">Cereal integral</string>
+    <string name="apple">Manzana</string>
+    <string name="cinnamon">Canela</string>
+    <string name="whole_wheat_tortilla">Tortilla integral</string>
+    <string name="low_fat_cheese">Queso bajo en grasa</string>
+    <string name="grapes">Uvas</string>
+    <string name="orange_juice">Jugo de naranja</string>
+    <string name="banana">Plátano</string>
+    <string name="strawberries">Fresas</string>
+    <string name="low_fat_milk">Leche baja en grasa </string>
+    <string name="straw_or_ban">Fresas o plátanos</string>
+    <string name="whole_wheat_bread">Pan integral de trigo</string>
+    <string name="peanut_butter">Mantequilla de cacahuate</string>
+    <string name="carrots">Zanahorias</string>
+    <string name="apples">Manzanas</string>
+    <string name="tomatoes">Tomates</string>
+    <string name="lime_juice">Jugo de limón verde</string>
+    <string name="spices">Condimentos</string>
+    <string name="green_beans">Ejotes</string>
+    <string name="butter">Mantequilla</string>
+    <string name="lemon_juice">Jugo de limón</string>
+    <string name="parmesan_cheese">Queso Parmesano</string>
+    <string name="red_fat_cr_ch">Crema de queso baja en grasa</string>
+    <string name="cucumber ">Pepino</string>
+    <string name="canned_tuna">Lata de atún</string>
+    <string name="fruit">Fruta</string>
+    <string name="juice">Jugo </string>
+    <string name="egg">Huevo</string>
+    <string name="spinach">Espinaca</string>
+    <string name="avacado">Aguacate</string>
+    <string name="salt">Sal</string>
+    <string name="low_fat_cott_ch">Requesón bajo en grasa</string>
+    <string name="chayote">Calabaza</string>
+    <string name="oil">Aceite</string>
+    <string name="salt_pepper">Sal y pimienta</string>
+    <string name="cilantro">Cilantro</string>
+    <string name="guava_or_mango">Guayaba o mango</string>
+    <string name="pineapple">Piña</string>
+    <string name="ice">Cubitos de hielo</string>
+    <string name="mango">Mango</string>
+    <string name="papaya">Papaya</string>
+    <string name="pear">Pera</string>
+    <string name="red_fat_cheese">Queso bajo en grasa</string>
+    <string name="mushrooms">Hongos</string>
+    <string name="sweet_potato">Camote</string>
+    <string name="butternut_squash">Calabaza</string>
+    <string name="water">Agua</string>
+    <string name="collard_greens">Col</string>
+    <string name="water_or_broth">Agua o caldo</string>
+    <string name="tuna_or_chicken">Atún o pollo</string>
+    <string name="low_fat_mayo">Mayonesa baja en grasa</string>
+    <string name="tomato">Tomate</string>
+    <string name="carrot_sticks">Palitos de zanahoria o pimiento dulce</string>
+    <string name="lettuce">Lechuga</string>
+    <string name="low_fat_cr_ch">Crema de queso baja en grasa</string>
+    <string name="strawberry">Fresa</string>
+
+    <!-- Long Ingredients -->
+    <string name="bananas_l1">2 plátanos, congelados, pelados y cortados</string>
+    <string name="peaches_l1">1 durazno grande, pelado y cortado o 1/2 taza de durazno congelado</string>
+    <string name="low_fat_yogurt_l1">1 cartón de 6 onzas de yogurt bajo en grasa de cualquier sabor</string>
+    <string name="bananas_l2">1/2 plátano maduro, cortado en pedazos pequeños</string>
+    <string name="low_fat_skim_milk_l1">1/4 taza de leche baja en grasa o descremada</string>
+    <string name="bananas_l3">3 plátanos maduros o suaves</string>
+    <string name="bananas_l4">2 plátanos maduros, pero duros</string>
+    <string name="low_fat_yogurt_l2">1 cartón de 6 onzas de yogurt bajo en grasa de cualquier sabor</string>
+    <string name="whole_grain_cereal_l1">1 1/2 taza de ceral integral, aplastado</string>
+    <string name="apple_l1">1 manzana mediana</string>
+    <string name="cinnamon_l1">Canela</string>
+    <string name="whole_wheat_tortilla_l1">1 tortilla integral (6 u 8 pulgadas de tamaño)</string>
+    <string name="low_fat_cheese_l1">1 rebanada the queso bajo en grasa (o 1/4 taza rallado)</string>
+    <string name="apple_l2">1/4 manzana pequeña, corte en pedazos pequeños</string>
+    <string name="grapes_l1">Uvas sin semillas</string>
+    <string name="low_fat_yogurt_l3">Yogurt bajo en grasa, cualquier sabor</string>
+    <string name="orange_juice_l1">1/2 taza de jugo de naranja 100% natural</string>
+    <string name="banana_l1">1/2 plátano </string>
+    <string name="strawberries_l1">1/2 taza de fresas frescas o congeladas</string>
+    <string name="low_fat_yogurt_l4">1/4 taza de yogurt bajo en grasa, cualquier sabor</string>
+    <string name="strawberries_l2">Fresas frescas</string>
+    <string name="low_fat_yogurt_l5">Yogurt bajo en grasa, cualquier sabor</string>
+    <string name="strawberries_l3">1 taza de fresas frescas o congeladas</string>
+    <string name="low_fat_milk_l1">1/2 taza de leche baja en grasa o descremada</string>
+    <string name="straw_or_ban_l1">2 fresas frescas o 1/4 taza de rodaja de plátano</string>
+    <string name="whole_wheat_bread_l1">1 rebanada de pan 100% integral</string>
+    <string name="peanut_butter_l1">Mantequilla de cacahuate</string>
+    <string name="carrots_l1">1/2 libra de zanahorias (zanahorias pequeñas o zanahorias grandes peladas cortadas en rodajas)</string>
+    <string name="orange_juice_l2">2 cucharas de jugo de naranja 100% natural</string>
+    <string name="carrots_l2">1 bolsa de 10 onzas de zanahorias ralladas</string>
+    <string name="apples_l1">1/2 taza de manzanas rojas, cortadas en pedazos pequeños</string>
+    <string name="low_fat_yogurt_l6">1 taza de yogurt bajo en grasa (de vainilla o sin sabor)</string>
+    <string name="tomatoes_l1">3 tomatitos cherry o 1 tomate pequeño</string>
+    <string name="lime_juice_l1">2 cucharas de limón verde</string>
+    <string name="spices_l1">Condimentos a gusto</string>
+    <string name="green_beanss_l1">1 paquete (12 onzas) de ejotes congelados</string>
+    <string name="butter_l1">1 cuchara de mantequilla</string>
+    <string name="lemon_juice_l1">2 cucharas de limón</string>
+    <string name="parmesan_cheese_l1">1 cuchara de queso parmesano</string>
+    <string name="whole_wheat_bread_l2">1 rebanada de pan de trigo 100% integral</string>
+    <string name="red_fat_cr_ch_l1">1/2 cuchara de crema de queso baja en grasa, suave</string>
+    <string name="cucumber_l1">1 pulgada de un pepino entero, pelado y cortado en rodajas muy delgadas</string>
+    <string name="whole_wheat_bread_l3">1 rebanada de pan de trigo 100% integral</string>
+    <string name="red_fat_cr_ch_l2">1/2 cuchara de crema de queso baja en grasa, suave</string>
+    <string name="canned_tuna_l1">1 cuchara de atún enlatado sin agua</string>
+    <string name="cucumber_l2">2 pedazos de pepino delgados y largos, pelado</string>
+    <string name="fruit_l1">1 taza de fruta fresca o congelada (fresas, kiwi, duraznos, o moras)</string>
+    <string name="juice_l1">1/4 de taza del jugo de su gusto 100% natural</string>
+    <string name="egg_l1">1 huevo</string>
+    <string name="spinach_l1">1 amarro de espinaca fresca, deshecho en pedazos pequeños</string>
+    <string name="low_fat_cheese_l2">Queso bajo en grasa (opcional)</string>
+    <string name="avacado_l1">1 aguacate maduro</string>
+    <string name="lime_juice_l2">1 cucharadita de jugo de limón verde</string>
+    <string name="salt_l1">Sal a gusto</string>
+    <string name="whole_wheat_bread_l4">1 rebanada de pan de trigo 100% integral</string>
+    <string name="avacado_l2">1 aguacate maduro</string>
+    <string name="lime_juice_l3">Jugo de limón verde</string>
+    <string name="avacado_l3">1 aguacate maduro</string>
+    <string name="low_fat_cott_ch_l1">2 cucharas de requesón bajo en grasa</string>
+    <string name="chayote_l1">1 calabaza pequeña</string>
+    <string name="oil_l1">1 cuchara de aceite (canola u oliva)</string>
+    <string name="lime_juice_l4">1 cuchara de jugo de limón verde</string>
+    <string name="salt_pepper_l1">Sal y pimienta al gusto</string>
+    <string name="cilantro_l1">3 cucharaditas de cilantro cortado</string>
+    <string name="guava_or_mango_l1">1/4 taza de guayaba o pedazos de mango </string>
+    <string name="pineapple_l1">1/2 taza de piñas cuadradas (frescas o congeladas)</string>
+    <string name="banana_l2">1/2 plátano </string>
+    <string name="spinach_l2">1 taza de espinaca</string>
+    <string name="ice_l1">1/2 taza de cubitos de hielo</string>
+    <string name="mango_l1">1 mango maduro</string>
+    <string name="lime_juice_l5">2 cucharaditas de jugo de limón verde</string>
+    <string name="cilantro_l2">1 cuchara de cilantro</string>
+    <string name="mango_l2">1 mango maduro</string>
+    <string name="low_fat_yogurt_l7">1 taza de yogurt bajo en grasa (de vainilla o sin sabor)</string>
+    <string name="whole_grain_cereal_l2">1/2 taza de cereal integral</string>
+    <string name="mango_l3">1/2 taza de mango, pelado y cortado en pedazos pequeños</string>
+    <string name="papaya_l1">1/2 taza de papaya pelada, sins semillas, cortada en pedazos pequeños</string>
+    <string name="banana_l3">1/2 plátano pelado, cortado en pedazos pequeños</string>
+    <string name="pineapple_l2">1/2 taza de piña cortada en pedazos pequeños</string>
+    <string name="lime_juice_l6">1 cuchara de jugo de limón verde</string>
+    <string name="pear_l1">1 pera madura</string>
+    <string name="pear_l2">1 pera madura</string>
+    <string name="apple_l3">1 manzana</string>
+    <string name="grapes_l2">1 taza de uvas sin semillas</string>
+    <string name="lemon_juice_l2">2 cucharaditas de jugo de limón</string>
+    <string name="whole_wheat_tortilla_l2">1 tortilla integral </string>
+    <string name="red_fat_cheese_l1">1 rebanada de queso bajo en grasa (o 1/4 taza de queso rallado)</string>
+    <string name="mushrooms_l1">1/4 taza de hongos, cortados en tamaños pequeños</string>
+    <string name="spinach_l3">1 amarro de espinaca fresca</string>
+    <string name="sweet_potato_l1">1 camote de tamaño mediano, lavado y secado</string>
+    <string name="butter_l2">1/2 cucharadita de mantequilla</string>
+    <string name="cinnamon_l2">Canela a gusto</string>
+    <string name="butternut_squash_l1">1 calabaza pequeña</string>
+    <string name="orange_juice_l3">4 cucharaditas de jugo de naranja </string>
+    <string name="water_l1">4 cucharaditas de agua</string>
+    <string name="collard_greens_l1">1 libra de col fresca, lavada</string>
+    <string name="water_or_broth_l1">3 cucharas de agua o de caldo baja en sal</string>
+    <string name="tuna_or_chicken_l1">2 cucharas de atún o pollo</string>
+    <string name="low_fat_mayo_l1">1 cucharadita de mayonesa baja en grasa</string>
+    <string name="tomato_l1">3 tomatitos cherry</string>
+    <string name="carrot_sticks_l1">6 palitos de zanahoria o rodajas de pimiento dulce, cortadas delgadas</string>
+    <string name="lettuce_l1">1 hoja de lechuga, cortada en triángulos</string>
+    <string name="whole_wheat_bread_l5">1 rebanada de pan de trigo 100% integral</string>
+    <string name="low_fat_cr_ch_l1">1/2 cucharadita de crema de queso baja en grasa, suave</string>
+    <string name="strawberry_l1">1 fresa</string>
+    <string name="banana_l4">1/2 plátano pequeño cortado en rodajas </string>
+    <string name="grapes_l3">1 uva</string>
+
+    <!-- Steps -->
+    <string name="peach_banana_1">1. Ponga todos los ingredientes en una licuadora</string>
+    <string name="peach_banana_2">2. Licuélos </string>
+    <string name="peach_banana_3">3. Sírvalo en seguida y disfrute!</string>
+    <string name="peach_banana_4">Porción para niños: 1/4 o 1/2 taza de licuado</string>
+    <string name="peach_banana_5">Nota: Puede usar plátano que no está congelado. El licuado no será frío o espeso, pero estará delicioso!</string>
+    <string name="slice_up_1">1. Ponga las rodajas de plátano en un plato hondo</string>
+    <string name="slice_up_2">2. Eche leche sobre los plátanos y disfrute!</string>
+    <string name="slice_up_3">Porción para niños: 1/4 o 1/2 taza </string>
+    <string name="slice_up_4">Variación: Plátano con canela: Eche canela sobre los plátanos antes de echar la leche</string>
+    <string name="slice_up_5">Variación: Moras y plátano: Aumente 1/4 taza de fresas u otras moras </string>
+    <string name="ice_cream_1">1. Pele los plátanos y cortelos en rodajas</string>
+    <string name="ice_cream_2">2. Ponga las rodajas de plátano en el congelador por 2 horas</string>
+    <string name="ice_cream_3">3. Ponga los plátanos congelados en la licuadora por 3 minutos; sírvalo en seguida</string>
+    <string name="ice_cream_4">Porción para niños: 1/4 o 1/2 taza </string>
+    <string name="ice_cream_5">Nota: Si los plátanos no se licúan? Echeles un poco de leche baja en grasa o descremada</string>
+    <string name="crunchers_1">1. Cubra el plato con plástico o con papel de aluminio</string>
+    <string name="crunchers_2">2. Pele los plátanos; córtelos en rodajas</string>
+    <string name="crunchers_3">3. Bañe las rodajas de plátano en yogurt, y después cúbralos en cereal molido</string>
+    <string name="crunchers_4">4. Ponga los rodajas de plátano en el plato y congélelos (1 hora)</string>
+    <string name="crunchers_5">5. Descongele los pedazos de plátano por algunos minutos antes de servir</string>
+    <string name="crunchers_6">Porción para niños: 1/4 o 1/2 taza de pedazos de plátano congelado</string>
+    <string name="cin_apples_1">1. Corte una manzana en pedazos delgados y pequeños</string>
+    <string name="cin_apples_2">2. Ponga los pedazos de manzana en un plato y salpique con canela</string>
+    <string name="cin_apples_3">3. Cubra el plato con una toalla de papel</string>
+    <string name="cin_apples_4">4. Cocine las manzanas en el microondas hasta que estén cocidas (por 1 minuto y medio). </string>
+    <string name="cin_apples_5">Porción para niños: 1/4 o 1/2 taza de pedazos manzana</string>
+    <string name="cin_apples_6">Nota: Las manzanas estarán CALIENTES al salir del microondas. Deje enfriar por 1 a 2 minutos antes de servir.</string>
+    <string name="cin_apples_7">Nota: Si no se mascan bien, las manzanas pueden ser un peligro para atorarse. Pelar las manzanas y cortarlas en pedazos pequeños y delgados reduce el riesgo de atorarse. Siempre esté atento/a cuando los niños están comiendo.</string>
+    <string name="app_quesadilla_1">1. Ponga la tortilla en un plato</string>
+    <string name="app_quesadilla_2">2. Ponga queso en la mitad de la tortilla</string>
+    <string name="app_quesadilla_3">3. Ponga los pedazos de manzana sobre el queso</string>
+    <string name="app_quesadilla_4">4. Doble la tortilla sobre el relleno</string>
+    <string name="app_quesadilla_5">5. Cocine la tortilla en el microondas hasta que el queso se derrita (30 segundos)</string>
+    <string name="app_quesadilla_6">Porción para niños: 1/2 quesadilla</string>
+    <string name="app_quesadilla_7">Nota: El queso en la tortilla se mantiene CALIENTE por un par de minutos. Deje que la quesadilla se enfríe antes de servir. </string>
+    <string name="app_quesadilla_8">Nota: Si no se mascan bien, las manzanas pueden ser un peligro para atorarse. Pelar las manzanas y cortarlas en pedazos pequeños y delgados reducen el riesgo de atorarse. Siempre esté atento/a cuando los niños están comiendo.</string>
+    <string name="grape_dunkers_1">1. Saque las uvas de los tallos y enjuáguelas; quite de los tallos y séquelas</string>
+    <string name="grape_dunkers_2">2. Corte cada uva en 4 pedazos; ponga los pedazos de uvas en un plato</string>
+    <string name="grape_dunkers_3">3. Congele las uvas entre 3 y 4 horas</string>
+    <string name="grape_dunkers_4">4. Bañe los pedazos de uvas en su yogurt favorito y disfrute!</string>
+    <string name="grape_dunkers_5">Porción para niños: 1/4 taza de pedazos de uvas</string>
+    <string name="sunshine_1">1. Combine todos los ingredientes en una licuadora</string>
+    <string name="sunshine_2">2. Licúelos hasta que estén suaves y cremosos; sirva en seguida</string>
+    <string name="sunshine_3">Porción para niños: 1/4 o 1/2 taza de licuado</string>
+    <string name="strawberry_dippers_1">1. Lave las fresas y quite los tallos</string>
+    <string name="strawberry_dippers_2">2. Corte las fresas en pedazos pequeños</string>
+    <string name="strawberry_dippers_3">3. Bañe cada pedazo de fresa en su yogurt favorito para un postre sabroso y divertido</string>
+    <string name="strawberry_dippers_4">Porción para niños: 2 o 4 fresas con un 1/4 de taza de yogurt</string>
+    <string name="strawberry_freezers_1">1. Ponga las fresas en una licuadora; licúe hasta que las fresas se deshagan</string>
+    <string name="strawberry_freezers_2">2. Aumente leche y licúe hasta que esté cremoso</string>
+    <string name="strawberry_freezers_3">3. Eche el licuado a una fuente y haga congelar (2 horas)</string>
+    <string name="strawberry_freezers_4">4. Aplaste los cubos en un plato hondo y coma con una cuchara</string>
+    <string name="strawberry_freezers_5">Porción para niños: 2 o 4 cubos de fresa cremosa</string>
+    <string name="smashwich_1">1. Ponga fruta en un plato</string>
+    <string name="smashwich_2">2. Haga que sus niños aplasten las frutas con un tenedor (con supervisón)</string>
+    <string name="smashwich_3">3. Unte una capa delgada de mantequilla de cacahuate en una rebanada de pan</string>
+    <string name="smashwich_4">4. Ponga encima la fruta aplastada y disfrute como un sandwich abierto!</string>
+    <string name="smashwich_5">Porción para niños: 1 o 2 porciones por receta </string>
+    <string name="smashwich_6">Nota: La mantequilla de cacahuate puede ser un peligro para atorarse para los niños porque es espesa y pegajosa. Asegúrese de untar una capa muy delgada para mantener a sus niños seguros! Siempre vigile cuando los niños pequeños estén comiendo.</string>
+    <string name="sweet_carrot_1">1. En un plato seguro para microondas combine zanahorias y jugo de naranja; cubra el plato</string>
+    <string name="sweet_carrot_2">2. Cocine las zanahorias en el microondas hasta que estén cocidas (5 minutos), mezclando despues de 2 minutos</string>
+    <string name="sweet_carrot_3">3. Deje que las zanahorias se enfríen por unos minutos y disfrute! </string>
+    <string name="sweet_carrot_4">Porción para niños: 1/4 o 1/2 taza de zanahorias cocidas</string>
+    <string name="sweet_carrot_5">Nota: Las zanahorias estarán CALIENTES. Deje que se enfríen un poco antes de servirlas!</string>
+    <string name="carrot_slaw_1">1. Mezcle todos los ingredientes juntos</string>
+    <string name="carrot_slaw_2">2. Cúbralos y refrigérelos hasta que estén frios</string>
+    <string name="carrot_slaw_3">Porción para niños: 1/4 o 1/2 taza de ensalada dulce de zanahoria</string>
+    <string name="carrot_slaw_4">Nota: Si no se mascan bien, las manzanas pueden ser un peligro para atorarse. Pelar las manzanas y cortarlas en pedazos pequeños y delgados reducen el riesgo de atorarse. Siempre esté atento/a cuando los niños están comiendo.</string>
+    <string name="salsa_1">1. Corte los tomates en pedazos pequeños</string>
+    <string name="salsa_2">2. Mezcle todos los ingredientes, agitándolos delicadamente, y disfrute!</string>
+    <string name="salsa_3">Porción para niños: 2 o 4 cucharaditas de salsa</string>
+    <string name="salsa_4">Variación: Haga la prueba con diferentes hierbas (cómo cilantro o albahaca) y condimentos (cómo comino o chile en polvo) para un nuevo sabor! </string>
+    <string name="green_bean_1">1. Cocine los ejotes de acuerdo a las instrucciones del paquete</string>
+    <string name="green_bean_2">2. En una fuente grande, ponga los ejotes cocidos y los demás ingredientes</string>
+    <string name="green_bean_3">3. Revuévalos para mezclar y disfrute!</string>
+    <string name="green_bean_4">Porción para niños: 1/4 o 1/2 taza de ejotes</string>
+    <string name="green_bean_5">Nota: Recuerde cortar los ejotes en pedazos pequeños para los niños pequeños</string>
+    <string name="cuke_sandwich_1">1. Unte una capa delgada de crema de queso en una rebanada de pan; corte la rebanada por la mitad</string>
+    <string name="cuke_sandwich_2">2. Ponga las rebanadas de pepino sobre una de las mitades del pan; y cúbralo con la otra mitad del pan</string>
+    <string name="cuke_sandwich_3">3. Corte el sandwich y sirva!</string>
+    <string name="cuke_sandwich_4">Porción para niños: 1 o 2 porciones por receta</string>
+    <string name="cuke_sandwich_5">Nota: La crema de queso puede ser un peligro para atorarse para los niños porque es pegajosa. Asegúrese de untar una capa muy delgada para mantener a sus niños seguros! Siempre vigile a los niños cuando están comiendo.</string>
+    <string name="sushi_1">1. Unte la crema de queso en un rebanada de pan</string>
+    <string name="sushi_2">2. Unte el atún sobre la crema de queso</string>
+    <string name="sushi_3">3. Ponga pedazos largos de pepino en el medio del pan</string>
+    <string name="sushi_4">4. Envuelva el pan haciendo un rollo</string>
+    <string name="sushi_5">5. Corte el rollo del pan en rodajas delgadas como sushi y sírvalo!</string>
+    <string name="sushi_6">Porción para niños: 1 o 2 porciones por receta</string>
+    <string name="slushy_1">1. Ponga la fruta y el jugo en una licuadora, y licúelo</string>
+    <string name="slushy_2">2. Llene un recipiente para hacer hielo con el licuado</string>
+    <string name="slushy_3">3. Haga congelar (2 a 3 horas)</string>
+    <string name="slushy_4">4. Aplaste los cubos en un plato hondo y coma con una cuchara</string>
+    <string name="slushy_5">Porción para niños: 1 o 2 cubos de frutas</string>
+    <string name="scramble_1">1. Rompa un huevo a una fuente honda segura para microondas y bata con un tenedor</string>
+    <string name="scramble_2">2. Aumente la espinaca al huevo y mezcle</string>
+    <string name="scramble_3">3. Cocine en el microondas por 30 segundos</string>
+    <string name="scramble_4">4. Mezcle el revuelto y cocine en el microondas hasta que cosa (10 a 15 segundos)</string>
+    <string name="scramble_5">5. Ponga queso encima (opcional) y disfrute!</string>
+    <string name="scramble_6">Porción para niños: 1  porción por receta</string>
+    <string name="scramble_7">Nota: El revuelto estará caliente. Deje que se enfríe por 1 o 2 minutos antes de servir</string>
+    <string name="guacamole_1">1. Corte aguacates por la mitad; saque la semilla</string>
+    <string name="guacamole_2">2. Con una cuchara, saque la pulpa del aguacate; ponga en una tazón pequeño</string>
+    <string name="guacamole_3">3. Aplaste con un tenedor hasta que esté suave</string>
+    <string name="guacamole_4">4. Ponga jugo de limón y sal</string>
+    <string name="guacamole_5">Porción para niños: 2 o 4 cucharas de guacamole</string>
+    <string name="guacamole_6">Nota: Use como aderezo con sus verduras favoritas o úntelo en pan para sandwiches sabrosos!  </string>
+    <string name="toast_1">1. Tueste el pan a su gusto </string>
+    <string name="toast_2">2. Corte el aguacate por la mitad, quite la semilla, y saque la pulpa</string>
+    <string name="toast_3">3. Aplaste el aguacate con un tenedor y ponga un poco de limón</string>
+    <string name="toast_4">4. Unte el aguacate aplastado sobre la tostada</string>
+    <string name="toast_5">5. Corte la tostada en pedazos pequeños y disfrute!</string>
+    <string name="toast_6">Porción para niños: 1 o 2 porciónes por receta</string>
+    <string name="filled_avo_1">1. Corte el aguacate por la mitad; quite la semilla</string>
+    <string name="filled_avo_2">2. Llene con requesón el espacio donde estaba la semilla</string>
+    <string name="filled_avo_3">3. Sirva en seguida y coma con una cuchara</string>
+    <string name="filled_avo_4">Porción para niños: 2 o 3 porciones por receta</string>
+    <string name="filled_avo_5">Nota: Si es dificil para los niños usar la cuchara, aplaste el aguacate y mezcle con el requesón</string>
+    <string name="chayote_1">1. Pele el chayote, saque la semilla del medio, y córtelo en pedazos pequeños</string>
+    <string name="chayote_2">2. En una fuente grande, mezcle el aceite, jugo el limón, sal, y pimienta</string>
+    <string name="chayote_3">3. Aumente el chayote y cilantro a la fuente y mezcle</string>
+    <string name="chayote_4">4. Cúbralo y refrigélelo por 15 a 20 minutos. </string>
+    <string name="chayote_5">Porción para niños: 2 o 3 porciónes por receta</string>
+    <string name="monster_smoothie_1">1. Si usa guayaba, corte en pedazos, con o sin las semillas</string>
+    <string name="monster_smoothie_2">2. Ponga todos los ingredientes en una licuadora y licúe </string>
+    <string name="monster_smoothie_3">Porción para niños: 1/4 o 1/2 taza del licuado gigante</string>
+    <string name="mango_salsa_1">1. Lave el mago y séquelo con toallita</string>
+    <string name="mango_salsa_2">2. Corte alrededor de la semilla del mango,  pele la cáscara, y corte en pedazos pequeños</string>
+    <string name="mango_salsa_3">3. Mezcle los pedazos de mango con limón y cilantro</string>
+    <string name="mango_salsa_4">Porción para niños: 2 o 4 cucharas de mango</string>
+    <string name="mango_salsa_5">Variación: Aumente pedazos pequeños de piña para darle un sabor especial!</string>
+    <string name="mango_parfait_1">1. Lave y pele el mango. Corte todo el mango en cuadrados hasta la semilla y saque los pedazos</string>
+    <string name="mango_parfait_2">2. Ponga los pedazos de mango en una licuadora hasta que se hagan puré</string>
+    <string name="mango_parfait_3">3. Saque el puré de mango y póngalo en una fuente honda; cúbralo con yogurt </string>
+    <string name="mango_parfait_4">4. Cúbralo y refrigélelo</string>
+    <string name="mango_parfait_5">5. Cuando esté listo para servir, ponga encima cereal para algo crocante y dulce! </string>
+    <string name="mango_parfait_6">Porción para niños: 1/4 o 1/2 taza de postre helado de yogurt!</string>
+    <string name="tropical_fruit_mix_1">1. Ponga todos los ingredientes en una fuente honda</string>
+    <string name="tropical_fruit_mix_2">2. Mezcle todos los ingredientes</string>
+    <string name="tropical_fruit_mix_3">3. Mantenga cubierto en el refrigerador para un snack rápido y dulce</string>
+    <string name="tropical_fruit_mix_4">Porción para niños: 1/4 o 1/2 taza de ensalada de fruta tropical</string>
+    <string name="pear_fries_1">1. Lave la pera y séquela</string>
+    <string name="pear_fries_2">2. Corte la pera por la mitad</string>
+    <string name="pear_fries_3">3. Corte la pera en pedazos largos cómo para papas fritas y disfrútela!</string>
+    <string name="pear_fries_4">Porción para niños: 2 o 3 porciónes por receta</string>
+    <string name="pear_fries_5">Variación: Para "ketchup", use el yogurt bajo en grasa favorito de sus niños!</string>
+    <string name="fruit_jumble_1">1. Lave la pera, manzana, y uvas y séquelas</string>
+    <string name="fruit_jumble_2">2. Corte las frutas en pedazos pequeños</string>
+    <string name="fruit_jumble_3">3. Si va a guardarlo en el refrigerador, eche jugo de limón y cúbralo</string>
+    <string name="fruit_jumble_4">Porción para niños: 1/4 o 1/2 taza de ensalada de fruta dulce y crocante</string>
+    <string name="veg_quesadilla_1">1. Ponga la tortilla en un plato</string>
+    <string name="veg_quesadilla_2">2. Ponga queso en una mitad de la tortilla </string>
+    <string name="veg_quesadilla_3">3. Ponga champiñones y espinaca sobre el queso</string>
+    <string name="veg_quesadilla_4">4. Doble la tortilla sobre el relleno</string>
+    <string name="veg_quesadilla_5">5. Concine en el microondas hasta que el queso se derrita (30 a 45 segundos)</string>
+    <string name="veg_quesadilla_6">Porción para niños: 1/2 quesadilla</string>
+    <string name="veg_quesadilla_7">Nota: Este seguro/a que la quesadilla esté fria. El queso en la tortilla se mantiene CALIENTE por un par de minutos!</string>
+    <string name="sweet_potato_1">1. Con un cuchillo pequeño, punse el camote en diferentes partes (1/2 pulgada de profundidad)</string>
+    <string name="sweet_potato_2">2. Ponga el camote en el microondas por 2 minutos y medio</string>
+    <string name="sweet_potato_3">3. Voltee el camote y ponga en el microondas hasta que esté suave (1 a 2 minutos más. El tiempo depende del tamaño del camote)</string>
+    <string name="sweet_potato_4">4. Cuando el camote esté frio, quite la cáscara</string>
+    <string name="sweet_potato_5">5. Ponga el camote, mantequilla, y canela en una fuente grande y aplástelo con un tenedor</string>
+    <string name="sweet_potato_6">Porción para niños: 1/4 o 1/2 taza de camote aplastado</string>
+    <string name="sweet_potato_7">Nota: El camote estará CALIENTE cuando al sacarlo del microondas. Tenga cuidado!</string>
+    <string name="butternut_1">1. Quite el tallo de la calabaza</string>
+    <string name="butternut_2">2. Corte la calabaza por la mitad</string>
+    <string name="butternut_3">3. Saque las semillas, ponga la calabaza en un contenedor seguro para microondas </string>
+    <string name="butternut_4">4. Ponga jugo de naranja (o agua) en el espacio donde estaban las semillas</string>
+    <string name="butternut_5">5. Cubra y concine en el microondas hasta que la calabaza esté cocida (como 8 minutos); deje enfriar por 2 minutos</string>
+    <string name="butternut_6">6. Saque la pulpa de la calabaza, aplástela con un tenedor o sírvala en pedazos pequeños</string>
+    <string name="butternut_7">Porción para niños: 1/4 o 1/2 taza de calabaza</string>
+    <string name="butternut_8">Nota: La calabaza estará CALIENTE al sacarlo del microondas. Tenga cuidado!</string>
+    <string name="fast_greens_1">1. Quite los tallos de la col</string>
+    <string name="fast_greens_2">2. Corte la col en pedazos delgados</string>
+    <string name="fast_greens_3">3. Ponga los pedazos delgados de col en agua (o caldo) en una fuente honda segura para microondas</string>
+    <string name="fast_greens_4">4. Tape la fuente con un plato seguro para microondas y cocine en el microondas hasta que este cocido (3 a 4 minutos)</string>
+    <string name="fast_greens_5">Porción para niños: 1/4 o 1/2 tazas de col</string>
+    <string name="fast_greens_6">Nota: La col estará CALIENTE cuando saca del microondas. Tenga cuidado!</string>
+    <string name="fast_greens_7">Variación: Aumente sus condimentos favoritos para un sabor diferente!</string>
+    <string name="veggie_boats_1">1. Mezcle el atún o pollo con manyonesa baja en grasa</string>
+    <string name="veggie_boats_2">2. Corte el tomate por la mitad y saque las semillas con una cuchara</string>
+    <string name="veggie_boats_3">3. Llene cada mitad del tomate con el atún o pollo</string>
+    <string name="veggie_boats_4">4. Ponga un palito de zanahoria o pimiento dulce parada en el atún o pollo</string>
+    <string name="veggie_boats_5">5. Coloque la lechuga en la zanahoria como vela de bote y disfrútelo!</string>
+    <string name="veggie_boats_6">Porción para niños: 3 botecitos</string>
+    <string name="veggie_boats_7">Nota: Esta receta es muy divertida para que los niños la hagan, pero las verduras crudas pueden ser difíciles de masticar bien para los niños pequeños. Cuando es hora de comer, asegúrese de cortarlo en pedazos pequeños.</string>
+    <string name="fruity_faces_1">1. Corte el pan en un círculo, usando un vaco como guía</string>
+    <string name="fruity_faces_2">2. Unte la crema de queso en el pan que cortó</string>
+    <string name="fruity_faces_3">3. Use rodajas de plátano como la nariz y las orejas</string>
+    <string name="fruity_faces_4">4. Corte la uva por la mitad y úselas como los ojos</string>
+    <string name="fruity_faces_5">5. Corte fresa a lo largo y use como dientes!</string>
+    <string name="fruity_faces_6">Porción para niños: 1  porción por receta</string>
+    <string name="fruity_faces_7">Nota: Esta receta es muy divertida para que los niños la hagan. Cuando es hora de comer, asegúrese de cortarlo en pedazos pequeños.</string>
+
+    <!-- Pankaj's Strings -->
+
+    <string name="notification_settings">Notifications</string>
+    <string name="snackgallery">______SNACK GALLERY______</string>
+    <string name="family_member_list">FAMILY MEMBER LIST</string>
+    <string name="calculator">_______CALCULATOR________</string>
+    <string name="main">SHOPPING TOOL</string>
+    <string name="configButton">CONFIGURATION PANEL</string>
+    <string name="listParameterTitle">List Parameter Title</string>
+    <string name="listParameterOptions">List Parameter Options</string>
+
+    <string-array name="language_keys">
+        <item>ENGLISH</item>
+        <item>SPANISH</item>
+    </string-array>
+    <string-array name="language_values">
+        <item>ENGLISH</item>
+        <item>SPANISH</item>
+    </string-array>
+    <string-array name="conf_time_keys">
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+    </string-array>
+    <string-array name="conf_time_values">
+        <item>6:00 AM</item>
+        <item>7:00 AM</item>
+        <item>8:00 AM</item>
+        <item>9:00 AM</item>
+        <item>10:00 AM</item>
+        <item>11:00 AM</item>
+        <item>12:00 Noon</item>
+        <item>1:00 PM</item>
+        <item>2:00 PM</item>
+        <item>3:00 PM</item>
+        <item>4:00 PM</item>
+        <item>5:00 PM</item>
+        <item>6:00 PM</item>
+        <item>7:00 PM</item>
+        <item>8:00 PM</item>
+        <item>9:00 PM</item>
+    </string-array>
+
+    <string name="notificationHistory">NOTIFICATION HISTORY</string>
+    <string name="alertMessage">Alert Message</string>
+    <string name="fullText">Full Text</string>
+    <string name="newCalculator1">Cash Value Voucher Calculators</string>
+    <string name="newCalculator2">Use these tools to calculate how much fruits and vegetables you can buy with each cash voucher.</string>
+    <string name="newCalculator3">Produce may be bought loose or in a package, fresh or frozen. Pick which type of fruit or vegetables you want to buy for the right calculator tool.</string>
+    <string name="newCalculator4">Cash Vouchers in use</string>
+    <string name="LoosePricePerPound1">Weigh the produce on the scale.</string>
+    <string name="LoosePricePerPound2">Then choose weight in pounds.</string>
+    <string name="EnterPrice1">REMEMBER: Must not have Added Sugars, Fats, Oils, Herbs or Spices \n</string>
+
+</resources>

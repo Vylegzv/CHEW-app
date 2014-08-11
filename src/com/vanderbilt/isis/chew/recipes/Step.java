@@ -2,17 +2,12 @@ package com.vanderbilt.isis.chew.recipes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.vanderbilt.isis.chew.db.ChewContract;
-import com.vanderbilt.isis.chew.model.MainListRowItem;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 public class Step implements Parcelable {
 	
@@ -51,17 +46,15 @@ public class Step implements Parcelable {
 		step = s;
 	}
 	
-    public static Step fromCursor(Context context, Cursor curSteps) {
+    public static Step fromCursor(Context c, Cursor curSteps) {
     	logger.trace("fromCursor()");
+    	
+    	int stepResourceId = c.getResources()
+				.getIdentifier(curSteps.getString(curSteps.getColumnIndex(ChewContract.Steps.STEP)), "string",
+						"com.vanderbilt.isis.chew");
+    	
         String image_name = curSteps.getString(curSteps.getColumnIndex(ChewContract.Steps.STEP_IMAGE));
-        String step = curSteps.getString(curSteps.getColumnIndex(ChewContract.Steps.STEP));
-        
-        //Log.d("IMAGE STEP", image_name);
-        
-        /*if(!step.equals("")){
-        	int path = context.getResources().getIdentifier(image_name, "drawable", "com.vanderbilt.isis.chew");
-        	bitmap = BitmapFactory.decodeResource(context.getResources(), path);
-        } */      
+        String step = c.getString(stepResourceId);
 
         return new Step(image_name, step);
     }

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string-array name="main_titles_array">        
+        <item>Galeria de Bocadillos</item>
+        <item>Bocadillos Favoritos</item>
+        <item>Lista de Compra de Bocadillos</item>
+        <item>Consejos de Bocadillos Saludables</item>
+        <item>Comience Compras</item>
+        <item>Termine Compras</item>
+        <item>Escanee Código de Barras</item>
+        <item>Escoja Miembro de Familia</item>
+        <item>Compre frutas y verduras</item>
+        <item>Ayuda</item>
+        <item>Aumente Cupones</item>
+        <item>Borre Cupones</item>
+    </string-array>
+    <string-array name="main_descriptions_array">
+        <item>Bocadillos fáciles y rápidos para preescolares</item>
+        <item>Ver mis recetas favoritas</item>
+        <item>Compre ingredientes para sus bocadillos escogidos</item>
+        <item>Historia de los consejos que ha recibido</item>
+        <item>Comience una nueva compra usando los cupones de WIC</item>
+        <item>Termine las compras de WIC por hoy</item>
+        <item>Compre para la familia</item>
+        <item>Compre para un miembro de la familia</item>
+        <item>Calculadora para los Cupones en Efectivo para frutas y verduras</item>
+        <item>Cómo usar este app</item>
+        <item>Aumente un cupón nuevo para miembros de la familia</item>
+        <item>Borre los cupones que ya no está usando</item>
+    </string-array>
+    <string-array name="main_images_array">        
+        <item>@drawable/recipes</item>
+        <item>@drawable/favorite_recipes</item>
+        <item>@drawable/shopping_list</item>
+        <item>@drawable/notification_history</item>
+        <item>@drawable/shopping_cart</item>
+        <item>@drawable/done</item>
+        <item>@drawable/barcode</item>
+        <item>@drawable/family</item>
+        <item>@drawable/produce</item>
+        <item>@drawable/help</item>
+        <item>@drawable/upload</item>
+        <item>@drawable/ic_launcher</item>
+    </string-array>
+    <string-array name="stores_array">
+        <item>Walmart</item>
+        <item>Kroger</item>
+    </string-array>
+    <string-array name="category">
+        <item>A +VE</item>
+        <item>A -VE</item>
+        <item>B +VE</item>
+        <item>B -VE</item>
+        <item>O +VE</item>
+        <item>O -VE</item>
+        <item>AB +VE</item>
+        <item>AB -VE</item>
+    </string-array>
+    <string-array name="months">
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Agosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noveimbre</item>
+        <item>Diciembre</item>
+    </string-array>
+    <string-array name="ethnicities">
+        <item>Blanca/a</item>
+        <item>Hispana/o</item>
+        <item>Negra/o</item>
+        <item>Asiática/o</item>
+        <item>Indio Americana/o</item>
+        <item>Otra/o</item>
+        <item>Rechaza a contestar</item>
+    </string-array>
+    <string-array name="vouchercodes_array">
+        <item>A</item>
+        <item>A2</item>
+        <item>B</item>
+        <item>B2</item>
+        <item>L</item>
+        <item>L2</item>
+        <item>G</item>
+        <item>G2</item>
+        <item>T</item>
+        <item>T2</item>
+        <item>K</item>
+        <item>K2</item>
+        <item>E</item>
+        <item>E2</item>
+        <item>P</item>
+        <item>P2</item>
+        <item>PPW</item>
+        <item>PC1</item>
+        <item>PC</item>
+        <item>CVV8</item>
+        <item>CVV10</item>
+    </string-array>
+    <string-array name="A2">
+        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de 46 a 48 onzas de jugo</item>
+        <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de 15 a 16 onzas de frijoles</item>
+        <item>Un (1) frasco de mantequilla de cacahuate (maní)</item>
+        <item>16 onzas de pan integral de trigo o producto de grano entero</item>
+    </string-array>
+    <string-array name="A">
+        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Escoja 3 (cualquier combinación) de: 14 a 16 onzas de tofú, un cuarto de suero de leche, una lata de 12 onzas de leche evaporada o escoja un envase (1) de 9.6 onzas de leche en polvo sin grasa</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de 46 a 48 onzas de jugo</item>
+        <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
+    </string-array>
+    <string-array name="B">
+        <item>Un (1) galón de leche  (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Escoja uno de estos: 1 cuarto de suero de leche bajo en grasa, 1 lata de 12 onzas de leche evaporada o 14 a 16 onzas de tofu</item>
+        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o un envase de jugo de 46 a 48 onzas</item>
+        <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
+    </string-array>
+    <string-array name="B2">
+        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de 46 a 48 onzas de jugo</item>
+        <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de 15 a 16 onzas de frijoles en lata o un (1) frasco de 16 a 18 onzas de mantequilla de cacahuate (maní)</item>
+    </string-array>
+    <string-array name="L">
+        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Escoja 3 (cualquier combinación) de: 14 a 16 onzas de tofú, un cuarto de suero de leche, una lata de 12 onzas de leche evaporada o escoja un (1) envase de 9.6 onzas de leche en polvo sin grasa</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de jugo de 46 a 48 onzas</item>
+        <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
+    </string-array>
+    <string-array name="L2">
+        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Dos (2) envases de 11.5  a 12 onzas de jugo congelado o dos (2) envases de 46 a 48 onzas de jugo</item>
+        <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o Cuatro (4) latas de 15 a 16 oz (onzas) de frijoles</item>
+        <item>Un (1) envase de 16 a 18 onzas de mantequilla de cacahuate (maní)</item>
+        <item>16 onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+    <string-array name="G">
+        <item>Tres (3) galones de leche (no leche entera)</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de jugo de 46 a 48 onzas</item>
+        <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de15 a 16 onzas de frijoles </item>
+        <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
+        <item>Un (1) frasco de 16 a 18 onzas de mantequilla de cacahuate (maní)</item>
+        <item>16 onzas de pan de trigo integral/producto de grano entero</item>
+    </string-array>
+    <string-array name="G2">
+        <item>Dos (2) galones de leche (no leche entera)</item>
+        <item>Escoja una de estas: 1 cuarto de suero de leche, 1 lata de leche evaporada de 12 onzas o 14 a 16 onzas de tofú</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de jugo de 46 a 48 onzas </item>
+        <item>Treinta (30) onzas de pescado (6 latas de 5 onzas de atún o dos latas de 14.75 onzas de salmon u 8 latas de 3.75 onzas de sardinas)</item>
+    </string-array>
+    <string-array name="T">
+        <item>Un (1) galón de leche entera</item>
+        <item>Escoja uno de estos: 1 cuarto de suero de leche o 1 lata de 12 onzas de leche evaporada </item>
+        <item>Un (1) envase de 64 onzas de jugo</item>
+        <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
+        <item>16 onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+    <string-array name="T2">
+        <item>Dos (2) galones de leche entera</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Un (1) envase de 64 onzas de jugo</item>
+        <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de 15 a 16 onzas de frijoles</item>
+        <item>Dieciseis (16) onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+    <string-array name="K">
+        <item>Un (1) galón de leche  (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Escoja uno de estos: 1 de cuarto suero de leche bajo en grasa o 1 lata de 12 onzas de leche evaporada</item>
+        <item>Un (1) envase de 64 onzas de jugo</item>
+        <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
+        <item>16 onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+    <string-array name="K2">
+        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Un (1) envase de 64 onzas de jugo</item>
+        <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de 15 a 16 onzas de frijoles</item>
+        <item>16 onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+    <string-array name="E">
+        <item>Un (1) galón de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Escoja uno de estos: 1 cuarto de suero de leche bajo en grasa o 1 lata de 12 onzas de leche evaporada</item>
+        <item>Un (1) envase de 64 onzas de jugo</item>
+        <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
+        <item>16 onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+    <string-array name="E2">
+        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dieciseis onzas de pan integral de trigo/producto de grano entero</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Un (1) envase de 64 onzas de jugo</item>
+        <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de 15 a 16 onzas de frijoles o un (1) frasco de 16 a 18 onzas de mantequilla de cacahuate (mani)</item>
+        <item>16 onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+    <string-array name="P">
+        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de 46 a 48 onzas de jugo</item>
+        <item>Dieciocho (18) onzas de cereal (compre 11 onzas of más grande)</item>
+        <item>Un (1) frasco de 16 a 18 onzas de mantequilla de cacahuate (maní)</item>
+        <item>16 onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+    <string-array name="P2">
+        <item>Dos (2) galones de leche (no leche entera)</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Dos (2) envases de 11.5  a 12 onzas de jugo congelado o dos (2) envases de 46 a 48 onzas de jugo</item>
+        <item>Un (1) frasco de mantequilla de cacahuate (maní)</item>
+        <item>Treinta (30) onzas de pescado (6 latas de 5 onzas de atún o dos latas de 14.75 onzas de salmon u 8 latas de 3.75 onzas de sardinas)</item>
+        <item>16 onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+    <string-array name="PPW">
+        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de 46 a 48 onzas de jugo</item>
+        <item>Dieciocho (18) onzas de cereal (compre 11 onzas of más grande)</item>
+        <item>Un (1) frasco de 16 a 18 onzas de mantequilla de cacahuate (maní)</item>
+    </string-array>
+    <string-array name="PC1">
+        <item>Dos (2) galones de leche entera</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Un (1) envase de 64 onzas de jugo</item>
+        <item>Dieciocho (18) onzas de cereal (compre 11 onzas más grande)</item>
+        <item>16 onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de 15 a 16 onzas de frijoles</item>
+        <item>16 onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+    <string-array name="PC">
+        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
+        <item>Una (1) docena de huevos blancos grandes del tipo A</item>
+        <item>Un (1) envase de 64 onzas de jugo</item>
+        <item>Dieciocho (18) onzas de cereal (compre 11 onzas más grande)</item>
+        <item>16 onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de 15 a 16 onzas de frijoles en lata</item>
+        <item>16 onzas de pan integral de trigo/producto de grano entero</item>
+    </string-array>
+        <string-array name="CVV10">
+        <item>Este cupón es válido hasta por $10 (diez dólares) de frutas o verduras frescas o congeladas</item>
+    </string-array>
+        <string-array name="CVV6">
+        <item>Este cupón es válido hasta por $8 (ocho dólares) de frutas o verduras frescas o congeladas</item>
+    </string-array>
+
+    <integer-array name="quantity">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+
+</resources>

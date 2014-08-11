@@ -33,7 +33,7 @@ import com.vanderbilt.isis.chew.scanner.*;
 public class Profile extends Activity {
 
 	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
-	
+
 	public final String TAG = getClass().getSimpleName();
 
 	TextView memberName;
@@ -70,8 +70,7 @@ public class Profile extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		logger.trace("onCreate()");
-		
-		
+
 		setContentView(R.layout.profile);
 
 		Bundle getName = getIntent().getExtras();
@@ -79,38 +78,39 @@ public class Profile extends Activity {
 			name = getName.getString("name");
 		}
 		Log.d(TAG, "test: " + name);
-		logger.debug("test: {}", name );
+		logger.debug("test: {}", name);
 
 		memberName = (TextView) findViewById(R.id.member_name);
 		whichVouchers = (TextView) findViewById(R.id.which_vouchers);
 		whichMonth = (TextView) findViewById(R.id.which_month);
 
 		populateScreen(name);
-		
+
 		logger.info("Opened the Profile of Family Member {}", name);
 	}
 
 	public void scan(View v) {
-        logger.trace("scan()");
-        if(name != null) {
-            logger.info("Trying to Scan Item for {}", name);
-        }
-        
+		logger.trace("scan()");
+		if (name != null) {
+			logger.info("Trying to Scan Item for {}", name);
+		}
+
 		if (Utils.isShopping(Profile.this)) {
-            //logger.info("");
+			// logger.info("");
 			(new IntentIntegrator(this)).initiateScan();
 		} else {
-            //logger.info("");
+			// logger.info("");
 			showChooseStoresD();
 		}
 	}
 
 	public void getVouchers(View v) {
 		logger.trace("getVouchers()");
-		if(name != null) {
-            logger.info("WHAT I CAN GET for {} with the vouchers {}", name, whichVouchers.getText().toString());
-        }
-		
+		if (name != null) {
+			logger.info("WHAT I CAN GET for {} with the vouchers {}", name,
+					whichVouchers.getText().toString());
+		}
+
 		Intent intent = new Intent(Profile.this, VouchersListView.class);
 		intent.putExtra("name", name);
 		startActivity(intent);
@@ -144,7 +144,7 @@ public class Profile extends Activity {
 			String b = scan.getContents();
 			String barcode = Utils.removeZeros(b);
 			Log.d(TAG, barcode);
-            logger.debug(" {}", barcode);
+			logger.debug(" {}", barcode);
 
 			String[] projection = { ChewContract.Store._ID,
 					ChewContract.Store.FOOD_NAME,
@@ -169,9 +169,10 @@ public class Profile extends Activity {
 		memberName.setText(name);
 		String month_name = Utils.getMonth();
 		whichMonth.setText(month_name);
-		
-		logger.info("Family Member's Name is {}, for the Month {}", memberName.getText().toString(), whichMonth.getText().toString());
-		
+
+		logger.info("Family Member's Name is {}, for the Month {}", memberName
+				.getText().toString(), whichMonth.getText().toString());
+
 		CursorLoader loader = null;
 
 		String[] resultColumns = new String[] {
@@ -202,7 +203,7 @@ public class Profile extends Activity {
 				Log.d(TAG, voucher);
 				Log.d(TAG, used);
 				logger.debug("Voucher {} Used {}", voucher, used);
-				
+
 				vouchers.append(voucher);
 				vouchers.append(" (");
 				vouchers.append(used);
@@ -210,7 +211,8 @@ public class Profile extends Activity {
 			}
 
 			whichVouchers.setText(vouchers);
-			logger.info("Having vouchers {}", whichVouchers.getText().toString());
+			logger.info("Having vouchers {}", whichVouchers.getText()
+					.toString());
 		}
 	}
 
@@ -219,7 +221,7 @@ public class Profile extends Activity {
 
 		@Override
 		public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-            logger.trace("MyOnLoadCompleteListener2.onLoadComplete()");
+			logger.trace("MyOnLoadCompleteListener2.onLoadComplete()");
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 					Profile.this);
 
@@ -238,10 +240,11 @@ public class Profile extends Activity {
 				Log.d(TAG, size + "");
 				Log.d(TAG, size_type + "");
 				Log.d(TAG, food_type + "");
-                logger.debug("Food Name {} Food Category {}", food_name, food_category);
+				logger.debug("Food Name {} Food Category {}", food_name,
+						food_category);
 				logger.debug("VouchersID {} Size{}", vouchersID, size);
 				logger.debug("Size Type {} Food Type {}", size_type, food_type);
-				
+
 				// set title
 				alertDialogBuilder.setTitle(food_name);
 
@@ -253,21 +256,38 @@ public class Profile extends Activity {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-                                        //logger.info("");
-										Intent intent = new Intent(
-												Profile.this, GetProducts.class);
-										Log.d("Putting name", name);
-										intent.putExtra("member_name", name);
-										intent.putExtra("food_name", food_name);
-										intent.putExtra("food_category",
-												food_category);
-										intent.putExtra("vouchersID",
-												vouchersID);
-										intent.putExtra("size", size);
-										intent.putExtra("size_type", size_type);
-										intent.putExtra("food_type", food_type);
 
-										startActivity(intent);
+										// if it is a CASH item, go to Produce
+										// activity
+										if (food_category.equals("CASH")) {
+
+											Intent intent = new Intent(
+													Profile.this, Produce.class);
+											intent.putExtra("food_name",
+													food_name);
+
+											startActivity(intent);
+										} else {
+
+											Intent intent = new Intent(
+													Profile.this,
+													GetProducts.class);
+											Log.d("Putting name", name);
+											intent.putExtra("member_name", name);
+											intent.putExtra("food_name",
+													food_name);
+											intent.putExtra("food_category",
+													food_category);
+											intent.putExtra("vouchersID",
+													vouchersID);
+											intent.putExtra("size", size);
+											intent.putExtra("size_type",
+													size_type);
+											intent.putExtra("food_type",
+													food_type);
+
+											startActivity(intent);
+										}
 									}
 								})
 						.setNegativeButton(getString(R.string.no),
@@ -284,7 +304,7 @@ public class Profile extends Activity {
 				// show it
 				alertDialog.show();
 			} else {
-                //logger.info("");
+				// logger.info("");
 				// set title
 				alertDialogBuilder.setTitle(getString(R.string.cannot_get));
 
@@ -331,9 +351,13 @@ public class Profile extends Activity {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								logger.trace("alertDialogBuilder.setPositiveButton().onClick()");
-								logger.info("Continuing to Store {} with id {}", selectedStore, id);
+								logger.info(
+										"Continuing to Store {} with id {}",
+										selectedStore, id);
 								// not the same as 'which' above
-								logger.debug("Which value = {}, Selected value = {}", id, selectedStore);
+								logger.debug(
+										"Which value = {}, Selected value = {}",
+										id, selectedStore);
 								Log.d(TAG, "Which value=" + id);
 								Log.d(TAG, "Selected value=" + selectedStore);
 
@@ -352,7 +376,8 @@ public class Profile extends Activity {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								logger.trace("alertDialogBuilder.setNegativeButton().onClick()");
-								logger.info("Cancelled choice of Store id {}", id);
+								logger.info("Cancelled choice of Store id {}",
+										id);
 								dialog.cancel();
 							}
 						});
@@ -377,7 +402,7 @@ public class Profile extends Activity {
 
 		String where = ChewContract.FamilyVouchers.VOUCHER_MONTH + "='" + month
 				+ "'" + " AND " + ChewContract.FamilyVouchers.USED + "='"
-				+ Utils.NOTUSED + "'";
+				+ getString(R.string.not_used) + "'";
 		;
 
 		loader = new CursorLoader(Profile.this,
@@ -475,11 +500,11 @@ public class Profile extends Activity {
 			showChooseVouchersD(vcodes);
 		}
 	}
-	
-	/*******Pankaj Chand's Functions*/
-	
-	//Options Menu
-	
+
+	/******* Pankaj Chand's Functions */
+
+	// Options Menu
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		logger.trace("onCreateOptionsMenu()");
@@ -497,9 +522,9 @@ public class Profile extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
-		}
-		else if (id == R.id.action_notification) {
-			Intent intent = new Intent(Profile.this, ConfigurationActivity.class);
+		} else if (id == R.id.action_notification) {
+			Intent intent = new Intent(Profile.this,
+					ConfigurationActivity.class);
 			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);

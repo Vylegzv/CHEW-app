@@ -422,7 +422,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 				ChewContract.FamilyVouchers.NAME};
 
 		String where = ChewContract.FamilyVouchers.VOUCHER_MONTH + "='" + month
-				+ "'" + " AND " + ChewContract.FamilyVouchers.USED + "='" + Utils.NOTUSED + "'";;
+				+ "'" + " AND " + ChewContract.FamilyVouchers.USED + "='" + getString(R.string.not_used) + "'";;
 
 		loader = new CursorLoader(MainActivity.this,
 				ChewContract.FamilyVouchers.CONTENT_URI, resultColumns, where,
@@ -506,11 +506,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
  
 						String where = ChewContract.FamilyVouchers.USED
 								+ "='"
-								+ Utils.INUSE
+								+ getString(R.string.in_use)
 								+ "'";
 						
 						ContentValues updateValues = new ContentValues();
-						updateValues.put(ChewContract.FamilyVouchers.USED, Utils.USED); 
+						updateValues.put(ChewContract.FamilyVouchers.USED, getString(R.string.used)); 
 						int rowsUpdate = getContentResolver().update(
 								ChewContract.FamilyVouchers.CONTENT_URI,
 								updateValues, where, null);

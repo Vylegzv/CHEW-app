@@ -133,7 +133,7 @@ public class VoucherUpload extends Activity{
 			cv.put(ChewContract.FamilyVouchers.VOUCHER_CODE, selectedVouchers.get(i).toString());
 			cv.put(ChewContract.FamilyVouchers.VOUCHER_MONTH, month);
 			cv.put(ChewContract.FamilyVouchers.ETHNICITY, ethnicity);
-			cv.put(ChewContract.FamilyVouchers.USED, Utils.NOTUSED);
+			cv.put(ChewContract.FamilyVouchers.USED, getString(R.string.not_used));
 			cvs[i] = cv;
 		}
 

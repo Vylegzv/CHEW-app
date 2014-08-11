@@ -2,10 +2,8 @@ package com.vanderbilt.isis.chew.recipes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.vanderbilt.isis.chew.db.ChewContract;
-import com.vanderbilt.isis.chew.model.MainListRowItem;
-
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -44,10 +42,18 @@ public class Ingredient implements Parcelable {
 		longerDescription = l;
 	}
 	
-    public static Ingredient fromCursor(Cursor curIngs) {
+    public static Ingredient fromCursor(Context c, Cursor curIngs) {
     	logger.trace("fromCursor()");
-        String i = curIngs.getString(curIngs.getColumnIndex(ChewContract.Ingredients.INGREDIENT));
-        String d = curIngs.getString(curIngs.getColumnIndex(ChewContract.Ingredients.LONG_DESCRIPTION));
+    	
+    	int ingResourceId = c.getResources()
+				.getIdentifier(curIngs.getString(curIngs.getColumnIndex(ChewContract.Ingredients.INGREDIENT)), "string",
+						"com.vanderbilt.isis.chew");
+    	int longIngResourceId = c.getResources()
+				.getIdentifier(curIngs.getString(curIngs.getColumnIndex(ChewContract.Ingredients.LONG_DESCRIPTION)), "string",
+						"com.vanderbilt.isis.chew");
+    	
+        String i = c.getString(ingResourceId);
+        String d = c.getString(longIngResourceId);
 
         return new Ingredient(i, d);
     }

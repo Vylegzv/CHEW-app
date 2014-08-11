@@ -111,7 +111,7 @@ public class RecipeActivity extends Activity {
 
 		if (curIngrs != null) {
 			while (curIngrs.moveToNext())
-				ings.add(Ingredient.fromCursor(curIngrs));
+				ings.add(Ingredient.fromCursor(RecipeActivity.this, curIngrs));
 			curIngrs.close();
 		}
 		return ings;

@@ -100,7 +100,6 @@ public class InCartRegular extends ListActivity implements
 
 				// set dialog message
 				alertDialogBuilder
-						// .setMessage("Please connect to Internet")
 						.setCancelable(false)
 						.setPositiveButton(getString(R.string.yes),
 								new DialogInterface.OnClickListener() {

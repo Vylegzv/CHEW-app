@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import kankan.wheel.widget.WheelView;
+import kankan.wheel.widget.adapters.ArrayWheelAdapter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.vanderbilt.isis.chew.db.ChewContract;
@@ -13,8 +17,6 @@ import com.vanderbilt.isis.chew.notificationmsg.ConfigurationActivity;
 import com.vanderbilt.isis.chew.utils.Utils;
 import com.vanderbilt.isis.chew.vouchers.CashVoucher;
 import com.vanderbilt.isis.chew.vouchers.Voucher;
-import kankan.wheel.widget.WheelView;
-import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -55,17 +57,23 @@ public class Produce extends Activity {
 	Integer selectedQuantity = 0;
 	Map<String, Voucher> cashVouchers;
 	LinearLayout ll;
+	boolean cashVouchersSet = false;
 
 	public final String TAG = getClass().getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		logger.trace("onCreate()");
 		setContentView(R.layout.produce);
 		logger.info("Opened Produce - Calculator");
 		cashVouchers = Utils.getCashVouchers(Produce.this);
+
+		if (cashVouchers != null && !cashVouchers.isEmpty()) {
+			cashVouchersSet = true;
+		}
+
 		initializeLayout();
 
 		// "-", "1/4", "1/2", "3/4"
@@ -75,14 +83,18 @@ public class Produce extends Activity {
 		incrementsMap.put("3/4", 0.75);
 
 		populateNameVoucherArray();
-		
+
 		// we may get intent from Main activity if user scanned CASH item
 		Intent intent = getIntent();
-		if(intent != null){
+		if (intent != null) {
 			Bundle extras = intent.getExtras();
-			if(extras != null){
-				String foodName = extras.getString("food_name");
-				enterPrice(foodName);
+			if (extras != null) {
+				if(cashVouchersSet){
+					String foodName = extras.getString("food_name");
+					enterPrice(foodName);
+				}else{
+					showDialog();
+				}
 			}
 		}
 	}
@@ -124,14 +136,20 @@ public class Produce extends Activity {
 	public void calcPackagedFresh(View view) {
 		logger.trace("calcPackagedFresh()");
 		logger.info("Calculate Packaged Fresh");
-		callScanner();
+		if (cashVouchersSet)
+			callScanner();
+		else
+			showDialog();
 
 	}
 
 	public void calcPackagedFrozen(View view) {
 		logger.trace("calcPackagedFrozen()");
 		logger.info("Calculate Packaged Frozen");
-		callScanner();
+		if (cashVouchersSet)
+			callScanner();
+		else
+			showDialog();
 	}
 
 	private void callScanner() {
@@ -142,7 +160,10 @@ public class Produce extends Activity {
 	public void calcPricePerItem(View view) {
 		logger.trace("calcPricePerItem()");
 		logger.info("Calculate Price per Item");
-		enterPrice("");
+		if (cashVouchersSet)
+			enterPrice("");
+		else
+			showDialog();
 	}
 
 	public void onActivityResult(int request, int result, Intent i) {
@@ -165,7 +186,6 @@ public class Produce extends Activity {
 					ChewContract.Store.FOOD_CATEGORY,
 					ChewContract.Store.FOOD_TYPE };
 
-			// it could be either in one store or in both stores
 			String where = ChewContract.Store.BARCODE + "='" + barcode + "'";
 
 			loader = new CursorLoader(Produce.this,
@@ -213,10 +233,10 @@ public class Produce extends Activity {
 									dialog.cancel();
 								}
 							});
-					
+
 					AlertDialog alertDialog = alert.create();
 					alertDialog.show();
-					
+
 				} else {
 
 					enterPrice(tagDescription);
@@ -228,183 +248,201 @@ public class Produce extends Activity {
 	public void calcPricePerPound(View view) {
 		logger.trace("calcPricePerPound()");
 		logger.info("Calculate Price per Pound");
-		AlertDialog.Builder alert = new AlertDialog.Builder(Produce.this);
-		alert.setTitle(getString(R.string.calc_price));
+		if (cashVouchersSet) {
+			AlertDialog.Builder alert = new AlertDialog.Builder(Produce.this);
+			alert.setTitle(getString(R.string.calc_price));
 
-		LayoutInflater li = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View dialogView = li.inflate(R.layout.produce_wheel, null);
-		alert.setView(dialogView);
+			LayoutInflater li = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			View dialogView = li.inflate(R.layout.produce_wheel, null);
+			alert.setView(dialogView);
 
-		Spinner spinnercategory = (Spinner) dialogView
-				.findViewById(R.id.viewSpin);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(Produce.this,
-				android.R.layout.simple_spinner_item, voucherNameArray);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinnercategory.setAdapter(adapter);
+			Spinner spinnercategory = (Spinner) dialogView
+					.findViewById(R.id.viewSpin);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					Produce.this, android.R.layout.simple_spinner_item,
+					voucherNameArray);
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spinnercategory.setAdapter(adapter);
 
-		spinnercategory.setOnItemSelectedListener(new OnItemSelectedListener() {
+			spinnercategory
+					.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			public void onItemSelected(AdapterView<?> parent, View arg1,
-					int arg2, long arg3) {
-				logger.trace("calcPricePerPound().onItemSelected()");
-				voucherNameChosen = parent.getSelectedItem().toString();
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-				logger.trace("calcPricePerPound.onNothingSelected()");
-				// TODO Auto-generated method stub
-			}
-		});
-
-		final WheelView poundsWheel = (WheelView) dialogView
-				.findViewById(R.id.pounds);
-		final WheelView incrementsWheel = (WheelView) dialogView
-				.findViewById(R.id.increments);
-
-		final Integer poundNums[] = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9,
-				10 };
-		final ArrayWheelAdapter<Integer> poundsWheelAdapter = new ArrayWheelAdapter<Integer>(
-				this, poundNums);
-		poundsWheel.setViewAdapter(poundsWheelAdapter);
-
-		// have a map to map strings to doubles: 0.0, 0.25, 0.5, 0.75
-		final String incrementNums[] = new String[] { "-", "1/4", "1/2", "3/4" };
-		final ArrayWheelAdapter<String> incrWheelAdapter = new ArrayWheelAdapter<String>(
-				this, incrementNums);
-		incrementsWheel.setViewAdapter(incrWheelAdapter);
-
-		final EditText produceEntered = (EditText) dialogView
-				.findViewById(R.id.produceName);
-		final EditText priceEntered = (EditText) dialogView
-				.findViewById(R.id.priceEntered);
-
-		alert.setPositiveButton(getString(R.string.ok),
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-
-						String produce = produceEntered.getText().toString();
-						double price = Double.parseDouble(priceEntered
-								.getText().toString());
-						logger.info("Selected Voucher {} for",
-								voucherNameChosen);
-						logger.info("Produce {} with Price {}", produce, price);
-						Log.d("SELECTED", voucherNameChosen);
-						Log.d("PRODUCEEENTERED", produce);
-						Log.d("PRICEENTERED", price + "");
-						logger.debug("SELECTED {} and PRODUCEENTERED {}",
-								voucherNameChosen, produce);
-						logger.debug("PRICEENTERED {}", price + "");
-
-						Integer pound = poundNums[poundsWheel.getCurrentItem()];
-						String incrKey = incrementNums[incrementsWheel
-								.getCurrentItem()];
-						double incr = incrementsMap.get(incrKey);
-						price = price * incr * pound;
-
-						Log.d(TAG, price + "");
-						logger.debug("PRICE {}", price + "");
-
-						DecimalFormat df = new DecimalFormat("0.00");
-
-						double totalSpentForPerson = ((CashVoucher) cashVouchers
-								.get(voucherNameChosen))
-								.getAmountSpent(Produce.this);
-						double totalAllowedForPerson = ((CashVoucher) cashVouchers
-								.get(voucherNameChosen)).getAmountAllowed();
-
-						Log.d("TOTALSPENTFORPERSON", totalSpentForPerson + "");
-						Log.d("TOTALALLOWEDFORPERSON", totalAllowedForPerson
-								+ "");
-						logger.debug(
-								"TOTALSPENTFORPERSON {} and TOTALALLOWEDFORPERSON {}",
-								totalSpentForPerson + totalAllowedForPerson);
-						if (totalSpentForPerson + price <= totalAllowedForPerson) {
-
-							InsertDataHandler myInsertHandler = new InsertDataHandler(
-									Produce.this);
-
-							ContentValues newValues = new ContentValues();
-
-							newValues.put(
-									ChewContract.ProduceChosen.PRODUCE_NAME,
-									produce);
-							newValues.put(ChewContract.ProduceChosen.COST,
-									df.format(price));
-							newValues.put(ChewContract.ProduceChosen.MONTH,
-									Utils.getMonth());
-							newValues.put(
-									ChewContract.ProduceChosen.VOUCHER_CODE,
-									voucherNameChosen.split(" - ")[0]);
-							newValues.put(
-									ChewContract.ProductsChosen.MEMBER_NAME,
-									voucherNameChosen.split(" - ")[1]);
-
-							myInsertHandler.startInsert(0, 0,
-									ChewContract.ProduceChosen.CONTENT_URI,
-									newValues);
-
-							totalSpentForPerson = totalSpentForPerson + price;
-
-							LinearLayout l = (LinearLayout) ll
-									.findViewWithTag(voucherNameChosen);
-							TextView left = (TextView) l.findViewWithTag(1);
-							left.setText(getString(R.string.left)
-									+ " "
-									+ df.format((totalAllowedForPerson - totalSpentForPerson)));
-							TextView spent = (TextView) l.findViewWithTag(2);
-							spent.setText(getString(R.string.spent) + " "
-									+ df.format(totalSpentForPerson));
-
-						} else {
-							Log.d("PRODUCE", "over the limit");
-							logger.debug("over the limit");
-							logger.info("Chosen Produce was over the Cost Limit");
-							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-									Produce.this);
-							// set title
-							alertDialogBuilder
-									.setTitle(getString(R.string.cost_limit)
-											+ " " + voucherNameChosen + "!");
-
-							// set dialog message
-							alertDialogBuilder
-									.setCancelable(false)
-									.setPositiveButton(
-											getString(R.string.ok),
-											new DialogInterface.OnClickListener() {
-												public void onClick(
-														DialogInterface dialog,
-														int id) {
-													dialog.cancel();
-												}
-											});
-
-							AlertDialog alertDialog = alertDialogBuilder
-									.create();
-							alertDialog.show();
+						public void onItemSelected(AdapterView<?> parent,
+								View arg1, int arg2, long arg3) {
+							logger.trace("calcPricePerPound().onItemSelected()");
+							voucherNameChosen = parent.getSelectedItem()
+									.toString();
 						}
-					}
 
-				});
+						public void onNothingSelected(AdapterView<?> arg0) {
+							logger.trace("calcPricePerPound.onNothingSelected()");
+							// TODO Auto-generated method stub
+						}
+					});
 
-		alert.setNegativeButton(getString(R.string.cancel),
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						Log.d(TAG, poundNums[poundsWheel.getCurrentItem()] + "");
-						logger.debug(" {}",
-								poundNums[poundsWheel.getCurrentItem()] + "");
-						String s = incrementNums[incrementsWheel
-								.getCurrentItem()];
-						Log.d(TAG, s);
-						logger.debug(" {}", s);
-						double test = incrementsMap.get(s);
-						Log.d(TAG, test + "");
-						logger.debug(" {}", test + "");
-					}
-				});
+			final WheelView poundsWheel = (WheelView) dialogView
+					.findViewById(R.id.pounds);
+			final WheelView incrementsWheel = (WheelView) dialogView
+					.findViewById(R.id.increments);
 
-		AlertDialog alertdialog = alert.create();
-		alertdialog.show();
+			final Integer poundNums[] = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8,
+					9, 10 };
+			final ArrayWheelAdapter<Integer> poundsWheelAdapter = new ArrayWheelAdapter<Integer>(
+					this, poundNums);
+			poundsWheel.setViewAdapter(poundsWheelAdapter);
+
+			// have a map to map strings to doubles: 0.0, 0.25, 0.5, 0.75
+			final String incrementNums[] = new String[] { "-", "1/4", "1/2",
+					"3/4" };
+			final ArrayWheelAdapter<String> incrWheelAdapter = new ArrayWheelAdapter<String>(
+					this, incrementNums);
+			incrementsWheel.setViewAdapter(incrWheelAdapter);
+
+			final EditText produceEntered = (EditText) dialogView
+					.findViewById(R.id.produceName);
+			final EditText priceEntered = (EditText) dialogView
+					.findViewById(R.id.priceEntered);
+
+			alert.setPositiveButton(getString(R.string.ok),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+
+							String produce = produceEntered.getText()
+									.toString();
+							double price = Double.parseDouble(priceEntered
+									.getText().toString());
+							logger.info("Selected Voucher {} for",
+									voucherNameChosen);
+							logger.info("Produce {} with Price {}", produce,
+									price);
+							Log.d("SELECTED", voucherNameChosen);
+							Log.d("PRODUCEEENTERED", produce);
+							Log.d("PRICEENTERED", price + "");
+							logger.debug("SELECTED {} and PRODUCEENTERED {}",
+									voucherNameChosen, produce);
+							logger.debug("PRICEENTERED {}", price + "");
+
+							Integer pound = poundNums[poundsWheel
+									.getCurrentItem()];
+							String incrKey = incrementNums[incrementsWheel
+									.getCurrentItem()];
+							double incr = incrementsMap.get(incrKey);
+							price = price * incr * pound;
+
+							Log.d(TAG, price + "");
+							logger.debug("PRICE {}", price + "");
+
+							DecimalFormat df = new DecimalFormat("0.00");
+
+							double totalSpentForPerson = ((CashVoucher) cashVouchers
+									.get(voucherNameChosen))
+									.getAmountSpent(Produce.this);
+							double totalAllowedForPerson = ((CashVoucher) cashVouchers
+									.get(voucherNameChosen)).getAmountAllowed();
+
+							Log.d("TOTALSPENTFORPERSON", totalSpentForPerson
+									+ "");
+							Log.d("TOTALALLOWEDFORPERSON",
+									totalAllowedForPerson + "");
+							logger.debug(
+									"TOTALSPENTFORPERSON {} and TOTALALLOWEDFORPERSON {}",
+									totalSpentForPerson + totalAllowedForPerson);
+							if (totalSpentForPerson + price <= totalAllowedForPerson) {
+
+								InsertDataHandler myInsertHandler = new InsertDataHandler(
+										Produce.this);
+
+								ContentValues newValues = new ContentValues();
+
+								newValues
+										.put(ChewContract.ProduceChosen.PRODUCE_NAME,
+												produce);
+								newValues.put(ChewContract.ProduceChosen.COST,
+										df.format(price));
+								newValues.put(ChewContract.ProduceChosen.MONTH,
+										Utils.getMonth());
+								newValues
+										.put(ChewContract.ProduceChosen.VOUCHER_CODE,
+												voucherNameChosen.split(" - ")[0]);
+								newValues
+										.put(ChewContract.ProductsChosen.MEMBER_NAME,
+												voucherNameChosen.split(" - ")[1]);
+
+								myInsertHandler.startInsert(0, 0,
+										ChewContract.ProduceChosen.CONTENT_URI,
+										newValues);
+
+								totalSpentForPerson = totalSpentForPerson
+										+ price;
+
+								LinearLayout l = (LinearLayout) ll
+										.findViewWithTag(voucherNameChosen);
+								TextView left = (TextView) l.findViewWithTag(1);
+								left.setText(getString(R.string.left)
+										+ " "
+										+ df.format((totalAllowedForPerson - totalSpentForPerson)));
+								TextView spent = (TextView) l
+										.findViewWithTag(2);
+								spent.setText(getString(R.string.spent) + " "
+										+ df.format(totalSpentForPerson));
+
+							} else {
+								Log.d("PRODUCE", "over the limit");
+								logger.debug("over the limit");
+								logger.info("Chosen Produce was over the Cost Limit");
+								AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+										Produce.this);
+								// set title
+								alertDialogBuilder
+										.setTitle(getString(R.string.cost_limit)
+												+ " " + voucherNameChosen + "!");
+
+								// set dialog message
+								alertDialogBuilder
+										.setCancelable(false)
+										.setPositiveButton(
+												getString(R.string.ok),
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int id) {
+														dialog.cancel();
+													}
+												});
+
+								AlertDialog alertDialog = alertDialogBuilder
+										.create();
+								alertDialog.show();
+							}
+						}
+
+					});
+
+			alert.setNegativeButton(getString(R.string.cancel),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							Log.d(TAG, poundNums[poundsWheel.getCurrentItem()]
+									+ "");
+							logger.debug(" {}",
+									poundNums[poundsWheel.getCurrentItem()]
+											+ "");
+							String s = incrementNums[incrementsWheel
+									.getCurrentItem()];
+							Log.d(TAG, s);
+							logger.debug(" {}", s);
+							double test = incrementsMap.get(s);
+							Log.d(TAG, test + "");
+							logger.debug(" {}", test + "");
+						}
+					});
+
+			AlertDialog alertdialog = alert.create();
+			alertdialog.show();
+		} else {
+			showDialog();
+		}
 	}
 
 	private void enterPrice(String produceName) {
@@ -618,6 +656,28 @@ public class Produce extends Activity {
 		return allowed;
 	}
 
+	private void showDialog() {
+
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				Produce.this);
+		alertDialogBuilder.setTitle(getString(R.string.cv_not_selected));
+		// set dialog message
+		alertDialogBuilder.setCancelable(false).setPositiveButton(
+				getString(R.string.ok), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+
+						Intent intent = new Intent(Produce.this,
+								MainActivity.class);
+						startActivity(intent);
+					}
+				});
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+	}
+
 	@Override
 	protected void onResume() {
 
@@ -627,11 +687,11 @@ public class Produce extends Activity {
 		logger.debug("onResume called");
 		cashVouchers = Utils.getCashVouchers(Produce.this);
 	}
-	
-	/*******Pankaj Chand's Functions*/
-	
-	//Options Menu
-	
+
+	/******* Pankaj Chand's Functions */
+
+	// Options Menu
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		logger.trace("onCreateOptionsMenu()");
@@ -649,9 +709,9 @@ public class Produce extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
-		}
-		else if (id == R.id.action_notification) {
-			Intent intent = new Intent(Produce.this, ConfigurationActivity.class);
+		} else if (id == R.id.action_notification) {
+			Intent intent = new Intent(Produce.this,
+					ConfigurationActivity.class);
 			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
