@@ -6,11 +6,11 @@
         <item>Favorite Snacks</item>
         <item>Snack Shopping List</item>
         <item>Healthy Snacking Tips</item>
-        <item>Start Shopping</item>
-        <item>Done Shopping</item>
         <item>Scan a Barcode</item>
         <item>Choose a Family Member</item>
         <item>Buy Produce</item>
+        <item>Start Shopping</item>
+        <item>Done Shopping</item>
         <item>Help</item>
         <item>Add Vouchers</item>
         <item>Delete Vouchers</item>
@@ -20,11 +20,11 @@
         <item>View your favorite recipes!</item>
         <item>Buy ingredients for your selected snacks</item>
         <item>History of tips you have received </item>
-        <item>Start a new shopping trip using WIC vouchers</item>
-        <item>End today\'s WIC shopping trip</item>
         <item>Shop for the family</item>
         <item>Shop for a family member</item>
         <item>Fruit &amp; Vegetable calculators for Cash Value Vouchers</item>
+        <item>Start a new shopping trip using WIC vouchers</item>
+        <item>End today\'s WIC shopping trip</item>
         <item>How to use this app</item>
         <item>Add new vouchers for family members</item>
         <item>Delete vouchers no longer being used</item>
@@ -34,14 +34,14 @@
         <item>@drawable/favorite_recipes</item>
         <item>@drawable/shopping_list</item>
         <item>@drawable/notification_history</item>
-        <item>@drawable/shopping_cart</item>
-        <item>@drawable/done</item>
         <item>@drawable/barcode</item>
         <item>@drawable/family</item>
         <item>@drawable/produce</item>
+        <item>@drawable/shopping_cart</item>
+        <item>@drawable/done</item>
         <item>@drawable/help</item>
         <item>@drawable/upload</item>
-        <item>@drawable/ic_launcher</item>
+        <item>@drawable/delete</item>
     </string-array>
     <string-array name="stores_array">
         <item>Walmart</item>

@@ -11,8 +11,8 @@
     <string name="name">Name:</string>
     <string name="month">Month:</string>
     <string name="ethnicity">Ethnicity:</string>
-    <string name="vouchers_title">Your Family Vouchers</string>
-    <string name="vouchers">Vouchers:   </string>
+    <string name="vouchers_title">Your Family\'s Vouchers</string>
+    <string name="vouchers">Vouchers:</string>
     <string name="which_store">Which store are you in?</string>
     <string name="which_vouchers">Which vouchers will you use today?</string>
     <string name="want_to_get">Do you want to get this item?</string>
@@ -20,7 +20,7 @@
     <string name="select_wic_appr">Sorry, this product is not a WIC approved item</string>
     <string name="no_matching_voucher">Not allowed on this voucher</string>
     <string name="choose_voucher_matching_product">Sorry, this product is not on this person\'s WIC voucher</string>
-    <string name="scan_for_member">Scan Item for this person</string>
+    <string name="scan_for_member">Scan Item for this Person</string>
     <string name="what_can_get">What\'s on Voucher?</string>
     <string name="in_cart_regular">Regular Voucher: View Shopping Cart</string>
     <string name="in_cart_cash">Cash Voucher: View Shopping Cart</string>
@@ -36,7 +36,7 @@
     <string name="steps">Steps:</string>
     <string name="recipe_image">Recipe Image</string>
     <string name="ready_to_shop">You are now ready to use your vouchers!</string>
-    <string name="vouchers_uploaded_msg">Vouchers were successfully uploaded</string>
+    <string name="vouchers_uploaded_msg">Vouchers were successfully added</string>
     <string name="delete_item">Delete this item?</string>
     <string name="deleted_success_msg">Item successfully deleted</string>
     <string name="select_delete_quantity">Select number to be deleted</string>
@@ -48,14 +48,29 @@
     <string name="choose_member">Chose a Family Member:</string>
     <string name="choose_members">Choose which vouchers you want to use to buy this item. Then choose how many.</string>
     <string name="enter_produce">Enter Produce Name:</string>
-    <string name="enter_price_$">Enter Price per Item: $</string>
+    <string name="enter_price_$">Enter Price per Item:</string>
     <string name="enter_price">Enter the Price</string>
     <string name="select_quantity">Select # of items:</string>
     <string name="clear_shop_list">Clear Shopping List</string>
+    
+    <!-- NEW -->
+    <string name="calculator_title">Cash Value Voucher Calculators</string>
+    <string name="caclulator_instructions1">Use these tools to calculate how much fruits and vegetables you can buy with each cash voucher.</string>
+    <string name="caclulator_instructions2">Produce may be bought loose or in a package, fresh or frozen. Pick which type of fruit or vegetables you want to buy for the right calculator tool.</string>
+    
     <string name="packaged_fresh">Packaged Fresh</string>
     <string name="packaged_frozen">Packaged Frozen</string>
+    
+    <!-- NEW -->
+    <string name="packaged_manual1">Not found in database. Please enter name of packaged fruit/vegetable item.</string>
+    <string name="packaged_manual2">REMEMBER: Must not have added sugars, fats, oils, herbs or spices.</string>
+    
     <string name="loose_price_per_pound">Loose Produce: Price per Pound</string>
     <string name="loose_price_per_item">Loose Produce: Price per Item</string>
+    
+    <!-- NEW -->
+    <string name="calculator_intro">Weigh the produce on the scale. Then choose weight in pounds.</string>
+    
     <string name="produce_name">Enter Produce Name:</string>
     <string name="price_per_pound">Price per Pound: $</string>
     <string name="dollar_sign">$</string>
@@ -63,6 +78,10 @@
     <string name="quantity">How many?</string>
     <string name="done_shop">Done Shopping?</string>
     <string name="sure_done_shop">Are you sure want to end this WIC shopping trip? All vouchers selected today will be marked as USED.</string>
+    
+    <!-- NEW -->
+    <string name="confirm_done_shop">This shopping trip is now closed. All vouchers from this trip were marked as USED.</string>
+    
     <string name="enter_pwd">Please Enter Password</string>
     <string name="wrong_pwd">Wrong Password</string>
     <string name="pwd">Password:</string>

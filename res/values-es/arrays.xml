@@ -6,11 +6,11 @@
         <item>Bocadillos Favoritos</item>
         <item>Lista de Compra de Bocadillos</item>
         <item>Consejos de Bocadillos Saludables</item>
-        <item>Comience Compras</item>
-        <item>Termine Compras</item>
         <item>Escanee Código de Barras</item>
         <item>Escoja Miembro de Familia</item>
         <item>Compre frutas y verduras</item>
+        <item>Comience Compras</item>
+        <item>Termine Compras</item>
         <item>Ayuda</item>
         <item>Aumente Cupones</item>
         <item>Borre Cupones</item>
@@ -20,11 +20,11 @@
         <item>Ver mis recetas favoritas</item>
         <item>Compre ingredientes para sus bocadillos escogidos</item>
         <item>Historia de los consejos que ha recibido</item>
-        <item>Comience una nueva compra usando los cupones de WIC</item>
-        <item>Termine las compras de WIC por hoy</item>
         <item>Compre para la familia</item>
         <item>Compre para un miembro de la familia</item>
         <item>Calculadora para los Cupones en Efectivo para frutas y verduras</item>
+        <item>Comience una nueva compra usando los cupones de WIC</item>
+        <item>Termine las compras de WIC por hoy</item>
         <item>Cómo usar este app</item>
         <item>Aumente un cupón nuevo para miembros de la familia</item>
         <item>Borre los cupones que ya no está usando</item>
@@ -34,14 +34,14 @@
         <item>@drawable/favorite_recipes</item>
         <item>@drawable/shopping_list</item>
         <item>@drawable/notification_history</item>
-        <item>@drawable/shopping_cart</item>
-        <item>@drawable/done</item>
         <item>@drawable/barcode</item>
         <item>@drawable/family</item>
         <item>@drawable/produce</item>
+        <item>@drawable/shopping_cart</item>
+        <item>@drawable/done</item>
         <item>@drawable/help</item>
         <item>@drawable/upload</item>
-        <item>@drawable/ic_launcher</item>
+        <item>@drawable/delete</item>
     </string-array>
     <string-array name="stores_array">
         <item>Walmart</item>
