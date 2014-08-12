@@ -57,6 +57,7 @@
     <string name="calculator_title">Cash Value Voucher Calculators</string>
     <string name="caclulator_instructions1">Use these tools to calculate how much fruits and vegetables you can buy with each cash voucher.</string>
     <string name="caclulator_instructions2">Produce may be bought loose or in a package, fresh or frozen. Pick which type of fruit or vegetables you want to buy for the right calculator tool.</string>
+    <string name="cash_vs_inuse">Cash Vouchers in use</string>
     
     <string name="packaged_fresh">Packaged Fresh</string>
     <string name="packaged_frozen">Packaged Frozen</string>
@@ -69,7 +70,8 @@
     <string name="loose_price_per_item">Loose Produce: Price per Item</string>
     
     <!-- NEW -->
-    <string name="calculator_intro">Weigh the produce on the scale. Then choose weight in pounds.</string>
+    <string name="wheel_intro1">Weigh the produce on the scale.</string>
+    <string name="wheel_intro2">Then choose weight in pounds.</string>
     
     <string name="produce_name">Enter Produce Name:</string>
     <string name="price_per_pound">Price per Pound: $</string>
@@ -97,7 +99,6 @@
     <string name="exception_case">buttermilk and/or evaporated milk and/or tofu</string>
     <string name="cannot_get_anymore">You cannot get anymore of</string>
     <string name="on_this_voucher">on this voucher</string>
-    <!-- this was not translated -->
     <string name="not_cash">This is not a CASH item!</string>
 	<string name="not_used">not used</string>
 	<string name="in_use">in use</string>
@@ -565,12 +566,5 @@
     <string name="notificationHistory">NOTIFICATION HISTORY</string>
     <string name="alertMessage">Alert Message</string>
     <string name="fullText">Full Text</string>
-    <string name="newCalculator1">Cash Value Voucher Calculators</string>
-    <string name="newCalculator2">Use these tools to calculate how much fruits and vegetables you can buy with each cash voucher.</string>
-    <string name="newCalculator3">Produce may be bought loose or in a package, fresh or frozen. Pick which type of fruit or vegetables you want to buy for the right calculator tool.</string>
-    <string name="newCalculator4">Cash Vouchers in use</string>
-    <string name="LoosePricePerPound1">Weigh the produce on the scale.</string>
-    <string name="LoosePricePerPound2">Then choose weight in pounds.</string>
-    <string name="EnterPrice1">REMEMBER: Must not have Added Sugars, Fats, Oils, Herbs or Spices \n</string>
 
 </resources>

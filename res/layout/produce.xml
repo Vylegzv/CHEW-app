@@ -1,56 +1,130 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/produce_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     tools:context=".BuyingProduce" >
 
-    <LinearLayout
-        android:id="@+id/lay2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" >
+    <!-- android:id="@+id/produce_layout" -->
 
-        <Button
-            android:layout_width="152dp"
-            android:layout_height="100dp"
-            android:onClick="calcPackagedFresh"
-            android:text="@string/packaged_fresh" />
-
-        <Button
-            android:layout_width="152dp"
-            android:layout_height="100dp"
-            android:onClick="calcPackagedFrozen"
-            android:text="@string/packaged_frozen" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lay3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lay2"
-        android:layout_centerHorizontal="true" >
-
-        <Button
-            android:layout_width="152dp"
-            android:layout_height="100dp"
-            android:onClick="calcPricePerPound"
-            android:text="@string/loose_price_per_pound" />
-
-        <Button
-            android:layout_width="152dp"
-            android:layout_height="100dp"
-            android:onClick="calcPricePerItem"
-            android:text="@string/loose_price_per_item" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lay1"
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lay3"
-        android:orientation="vertical"
-        android:paddingLeft="10dip" >
-    </LinearLayout>
+        android:layout_height="fill_parent" >
+
+        <RelativeLayout
+            android:id="@+id/produce_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <!-- tools:context=".BuyingProduce" > -->
+
+            <LinearLayout
+                android:id="@+id/lay4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/calculator_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lay4"
+                android:layout_centerHorizontal="true" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/caclulator_instructions1"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lay5"
+                android:layout_centerHorizontal="true" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/caclulator_instructions2"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lay6"
+                android:layout_centerHorizontal="true" >
+
+                <Button
+                    android:layout_width="152dp"
+                    android:layout_height="100dp"
+                    android:onClick="calcPackagedFresh"
+                    android:text="@string/packaged_fresh" />
+
+                <Button
+                    android:layout_width="152dp"
+                    android:layout_height="100dp"
+                    android:onClick="calcPackagedFrozen"
+                    android:text="@string/packaged_frozen" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lay2"
+                android:layout_centerHorizontal="true" >
+
+                <Button
+                    android:layout_width="152dp"
+                    android:layout_height="100dp"
+                    android:onClick="calcPricePerPound"
+                    android:text="@string/loose_price_per_pound" />
+
+                <Button
+                    android:layout_width="152dp"
+                    android:layout_height="100dp"
+                    android:onClick="calcPricePerItem"
+                    android:text="@string/loose_price_per_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lay3" >
+
+                <!-- android:layout_centerHorizontal="true" -->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cash_vs_inuse"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lay7"
+                android:orientation="vertical"
+                android:paddingLeft="10dip" >
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
