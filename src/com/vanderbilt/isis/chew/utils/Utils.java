@@ -332,6 +332,33 @@ public class Utils {
 
 		return cashVouchers;
 	}
+	
+	public static Set<String> getInUseVoucherCodes(Context context, String memberName) {
+        logger.trace("getInUseVouchersForMember()");
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		Set<String> vCodes = preferences.getStringSet(Utils.VOUCHERS, null);
+
+		if (vCodes != null) {
+
+				Set<String> memberVouchers = new HashSet<String>();
+				for (String v : vCodes) {
+
+					String vCode = v.split(" - ")[0];
+					String name = v.split(" - ")[1];
+
+					if (name.equals(memberName))
+						memberVouchers.add(vCode);
+				}
+
+				return memberVouchers;
+
+		} else {
+			Log.d("Voucher Used", "null");
+		}
+
+		return null;
+	}
 
 	public static String getMonth() {
 		logger.trace("getMonth()");
