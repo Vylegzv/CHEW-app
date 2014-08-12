@@ -360,23 +360,20 @@ public class Utils {
 					Toast.LENGTH_SHORT).show();
 		}
 	}
-
-	/*
-	 * public static Set<String> getCashVouchers(Context context){
-	 * 
-	 * SharedPreferences preferences = PreferenceManager
-	 * .getDefaultSharedPreferences(context); Set<String> vouchers =
-	 * preferences.getStringSet(Utils.VOUCHERS, null); Set<String> cashVouchers
-	 * = new HashSet<String>();
-	 * 
-	 * // debug if(vouchers != null){ for(String v : vouchers){
-	 * 
-	 * if(v.contains(VoucherCode.CV6.getCode()) ||
-	 * v.contains(VoucherCode.CV10.getCode())) cashVouchers.add(v); }
-	 * 
-	 * }else{ Log.d("Voucher Used", "null"); }
-	 * 
-	 * return cashVouchers; }
-	 */
-
+	
+    /**
+     * Show a toast message to the user.
+     * 
+     * @param context
+     *            The Activity context
+     *
+     * @param message
+     *            The message to display
+     */
+    public static void showToast(Context context,
+                                 String message) {
+        Toast.makeText(context, 
+                       message,
+                       Toast.LENGTH_LONG).show();
+    }
 }

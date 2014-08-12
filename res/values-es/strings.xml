@@ -78,7 +78,8 @@
     <string name="ounces">onzas</string>
     <string name="quantity">¿Cuántos?</string>
     <string name="done_shop">¿Terminó sus Compras? </string>
-    <string name="sure_done_shop">¿Está segura de que quiere terminar las compras de WIC hoy? Todos los cupones seleccionados hoy serán marcados como UTILIZADO.</string>
+    <string name="sure_done_shop_title">¿Está segura de que quiere terminar las compras de WIC hoy?</string>
+    <string name="sure_done_shop_msg">Todos los cupones seleccionados hoy serán marcados como UTILIZADO.</string>
     
     <!-- NEW -->
     <string name="confirm_done_shop">Las compras se han cerrado. Todos los cupones seleccionados se han marcado como UTILIZADO.</string>

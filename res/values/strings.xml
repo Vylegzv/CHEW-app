@@ -77,7 +77,8 @@
     <string name="ounces">oz</string>
     <string name="quantity">How many?</string>
     <string name="done_shop">Done Shopping?</string>
-    <string name="sure_done_shop">Are you sure want to end this WIC shopping trip? All vouchers selected today will be marked as USED.</string>
+    <string name="sure_done_shop_title">Are you sure want to end this WIC shopping trip?</string>
+    <string name="sure_done_shop_msg">All vouchers selected today will be marked as USED.</string>
     
     <!-- NEW -->
     <string name="confirm_done_shop">This shopping trip is now closed. All vouchers from this trip were marked as USED.</string>
@@ -98,10 +99,10 @@
     <string name="on_this_voucher">on this voucher</string>
     <!-- this was not translated -->
     <string name="not_cash">This is not a CASH item!</string>
-    <string name="not_used">not used</string>
-    <string name="in_use">in use</string>
-    <string name="used">used</string>
-    <string name="cv_not_selected">You did not select any CASH voucher for this shopping trip!</string>
+	<string name="not_used">not used</string>
+	<string name="in_use">in use</string>
+	<string name="used">used</string>
+	<string name="cv_not_selected">Please select a CASH voucher for this shopping trip!</string>
 
     <!-- Recipes -->
     <string name="peach_banana">Peach Banana Drink</string>

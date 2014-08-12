@@ -24,6 +24,7 @@
         android:layout_below="@+id/member_name"
         android:textStyle="bold"
         android:layout_marginBottom="15dp"
+        android:layout_marginRight="5dp"
         android:text="@string/vouchers" />
 
     <TextView
@@ -33,6 +34,7 @@
         android:layout_below="@+id/vouchers"
         android:textStyle="bold"
         android:layout_marginBottom="15dp"
+        android:layout_marginRight="5dp"
         android:text="@string/month" />
 
     <Button

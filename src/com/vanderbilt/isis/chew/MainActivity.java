@@ -49,11 +49,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	
 	public final String TAG = getClass().getSimpleName();
 
-	public static final int SCAN = 6;//4;//0;
-	public static final int CHOOSE = 7;//5;//1;
-	public static final int PRODUCE = 8;//6;//2;
-	public static final int SHOPPING = 4;//7;//3;
-	public static final int DONE = 5;//8;//4;
+	public static final int SCAN = 4;//4;//0;
+	public static final int CHOOSE = 5;//5;//1;
+	public static final int PRODUCE = 6;//6;//2;
+	public static final int SHOPPING = 7;//7;//3;
+	public static final int DONE = 8;//8;//4;
 	public static final int FAV_RECIPES = 1;//5;
 	public static final int RECIPES = 0;//6;
 	public static final int SHOPLIST = 2;//7;
@@ -498,7 +498,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		logger.trace("done()");
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				MainActivity.this);
-		alertDialogBuilder.setTitle(getString(R.string.sure_done_shop))
+		alertDialogBuilder.setTitle(getString(R.string.sure_done_shop_title))
+		.setMessage(getString(R.string.sure_done_shop_msg))
 		.setPositiveButton(getString(R.string.yes),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
@@ -514,9 +515,9 @@ public class MainActivity extends Activity implements OnItemClickListener {
 						int rowsUpdate = getContentResolver().update(
 								ChewContract.FamilyVouchers.CONTENT_URI,
 								updateValues, where, null);
-						Log.d("ROWSUPDATE", rowsUpdate + "");
                         logger.debug("ROWSUPDATE {}", rowsUpdate);
 						Utils.setShoppingStatus(MainActivity.this, false);
+						Utils.showToast(MainActivity.this, getString(R.string.confirm_done_shop));
 					}
 				}).setNegativeButton(getString(R.string.no),
 				new DialogInterface.OnClickListener() {
