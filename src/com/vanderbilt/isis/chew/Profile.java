@@ -122,6 +122,7 @@ public class Profile extends Activity {
 		Intent intent = new Intent(Profile.this, InCartRegular.class);
 		intent.putExtra("name", name);
 		startActivity(intent);
+
 	}
 
 	public void inCartCash(View v) {

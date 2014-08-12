@@ -334,7 +334,7 @@ public class Utils {
 	}
 	
 	public static Set<String> getInUseVoucherCodes(Context context, String memberName) {
-        logger.trace("getInUseVouchersForMember()");
+        
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		Set<String> vCodes = preferences.getStringSet(Utils.VOUCHERS, null);
