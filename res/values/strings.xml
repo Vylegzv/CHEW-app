@@ -63,7 +63,7 @@
     <string name="packaged_frozen">Packaged Frozen</string>
     
     <!-- NEW -->
-    <string name="packaged_manual1">Not found in database. Please enter name of packaged fruit/vegetable item.</string>
+    <string name="cash_not_found">Not found in database. Please enter name of packaged fruit/vegetable item.</string>
     <string name="packaged_manual2">REMEMBER: Must not have added sugars, fats, oils, herbs or spices.</string>
     
     <string name="loose_price_per_pound">Loose Produce: Price per Pound</string>

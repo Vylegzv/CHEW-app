@@ -62,7 +62,7 @@
     <string name="packaged_frozen">Envase de Productos Congelados</string>
 
     <!-- NEW -->
-    <string name="packaged_manual1">No existe en nuestra lista. Por favor, escriba el nombre de la fruta o verdura en paquete.</string>
+    <string name="cash_not_found">No existe en nuestra lista. Por favor, escriba el nombre de la fruta o verdura en paquete.</string>
     <string name="packaged_manual2">RECUERDE: No debe tener azúcares, grasas, aceites, hierbas o especias. </string>
     <string name="loose_price_per_pound">Precio por Libra</string>
     <string name="loose_price_per_item">Precio por Cada Fruta o Verdura</string>
