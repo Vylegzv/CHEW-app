@@ -256,7 +256,7 @@
         <string-array name="CVV10">
         <item>Este cupón es válido hasta por $10 (diez dólares) de frutas o verduras frescas o congeladas</item>
     </string-array>
-        <string-array name="CVV6">
+        <string-array name="CVV8">
         <item>Este cupón es válido hasta por $8 (ocho dólares) de frutas o verduras frescas o congeladas</item>
     </string-array>
 

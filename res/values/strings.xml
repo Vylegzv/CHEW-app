@@ -2,6 +2,21 @@
 <resources>
 
     <string name="app_name">CHEW</string>
+    
+    <string name="gallery_act">Yummy Snack Gallery</string>
+    <string name="favor_snack_act">Favorite Snacks</string>
+    <string name="shoplist_act">Snack Shopping List</string>
+    <string name="tips_act">Healthy Snacking Tips</string>
+    <string name="choose_member_act">Choose a Family Member</string>
+    <string name="produce_act">Buy Produce</string>
+    <string name="help_act">Help</string>
+    <string name="add_vouchers_act">Add Vouchers</string>
+    <string name="del_vouchers_act">Delete Vouchers</string>
+    <string name="profile_act">Family Member</string>
+    <string name="choose_vouch_act">Choose Voucher</string>
+    <string name="regular_act">Regular Voucher: Shopping Cart</string>
+    <string name="cash_act">Cash Voucher: Shopping Cart</string>
+    
     <string name="action_settings">Settings</string>
     <string name="ok">OK</string>
     <string name="yes">Yes</string>

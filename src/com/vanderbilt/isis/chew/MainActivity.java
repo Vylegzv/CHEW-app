@@ -250,7 +250,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			
 		case EDIT:
 			logger.info("Clicked EDIT Vouchers on Homepage");
-			intent = new Intent(MainActivity.this, EditVouchers.class);
+			intent = new Intent(MainActivity.this, DeleteVouchers.class);
 			startActivity(intent);
 			break;
 

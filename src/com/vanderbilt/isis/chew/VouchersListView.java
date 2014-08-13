@@ -55,6 +55,8 @@ LoaderManager.LoaderCallbacks<Cursor> {
 		loadermanager.initLoader(1, null, this);
 
 		ListView listview = getListView();
+		listview.setDivider(getResources().getDrawable(R.color.background));
+		listview.setDividerHeight(20);
 
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,

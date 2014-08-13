@@ -34,31 +34,48 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecipesActivity" />
-        <activity android:name=".FavRecipesActivity" />
-        <activity android:name=".RecipeActivity" />
-        <activity android:name=".ShoppingList" />
-        <activity android:name=".VoucherUpload" />
-        <activity android:name=".VouchersListView" />
-        <activity android:name=".VoucherDescription" />
+        <activity 
+            android:name=".RecipesActivity"
+            android:label="@string/gallery_act" />
+        <activity 
+            android:name=".RecipeActivity" />
+        <activity 
+            android:name=".ShoppingList"
+            android:label="@string/shoplist_act" />
+        <activity 
+            android:name=".VoucherUpload"
+            android:label="@string/add_vouchers_act" />
+        <activity 
+            android:name=".VouchersListView"
+            android:label="@string/choose_vouch_act" />
+        <activity 
+            android:name=".VoucherDescription"
+            android:label="@string/what_can_get"/>
         <activity
             android:name=".GetProducts"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name=".MembersListView" />
+        <activity 
+            android:name=".MembersListView"
+            android:label="@string/choose_member_act" />
         <activity
             android:name=".Profile"
+            android:label="@string/profile_act"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".InCartRegular"
+            android:label="@string/regular_act"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".InCartCash"
+            android:label="@string/cash_act"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".Produce"
+            android:label="@string/produce_act"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
-            android:name=".EditVouchers"
+            android:name=".DeleteVouchers"
+            android:label="@string/del_vouchers_act"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <!-- Pankaj Chand's Components -->
         
@@ -83,7 +100,9 @@
         <activity android:name=".notificationmsg.ConfigurationActivity"/>
         <activity android:name=".notificationmsg.NotificationDialogActivity" android:theme="@android:style/Theme.Translucent"
             android:excludeFromRecents="true" android:noHistory="true" />
-        <activity android:name=".notificationmsg.NotificationHistoryActivity"/>
+        <activity 
+            android:name=".notificationmsg.NotificationHistoryActivity"
+            android:label="@string/tips_act"/>
     </application>
 
 </manifest>

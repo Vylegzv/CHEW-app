@@ -52,6 +52,9 @@ public class RecipesActivity extends Activity implements OnItemClickListener {
 		if (getStuff != null) {
 			isShowFavorite = getStuff.getBoolean("isFavorite");
 		}
+		
+		if(isShowFavorite)
+			getActionBar().setTitle(getString(R.string.favor_snack_act));
 
 		getData(isShowFavorite);
 

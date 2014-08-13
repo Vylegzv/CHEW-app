@@ -127,14 +127,15 @@
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="15sp"
         android:layout_marginTop="3dp"
-        android:background="@color/background"
+        android:background="@drawable/button_selector"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:layout_marginBottom="15sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
         android:onClick="delete"
-        android:text="@string/delete" />
+        android:text="@string/delete"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 </RelativeLayout>

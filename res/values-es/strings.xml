@@ -2,6 +2,21 @@
 <resources>
 
     <string name="app_name">CHEW</string>
+    
+    <string name="gallery_act">Galeria de Bocadillos</string>
+    <string name="favor_snack_act">Bocadillos Favoritos</string>
+    <string name="shoplist_act">Lista de Compra de Bocadillos</string>
+    <string name="tips_act">Consejos de Bocadillos Saludables</string>
+    <string name="choose_member_act">Escoja Miembro de Familia</string>
+    <string name="produce_act">Compre frutas y verduras</string>
+    <string name="help_act">Ayuda</string>
+    <string name="add_vouchers_act">Aumente Cupones</string>
+    <string name="del_vouchers_act">Borre Cupones</string>
+    <string name="profile_act">Miembro de Familia</string>
+    <string name="choose_vouch_act">Escoja el Cupón</string>
+    <string name="regular_act">Cupón regular: Carrito de Compras</string>
+    <string name="cash_act">Cupón de efectivo: Carrito de Compras</string>
+    
     <string name="action_settings">Configuración </string>
     <string name="ok">OK</string>
     <string name="yes">Sí </string>
@@ -64,7 +79,7 @@
     <!-- NEW -->
     <string name="cash_not_found">No existe en nuestra lista. Por favor, escriba el nombre de la fruta o verdura en paquete.</string>
     <string name="packaged_manual2">RECUERDE: No debe tener azúcares, grasas, aceites, hierbas o especias. </string>
-    <string name="loose_price_per_pound">Precio por Libra</string>
+    <string name="loose_price_per_pound">Precio por Libra Fruta o Verdura</string>
     <string name="loose_price_per_item">Precio por Cada Fruta o Verdura</string>
 
     <!-- NEW -->

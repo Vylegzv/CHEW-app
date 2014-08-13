@@ -32,10 +32,10 @@ import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.notificationmsg.ConfigurationActivity;
 import com.vanderbilt.isis.chew.utils.Utils;
 
-public class EditVouchers extends ListActivity implements
+public class DeleteVouchers extends ListActivity implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
-	private static final Logger logger = LoggerFactory.getLogger(EditVouchers.class);
+	private static final Logger logger = LoggerFactory.getLogger(DeleteVouchers.class);
 	
 	private SimpleCursorAdapter dataAdapter;
 	LoaderManager loadermanager;
@@ -49,7 +49,7 @@ public class EditVouchers extends ListActivity implements
 		loadermanager = getLoaderManager();
 
 		int[] uiBindTo = { R.id.voucherCode, R.id.name, R.id.month, R.id.ethnicity };
-		dataAdapter = new SimpleCursorAdapter(EditVouchers.this,
+		dataAdapter = new SimpleCursorAdapter(DeleteVouchers.this,
 				R.layout.edit_vouchers_row, null, new String[] {
 						ChewContract.FamilyVouchers.VOUCHER_CODE,
 						ChewContract.FamilyVouchers.NAME,
@@ -112,7 +112,7 @@ public class EditVouchers extends ListActivity implements
 		
 		
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				EditVouchers.this);
+				DeleteVouchers.this);
 		alertDialogBuilder.setTitle(getString(R.string.sure_want_delete));
 		
 		alertDialogBuilder
@@ -139,7 +139,7 @@ public class EditVouchers extends ListActivity implements
 						.restartLoader(
 								1,
 								null,
-								EditVouchers.this);
+								DeleteVouchers.this);
 					}
 				})
 				.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -174,7 +174,7 @@ public class EditVouchers extends ListActivity implements
 		
 		String where = null;
 
-		CursorLoader loader = new CursorLoader(EditVouchers.this,
+		CursorLoader loader = new CursorLoader(DeleteVouchers.this,
 				ChewContract.FamilyVouchers.CONTENT_URI, projection, where,
 				null, null);
 		return loader;
@@ -216,7 +216,7 @@ public class EditVouchers extends ListActivity implements
 			return true;
 		}
 		else if (id == R.id.action_notification) {
-			Intent intent = new Intent(EditVouchers.this, ConfigurationActivity.class);
+			Intent intent = new Intent(DeleteVouchers.this, ConfigurationActivity.class);
 			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);

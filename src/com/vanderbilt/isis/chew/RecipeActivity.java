@@ -58,6 +58,8 @@ public class RecipeActivity extends Activity {
 
 		Bundle data = getIntent().getExtras();
 		recipe = (Recipe) data.getParcelable("recipe");
+		getActionBar().setTitle(recipe.getTitle());
+		
 		if(recipe.isFavorite()){
 			Log.d(TAG, "favorite");
 			logger.debug("favorite");

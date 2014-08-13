@@ -68,14 +68,14 @@
                 android:layout_centerHorizontal="true" >
 
                 <Button
-                    android:layout_width="152dp"
-                    android:layout_height="100dp"
+                    android:layout_width="166dp"
+                    android:layout_height="104dp"
                     android:onClick="calcPackagedFresh"
                     android:text="@string/packaged_fresh" />
 
                 <Button
-                    android:layout_width="152dp"
-                    android:layout_height="100dp"
+                    android:layout_width="166dp"
+                    android:layout_height="104dp"
                     android:onClick="calcPackagedFrozen"
                     android:text="@string/packaged_frozen" />
             </LinearLayout>
@@ -88,14 +88,14 @@
                 android:layout_centerHorizontal="true" >
 
                 <Button
-                    android:layout_width="152dp"
-                    android:layout_height="100dp"
+                    android:layout_width="166dp"
+                    android:layout_height="104dp"
                     android:onClick="calcPricePerPound"
                     android:text="@string/loose_price_per_pound" />
 
                 <Button
-                    android:layout_width="152dp"
-                    android:layout_height="100dp"
+                    android:layout_width="166dp"
+                    android:layout_height="104dp"
                     android:onClick="calcPricePerItem"
                     android:text="@string/loose_price_per_item" />
             </LinearLayout>
