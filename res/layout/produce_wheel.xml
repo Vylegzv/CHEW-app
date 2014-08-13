@@ -4,36 +4,42 @@
     android:layout_height="fill_parent"
     android:paddingLeft="5dip" >
 
-    <!-- NEW -->
+    <LinearLayout
+        android:id="@+id/lin5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" >
+    
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LoosePricePerPound1"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lin0"
+        android:id="@+id/lin6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical" >
+        android:layout_below="@+id/lin5" >
+    
+    <TextView
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wheel_intro1"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wheel_intro2"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LoosePricePerPound2"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
     </LinearLayout>
-    <!--  -->
-
+    
     <LinearLayout
         android:id="@+id/lin1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
-        android:layout_below="@+id/lin0"
+        android:layout_below="@+id/lin6"
         android:paddingTop="15dp" >
 
         <kankan.wheel.widget.WheelView

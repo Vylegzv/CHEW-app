@@ -70,8 +70,8 @@
     <string name="loose_price_per_item">Loose Produce: Price per Item</string>
     
     <!-- NEW -->
-    <string name="wheel_intro1">Weigh the produce on the scale.</string>
-    <string name="wheel_intro2">Then choose weight in pounds.</string>
+<!--     <string name="wheel_intro1">Weigh the produce on the scale.</string> -->
+<!--     <string name="wheel_intro2">Then choose weight in pounds.</string> -->
     
     <string name="produce_name">Enter Produce Name:</string>
     <string name="price_per_pound">Price per Pound: $</string>
@@ -566,5 +566,7 @@
     <string name="notificationHistory">NOTIFICATION HISTORY</string>
     <string name="alertMessage">Alert Message</string>
     <string name="fullText">Full Text</string>
-
+    	    <string name="LoosePricePerPound1">Weigh the produce on the scale.</string>
+	    <string name="LoosePricePerPound2">Then choose weight in pounds.</string>
+    <string name="EnterPrice1">REMEMBER: Must not have Added Sugars, Fats, Oils, Herbs or Spices \n</string>
 </resources>
