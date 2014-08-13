@@ -1,14 +1,69 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/produce_layout"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BuyingProduce" >
+<!--     android:id="@+id/produce_layout" -->
+    
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        
+    <RelativeLayout
+    android:id="@+id/produce_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+<!--     tools:context=".BuyingProduce" > -->
+        
+        
+    <LinearLayout
+        android:id="@+id/lay4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" >
+    
+    <TextView
 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/newCalculator1"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lay5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lay4"
+        android:layout_centerHorizontal="true" >
+    
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/newCalculator2"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/lay6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lay5"
+        android:layout_centerHorizontal="true" >
+    
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/newCalculator3"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+    
     <LinearLayout
         android:id="@+id/lay2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/lay6"
         android:layout_centerHorizontal="true" >
 
         <Button
@@ -45,12 +100,27 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lay7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lay3">
+<!--         android:layout_centerHorizontal="true"  -->
+    
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/newCalculator4"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+    
+    <LinearLayout
         android:id="@+id/lay1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lay3"
+        android:layout_below="@+id/lay7"
         android:orientation="vertical"
         android:paddingLeft="10dip" >
     </LinearLayout>
-
+    </RelativeLayout>
+  </ScrollView>
 </RelativeLayout>
