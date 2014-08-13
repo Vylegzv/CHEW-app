@@ -1,16 +1,12 @@
 package com.vanderbilt.isis.chew.db;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
 
+import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.vanderbilt.isis.chew.adapters.StepsAdapter;
 import com.vanderbilt.isis.chew.db.ChewContract.FamilyVouchers;
 import com.vanderbilt.isis.chew.db.ChewContract.VouchersIDsToCategories;
-
+import com.vanderbilt.isis.chew.utils.Utils;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -65,6 +61,8 @@ public class ChewContentProvider extends ContentProvider {
 	private static final int ALL_FOODTYPE_LOOKUP_JOIN_VOUCHER = 27;
 	private static final int SINGLE_FOODTYPE_LOOKUP_JOIN_VOUCHER = 28;
 	private static final int ALL_VOUCHERFOOD_JOIN_PRODUCTSCHOSEN = 29;
+	private static final int PRODUCTS_JOIN_FAMILY_VOUCHERS = 32;
+	private static final int PRODUCE_JOIN_FAMILY_VOUCHERS = 33;
 	
 	// aggregation
 	private static final int SUM_PRODUCE = 30;
@@ -91,7 +89,7 @@ public class ChewContentProvider extends ContentProvider {
 		voucherCategoriesMap.put(FamilyVouchers._ID, "FamilyVouchers._ID AS FamilyVouchers_ID");
 		voucherCategoriesMap.put(FamilyVouchers.NAME, "FamilyVouchers.name AS FamilyVouchers_name");        
 		//voucherCategoriesMap.put(MemberVouchers.VOUCHER_CATEGORY, MEMBER_VOUCHERS_TABLE + ".voucher_category"); 
-		voucherCategoriesMap.put(FamilyVouchers.VOUCHER_CODE, "FamilyVouchers.voucher_code AS FamilyVouchers_voucher_code");  
+		voucherCategoriesMap.put(FamilyVouchers.VOUCHER_CODE, "FamilyVouchers.v_code AS FamilyVouchers_v_code");  
 		voucherCategoriesMap.put(FamilyVouchers.VOUCHER_MONTH, "FamilyVouchers.month AS FamilyVouchers_month");
 		
 		// to force selection from particular table
@@ -136,6 +134,8 @@ public class ChewContentProvider extends ContentProvider {
 		uriMatcher.addURI(ChewContract.AUTHORITY, "foodtypeLookupVoucherJoin/#", SINGLE_FOODTYPE_LOOKUP_JOIN_VOUCHER);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "voucherFoodProductsChosenJoin", ALL_VOUCHERFOOD_JOIN_PRODUCTSCHOSEN);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "distinctNames", DISTINCT_NAMES);	
+		uriMatcher.addURI(ChewContract.AUTHORITY, "productsFamilyVouchersJoin", PRODUCTS_JOIN_FAMILY_VOUCHERS);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "produceFamilyVouchersJoin", PRODUCE_JOIN_FAMILY_VOUCHERS);
 	}
 	
 	@Override
@@ -610,14 +610,14 @@ public class ChewContentProvider extends ContentProvider {
 			
 		case SINGLE_VOUCHER_CATEGORIES_JOIN_FAMILY_VOUCHERS:
 			queryBuilder.setTables("VouchersIDsToCategories INNER JOIN FamilyVouchers " +
-					"ON VouchersIDsToCategories.voucher_code = FamilyVouchers.voucher_code");
+					"ON VouchersIDsToCategories.voucher_code = FamilyVouchers.v_code");
 			queryBuilder.appendWhere(VouchersIDsToCategories._ID + "=" + uri.getLastPathSegment());
 			//cursor = queryBuilder.query(mydb, projection, selection, selectionArgs, groupBy, having, sortOrder);
 			break;
 			
 		case ALL_VOUCHER_CATEGORIES_JOIN_FAMILY_VOUCHERS:
 			queryBuilder.setTables("VouchersIDsToCategories INNER JOIN FamilyVouchers " +
-				"ON VouchersIDsToCategories.voucher_code = FamilyVouchers.voucher_code");
+				"ON VouchersIDsToCategories.voucher_code = FamilyVouchers.v_code");
 			//queryBuilder.setTables("VouchersIDToCategories INNER JOIN MemberVouchers " +
 					//"ON VouchersIDToCategories.vouchers_id = MemberVouchers._id");
 			queryBuilder.setProjectionMap(voucherCategoriesMap);
@@ -643,9 +643,7 @@ public class ChewContentProvider extends ContentProvider {
 		case SUM_PRODUCE:
 			Log.d("INCP", "incp");
 			logger.debug("INCP {}", "incp");
-			Calendar cal=Calendar.getInstance();
-			SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
-			String month_name = month_date.format(cal.getTime());
+			String month_name = Utils.getMonth();
 			queryBuilder.setTables("SELECT sum(ProduceChosen.cost) FROM ProduceChosen WHERE ProduceChosen.month = '" + month_name + "'"
 					+ " AND ProductsChosen.product_category = 'CASH'");
 			break;
@@ -654,6 +652,20 @@ public class ChewContentProvider extends ContentProvider {
 			queryBuilder.setTables("(SELECT DISTINCT _id, name" +
 			 		" FROM FamilyVouchers GROUP BY name)");
 			break;
+			
+		case PRODUCTS_JOIN_FAMILY_VOUCHERS:
+			 queryBuilder.setTables("(SELECT * " +
+				 		"FROM ProductsChosen, FamilyVouchers " +
+				 		"WHERE ProductsChosen.voucher_code = FamilyVouchers.v_code " +
+				 		"AND ProductsChosen.member_name = FamilyVouchers.name)");
+			 break;
+			 
+		case PRODUCE_JOIN_FAMILY_VOUCHERS:
+			 queryBuilder.setTables("(SELECT * " +
+				 		"FROM ProduceChosen, FamilyVouchers " +
+				 		"WHERE ProduceChosen.voucher_code = FamilyVouchers.v_code " +
+				 		"AND ProduceChosen.member_name = FamilyVouchers.name)");
+			 break;
 
 		default:
 

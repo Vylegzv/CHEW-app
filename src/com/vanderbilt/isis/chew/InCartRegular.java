@@ -1,6 +1,5 @@
 package com.vanderbilt.isis.chew;
 
-import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.vanderbilt.isis.chew.db.ChewContract;
@@ -42,9 +41,6 @@ public class InCartRegular extends ListActivity implements
 	String productName = "";
 	String voucherCode = "";
 	String month_name = "";
-	Set<String> vCodesInUse;
-
-	// TextView nameTV;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,20 +48,14 @@ public class InCartRegular extends ListActivity implements
 
 		logger.trace("onCreate()");
 
-		// View header = getLayoutInflater().inflate(R.layout.in_cart_header,
-		// null);
-		// nameTV = (TextView) header.findViewById(R.id.name);
-
 		name = "";
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
 			name = bundle.getString("name");
-			vCodesInUse = Utils.getInUseVoucherCodes(InCartRegular.this, name);
 			logger.info("Opened Regular Voucher Selections for person {}", name);
 		}
 
 		ListView listview = getListView();
-		// listview.addHeaderView(header);
 
 		loadermanager = getLoaderManager();
 
@@ -577,13 +567,14 @@ public class InCartRegular extends ListActivity implements
 
 		String where = ChewContract.ProductsChosen.MONTH + "='" + month_name
 				+ "'" + " AND " + ChewContract.ProductsChosen.MEMBER_NAME
-				+ "='" + name + "'";
+				+ "='" + name + "'" + " AND " + ChewContract.FamilyVouchers.USED
+				+ "='" + getString(R.string.in_use) + "'";
 
 		String sortOrder = ChewContract.ProductsChosen.PRODUCT_CATEGORY
 				+ " ASC";
 
 		CursorLoader loader = new CursorLoader(InCartRegular.this,
-				ChewContract.ProductsChosen.CONTENT_URI, projection, where,
+				ChewContract.CONTENT_URI_PRODUCTS_JOIN_FAMILY_VOUCHERS, projection, where,
 				null, sortOrder);
 		return loader;
 	}
@@ -618,10 +609,9 @@ public class InCartRegular extends ListActivity implements
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-			String vCode = cursor.getString(cursor
-					.getColumnIndex(ChewContract.ProductsChosen.VOUCHER_CODE));
+//			String vCode = cursor.getString(cursor.getColumnIndex(ChewContract.ProductsChosen.VOUCHER_CODE));
 			// make sure these vouchers are in use before displaying them
-			if (vCodesInUse != null && vCodesInUse.contains(vCode)) {
+//			if (vCodesInUse != null && vCodesInUse.contains(vCode)) {
 
 				// if dealing with quantity
 				if ((Integer.parseInt(cursor.getString(cursor
@@ -652,7 +642,7 @@ public class InCartRegular extends ListActivity implements
 							.findViewById(R.id.voucherCode);
 				}
 				v.setTag(holder);
-			}
+//			}
 			return v;
 		}
 
@@ -667,11 +657,9 @@ public class InCartRegular extends ListActivity implements
 
 				ViewHolder holder = (ViewHolder) view.getTag();
 
-				String vCode = cursor
-						.getString(cursor
-								.getColumnIndex(ChewContract.ProductsChosen.VOUCHER_CODE));
+//				String vCode = cursor.getString(cursor.getColumnIndex(ChewContract.ProductsChosen.VOUCHER_CODE));
 				// make sure these vouchers are in use before displaying them
-				if (vCodesInUse.contains(vCode)) {
+//				if (vCodesInUse.contains(vCode)) {
 
 					boolean needSeparator = false;
 					final int position = cursor.getPosition();
@@ -758,7 +746,7 @@ public class InCartRegular extends ListActivity implements
 					}
 				}
 			}
-		}
+//		}
 	}
 
 	public static class ViewHolder {

@@ -515,6 +515,10 @@ public class MainActivity extends Activity implements OnItemClickListener {
 						int rowsUpdate = getContentResolver().update(
 								ChewContract.FamilyVouchers.CONTENT_URI,
 								updateValues, where, null);
+						
+						// also update products chosen and produce chosen
+						
+						
                         logger.debug("ROWSUPDATE {}", rowsUpdate);
 						Utils.setShoppingStatus(MainActivity.this, false);
 						Utils.showToast(MainActivity.this, getString(R.string.confirm_done_shop));

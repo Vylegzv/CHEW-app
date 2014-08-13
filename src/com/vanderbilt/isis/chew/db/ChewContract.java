@@ -1,10 +1,5 @@
 package com.vanderbilt.isis.chew.db;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.vanderbilt.isis.chew.adapters.StepsAdapter;
-
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -28,6 +23,12 @@ public class ChewContract {
 	
 	public static final Uri CONTENT_URI_DISTINCT_NAMES =
 			Uri.parse("content://"+AUTHORITY + "/distinctNames");
+	
+	public static final Uri CONTENT_URI_PRODUCTS_JOIN_FAMILY_VOUCHERS =
+			Uri.parse("content://"+AUTHORITY + "/productsFamilyVouchersJoin");
+	
+	public static final Uri CONTENT_URI_PRODUCE_JOIN_FAMILY_VOUCHERS =
+			Uri.parse("content://"+AUTHORITY + "/produceFamilyVouchersJoin");
 	
 	/** Stores **/
 	public static final class Store implements BaseColumns {
@@ -83,7 +84,7 @@ public class ChewContract {
 		
 		/** Column names **/
 		public static final String NAME = "name";
-		public static final String VOUCHER_CODE = "voucher_code";
+		public static final String VOUCHER_CODE = "v_code";
 		public static final String VOUCHER_MONTH = "voucher_month";
 		public static final String ETHNICITY = "ethnicity";
 		public static final String USED = "used";
