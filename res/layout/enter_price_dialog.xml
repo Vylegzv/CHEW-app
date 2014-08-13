@@ -5,6 +5,21 @@
     android:orientation="vertical"
     android:paddingLeft="5dip" >
 
+    <!-- NEW -->
+
+    <LinearLayout
+        android:id="@+id/lin5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/packaged_manual2"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+    <!--  -->
+
     <LinearLayout
         android:id="@+id/lin5"
         android:layout_width="wrap_content"

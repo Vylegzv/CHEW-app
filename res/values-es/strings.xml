@@ -52,37 +52,35 @@
     <string name="enter_price">Marque el Precio</string>
     <string name="select_quantity">Escoja número de productos:</string>
     <string name="clear_shop_list">Borrar Lista de Compras</string>
-    
-    
-        <!-- NEW -->
+
+    <!-- NEW -->
     <string name="calculator_title">Calculadoras de Cupones en Efectivo</string>
     <string name="caclulator_instructions1">Utilice estas herramientas para calcular la cantidad de frutas y verduras que usted puede comprar con cada cupón en efectivo.</string>
     <string name="caclulator_instructions2">Se pueden comprar frutas y verduras sueltas o en paquete, frescas o congeladas. Escoja qué tipo de fruta o verdura desea comprar para usar la herramienta calculadora correcta.</string>
-    
+    <string name="cash_vs_inuse">Cupones en Efectivo que Están en Uso</string>
     <string name="packaged_fresh">Envase de Productos Frescos</string>
     <string name="packaged_frozen">Envase de Productos Congelados</string>
-    
+
     <!-- NEW -->
-    <string name="packaged_manual1">No existe en nuestra lista. Por favor, escriba el nombre de la fruta o verdura en paquete.</string>
+    <string name="cash_not_found">No existe en nuestra lista. Por favor, escriba el nombre de la fruta o verdura en paquete.</string>
     <string name="packaged_manual2">RECUERDE: No debe tener azúcares, grasas, aceites, hierbas o especias. </string>
-    
     <string name="loose_price_per_pound">Precio por Libra</string>
     <string name="loose_price_per_item">Precio por Cada Fruta o Verdura</string>
-    
+
     <!-- NEW -->
-    <string name="calculator_intro">Pesar el producto en la escala. Después, elija el peso en libras.</string>
-    
+    <string name="wheel_intro1">Pesar el producto en la escala.</string>
+    <string name="wheel_intro2">Después, elija el peso en libras.</string>
     <string name="produce_name">Ingrese el Nombre del Producto:</string>
     <string name="price_per_pound">Precio por Libra: $</string>
     <string name="dollar_sign">$</string>
     <string name="ounces">onzas</string>
     <string name="quantity">¿Cuántos?</string>
     <string name="done_shop">¿Terminó sus Compras? </string>
-    <string name="sure_done_shop">¿Está segura de que quiere terminar las compras de WIC hoy? Todos los cupones seleccionados hoy serán marcados como UTILIZADO.</string>
-    
+    <string name="sure_done_shop_title">¿Está segura de que quiere terminar las compras de WIC hoy?</string>
+    <string name="sure_done_shop_msg">Todos los cupones seleccionados hoy serán marcados como UTILIZADO.</string>
+
     <!-- NEW -->
     <string name="confirm_done_shop">Las compras se han cerrado. Todos los cupones seleccionados se han marcado como UTILIZADO.</string>
-    
     <string name="enter_pwd">Por favor, Introduzca su Clave</string>
     <string name="wrong_pwd">Clave equivocada</string>
     <string name="pwd">Clave:</string>
@@ -97,12 +95,11 @@
     <string name="exception_case">Suero de leche y/o leche evaporada y/o tofu </string>
     <string name="cannot_get_anymore">Usted no puede obtener más de </string>
     <string name="on_this_voucher">con este cupón.</string>
-    <!-- this was not translated -->
-    <string name="not_cash">This is not a CASH item!</string>
-    <string name="not_used">no utilizan</string>
+    <string name="not_cash">Este producto no es para el Cupón en Efectivo!</string>
+    <string name="not_used">no usado</string>
     <string name="in_use">en uso</string>
-    <string name="used">utilizadas</string>
-    <string name="cv_not_selected">You did not select any CASH voucher for this shopping trip!</string>
+    <string name="used">usado</string>
+    <string name="cv_not_selected">Por favor escoja un Cupón en Efectivo para las compras de hoy.</string>
 
     <!-- Recipes -->
     <string name="peach_banana">Licuado de plátano y durazno</string>
@@ -562,15 +559,8 @@
         <item>9:00 PM</item>
     </string-array>
 
-    <string name="notificationHistory">NOTIFICATION HISTORY</string>
-    <string name="alertMessage">Alert Message</string>
-    <string name="fullText">Full Text</string>
-    <string name="newCalculator1">Cash Value Voucher Calculators</string>
-    <string name="newCalculator2">Use these tools to calculate how much fruits and vegetables you can buy with each cash voucher.</string>
-    <string name="newCalculator3">Produce may be bought loose or in a package, fresh or frozen. Pick which type of fruit or vegetables you want to buy for the right calculator tool.</string>
-    <string name="newCalculator4">Cash Vouchers in use</string>
-    <string name="LoosePricePerPound1">Weigh the produce on the scale.</string>
-    <string name="LoosePricePerPound2">Then choose weight in pounds.</string>
-    <string name="EnterPrice1">REMEMBER: Must not have Added Sugars, Fats, Oils, Herbs or Spices \n</string>
+    <string name="notificationHistory">Historia de Consejos</string>
+    <string name="alertMessage">Mensaje de Alerta</string>
+    <string name="fullText">Texto Completo</string>
 
 </resources>

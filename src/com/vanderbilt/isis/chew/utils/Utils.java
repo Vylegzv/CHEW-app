@@ -332,6 +332,33 @@ public class Utils {
 
 		return cashVouchers;
 	}
+	
+	public static Set<String> getInUseVoucherCodes(Context context, String memberName) {
+        
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		Set<String> vCodes = preferences.getStringSet(Utils.VOUCHERS, null);
+
+		if (vCodes != null) {
+
+				Set<String> memberVouchers = new HashSet<String>();
+				for (String v : vCodes) {
+
+					String vCode = v.split(" - ")[0];
+					String name = v.split(" - ")[1];
+
+					if (name.equals(memberName))
+						memberVouchers.add(vCode);
+				}
+
+				return memberVouchers;
+
+		} else {
+			Log.d("Voucher Used", "null");
+		}
+
+		return null;
+	}
 
 	public static String getMonth() {
 		logger.trace("getMonth()");
@@ -360,23 +387,20 @@ public class Utils {
 					Toast.LENGTH_SHORT).show();
 		}
 	}
-
-	/*
-	 * public static Set<String> getCashVouchers(Context context){
-	 * 
-	 * SharedPreferences preferences = PreferenceManager
-	 * .getDefaultSharedPreferences(context); Set<String> vouchers =
-	 * preferences.getStringSet(Utils.VOUCHERS, null); Set<String> cashVouchers
-	 * = new HashSet<String>();
-	 * 
-	 * // debug if(vouchers != null){ for(String v : vouchers){
-	 * 
-	 * if(v.contains(VoucherCode.CV6.getCode()) ||
-	 * v.contains(VoucherCode.CV10.getCode())) cashVouchers.add(v); }
-	 * 
-	 * }else{ Log.d("Voucher Used", "null"); }
-	 * 
-	 * return cashVouchers; }
-	 */
-
+	
+    /**
+     * Show a toast message to the user.
+     * 
+     * @param context
+     *            The Activity context
+     *
+     * @param message
+     *            The message to display
+     */
+    public static void showToast(Context context,
+                                 String message) {
+        Toast.makeText(context, 
+                       message,
+                       Toast.LENGTH_LONG).show();
+    }
 }
