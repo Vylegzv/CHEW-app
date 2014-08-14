@@ -18,17 +18,17 @@ public abstract class Voucher {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	protected VoucherCode voucherCode;
-	protected String voucherMonth;
+	protected Month voucherMonth;
 	protected String memberName;
-	protected String used;
+	protected VoucherStatus status;
 	
 	// TODO: use factory to get the right voucher from String like A2
-	public Voucher(VoucherCode vCode, String month, String name, String u){
+	public Voucher(VoucherCode vCode, Month month, String name, VoucherStatus s){
 		logger.trace("Voucher()");
 		voucherCode = vCode;
 		voucherMonth = month;
 		memberName = name;
-		used = u;
+		status = s;
 	}
 	
 	public VoucherCode getCode(){
@@ -36,7 +36,7 @@ public abstract class Voucher {
 		return voucherCode;
 	}
 	
-	public String getMonth(){
+	public Month getMonth(){
 		logger.trace("getMonth()");
 		return voucherMonth;
 	}
@@ -48,13 +48,13 @@ public abstract class Voucher {
 	
 	public boolean isUsed(Context c){
 		logger.trace("isUsed()");
-		return used.equals(c.getString(R.string.used)) ? true : false;
+		return status.equals(VoucherStatus.Used);
 	}
 	
 	public boolean isExpired(){
 		logger.trace("isExpired()");
-	    int m = Calendar.getInstance().get(Calendar.MONTH);
-		return !voucherMonth.equals(m);
+	    Month curMonth = Utils.getMonth();
+		return !voucherMonth.equals(curMonth);
 				
 	}
 	

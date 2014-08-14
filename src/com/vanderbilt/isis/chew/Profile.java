@@ -8,6 +8,9 @@ import java.util.Set;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.notificationmsg.ConfigurationActivity;
 import com.vanderbilt.isis.chew.utils.Utils;
+import com.vanderbilt.isis.chew.vouchers.Month;
+import com.vanderbilt.isis.chew.vouchers.VoucherStatus;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -64,7 +67,6 @@ public class Profile extends Activity {
 	boolean firstCursor = false;
 	boolean alreadyBoughtOtherOption = false;
 	String otherOptionType = "";
-	String month_name = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -96,10 +98,8 @@ public class Profile extends Activity {
 		}
 
 		if (Utils.isShopping(Profile.this)) {
-			// logger.info("");
 			(new IntentIntegrator(this)).initiateScan();
 		} else {
-			// logger.info("");
 			showChooseStoresD();
 		}
 	}
@@ -168,8 +168,8 @@ public class Profile extends Activity {
 	private void populateScreen(String name) {
 		logger.trace("populateScreen()");
 		memberName.setText(name);
-		String month_name = Utils.getMonth();
-		whichMonth.setText(month_name);
+		Month month = Utils.getMonth();
+		whichMonth.setText(month.toString(Profile.this));
 
 		logger.info("Family Member's Name is {}, for the Month {}", memberName
 				.getText().toString(), whichMonth.getText().toString());
@@ -180,7 +180,7 @@ public class Profile extends Activity {
 				ChewContract.FamilyVouchers.VOUCHER_CODE,
 				ChewContract.FamilyVouchers.USED };
 		String where = ChewContract.FamilyVouchers.VOUCHER_MONTH + "='"
-				+ month_name + "'" + " AND " + ChewContract.FamilyVouchers.NAME
+				+ month.getMonthNum() + "'" + " AND " + ChewContract.FamilyVouchers.NAME
 				+ "='" + name + "'";
 
 		loader = new CursorLoader(Profile.this,
@@ -198,16 +198,16 @@ public class Profile extends Activity {
 			logger.trace("MyOnLoadCompleteListener.onLoadComplete()");
 			StringBuffer vouchers = new StringBuffer();
 			while (cursor != null && cursor.moveToNext()) {
-				String voucher = cursor.getString(0);
-				String used = cursor.getString(1);
+				String voucher = cursor.getString(cursor
+						.getColumnIndex(ChewContract.FamilyVouchers.VOUCHER_CODE));
+				int used = Integer.parseInt(cursor.getString(cursor
+						.getColumnIndex(ChewContract.FamilyVouchers.USED)));
 
-				Log.d(TAG, voucher);
-				Log.d(TAG, used);
 				logger.debug("Voucher {} Used {}", voucher, used);
 
 				vouchers.append(voucher);
 				vouchers.append(" (");
-				vouchers.append(used);
+				vouchers.append(VoucherStatus.getVoucherStatus(used).toString(Profile.this));
 				vouchers.append(")  ");
 			}
 
@@ -394,16 +394,16 @@ public class Profile extends Activity {
 		logger.trace("getVouchers()");
 
 		CursorLoader loader = null;
-		String month = Utils.getMonth();
+		Month month = Utils.getMonth();
 
 		String[] resultColumns = new String[] {
 				ChewContract.FamilyVouchers._ID,
 				ChewContract.FamilyVouchers.VOUCHER_CODE,
 				ChewContract.FamilyVouchers.NAME };
 
-		String where = ChewContract.FamilyVouchers.VOUCHER_MONTH + "='" + month
+		String where = ChewContract.FamilyVouchers.VOUCHER_MONTH + "='" + month.getMonthNum()
 				+ "'" + " AND " + ChewContract.FamilyVouchers.USED + "='"
-				+ getString(R.string.not_used) + "'";
+				+ VoucherStatus.Unused.getValue() + "'";
 		;
 
 		loader = new CursorLoader(Profile.this,

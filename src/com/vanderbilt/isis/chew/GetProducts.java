@@ -10,6 +10,8 @@ import com.vanderbilt.isis.chew.adapters.InteractiveArrayAdapter;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.model.CheckBoxRowModel;
 import com.vanderbilt.isis.chew.utils.Utils;
+import com.vanderbilt.isis.chew.vouchers.Month;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.ContentResolver;
@@ -111,7 +113,7 @@ public class GetProducts extends ListActivity {
 						Log.d("^^^VOUCHER^^^", model.getVoucherCode());
 						logger.debug("SELECTED {} and ^^^VOUCHER^^^ {}.", model.getQuantityNumber() + "", model.getVoucherCode());
 						
-						String month_name = Utils.getMonth();
+						Month month = Utils.getMonth();
 						String name = model.getPersonName();
 						String vCode = model.getVoucherCode();
 						int quant = Integer.parseInt(model.getQuantityNumber());
@@ -148,7 +150,7 @@ public class GetProducts extends ListActivity {
 										+ "'"
 										+ " AND "
 										+ ChewContract.ProductsChosen.MONTH
-										+ "='" + month_name + "'";
+										+ "='" + month.getMonthNum() + "'";
 							} else {
 								where = ChewContract.ProductsChosen.COMBINATION
 										+ "="
@@ -159,7 +161,7 @@ public class GetProducts extends ListActivity {
 										+ ChewContract.ProductsChosen.VOUCHER_CODE
 										+ "='" + vCode + "'" + " AND "
 										+ ChewContract.ProductsChosen.MONTH
-										+ "='" + month_name + "'";
+										+ "='" + month.getMonthNum() + "'";
 							}
 							int numDeleted = getContentResolver().delete(
 									ChewContract.ProductsChosen.CONTENT_URI,
@@ -181,7 +183,7 @@ public class GetProducts extends ListActivity {
 								+ ChewContract.ProductsChosen.VOUCHER_CODE
 								+ "='" + model.getVoucherCode() + "'" + " AND "
 								+ ChewContract.ProductsChosen.MONTH + "='"
-								+ month_name + "'";
+								+ month.getMonthNum() + "'";
 
 						Cursor cur = getContentResolver().query(
 								ChewContract.ProductsChosen.CONTENT_URI,
@@ -277,7 +279,7 @@ public class GetProducts extends ListActivity {
 							newValues.put(ChewContract.ProductsChosen.COUNT,
 									count);
 							newValues.put(ChewContract.ProductsChosen.MONTH,
-									month_name);
+									month.getMonthNum());
 							newValues.put(
 									ChewContract.ProductsChosen.MEMBER_NAME,
 									name);

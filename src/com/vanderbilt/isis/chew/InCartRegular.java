@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
+import com.vanderbilt.isis.chew.vouchers.Month;
+import com.vanderbilt.isis.chew.vouchers.VoucherStatus;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.LoaderManager;
@@ -40,7 +43,6 @@ public class InCartRegular extends ListActivity implements
 	String where = "";
 	String productName = "";
 	String voucherCode = "";
-	String month_name = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -99,8 +101,8 @@ public class InCartRegular extends ListActivity implements
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										// logger.info(" {}", );
-										month_name = Utils.getMonth();
+
+										final Month month = Utils.getMonth();
 
 										Log.d("C", c.getString(0));
 										Log.d("C", c.getString(1));
@@ -144,7 +146,8 @@ public class InCartRegular extends ListActivity implements
 													+ "'"
 													+ " AND "
 													+ ChewContract.ProductsChosen.MONTH
-													+ "='" + month_name + "'";
+													+ "='"
+													+ month.getMonthNum() + "'";
 
 											int numDeleted = getContentResolver()
 													.delete(ChewContract.ProductsChosen.CONTENT_URI,
@@ -222,7 +225,7 @@ public class InCartRegular extends ListActivity implements
 																				+ " AND "
 																				+ ChewContract.ProductsChosen.MONTH
 																				+ "='"
-																				+ month_name
+																				+ month.getMonthNum()
 																				+ "'";
 																		;
 																		int numDeleted = getContentResolver()
@@ -278,7 +281,7 @@ public class InCartRegular extends ListActivity implements
 																				+ " AND "
 																				+ ChewContract.ProductsChosen.MONTH
 																				+ "='"
-																				+ month_name
+																				+ month.getMonthNum()
 																				+ "'";
 
 																		rowsUpdate = getContentResolver()
@@ -339,7 +342,7 @@ public class InCartRegular extends ListActivity implements
 														+ " AND "
 														+ ChewContract.ProductsChosen.MONTH
 														+ "='"
-														+ month_name
+														+ month.getMonthNum()
 														+ "'";
 
 												int numDeleted = getContentResolver()
@@ -420,7 +423,7 @@ public class InCartRegular extends ListActivity implements
 																					+ " AND "
 																					+ ChewContract.ProductsChosen.MONTH
 																					+ "='"
-																					+ month_name
+																					+ month.getMonthNum()
 																					+ "'";
 																			;
 																			int numDeleted = getContentResolver()
@@ -486,7 +489,7 @@ public class InCartRegular extends ListActivity implements
 																					+ " AND "
 																					+ ChewContract.ProductsChosen.MONTH
 																					+ "='"
-																					+ month_name
+																					+ month.getMonthNum()
 																					+ "'";
 
 																			rowsUpdate = getContentResolver()
@@ -563,19 +566,20 @@ public class InCartRegular extends ListActivity implements
 				ChewContract.ProductsChosen.PRODUCT_CATEGORY,
 				ChewContract.ProductsChosen.VOUCHER_CODE };
 
-		String month_name = Utils.getMonth();
+		Month month = Utils.getMonth();
 
-		String where = ChewContract.ProductsChosen.MONTH + "='" + month_name
-				+ "'" + " AND " + ChewContract.ProductsChosen.MEMBER_NAME
-				+ "='" + name + "'" + " AND " + ChewContract.FamilyVouchers.USED
-				+ "='" + getString(R.string.in_use) + "'";
+		String where = ChewContract.ProductsChosen.MONTH + "='"
+				+ month.getMonthNum() + "'" + " AND "
+				+ ChewContract.ProductsChosen.MEMBER_NAME + "='" + name + "'"
+				+ " AND " + ChewContract.FamilyVouchers.USED + "='"
+				+ VoucherStatus.Inuse.getValue() + "'";
 
 		String sortOrder = ChewContract.ProductsChosen.PRODUCT_CATEGORY
 				+ " ASC";
 
 		CursorLoader loader = new CursorLoader(InCartRegular.this,
-				ChewContract.CONTENT_URI_PRODUCTS_JOIN_FAMILY_VOUCHERS, projection, where,
-				null, sortOrder);
+				ChewContract.CONTENT_URI_PRODUCTS_JOIN_FAMILY_VOUCHERS,
+				projection, where, null, sortOrder);
 		return loader;
 	}
 
@@ -609,40 +613,33 @@ public class InCartRegular extends ListActivity implements
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-//			String vCode = cursor.getString(cursor.getColumnIndex(ChewContract.ProductsChosen.VOUCHER_CODE));
-			// make sure these vouchers are in use before displaying them
-//			if (vCodesInUse != null && vCodesInUse.contains(vCode)) {
+			// if dealing with quantity
+			if ((Integer.parseInt(cursor.getString(cursor
+					.getColumnIndex(ChewContract.ProductsChosen.QUANTITY))) > 0)) {
 
-				// if dealing with quantity
-				if ((Integer.parseInt(cursor.getString(cursor
-						.getColumnIndex(ChewContract.ProductsChosen.QUANTITY))) > 0)) {
+				v = inflater.inflate(R.layout.in_cart_quantity, null);
+				holder.separator = (TextView) v.findViewById(R.id.separator);
+				holder.textViewOther = (TextView) v
+						.findViewById(R.id.productQuantity);
+				holder.textViewName = (TextView) v
+						.findViewById(R.id.productName1);
+				holder.textViewVCode = (TextView) v
+						.findViewById(R.id.voucherCode);
+				// dealing with ounces
+			} else if (Integer.parseInt(cursor.getString(cursor
+					.getColumnIndex(ChewContract.ProductsChosen.QUANTITY))) == 0) {
 
-					v = inflater.inflate(R.layout.in_cart_quantity, null);
-					holder.separator = (TextView) v
-							.findViewById(R.id.separator);
-					holder.textViewOther = (TextView) v
-							.findViewById(R.id.productQuantity);
-					holder.textViewName = (TextView) v
-							.findViewById(R.id.productName1);
-					holder.textViewVCode = (TextView) v
-							.findViewById(R.id.voucherCode);
-					// dealing with ounces
-				} else if (Integer.parseInt(cursor.getString(cursor
-						.getColumnIndex(ChewContract.ProductsChosen.QUANTITY))) == 0) {
-
-					v = inflater.inflate(R.layout.in_cart_ounces, null);
-					holder.separator = (TextView) v
-							.findViewById(R.id.separator);
-					holder.textViewOther = (TextView) v
-							.findViewById(R.id.productOunces);
-					holder.insertOz = (TextView) v.findViewById(R.id.insertOz);
-					holder.textViewName = (TextView) v
-							.findViewById(R.id.productName2);
-					holder.textViewVCode = (TextView) v
-							.findViewById(R.id.voucherCode);
-				}
-				v.setTag(holder);
-//			}
+				v = inflater.inflate(R.layout.in_cart_ounces, null);
+				holder.separator = (TextView) v.findViewById(R.id.separator);
+				holder.textViewOther = (TextView) v
+						.findViewById(R.id.productOunces);
+				holder.insertOz = (TextView) v.findViewById(R.id.insertOz);
+				holder.textViewName = (TextView) v
+						.findViewById(R.id.productName2);
+				holder.textViewVCode = (TextView) v
+						.findViewById(R.id.voucherCode);
+			}
+			v.setTag(holder);
 			return v;
 		}
 
@@ -652,101 +649,91 @@ public class InCartRegular extends ListActivity implements
 			Log.d("BINDVIEW", "called");
 			logger.debug("BINDVIEW {}", "called");
 
-			// view may be null if no selections have been made
-			if (view != null) {
+			ViewHolder holder = (ViewHolder) view.getTag();
 
-				ViewHolder holder = (ViewHolder) view.getTag();
+			boolean needSeparator = false;
+			final int position = cursor.getPosition();
+			final String category = cursor
+					.getString(cursor
+							.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
 
-//				String vCode = cursor.getString(cursor.getColumnIndex(ChewContract.ProductsChosen.VOUCHER_CODE));
-				// make sure these vouchers are in use before displaying them
-//				if (vCodesInUse.contains(vCode)) {
+			if (position == 0) {
+				needSeparator = true;
+			} else {
+				cursor.moveToPosition(position - 1);
+				String category1 = cursor
+						.getString(cursor
+								.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
+				if (!category1.contains(category)) {
+					needSeparator = true;
+				} else {
+					needSeparator = false;
+				}
+				cursor.moveToPosition(position);
+			}
 
-					boolean needSeparator = false;
-					final int position = cursor.getPosition();
-					final String category = cursor
+			// if dealing with quantity
+			if ((Integer.parseInt(cursor.getString(cursor
+					.getColumnIndex(ChewContract.ProductsChosen.QUANTITY))) > 0)) {
+
+				if (needSeparator) {
+					String cat = cursor
 							.getString(cursor
 									.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
-
-					if (position == 0) {
-						needSeparator = true;
-					} else {
-						cursor.moveToPosition(position - 1);
-						String category1 = cursor
-								.getString(cursor
-										.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
-						if (!category1.contains(category)) {
-							needSeparator = true;
-						} else {
-							needSeparator = false;
-						}
-						cursor.moveToPosition(position);
+					if (cat.contains("FRUIT_VEG")) {
+//						cat = getString(R.string.fruit_veg);
+						cat = "FRUITS & VEGETABLES";
 					}
-
-					// if dealing with quantity
-					if ((Integer
-							.parseInt(cursor.getString(cursor
-									.getColumnIndex(ChewContract.ProductsChosen.QUANTITY))) > 0)) {
-
-						if (needSeparator) {
-							String cat = cursor
-									.getString(cursor
-											.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
-							if (cat.contains("FRUIT_VEG")) {
-								cat = getString(R.string.fruit_veg);
-							}
-							holder.separator.setText(cat);
-							holder.separator.setTextColor(getResources()
-									.getColor(R.color.greySeparator));
-							holder.separator.setVisibility(View.VISIBLE);
-						} else {
-							holder.separator.setVisibility(View.GONE);
-						}
-
-						holder.textViewVCode
-								.setText(cursor.getString(cursor
-										.getColumnIndex(ChewContract.ProductsChosen.VOUCHER_CODE)));
-						holder.textViewName
-								.setText(cursor.getString(cursor
-										.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_NAME)));
-
-						holder.textViewOther
-								.setText(cursor.getString(cursor
-										.getColumnIndex(ChewContract.ProductsChosen.QUANTITY)));
-						// dealing with ounces
-					} else if (Integer
-							.parseInt(cursor.getString(cursor
-									.getColumnIndex(ChewContract.ProductsChosen.QUANTITY))) == 0) {
-
-						if (needSeparator) {
-							String cat = cursor
-									.getString(cursor
-											.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
-							if (cat.contains("FRUIT_VEG")) {
-								cat = getString(R.string.fruit_veg);
-							}
-							holder.separator.setText(cat);
-							holder.separator.setTextColor(getResources()
-									.getColor(R.color.greySeparator));
-							holder.separator.setVisibility(View.VISIBLE);
-						} else {
-							holder.separator.setVisibility(View.GONE);
-						}
-
-						holder.textViewVCode
-								.setText(cursor.getString(cursor
-										.getColumnIndex(ChewContract.ProductsChosen.VOUCHER_CODE)));
-						holder.textViewName
-								.setText(cursor.getString(cursor
-										.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_NAME)));
-
-						holder.textViewOther
-								.setText(cursor.getString(cursor
-										.getColumnIndex(ChewContract.ProductsChosen.SIZE_NUM)));
-
-					}
+					holder.separator.setText(cat);
+					holder.separator.setTextColor(getResources().getColor(
+							R.color.greySeparator));
+					holder.separator.setVisibility(View.VISIBLE);
+				} else {
+					holder.separator.setVisibility(View.GONE);
 				}
+
+				holder.textViewVCode
+						.setText(cursor.getString(cursor
+								.getColumnIndex(ChewContract.ProductsChosen.VOUCHER_CODE)));
+				holder.textViewName
+						.setText(cursor.getString(cursor
+								.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_NAME)));
+
+				holder.textViewOther.setText(cursor.getString(cursor
+						.getColumnIndex(ChewContract.ProductsChosen.QUANTITY)));
+				// dealing with ounces
+			} else if (Integer.parseInt(cursor.getString(cursor
+					.getColumnIndex(ChewContract.ProductsChosen.QUANTITY))) == 0) {
+
+				if (needSeparator) {
+					String cat = cursor
+							.getString(cursor
+									.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
+					if (cat.contains("FRUIT_VEG")) {
+//						cat = getString(R.string.fruit_veg);
+						cat = "FRUITS & VEGETABLES";
+					}
+					holder.separator.setText(cat);
+					holder.separator.setTextColor(getResources().getColor(
+							R.color.greySeparator));
+					holder.separator.setVisibility(View.VISIBLE);
+				} else {
+					holder.separator.setVisibility(View.GONE);
+				}
+
+				holder.textViewVCode
+						.setText(cursor.getString(cursor
+								.getColumnIndex(ChewContract.ProductsChosen.VOUCHER_CODE)));
+				holder.textViewName
+						.setText(cursor.getString(cursor
+								.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_NAME)));
+
+				holder.textViewOther.setText(cursor.getString(cursor
+						.getColumnIndex(ChewContract.ProductsChosen.SIZE_NUM)));
+
 			}
-//		}
+
+		}
 	}
 
 	public static class ViewHolder {

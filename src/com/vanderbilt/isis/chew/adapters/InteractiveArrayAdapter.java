@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.model.CheckBoxRowModel;
 import com.vanderbilt.isis.chew.utils.Utils;
+import com.vanderbilt.isis.chew.vouchers.Month;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.CursorLoader;
@@ -52,7 +54,6 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 	boolean alreadyBoughtOtherOption = false;
 	boolean deleteOld = false;
 	String otherOptionType = "";
-	String month_name = "";
 	double minSizeAllowed;
 	double maxSizeAllowed;
 	String sizeType = "";
@@ -356,20 +357,18 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				logger.debug("SUBSTITUTE1 {}", substitute1 + "");
 			}
 
-			
+			final Month month = Utils.getMonth();
 
 			if (!alreadyBoughtOtherOption) {
 
-				month_name = Utils.getMonth();
-
-				Log.d("*** MONTH", month_name);
-				logger.debug("*** MONTH {}", month_name);
+				Log.d("*** MONTH", month.toString(context));
+				logger.debug("*** MONTH {}", month.toString(context));
 				CursorLoader loader2 = null;
 
 				if (!combinationAllowed) {
 
 					where = ChewContract.ProductsChosen.MONTH + "='"
-							+ month_name + "'" + " AND "
+							+ month.getMonthNum() + "'" + " AND "
 							+ ChewContract.ProductsChosen.MEMBER_NAME + "='"
 							+ name + "'" + " AND "
 							+ ChewContract.ProductsChosen.VOUCHER_CODE + "='"
@@ -378,7 +377,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 							+ productType + "'";
 				} else {
 					where = ChewContract.ProductsChosen.MONTH + "='"
-							+ month_name + "'" + " AND "
+							+ month.getMonthNum() + "'" + " AND "
 							+ ChewContract.ProductsChosen.MEMBER_NAME + "='"
 							+ name + "'" + " AND "
 							+ ChewContract.ProductsChosen.VOUCHER_CODE + "='"
@@ -413,7 +412,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 						.setMessage(
 								context.getResources().getString(R.string.want_to_replace)
 								+ " "
-										+ otherOptionType.toUpperCase(Locale.ENGLISH)
+										+ otherOptionType.toUpperCase(Locale.getDefault())
 										+ " "
 										+ context.getResources().getString(R.string.will_be_deleted))
 						.setCancelable(false)
@@ -451,7 +450,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 
 											where = ChewContract.ProductsChosen.MONTH
 													+ "='"
-													+ month_name
+													+ month.getMonthNum()
 													+ "'"
 													+ " AND "
 													+ ChewContract.ProductsChosen.MEMBER_NAME
@@ -469,7 +468,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 										} else {
 											where = ChewContract.ProductsChosen.MONTH
 													+ "='"
-													+ month_name
+													+ month.getMonthNum()
 													+ "'"
 													+ " AND "
 													+ ChewContract.ProductsChosen.MEMBER_NAME

@@ -18,7 +18,7 @@ public class CashVoucher extends Voucher{
 	private double amountAllowed;
 	//private double amountSpent;
 	
-	public CashVoucher(VoucherCode vCode, String month, String name, double allowed, String used) {
+	public CashVoucher(VoucherCode vCode, Month month, String name, double allowed, VoucherStatus used) {
 		super(vCode, month, name, used);
 		logger.trace("CashVoucher()");
 		amountAllowed = allowed;

@@ -1,12 +1,13 @@
 package com.vanderbilt.isis.chew.db;
 
-
 import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.vanderbilt.isis.chew.db.ChewContract.FamilyVouchers;
 import com.vanderbilt.isis.chew.db.ChewContract.VouchersIDsToCategories;
 import com.vanderbilt.isis.chew.utils.Utils;
+import com.vanderbilt.isis.chew.vouchers.Month;
+
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -21,12 +22,13 @@ import android.util.Log;
 
 public class ChewContentProvider extends ContentProvider {
 
-	private static final Logger logger = LoggerFactory.getLogger(ChewContentProvider.class);
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(ChewContentProvider.class);
+
 	private String TAG = getClass().getSimpleName();
-	
+
 	private static final HashMap<String, String> voucherCategoriesMap;
-	
+
 	/**
 	 * Helper constants to use with UriMatcher
 	 */
@@ -54,7 +56,7 @@ public class ChewContentProvider extends ContentProvider {
 	private static final int PRODUCTSCHOSEN_ID = 22;
 	private static final int PRODUCECHOSEN = 23;
 	private static final int PRODUCECHOSEN_ID = 24;
-	
+
 	// joins
 	private static final int ALL_VOUCHER_CATEGORIES_JOIN_FAMILY_VOUCHERS = 25;
 	private static final int SINGLE_VOUCHER_CATEGORIES_JOIN_FAMILY_VOUCHERS = 26;
@@ -63,10 +65,10 @@ public class ChewContentProvider extends ContentProvider {
 	private static final int ALL_VOUCHERFOOD_JOIN_PRODUCTSCHOSEN = 29;
 	private static final int PRODUCTS_JOIN_FAMILY_VOUCHERS = 32;
 	private static final int PRODUCE_JOIN_FAMILY_VOUCHERS = 33;
-	
+
 	// aggregation
 	private static final int SUM_PRODUCE = 30;
-	
+
 	private static final int DISTINCT_NAMES = 31;
 
 	/**
@@ -78,24 +80,35 @@ public class ChewContentProvider extends ContentProvider {
 	 * Declare an SQLite open helper to manage database creation and versions
 	 */
 	private ChewDBHelper myDbOpenHelper;
-	
-	static {
-	    //Setup projection maps
-		voucherCategoriesMap = new HashMap<String, String>();
-		voucherCategoriesMap.put(VouchersIDsToCategories._ID, "VouchersIDsToCategories._ID AS VouchersIDsToCategories_ID");
-		voucherCategoriesMap.put(VouchersIDsToCategories.VOUCHERS_ID, "VouchersIDsToCategories.vouchers_id AS VouchersIDsToCategories_vouchers_id");
-		//voucherCategoriesMap.put(VouchersIDToCategories.VOUCHER_CATEGORY, VOUCHERS_ID_TO_CATEGORIES_TABLE + ".voucher_category");
 
-		voucherCategoriesMap.put(FamilyVouchers._ID, "FamilyVouchers._ID AS FamilyVouchers_ID");
-		voucherCategoriesMap.put(FamilyVouchers.NAME, "FamilyVouchers.name AS FamilyVouchers_name");        
-		//voucherCategoriesMap.put(MemberVouchers.VOUCHER_CATEGORY, MEMBER_VOUCHERS_TABLE + ".voucher_category"); 
-		voucherCategoriesMap.put(FamilyVouchers.VOUCHER_CODE, "FamilyVouchers.v_code AS FamilyVouchers_v_code");  
-		voucherCategoriesMap.put(FamilyVouchers.VOUCHER_MONTH, "FamilyVouchers.month AS FamilyVouchers_month");
-		
+	static {
+		// Setup projection maps
+		voucherCategoriesMap = new HashMap<String, String>();
+		voucherCategoriesMap.put(VouchersIDsToCategories._ID,
+				"VouchersIDsToCategories._ID AS VouchersIDsToCategories_ID");
+		voucherCategoriesMap
+				.put(VouchersIDsToCategories.VOUCHERS_ID,
+						"VouchersIDsToCategories.vouchers_id AS VouchersIDsToCategories_vouchers_id");
+		// voucherCategoriesMap.put(VouchersIDToCategories.VOUCHER_CATEGORY,
+		// VOUCHERS_ID_TO_CATEGORIES_TABLE + ".voucher_category");
+
+		voucherCategoriesMap.put(FamilyVouchers._ID,
+				"FamilyVouchers._ID AS FamilyVouchers_ID");
+		voucherCategoriesMap.put(FamilyVouchers.NAME,
+				"FamilyVouchers.name AS FamilyVouchers_name");
+		// voucherCategoriesMap.put(MemberVouchers.VOUCHER_CATEGORY,
+		// MEMBER_VOUCHERS_TABLE + ".voucher_category");
+		voucherCategoriesMap.put(FamilyVouchers.VOUCHER_CODE,
+				"FamilyVouchers.v_code AS FamilyVouchers_v_code");
+		voucherCategoriesMap.put(FamilyVouchers.VOUCHER_MONTH,
+				"FamilyVouchers.month AS FamilyVouchers_month");
+
 		// to force selection from particular table
-		voucherCategoriesMap.put("voucher_code", "VouchersIDsToCategories.voucher_code AS VouchersIDsToCategories_voucher_code");
+		voucherCategoriesMap
+				.put("voucher_code",
+						"VouchersIDsToCategories.voucher_code AS VouchersIDsToCategories_voucher_code");
 	}
-	
+
 	/**
 	 * Declare a UriMatcher to match URIs
 	 */
@@ -105,39 +118,65 @@ public class ChewContentProvider extends ContentProvider {
 		uriMatcher.addURI(ChewContract.AUTHORITY, "recipes", RECIPES);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "recipes/#", RECIPE_ID);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "ingredients", INGREDIENTS);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "ingredients/#", INGREDIENT_ID);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "ingredients/#",
+				INGREDIENT_ID);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "steps", STEPS);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "steps/#", STEP_ID);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "shoppingitems", SHOPPINGITEMS);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "shoppingitems/#", SHOPPING_ITEM);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "shoppingitems",
+				SHOPPINGITEMS);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "shoppingitems/#",
+				SHOPPING_ITEM);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "store", STORE);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "store/#", STORE_ID);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "foodtypelookup", FOODTYPELOOKUP);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "foodtypelookup/#", FOODTYPELOOKUP_ID);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "familyvouchers", FAMILYVOUCHERS);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "familyvouchers/#", FAMILYVOUCHERS_ID);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "foodtypelookup",
+				FOODTYPELOOKUP);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "foodtypelookup/#",
+				FOODTYPELOOKUP_ID);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "familyvouchers",
+				FAMILYVOUCHERS);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "familyvouchers/#",
+				FAMILYVOUCHERS_ID);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "voucher", VOUCHER);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "voucher/#", VOUCHER_ID);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "vouchersidstocategories", VOUCHERSIDSTOCATEGORIES);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "vouchersidstocategories/#", VOUCHERSIDSTOCATEGORIES_ID);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "vouchersidstocategories",
+				VOUCHERSIDSTOCATEGORIES);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "vouchersidstocategories/#",
+				VOUCHERSIDSTOCATEGORIES_ID);
 		uriMatcher.addURI(ChewContract.AUTHORITY, "voucherfood", VOUCHERFOOD);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "voucherfood/#", VOUCHERFOOD_ID);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "productschosen", PRODUCTSCHOSEN);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "productschosen/#", PRODUCTSCHOSEN_ID);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "producechosen", PRODUCECHOSEN);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "producechosen/#", PRODUCECHOSEN_ID);
-		
-		//joins
-		uriMatcher.addURI(ChewContract.AUTHORITY, "voucherCategoriesFamilyVouchersJoin", ALL_VOUCHER_CATEGORIES_JOIN_FAMILY_VOUCHERS);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "voucherCategoriesFamilyVouchersJoin/#", SINGLE_VOUCHER_CATEGORIES_JOIN_FAMILY_VOUCHERS);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "foodtypeLookupVoucherJoin", ALL_FOODTYPE_LOOKUP_JOIN_VOUCHER);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "foodtypeLookupVoucherJoin/#", SINGLE_FOODTYPE_LOOKUP_JOIN_VOUCHER);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "voucherFoodProductsChosenJoin", ALL_VOUCHERFOOD_JOIN_PRODUCTSCHOSEN);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "distinctNames", DISTINCT_NAMES);	
-		uriMatcher.addURI(ChewContract.AUTHORITY, "productsFamilyVouchersJoin", PRODUCTS_JOIN_FAMILY_VOUCHERS);
-		uriMatcher.addURI(ChewContract.AUTHORITY, "produceFamilyVouchersJoin", PRODUCE_JOIN_FAMILY_VOUCHERS);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "voucherfood/#",
+				VOUCHERFOOD_ID);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "productschosen",
+				PRODUCTSCHOSEN);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "productschosen/#",
+				PRODUCTSCHOSEN_ID);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "producechosen",
+				PRODUCECHOSEN);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "producechosen/#",
+				PRODUCECHOSEN_ID);
+
+		// joins
+		uriMatcher.addURI(ChewContract.AUTHORITY,
+				"voucherCategoriesFamilyVouchersJoin",
+				ALL_VOUCHER_CATEGORIES_JOIN_FAMILY_VOUCHERS);
+		uriMatcher.addURI(ChewContract.AUTHORITY,
+				"voucherCategoriesFamilyVouchersJoin/#",
+				SINGLE_VOUCHER_CATEGORIES_JOIN_FAMILY_VOUCHERS);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "foodtypeLookupVoucherJoin",
+				ALL_FOODTYPE_LOOKUP_JOIN_VOUCHER);
+		uriMatcher.addURI(ChewContract.AUTHORITY,
+				"foodtypeLookupVoucherJoin/#",
+				SINGLE_FOODTYPE_LOOKUP_JOIN_VOUCHER);
+		uriMatcher.addURI(ChewContract.AUTHORITY,
+				"voucherFoodProductsChosenJoin",
+				ALL_VOUCHERFOOD_JOIN_PRODUCTSCHOSEN);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "distinctNames",
+				DISTINCT_NAMES);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "productsFamilyVouchersJoin",
+				PRODUCTS_JOIN_FAMILY_VOUCHERS);
+		uriMatcher.addURI(ChewContract.AUTHORITY, "produceFamilyVouchersJoin",
+				PRODUCE_JOIN_FAMILY_VOUCHERS);
 	}
-	
+
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		logger.trace("delete()");
@@ -162,7 +201,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.FamilyVouchers.TABLE;
 			break;
-		
+
 		case PRODUCTSCHOSEN_ID:
 
 			table = ChewContract.ProductsChosen.TABLE;
@@ -178,7 +217,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.ProductsChosen.TABLE;
 			break;
-			
+
 		case PRODUCECHOSEN_ID:
 
 			table = ChewContract.ProduceChosen.TABLE;
@@ -194,7 +233,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.ProduceChosen.TABLE;
 			break;
-		
+
 		case RECIPE_ID:
 
 			table = ChewContract.Recipes.TABLE;
@@ -210,7 +249,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.Recipes.TABLE;
 			break;
-			
+
 		case INGREDIENT_ID:
 
 			table = ChewContract.Ingredients.TABLE;
@@ -226,7 +265,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.Ingredients.TABLE;
 			break;
-			
+
 		case STEP_ID:
 
 			table = ChewContract.Steps.TABLE;
@@ -242,7 +281,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.Steps.TABLE;
 			break;
-			
+
 		case SHOPPINGITEMS:
 
 			table = ChewContract.ShoppingItems.TABLE;
@@ -275,8 +314,8 @@ public class ChewContentProvider extends ContentProvider {
 
 		int deleteCount = myDbOpenHelper.getWritableDatabase().delete(table,
 				selection, selectionArgs);
-	    if (deleteCount > 0)
-	    	getContext().getContentResolver().notifyChange(uri, null); //uri?
+		if (deleteCount > 0)
+			getContext().getContentResolver().notifyChange(uri, null); // uri?
 
 		return deleteCount;
 	}
@@ -352,8 +391,8 @@ public class ChewContentProvider extends ContentProvider {
 
 		case FAMILYVOUCHERS:
 
-			rowId = myDbOpenHelper.getWritableDatabase().insert(ChewContract.FamilyVouchers.TABLE,
-					null, values);
+			rowId = myDbOpenHelper.getWritableDatabase().insert(
+					ChewContract.FamilyVouchers.TABLE, null, values);
 			// if added successfully
 			if (rowId > 0) {
 				_uri = ContentUris.withAppendedId(
@@ -361,11 +400,11 @@ public class ChewContentProvider extends ContentProvider {
 				getContext().getContentResolver().notifyChange(_uri, null);
 			}
 			break;
-		
+
 		case PRODUCTSCHOSEN:
 
-			rowId = myDbOpenHelper.getWritableDatabase().insert(ChewContract.ProductsChosen.TABLE,
-					null, values);
+			rowId = myDbOpenHelper.getWritableDatabase().insert(
+					ChewContract.ProductsChosen.TABLE, null, values);
 			// if added successfully
 			if (rowId > 0) {
 				_uri = ContentUris.withAppendedId(
@@ -373,11 +412,11 @@ public class ChewContentProvider extends ContentProvider {
 				getContext().getContentResolver().notifyChange(_uri, null);
 			}
 			break;
-			
+
 		case PRODUCECHOSEN:
 
-			rowId = myDbOpenHelper.getWritableDatabase().insert(ChewContract.ProduceChosen.TABLE,
-					null, values);
+			rowId = myDbOpenHelper.getWritableDatabase().insert(
+					ChewContract.ProduceChosen.TABLE, null, values);
 			// if added successfully
 			if (rowId > 0) {
 				_uri = ContentUris.withAppendedId(
@@ -385,11 +424,11 @@ public class ChewContentProvider extends ContentProvider {
 				getContext().getContentResolver().notifyChange(_uri, null);
 			}
 			break;
-		
+
 		case RECIPES:
 
-			rowId = myDbOpenHelper.getWritableDatabase().insert(ChewContract.Recipes.TABLE,
-					null, values);
+			rowId = myDbOpenHelper.getWritableDatabase().insert(
+					ChewContract.Recipes.TABLE, null, values);
 			// if added successfully
 			if (rowId > 0) {
 				_uri = ContentUris.withAppendedId(
@@ -397,11 +436,11 @@ public class ChewContentProvider extends ContentProvider {
 				getContext().getContentResolver().notifyChange(_uri, null);
 			}
 			break;
-			
+
 		case INGREDIENTS:
 
-			rowId = myDbOpenHelper.getWritableDatabase().insert(ChewContract.Ingredients.TABLE,
-					null, values);
+			rowId = myDbOpenHelper.getWritableDatabase().insert(
+					ChewContract.Ingredients.TABLE, null, values);
 			// if added successfully
 			if (rowId > 0) {
 				_uri = ContentUris.withAppendedId(
@@ -409,11 +448,11 @@ public class ChewContentProvider extends ContentProvider {
 				getContext().getContentResolver().notifyChange(_uri, null);
 			}
 			break;
-			
+
 		case STEPS:
 
-			rowId = myDbOpenHelper.getWritableDatabase().insert(ChewContract.Steps.TABLE,
-					null, values);
+			rowId = myDbOpenHelper.getWritableDatabase().insert(
+					ChewContract.Steps.TABLE, null, values);
 			// if added successfully
 			if (rowId > 0) {
 				_uri = ContentUris.withAppendedId(
@@ -421,11 +460,11 @@ public class ChewContentProvider extends ContentProvider {
 				getContext().getContentResolver().notifyChange(_uri, null);
 			}
 			break;
-			
+
 		case SHOPPINGITEMS:
 
-			rowId = myDbOpenHelper.getWritableDatabase().insert(ChewContract.ShoppingItems.TABLE,
-					null, values);
+			rowId = myDbOpenHelper.getWritableDatabase().insert(
+					ChewContract.ShoppingItems.TABLE, null, values);
 			// if added successfully
 			if (rowId > 0) {
 				_uri = ContentUris.withAppendedId(
@@ -433,20 +472,19 @@ public class ChewContentProvider extends ContentProvider {
 				getContext().getContentResolver().notifyChange(_uri, null);
 			}
 			break;
-			
+
 		default:
 
 			Log.e(TAG, "Unsupported URI: " + uri);
 			logger.error("Unsupported URI:  {}", uri);
 			return null;
 		}
-		
+
 		// Notify any observers of the change in the data set.
-	    getContext().getContentResolver().notifyChange(_uri, null);
-		
+		getContext().getContentResolver().notifyChange(_uri, null);
+
 		return _uri;
 	}
-	
 
 	@Override
 	public boolean onCreate() {
@@ -475,31 +513,33 @@ public class ChewContentProvider extends ContentProvider {
 
 			queryBuilder.setTables(ChewContract.Store.TABLE);
 			break;
-		
+
 		case FOODTYPELOOKUP_ID:
 
 			rowId = uri.getPathSegments().get(1);
 			queryBuilder.setTables(ChewContract.FoodTypeLookup.TABLE);
-			queryBuilder.appendWhere(ChewContract.FoodTypeLookup._ID + "=" + rowId);
+			queryBuilder.appendWhere(ChewContract.FoodTypeLookup._ID + "="
+					+ rowId);
 			break;
 
 		case FOODTYPELOOKUP:
 
 			queryBuilder.setTables(ChewContract.FoodTypeLookup.TABLE);
 			break;
-		
+
 		case FAMILYVOUCHERS_ID:
 
 			rowId = uri.getPathSegments().get(1);
 			queryBuilder.setTables(ChewContract.FamilyVouchers.TABLE);
-			queryBuilder.appendWhere(ChewContract.FamilyVouchers._ID + "=" + rowId);
+			queryBuilder.appendWhere(ChewContract.FamilyVouchers._ID + "="
+					+ rowId);
 			break;
 
 		case FAMILYVOUCHERS:
 
 			queryBuilder.setTables(ChewContract.FamilyVouchers.TABLE);
 			break;
-		
+
 		case VOUCHER_ID:
 
 			rowId = uri.getPathSegments().get(1);
@@ -511,55 +551,59 @@ public class ChewContentProvider extends ContentProvider {
 
 			queryBuilder.setTables(ChewContract.Voucher.TABLE);
 			break;
-		
+
 		case VOUCHERSIDSTOCATEGORIES_ID:
 
 			rowId = uri.getPathSegments().get(1);
 			queryBuilder.setTables(ChewContract.VouchersIDsToCategories.TABLE);
-			queryBuilder.appendWhere(ChewContract.VouchersIDsToCategories._ID + "=" + rowId);
+			queryBuilder.appendWhere(ChewContract.VouchersIDsToCategories._ID
+					+ "=" + rowId);
 			break;
 
 		case VOUCHERSIDSTOCATEGORIES:
 
 			queryBuilder.setTables(ChewContract.VouchersIDsToCategories.TABLE);
 			break;
-		
+
 		case VOUCHERFOOD_ID:
 
 			rowId = uri.getPathSegments().get(1);
 			queryBuilder.setTables(ChewContract.VoucherFood.TABLE);
-			queryBuilder.appendWhere(ChewContract.VoucherFood._ID + "=" + rowId);
+			queryBuilder
+					.appendWhere(ChewContract.VoucherFood._ID + "=" + rowId);
 			break;
 
 		case VOUCHERFOOD:
 
 			queryBuilder.setTables(ChewContract.VoucherFood.TABLE);
 			break;
-		
+
 		case PRODUCTSCHOSEN_ID:
 
 			rowId = uri.getPathSegments().get(1);
 			queryBuilder.setTables(ChewContract.ProductsChosen.TABLE);
-			queryBuilder.appendWhere(ChewContract.ProductsChosen._ID + "=" + rowId);
+			queryBuilder.appendWhere(ChewContract.ProductsChosen._ID + "="
+					+ rowId);
 			break;
 
 		case PRODUCTSCHOSEN:
 
 			queryBuilder.setTables(ChewContract.ProductsChosen.TABLE);
 			break;
-			
+
 		case PRODUCECHOSEN_ID:
 
 			rowId = uri.getPathSegments().get(1);
 			queryBuilder.setTables(ChewContract.ProduceChosen.TABLE);
-			queryBuilder.appendWhere(ChewContract.ProduceChosen._ID + "=" + rowId);
+			queryBuilder.appendWhere(ChewContract.ProduceChosen._ID + "="
+					+ rowId);
 			break;
 
 		case PRODUCECHOSEN:
 
 			queryBuilder.setTables(ChewContract.ProduceChosen.TABLE);
 			break;
-		
+
 		case RECIPE_ID:
 
 			rowId = uri.getPathSegments().get(1);
@@ -571,19 +615,20 @@ public class ChewContentProvider extends ContentProvider {
 
 			queryBuilder.setTables(ChewContract.Recipes.TABLE);
 			break;
-			
+
 		case INGREDIENT_ID:
 
 			rowId = uri.getPathSegments().get(1);
 			queryBuilder.setTables(ChewContract.Ingredients.TABLE);
-			queryBuilder.appendWhere(ChewContract.Ingredients._ID + "=" + rowId);
+			queryBuilder
+					.appendWhere(ChewContract.Ingredients._ID + "=" + rowId);
 			break;
 
 		case INGREDIENTS:
 
 			queryBuilder.setTables(ChewContract.Ingredients.TABLE);
 			break;
-			
+
 		case STEP_ID:
 
 			rowId = uri.getPathSegments().get(1);
@@ -595,77 +640,92 @@ public class ChewContentProvider extends ContentProvider {
 
 			queryBuilder.setTables(ChewContract.Steps.TABLE);
 			break;
-			
+
 		case SHOPPING_ITEM:
 
 			rowId = uri.getPathSegments().get(1);
 			queryBuilder.setTables(ChewContract.ShoppingItems.TABLE);
-			queryBuilder.appendWhere(ChewContract.ShoppingItems._ID + "=" + rowId);
+			queryBuilder.appendWhere(ChewContract.ShoppingItems._ID + "="
+					+ rowId);
 			break;
 
 		case SHOPPINGITEMS:
 
 			queryBuilder.setTables(ChewContract.ShoppingItems.TABLE);
 			break;
-			
+
 		case SINGLE_VOUCHER_CATEGORIES_JOIN_FAMILY_VOUCHERS:
-			queryBuilder.setTables("VouchersIDsToCategories INNER JOIN FamilyVouchers " +
-					"ON VouchersIDsToCategories.voucher_code = FamilyVouchers.v_code");
-			queryBuilder.appendWhere(VouchersIDsToCategories._ID + "=" + uri.getLastPathSegment());
-			//cursor = queryBuilder.query(mydb, projection, selection, selectionArgs, groupBy, having, sortOrder);
+			queryBuilder
+					.setTables("VouchersIDsToCategories INNER JOIN FamilyVouchers "
+							+ "ON VouchersIDsToCategories.voucher_code = FamilyVouchers.v_code");
+			queryBuilder.appendWhere(VouchersIDsToCategories._ID + "="
+					+ uri.getLastPathSegment());
+			// cursor = queryBuilder.query(mydb, projection, selection,
+			// selectionArgs, groupBy, having, sortOrder);
 			break;
-			
+
 		case ALL_VOUCHER_CATEGORIES_JOIN_FAMILY_VOUCHERS:
-			queryBuilder.setTables("VouchersIDsToCategories INNER JOIN FamilyVouchers " +
-				"ON VouchersIDsToCategories.voucher_code = FamilyVouchers.v_code");
-			//queryBuilder.setTables("VouchersIDToCategories INNER JOIN MemberVouchers " +
-					//"ON VouchersIDToCategories.vouchers_id = MemberVouchers._id");
+			queryBuilder
+					.setTables("VouchersIDsToCategories INNER JOIN FamilyVouchers "
+							+ "ON VouchersIDsToCategories.voucher_code = FamilyVouchers.v_code");
+			// queryBuilder.setTables("VouchersIDToCategories INNER JOIN MemberVouchers "
+			// +
+			// "ON VouchersIDToCategories.vouchers_id = MemberVouchers._id");
 			queryBuilder.setProjectionMap(voucherCategoriesMap);
 			queryBuilder.setDistinct(true);
-			//cursor = queryBuilder.query(mydb, projection, selection, selectionArgs, groupBy, having, sortOrder);
+			// cursor = queryBuilder.query(mydb, projection, selection,
+			// selectionArgs, groupBy, having, sortOrder);
 			break;
-			
+
 		case ALL_VOUCHERFOOD_JOIN_PRODUCTSCHOSEN:
-			queryBuilder.setTables("(SELECT * " +
-					"FROM VoucherFood, ProductsChosen " +
-					"WHERE VoucherFood.food_type = ProductsChosen.product_type)");
+			queryBuilder
+					.setTables("(SELECT * "
+							+ "FROM VoucherFood, ProductsChosen "
+							+ "WHERE VoucherFood.food_type = ProductsChosen.product_type)");
 			break;
-			
+
 		case ALL_FOODTYPE_LOOKUP_JOIN_VOUCHER:
-			 queryBuilder.setTables("(SELECT * " +
-				 		"FROM FoodTypeLookup, Voucher " +
-				 		"WHERE FoodTypeLookup._id = Voucher.option1 " +
-				 		"OR FoodTypeLookup._id = Voucher.option2 " +
-				 		"OR FoodTypeLookup._id = Voucher.option3 " +
-				 		"OR FoodTypeLookup._id = Voucher.option4)");
-			 break;
-			 
+			queryBuilder.setTables("(SELECT * "
+					+ "FROM FoodTypeLookup, Voucher "
+					+ "WHERE FoodTypeLookup._id = Voucher.option1 "
+					+ "OR FoodTypeLookup._id = Voucher.option2 "
+					+ "OR FoodTypeLookup._id = Voucher.option3 "
+					+ "OR FoodTypeLookup._id = Voucher.option4)");
+			break;
+
 		case SUM_PRODUCE:
 			Log.d("INCP", "incp");
 			logger.debug("INCP {}", "incp");
-			String month_name = Utils.getMonth();
-			queryBuilder.setTables("SELECT sum(ProduceChosen.cost) FROM ProduceChosen WHERE ProduceChosen.month = '" + month_name + "'"
-					+ " AND ProductsChosen.product_category = 'CASH'");
+			Month month = Utils.getMonth();
+			queryBuilder
+					.setTables("SELECT sum(ProduceChosen.cost) FROM ProduceChosen WHERE ProduceChosen.month = '"
+							+ month.getMonthNum()
+							+ "'"
+							+ " AND ProductsChosen.product_category = 'CASH'");
 			break;
-			
+
 		case DISTINCT_NAMES:
-			queryBuilder.setTables("(SELECT DISTINCT _id, name" +
-			 		" FROM FamilyVouchers GROUP BY name)");
+			queryBuilder.setTables("(SELECT DISTINCT _id, name"
+					+ " FROM FamilyVouchers GROUP BY name)");
 			break;
-			
+
 		case PRODUCTS_JOIN_FAMILY_VOUCHERS:
-			 queryBuilder.setTables("(SELECT * " +
-				 		"FROM ProductsChosen, FamilyVouchers " +
-				 		"WHERE ProductsChosen.voucher_code = FamilyVouchers.v_code " +
-				 		"AND ProductsChosen.member_name = FamilyVouchers.name)");
-			 break;
-			 
+			queryBuilder
+					.setTables("(SELECT * "
+							+ "FROM ProductsChosen, FamilyVouchers "
+							+ "WHERE ProductsChosen.voucher_code = FamilyVouchers.v_code "
+							+ "AND ProductsChosen.member_name = FamilyVouchers.name "
+							+ "AND ProductsChosen.month = FamilyVouchers.voucher_month)");
+			break;
+
 		case PRODUCE_JOIN_FAMILY_VOUCHERS:
-			 queryBuilder.setTables("(SELECT * " +
-				 		"FROM ProduceChosen, FamilyVouchers " +
-				 		"WHERE ProduceChosen.voucher_code = FamilyVouchers.v_code " +
-				 		"AND ProduceChosen.member_name = FamilyVouchers.name)");
-			 break;
+			queryBuilder
+					.setTables("(SELECT * "
+							+ "FROM ProduceChosen, FamilyVouchers "
+							+ "WHERE ProduceChosen.voucher_code = FamilyVouchers.v_code "
+							+ "AND ProduceChosen.member_name = FamilyVouchers.name "
+							+ "AND ProduceChosen.month = FamilyVouchers.voucher_month)");
+			break;
 
 		default:
 
@@ -689,7 +749,7 @@ public class ChewContentProvider extends ContentProvider {
 		String table = null;
 
 		switch (uriMatcher.match(uri)) {
-		
+
 		case PRODUCTSCHOSEN_ID:
 
 			table = ChewContract.ProductsChosen.TABLE;
@@ -705,7 +765,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.ProductsChosen.TABLE;
 			break;
-			
+
 		case PRODUCECHOSEN_ID:
 
 			table = ChewContract.ProduceChosen.TABLE;
@@ -721,7 +781,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.ProduceChosen.TABLE;
 			break;
-		
+
 		case RECIPE_ID:
 
 			table = ChewContract.Recipes.TABLE;
@@ -737,7 +797,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.Recipes.TABLE;
 			break;
-			
+
 		case INGREDIENT_ID:
 
 			table = ChewContract.Ingredients.TABLE;
@@ -753,7 +813,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.Ingredients.TABLE;
 			break;
-			
+
 		case STEP_ID:
 
 			table = ChewContract.Steps.TABLE;
@@ -769,7 +829,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.Steps.TABLE;
 			break;
-			
+
 		case SHOPPING_ITEM:
 
 			table = ChewContract.ShoppingItems.TABLE;
@@ -785,7 +845,7 @@ public class ChewContentProvider extends ContentProvider {
 
 			table = ChewContract.ShoppingItems.TABLE;
 			break;
-			
+
 		case FAMILYVOUCHERS_ID:
 
 			table = ChewContract.FamilyVouchers.TABLE;
@@ -813,46 +873,47 @@ public class ChewContentProvider extends ContentProvider {
 				values, selection, selectionArgs);
 
 		if (updateCount > 0)
-			getContext().getContentResolver().notifyChange(ChewContract.Recipes.CONTENT_URI, null); // NOT RECIPES
+			getContext().getContentResolver().notifyChange(
+					ChewContract.Recipes.CONTENT_URI, null); // NOT RECIPES
 
 		return updateCount;
 	}
-	
+
 	@Override
-	public int bulkInsert(Uri uri, ContentValues[] values){
+	public int bulkInsert(Uri uri, ContentValues[] values) {
 		logger.trace("bulkInsert()");
 		int numInserted = 0;
 		String table = null;
-		
-		switch(uriMatcher.match(uri)){
-		
+
+		switch (uriMatcher.match(uri)) {
+
 		case SHOPPINGITEMS:
 			table = ChewContract.ShoppingItems.TABLE;
 			break;
-			
+
 		case FAMILYVOUCHERS:
 			table = ChewContract.FamilyVouchers.TABLE;
 			break;
-		}		
-		
+		}
+
 		SQLiteDatabase myDB = myDbOpenHelper.getWritableDatabase();
 		myDB.beginTransaction();
-		
-		try{
-			for(ContentValues cv : values){
+
+		try {
+			for (ContentValues cv : values) {
 				long newID = myDB.insertOrThrow(table, null, cv);
-				if(newID <= 0){
+				if (newID <= 0) {
 					throw new SQLException("Failed to insert row into " + uri);
 				}
 			}
-			
+
 			myDB.setTransactionSuccessful();
 			getContext().getContentResolver().notifyChange(uri, null);
 			numInserted = values.length;
-		}finally{
+		} finally {
 			myDB.endTransaction();
 		}
-		
+
 		return numInserted;
 	}
 }

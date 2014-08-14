@@ -6,20 +6,24 @@ import org.slf4j.LoggerFactory;
 
 import android.app.ListActivity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
+import com.vanderbilt.isis.chew.vouchers.VoucherStatus;
 
 public class VouchersListView extends ListActivity implements
 LoaderManager.LoaderCallbacks<Cursor> {
@@ -45,11 +49,10 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 		loadermanager = getLoaderManager();
 
-		int[] uiBindTo = { R.id.voucher, R.id.used };
-		dataAdapter = new SimpleCursorAdapter(VouchersListView.this,
+		dataAdapter = new MySimpleCursorAdapter(VouchersListView.this,
 				R.layout.display_vouchers_row, null,
 				new String[] { ChewContract.FamilyVouchers.VOUCHER_CODE, ChewContract.FamilyVouchers.USED },
-				uiBindTo, 0);
+				null, 0);
 
 		setListAdapter(dataAdapter);
 		loadermanager.initLoader(1, null, this);
@@ -93,7 +96,7 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 		String where = ChewContract.FamilyVouchers.NAME + "='" + name + "'" + " AND "
 				+ ChewContract.FamilyVouchers.VOUCHER_MONTH
-				+ "='" + Utils.getMonth() + "'";
+				+ "='" + Utils.getMonth().getMonthNum() + "'";
 
 		CursorLoader loader = new CursorLoader(VouchersListView.this,
 				ChewContract.FamilyVouchers.CONTENT_URI, projection,
@@ -111,5 +114,54 @@ LoaderManager.LoaderCallbacks<Cursor> {
 	public void onLoaderReset(Loader<Cursor> loader) {
 		logger.trace("onLoaderReset()");
 		dataAdapter.changeCursor(null);
+	}
+	
+	private class MySimpleCursorAdapter extends SimpleCursorAdapter {
+
+		public MySimpleCursorAdapter(Context context, int layout, Cursor c,
+				String[] from, int[] to, int flags) {
+			super(context, layout, c, from, to, 0);
+			logger.trace("MySimpleCursorAdapter.MySimpleCursorAdapter()");
+		}
+
+		@Override
+		public View newView(Context context, Cursor cursor, ViewGroup parent) {
+			logger.trace("MySimpleCursorAdapter.newView()");
+			Log.d("NEWVIEW", "called");
+			logger.debug("NEWVIEW {}", "called");
+			ViewHolder holder = new ViewHolder();
+			View v = null;
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+			v = inflater.inflate(R.layout.display_vouchers_row, null);
+			holder.textViewVCode = (TextView) v.findViewById(R.id.voucher);
+			holder.textViewVStatus = (TextView) v
+					.findViewById(R.id.used);
+
+			v.setTag(holder);
+			return v;
+		}
+
+		@Override
+		public void bindView(View view, Context context, Cursor cursor) {
+			logger.trace("MySimpleCursorAdapter.bindView()");
+			Log.d("BINDVIEW", "called");
+			logger.debug("BINDVIEW {}", "called");
+
+			ViewHolder holder = (ViewHolder) view.getTag();
+
+			holder.textViewVCode.setText(cursor.getString(cursor
+					.getColumnIndex(ChewContract.FamilyVouchers.VOUCHER_CODE)));
+			int value = Integer.parseInt(cursor.getString(cursor
+					.getColumnIndex(ChewContract.FamilyVouchers.USED)));
+			holder.textViewVStatus.setText(VoucherStatus.getVoucherStatus(value).toString(VouchersListView.this));
+
+		}
+	}
+
+	public static class ViewHolder {
+		public TextView textViewVCode;
+		public TextView textViewVStatus;
 	}
 }

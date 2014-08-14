@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">CHEW</string>
-    
     <string name="gallery_act">Galeria de Bocadillos</string>
     <string name="favor_snack_act">Bocadillos Favoritos</string>
     <string name="shoplist_act">Lista de Compra de Bocadillos</string>
@@ -16,7 +15,6 @@
     <string name="choose_vouch_act">Escoja el Cupón</string>
     <string name="regular_act">Cupón regular: Carrito de Compras</string>
     <string name="cash_act">Cupón de efectivo: Carrito de Compras</string>
-    
     <string name="action_settings">Configuración </string>
     <string name="ok">OK</string>
     <string name="yes">Sí </string>
@@ -114,7 +112,22 @@
     <string name="not_used">no usado</string>
     <string name="in_use">en uso</string>
     <string name="used">usado</string>
+    <string name="voucher_status">Estado:</string>
     <string name="cv_not_selected">Por favor escoja un Cupón en Efectivo para las compras de hoy.</string>
+    
+    
+    <string name="january">Enero</string>
+    <string name="february">Febrero</string>
+    <string name="march">Marzo</string>
+    <string name="april">Abril</string>
+    <string name="may">Mayo</string>
+    <string name="june">Junio</string>
+    <string name="july">Julio</string>
+    <string name="august">Agosto</string>
+    <string name="september">Septiembre</string>
+    <string name="october">Octubre</string>
+    <string name="november">Noveimbre</string>
+    <string name="december">Diciembre</string>
 
     <!-- Recipes -->
     <string name="peach_banana">Licuado de plátano y durazno</string>

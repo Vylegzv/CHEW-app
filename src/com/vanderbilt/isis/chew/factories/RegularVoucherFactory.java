@@ -8,16 +8,18 @@ import org.slf4j.LoggerFactory;
 
 import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.dboperations.CustomHandler;
+import com.vanderbilt.isis.chew.vouchers.Month;
 import com.vanderbilt.isis.chew.vouchers.Voucher;
 import com.vanderbilt.isis.chew.vouchers.RegularVoucher;
 import com.vanderbilt.isis.chew.vouchers.VoucherCode;
+import com.vanderbilt.isis.chew.vouchers.VoucherStatus;
 
 public class RegularVoucherFactory extends VoucherFactory {
 
 	//static Logger logger = LoggerFactory.getLogger(RegularVoucherFactory.class);
 	
 	@Override
-	public Voucher createVoucher(VoucherCode vCode, String month, String name, String used) {
+	public Voucher createVoucher(VoucherCode vCode, Month month, String name, VoucherStatus used) {
 		logger.trace("createVoucher()");
 
 		if (vCode.equals(VoucherCode.A)) {

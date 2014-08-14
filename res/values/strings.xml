@@ -118,7 +118,22 @@
 	<string name="not_used">not used</string>
 	<string name="in_use">in use</string>
 	<string name="used">used</string>
+	<string name="voucher_status">Status:</string>
 	<string name="cv_not_selected">Please select a CASH voucher for this shopping trip!</string>
+	
+	
+	 <string name="january">January</string>
+	 <string name="february">February</string>
+	 <string name="march">March</string>
+	 <string name="april">April</string>
+	 <string name="may">May</string>
+	 <string name="june">June</string>
+	 <string name="july">July</string>
+	 <string name="august">August</string>
+	 <string name="september">September</string>
+	 <string name="october">October</string>
+	 <string name="november">November</string>
+	 <string name="december">December</string>
 
     <!-- Recipes -->
     <string name="peach_banana">Peach Banana Drink</string>

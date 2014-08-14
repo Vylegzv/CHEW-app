@@ -14,7 +14,7 @@ public class RegularVoucher extends Voucher {
 	
 	private ArrayList<String> descriptions;
 
-	public RegularVoucher(VoucherCode vCode, String month, String name, String used, ArrayList<String> ds) {
+	public RegularVoucher(VoucherCode vCode, Month month, String name, VoucherStatus used, ArrayList<String> ds) {
 		super(vCode, month, name, used);
 		logger.trace("RegularVoucher()");
 		descriptions = ds;

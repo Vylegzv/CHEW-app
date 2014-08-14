@@ -365,7 +365,7 @@ public class Produce extends Activity {
 								newValues.put(ChewContract.ProduceChosen.COST,
 										df.format(price));
 								newValues.put(ChewContract.ProduceChosen.MONTH,
-										Utils.getMonth());
+										Utils.getMonth().getMonthNum());
 								newValues
 										.put(ChewContract.ProduceChosen.VOUCHER_CODE,
 												voucherNameChosen.split(" - ")[0]);
@@ -572,7 +572,7 @@ public class Produce extends Activity {
 							newValues.put(ChewContract.ProduceChosen.COST,
 									df.format(price));
 							newValues.put(ChewContract.ProduceChosen.MONTH,
-									Utils.getMonth());
+									Utils.getMonth().getMonthNum());
 							newValues.put(
 									ChewContract.ProduceChosen.VOUCHER_CODE,
 									voucherNameChosen.split(" - ")[0]);

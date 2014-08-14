@@ -1,28 +1,23 @@
 package com.vanderbilt.isis.chew.utils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.vanderbilt.isis.chew.R;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.factories.CashVoucherFactory;
 import com.vanderbilt.isis.chew.factories.RegularVoucherFactory;
+import com.vanderbilt.isis.chew.vouchers.Month;
 import com.vanderbilt.isis.chew.vouchers.Voucher;
 import com.vanderbilt.isis.chew.vouchers.VoucherCode;
-import android.app.AlertDialog;
+import com.vanderbilt.isis.chew.vouchers.VoucherStatus;
 import android.content.ContentProviderOperation;
 import android.content.Context;
-import android.content.CursorLoader;
-import android.content.DialogInterface;
 import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -42,9 +37,6 @@ public class Utils {
 	public static final int ALL_STORES = 3;
 	public static final String STOREKEY = "store";
 	public static final String VOUCHERS = "vouchers";
-//	public static final String NOTUSED = "not used";
-//	public static final String INUSE = "in use";
-//	public static final String USED = "used";
 	public static final String SHOPKEY = "shopping";
 	private static final String PWD = "password";
 
@@ -191,7 +183,7 @@ public class Utils {
 			ops.add(ContentProviderOperation
 					.newUpdate(ChewContract.FamilyVouchers.CONTENT_URI)
 					.withSelection(selection, null)
-					.withValue(ChewContract.FamilyVouchers.USED, context.getString(R.string.in_use))
+					.withValue(ChewContract.FamilyVouchers.USED, VoucherStatus.Inuse.getValue())
 					.build());
 		}
 
@@ -272,11 +264,11 @@ public class Utils {
 				ChewContract.FamilyVouchers.VOUCHER_CODE,
 				ChewContract.FamilyVouchers.USED };
 
-		String month = Utils.getMonth();
+		Month month = getMonth();
 
 		String selection = ChewContract.FamilyVouchers.NAME + "='" + memberName
 				+ "'" + " AND " + ChewContract.ProductsChosen.MONTH + "='"
-				+ month + "'";
+				+ month.getMonthNum() + "'";
 
 		Cursor cursor = context.getContentResolver().query(
 				ChewContract.FamilyVouchers.CONTENT_URI, projection, selection,
@@ -286,10 +278,11 @@ public class Utils {
 
 			VoucherCode vCode = VoucherCode.getVoucherCodeFromValue(cursor
 					.getString(0));
-			String used = cursor.getString(1);
+			int used = Integer.getInteger(cursor.getString(1));
+			VoucherStatus usedStatus = VoucherStatus.getVoucherStatus(used);
 
 			Voucher voucher = new RegularVoucherFactory().createVoucher(vCode,
-					month, memberName, used);
+					month, memberName, usedStatus);
 			vouchers.add(voucher);
 		}
 
@@ -320,7 +313,7 @@ public class Utils {
 
 				if (VoucherCode.isCashCode(voucher)) {
 					Voucher cashVoucher = new CashVoucherFactory()
-							.createVoucher(vcode, getMonth(), name, context.getString(R.string.in_use));
+							.createVoucher(vcode, getMonth(), name, VoucherStatus.Inuse);
 					cashVouchers.put(v, cashVoucher);
 				}
 			}
@@ -360,12 +353,17 @@ public class Utils {
 		return null;
 	}
 
-	public static String getMonth() {
+	public static Month getMonth() {
 		logger.trace("getMonth()");
-		Calendar cal = Calendar.getInstance(Locale.getDefault());
-		SimpleDateFormat month_date = new SimpleDateFormat("MMMM", Locale.getDefault());
-		String month = month_date.format(cal.getTime());
-		month = month.substring(0, 1).toUpperCase(Locale.getDefault()) + month.substring(1);
+//		Calendar cal = Calendar.getInstance(Locale.getDefault());
+//		SimpleDateFormat month_date = new SimpleDateFormat("MMMM", Locale.getDefault());
+//		String monthString = month_date.format(cal.getTime());
+////		month = month.substring(0, 1).toUpperCase(Locale.getDefault()) + month.substring(1);
+//		Month month = Month.get
+//		return month;
+		Calendar calendar = Calendar.getInstance();
+		int monthNum = calendar.get(Calendar.MONTH);
+		Month month = Month.getMonth(monthNum);
 		return month;
 	}
 

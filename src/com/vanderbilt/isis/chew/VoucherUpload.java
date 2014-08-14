@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.notificationmsg.ConfigurationActivity;
 import com.vanderbilt.isis.chew.utils.Utils;
+import com.vanderbilt.isis.chew.vouchers.Month;
+import com.vanderbilt.isis.chew.vouchers.VoucherStatus;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -128,12 +131,16 @@ public class VoucherUpload extends Activity{
 		ContentValues[] cvs = new ContentValues[selectedVouchers.size()];
 		for (int i = 0; i < selectedVouchers.size(); i++) {
 
+			Log.d("UPLOAD Month", month);
+			Log.d("UPLOAD Month", Month.getMonth(VoucherUpload.this, month).getMonthNum()+"");
+			
 			ContentValues cv = new ContentValues();
 			cv.put(ChewContract.FamilyVouchers.NAME, name);
 			cv.put(ChewContract.FamilyVouchers.VOUCHER_CODE, selectedVouchers.get(i).toString());
-			cv.put(ChewContract.FamilyVouchers.VOUCHER_MONTH, month);
+			cv.put(ChewContract.FamilyVouchers.VOUCHER_MONTH, Month.getMonth(VoucherUpload.this, month).getMonthNum());
 			cv.put(ChewContract.FamilyVouchers.ETHNICITY, ethnicity);
-			cv.put(ChewContract.FamilyVouchers.USED, getString(R.string.not_used));
+//			cv.put(ChewContract.FamilyVouchers.USED, getString(R.string.not_used));
+			cv.put(ChewContract.FamilyVouchers.USED, VoucherStatus.Unused.getValue());
 			cvs[i] = cv;
 		}
 

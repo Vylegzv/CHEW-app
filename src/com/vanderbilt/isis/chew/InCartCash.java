@@ -2,7 +2,6 @@ package com.vanderbilt.isis.chew;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.LoaderManager;
@@ -19,6 +18,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import com.vanderbilt.isis.chew.db.ChewContract;
 import com.vanderbilt.isis.chew.utils.Utils;
+import com.vanderbilt.isis.chew.vouchers.Month;
+import com.vanderbilt.isis.chew.vouchers.VoucherStatus;
 
 public class InCartCash extends ListActivity implements
 		LoaderManager.LoaderCallbacks<Cursor> {
@@ -35,9 +36,7 @@ public class InCartCash extends ListActivity implements
 	AlertDialog.Builder deleteOptionsDialog;
 	String where = "";
 	String produceName = "";
-	String month_name = "";
 	String voucherCode;
-//	Set<String> vCodesInUse;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -94,8 +93,7 @@ public class InCartCash extends ListActivity implements
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										// logger.info(" {}", );
-										month_name = Utils.getMonth();
+										
 										produceName = c.getString(2);
 										voucherCode = c.getString(3);
 										where = ChewContract.ProduceChosen.PRODUCE_NAME
@@ -114,7 +112,7 @@ public class InCartCash extends ListActivity implements
 												+ "'"
 												+ " AND "
 												+ ChewContract.ProduceChosen.MONTH
-												+ "='" + month_name + "'";
+												+ "='" + Utils.getMonth().getMonthNum() + "'";
 
 										int numDeleted = getContentResolver()
 												.delete(ChewContract.ProduceChosen.CONTENT_URI,
@@ -154,15 +152,13 @@ public class InCartCash extends ListActivity implements
 				ChewContract.ProduceChosen.PRODUCE_NAME,
 				ChewContract.ProduceChosen.VOUCHER_CODE };
 
-		String month_name = Utils.getMonth();
-		logger.debug("Month name: {} and Name: {}", month_name, name);
-		Log.d(TAG, month_name);
-		Log.d(TAG, name);
 
-		String where = ChewContract.ProduceChosen.MONTH + "='" + month_name
+		Month month = Utils.getMonth();
+		Log.d("CASH CART", month.getMonthNum()+"");
+		String where = ChewContract.ProduceChosen.MONTH + "='" + month.getMonthNum()
 				+ "'" + " AND " + ChewContract.ProduceChosen.MEMBER_NAME + "='"
 				+ name + "'" + " AND " + ChewContract.FamilyVouchers.USED
-				+ "='" + getString(R.string.in_use) + "'";;
+				+ "='" + VoucherStatus.Inuse.getValue() + "'";
 
 		String sortOrder = ChewContract.ProduceChosen.PRODUCE_NAME + " ASC";
 

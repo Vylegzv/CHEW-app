@@ -5,15 +5,17 @@ import org.slf4j.LoggerFactory;
 
 import com.vanderbilt.isis.chew.dboperations.CustomHandler;
 import com.vanderbilt.isis.chew.vouchers.CashVoucher;
+import com.vanderbilt.isis.chew.vouchers.Month;
 import com.vanderbilt.isis.chew.vouchers.Voucher;
 import com.vanderbilt.isis.chew.vouchers.VoucherCode;
+import com.vanderbilt.isis.chew.vouchers.VoucherStatus;
 
 public class CashVoucherFactory extends VoucherFactory{
 
 	//static Logger logger = LoggerFactory.getLogger(CashVoucherFactory.class);
 	
 	@Override
-	public Voucher createVoucher(VoucherCode vCode, String month, String name, String used) {
+	public Voucher createVoucher(VoucherCode vCode, Month month, String name, VoucherStatus used) {
 		logger.trace("createVoucher()");
 		if(vCode.equals(VoucherCode.CV8)){
 			return new CashVoucher(vCode, month, name, 8.0, used);

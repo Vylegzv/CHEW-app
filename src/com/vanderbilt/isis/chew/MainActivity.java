@@ -16,6 +16,9 @@ import com.vanderbilt.isis.chew.notificationmsg.ConfigurationActivity;
 import com.vanderbilt.isis.chew.notificationmsg.NotificationHistoryActivity;
 import com.vanderbilt.isis.chew.notificationmsg.SetAlarmService;
 import com.vanderbilt.isis.chew.utils.Utils;
+import com.vanderbilt.isis.chew.vouchers.Month;
+import com.vanderbilt.isis.chew.vouchers.VoucherStatus;
+
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
@@ -414,15 +417,15 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	private void getVouchers() {
 		logger.trace("getVouchers()");
 		CursorLoader loader = null;
-		String month = Utils.getMonth();
+		Month month = Utils.getMonth();
 
 		String[] resultColumns = new String[] {
 				ChewContract.FamilyVouchers._ID,
 				ChewContract.FamilyVouchers.VOUCHER_CODE,
 				ChewContract.FamilyVouchers.NAME};
 
-		String where = ChewContract.FamilyVouchers.VOUCHER_MONTH + "='" + month
-				+ "'" + " AND " + ChewContract.FamilyVouchers.USED + "='" + getString(R.string.not_used) + "'";;
+		String where = ChewContract.FamilyVouchers.VOUCHER_MONTH + "='" + month.getMonthNum()
+				+ "'" + " AND " + ChewContract.FamilyVouchers.USED + "='" + VoucherStatus.Unused.getValue() + "'";
 
 		loader = new CursorLoader(MainActivity.this,
 				ChewContract.FamilyVouchers.CONTENT_URI, resultColumns, where,
@@ -507,11 +510,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
  
 						String where = ChewContract.FamilyVouchers.USED
 								+ "='"
-								+ getString(R.string.in_use)
+								+ VoucherStatus.Inuse.getValue()
 								+ "'";
 						
 						ContentValues updateValues = new ContentValues();
-						updateValues.put(ChewContract.FamilyVouchers.USED, getString(R.string.used)); 
+						updateValues.put(ChewContract.FamilyVouchers.USED, VoucherStatus.Used.getValue()); 
 						int rowsUpdate = getContentResolver().update(
 								ChewContract.FamilyVouchers.CONTENT_URI,
 								updateValues, where, null);
