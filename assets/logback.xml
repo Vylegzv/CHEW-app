@@ -30,7 +30,7 @@
     <encoder>
         <!-- Print IP address, DateTime, (relative) Milliseconds since Start of Program, Thread which makes Log request,
                              Level of Log request, Logger name - Log Message  -->
-        <pattern>%d{dd-mm-yyyy hh:mm:ss}- %-11relative [%thread] %-5level %logger{50} - %msg%n</pattern>
+        <pattern>%d{dd-mm-yyyy hh:mm:ss}, %-11relative, [%thread], %-5level, %logger{50}, %msg,%n</pattern>
     </encoder>
   </appender>
   
