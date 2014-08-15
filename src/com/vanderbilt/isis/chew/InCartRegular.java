@@ -677,13 +677,14 @@ public class InCartRegular extends ListActivity implements
 					.getColumnIndex(ChewContract.ProductsChosen.QUANTITY))) > 0)) {
 
 				if (needSeparator) {
-					String cat = cursor
+					
+					String catId = cursor
 							.getString(cursor
 									.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
-					if (cat.contains("FRUIT_VEG")) {
-//						cat = getString(R.string.fruit_veg);
-						cat = "FRUITS & VEGETABLES";
-					}
+					int catResourceId = InCartRegular.this.getResources().getIdentifier(catId, "string",
+						"com.vanderbilt.isis.chew");
+					String cat = InCartRegular.this.getString(catResourceId);
+
 					holder.separator.setText(cat);
 					holder.separator.setTextColor(getResources().getColor(
 							R.color.greySeparator));
@@ -706,13 +707,14 @@ public class InCartRegular extends ListActivity implements
 					.getColumnIndex(ChewContract.ProductsChosen.QUANTITY))) == 0) {
 
 				if (needSeparator) {
-					String cat = cursor
+					
+					String catId = cursor
 							.getString(cursor
 									.getColumnIndex(ChewContract.ProductsChosen.PRODUCT_CATEGORY));
-					if (cat.contains("FRUIT_VEG")) {
-//						cat = getString(R.string.fruit_veg);
-						cat = "FRUITS & VEGETABLES";
-					}
+					int catResourceId = InCartRegular.this.getResources().getIdentifier(catId, "string",
+						"com.vanderbilt.isis.chew");
+					String cat = InCartRegular.this.getString(catResourceId);
+					
 					holder.separator.setText(cat);
 					holder.separator.setTextColor(getResources().getColor(
 							R.color.greySeparator));

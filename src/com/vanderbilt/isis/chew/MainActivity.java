@@ -617,7 +617,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 										// activity
 										// also check if they are using cash vouchers 
 										//nn
-										if (food_category.equals("CASH")) {
+										if (food_category.equals("cash_produce")) {
 
 											Intent intent = new Intent(
 													MainActivity.this,
@@ -628,6 +628,14 @@ public class MainActivity extends Activity implements OnItemClickListener {
 											startActivity(intent);
 											
 										} else {
+											
+//											// get food category and type from strings.xml
+//											int foodCatResId = MainActivity.this.getResources().getIdentifier(food_categoryId, "string",
+//													"com.vanderbilt.isis.chew");
+//											String food_category = MainActivity.this.getString(foodCatResId);
+//											int foodTypeResId = MainActivity.this.getResources().getIdentifier(food_typeId, "string",
+//													"com.vanderbilt.isis.chew");
+//											String food_type = MainActivity.this.getString(foodTypeResId);
 
 											Intent intent = new Intent(
 													MainActivity.this,

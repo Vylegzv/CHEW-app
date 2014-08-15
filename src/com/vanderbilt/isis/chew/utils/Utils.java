@@ -29,7 +29,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class Utils {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(Utils.class);
 
 	public static final int WALMART = 1;
@@ -44,11 +44,11 @@ public class Utils {
 	 * private constructor to avoid this class from being instantiated
 	 */
 	private Utils() {
-        logger.trace("Utils()");
+		logger.trace("Utils()");
 	}
-	
-	public static Bitmap decodeImage(Context context, int id){
-		
+
+	public static Bitmap decodeImage(Context context, int id) {
+
 		// use this to specify image decoding options
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		// setting this property to true while decoding avoids memory
@@ -57,7 +57,7 @@ public class Utils {
 		// the dimensions and type of the image data prior to
 		// construction and memory allocation of the bitmap
 		options.inJustDecodeBounds = true;
-		
+
 		BitmapFactory.decodeResource(context.getResources(), id, options);
 
 		// calculate the inSampleSize that will result in the final decoded
@@ -69,11 +69,12 @@ public class Utils {
 		// allocate memory for it
 		options.inJustDecodeBounds = false;
 		// decode image using options we just defined with the set inSampleSize
-		Bitmap decoded = BitmapFactory.decodeResource(context.getResources(), id, options);
+		Bitmap decoded = BitmapFactory.decodeResource(context.getResources(),
+				id, options);
 
 		return decoded;
 	}
-	
+
 	/**
 	 * This method calculates an inSampleSize for use in the
 	 * {@link BitmapFactory.Options} object when decoding a bitmap via decode()
@@ -111,22 +112,22 @@ public class Utils {
 		}
 		return inSampleSize;
 	}
-	
-	public static String getPwd(){
-        logger.trace("getPwd()");
+
+	public static String getPwd() {
+		logger.trace("getPwd()");
 		return PWD;
 	}
 
 	public static boolean setShoppingStatus(Context context, boolean shopping) {
-        logger.trace("setShoppingStatus()");
+		logger.trace("setShoppingStatus()");
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = preferences.edit();
 
 		editor.putBoolean(SHOPKEY, shopping);
-		
+
 		// remove used vouchers
-		if(!shopping)
+		if (!shopping)
 			editor.remove(VOUCHERS);
 
 		return editor.commit();
@@ -134,7 +135,7 @@ public class Utils {
 	}
 
 	public static boolean isShopping(Context context) {
-        logger.trace("isShopping()");
+		logger.trace("isShopping()");
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		return prefs.getBoolean(SHOPKEY, false);
@@ -166,15 +167,15 @@ public class Utils {
 	/**
 	 * 
 	 * @param context
-	 * @param vouchersUsed
+	 * @param vouchersUsedNew
 	 *            - in the format "VoucherCode - Name"
 	 * @return
 	 */
-	public static boolean setVouchers(Context context, Set<String> vouchersUsed) {
+	public static boolean setVouchers(Context context, Set<String> vouchersUsedNew) {
 		logger.trace("setVouchers()");
 		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
 
-		for (String voucher : vouchersUsed) {
+		for (String voucher : vouchersUsedNew) {
 
 			String selection = ChewContract.FamilyVouchers.VOUCHER_CODE + "='"
 					+ voucher.split(" - ")[0] + "'" + " AND "
@@ -200,14 +201,24 @@ public class Utils {
 
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
+		// get vouchers used now
+		Set<String> vouchersUsedNow = preferences.getStringSet(Utils.VOUCHERS, null);
+
 		SharedPreferences.Editor editor = preferences.edit();
-		editor.putStringSet(VOUCHERS, vouchersUsed);
+		
+		// append new vouchers to currently used or just get the new ones
+		if(vouchersUsedNow != null){
+			vouchersUsedNow.addAll(vouchersUsedNew);
+			editor.putStringSet(VOUCHERS, vouchersUsedNow);
+		}else{
+			editor.putStringSet(VOUCHERS, vouchersUsedNew);
+		}
 		return editor.commit();
 	}
 
 	public static Set<String> getInUseVouchersForMember(Context context,
 			String memberName) {
-        logger.trace("getInUseVouchersForMember()");
+		logger.trace("getInUseVouchersForMember()");
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		Set<String> vouchers = preferences.getStringSet(Utils.VOUCHERS, null);
@@ -257,7 +268,7 @@ public class Utils {
 
 	public static Set<Voucher> getRegVouchersForMember(Context context,
 			String memberName) {
-        logger.trace("getRegVouchersForMember()");
+		logger.trace("getRegVouchersForMember()");
 		Set<Voucher> vouchers = new HashSet<Voucher>();
 
 		String[] projection = new String[] {
@@ -313,7 +324,8 @@ public class Utils {
 
 				if (VoucherCode.isCashCode(voucher)) {
 					Voucher cashVoucher = new CashVoucherFactory()
-							.createVoucher(vcode, getMonth(), name, VoucherStatus.Inuse);
+							.createVoucher(vcode, getMonth(), name,
+									VoucherStatus.Inuse);
 					cashVouchers.put(v, cashVoucher);
 				}
 			}
@@ -325,26 +337,27 @@ public class Utils {
 
 		return cashVouchers;
 	}
-	
-	public static Set<String> getInUseVoucherCodes(Context context, String memberName) {
-        
+
+	public static Set<String> getInUseVoucherCodes(Context context,
+			String memberName) {
+
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		Set<String> vCodes = preferences.getStringSet(Utils.VOUCHERS, null);
 
 		if (vCodes != null) {
 
-				Set<String> memberVouchers = new HashSet<String>();
-				for (String v : vCodes) {
+			Set<String> memberVouchers = new HashSet<String>();
+			for (String v : vCodes) {
 
-					String vCode = v.split(" - ")[0];
-					String name = v.split(" - ")[1];
+				String vCode = v.split(" - ")[0];
+				String name = v.split(" - ")[1];
 
-					if (name.equals(memberName))
-						memberVouchers.add(vCode);
-				}
+				if (name.equals(memberName))
+					memberVouchers.add(vCode);
+			}
 
-				return memberVouchers;
+			return memberVouchers;
 
 		} else {
 			Log.d("Voucher Used", "null");
@@ -355,12 +368,14 @@ public class Utils {
 
 	public static Month getMonth() {
 		logger.trace("getMonth()");
-//		Calendar cal = Calendar.getInstance(Locale.getDefault());
-//		SimpleDateFormat month_date = new SimpleDateFormat("MMMM", Locale.getDefault());
-//		String monthString = month_date.format(cal.getTime());
-////		month = month.substring(0, 1).toUpperCase(Locale.getDefault()) + month.substring(1);
-//		Month month = Month.get
-//		return month;
+		// Calendar cal = Calendar.getInstance(Locale.getDefault());
+		// SimpleDateFormat month_date = new SimpleDateFormat("MMMM",
+		// Locale.getDefault());
+		// String monthString = month_date.format(cal.getTime());
+		// // month = month.substring(0, 1).toUpperCase(Locale.getDefault()) +
+		// month.substring(1);
+		// Month month = Month.get
+		// return month;
 		Calendar calendar = Calendar.getInstance();
 		int monthNum = calendar.get(Calendar.MONTH);
 		Month month = Month.getMonth(monthNum);
@@ -375,7 +390,7 @@ public class Utils {
 	}
 
 	public static void assertDeleted(Context context, int num) {
-        logger.trace("assertDeleted()");
+		logger.trace("assertDeleted()");
 		if (num > 0) {
 			Toast.makeText(context,
 					context.getString(R.string.deleted_success_msg),
@@ -385,20 +400,17 @@ public class Utils {
 					Toast.LENGTH_SHORT).show();
 		}
 	}
-	
-    /**
-     * Show a toast message to the user.
-     * 
-     * @param context
-     *            The Activity context
-     *
-     * @param message
-     *            The message to display
-     */
-    public static void showToast(Context context,
-                                 String message) {
-        Toast.makeText(context, 
-                       message,
-                       Toast.LENGTH_LONG).show();
-    }
+
+	/**
+	 * Show a toast message to the user.
+	 * 
+	 * @param context
+	 *            The Activity context
+	 * 
+	 * @param message
+	 *            The message to display
+	 */
+	public static void showToast(Context context, String message) {
+		Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+	}
 }

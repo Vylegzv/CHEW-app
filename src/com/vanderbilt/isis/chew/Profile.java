@@ -260,7 +260,7 @@ public class Profile extends Activity {
 
 										// if it is a CASH item, go to Produce
 										// activity
-										if (food_category.equals("CASH")) {
+										if (food_category.equals("cash_produce")) {
 
 											Intent intent = new Intent(
 													Profile.this, Produce.class);
@@ -269,6 +269,14 @@ public class Profile extends Activity {
 
 											startActivity(intent);
 										} else {
+											
+											// get food category and type from strings.xml
+//											int foodCatResId = Profile.this.getResources().getIdentifier(food_categoryId, "string",
+//													"com.vanderbilt.isis.chew");
+//											String food_category = Profile.this.getString(foodCatResId);
+//											int foodTypeResId = Profile.this.getResources().getIdentifier(food_typeId, "string",
+//													"com.vanderbilt.isis.chew");
+//											String food_type = Profile.this.getString(foodTypeResId);
 
 											Intent intent = new Intent(
 													Profile.this,

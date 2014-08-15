@@ -53,7 +53,6 @@
     <string name="delete_item">¿Borrar este producto?</string>
     <string name="deleted_success_msg">Producto fue borrado</string>
     <string name="select_delete_quantity">Escoja el número que desea borrar</string>
-    <string name="fruit_veg">FRUTAS Y VERDURAS</string>
     <string name="spent">Monto Gastado:</string>
     <string name="left">Saldo:</string>
     <string name="calc_price">Calcular Precio por Libra </string>
@@ -102,7 +101,7 @@
     <string name="delete">Borrar</string>
     <string name="sure_want_delete">¿Segura que desea borrar este cupón?</string>
     <string name="cannot_get_product">No se puede comprar</string>
-    <string name="because_already_bought">porque usted ya compró </string>
+    <string name="because_already_bought">porque usted compró </string>
     <string name="want_to_replace">¿Quiere reemplazarlo? Todas las selecciones de</string>
     <string name="will_be_deleted">serán BORRADAS.</string>
     <string name="exception_case">Suero de leche y/o leche evaporada y/o tofu </string>
@@ -115,7 +114,7 @@
     <string name="voucher_status">Estado:</string>
     <string name="cv_not_selected">Por favor escoja un Cupón en Efectivo para las compras de hoy.</string>
     
-    
+    <!-- Months -->
     <string name="january">Enero</string>
     <string name="february">Febrero</string>
     <string name="march">Marzo</string>
@@ -126,8 +125,37 @@
     <string name="august">Agosto</string>
     <string name="september">Septiembre</string>
     <string name="october">Octubre</string>
-    <string name="november">Noveimbre</string>
+    <string name="november">Noviembre</string>
     <string name="december">Diciembre</string>
+    
+        <!-- Product Types -->
+    <string name="juice_46_48oz">46 a 48 oz jugo</string>
+    <string name="tuna_5oz">5 oz atún</string>
+    <string name="juice_64oz">64 oz jugo</string>
+    <string name="tuna_6oz">6 oz atún</string>
+    <string name="buttermilk">suero de leche</string>
+    <string name="can_beans">frijoles en lata</string>
+    <string name="cereal">cereal</string>
+    <string name="cheese">queso</string>
+    <string name="dried_beans_peas">frijoles o chícharos secos</string>
+    <string name="eggs">huevo</string>
+    <string name="evap_milk">leche evaporada</string>
+    <string name="frozen_juice">jugo congelado</string>
+    <string name="milk">leche de grasa reducida</string>
+    <string name="nonfat_dry_milk">leche descremada en polvo</string>
+    <string name="peanut_b">mantequilla de cacahuate (maní)</string>
+    <string name="salmon">salmón</string>
+    <string name="sardines">sardines</string>
+    <string name="tofu">tofú</string>
+    <string name="whole_grain_prod">productos de grano entero</string>
+    <string name="whole_milk">leche entera</string>
+    
+    <!--  Product Categories -->
+    <string name="cash_produce">FRUTAS Y VERDURAS (Cupón en Efectivo)</string>
+    <string name="dairy">PRODUCTOS LACTEOS</string>
+    <string name="fruit_veg">FRUTAS Y VERDURAS</string>
+    <string name="grains">GRANOS</string>
+    <string name="protein">PROTEINA</string>
 
     <!-- Recipes -->
     <string name="peach_banana">Licuado de plátano y durazno</string>

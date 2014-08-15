@@ -221,7 +221,7 @@ public class Produce extends Activity {
 				logger.debug("ONLOADCOMPLETE {} and {}", tagDescription,
 						foodTypeName);
 
-				if (!category.equals("CASH")) {
+				if (!category.equals("cash_produce")) {
 					AlertDialog.Builder alert = new AlertDialog.Builder(
 							Produce.this);
 					alert.setTitle(getString(R.string.not_cash));

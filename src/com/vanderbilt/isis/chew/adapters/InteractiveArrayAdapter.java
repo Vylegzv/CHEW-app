@@ -54,6 +54,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 	boolean alreadyBoughtOtherOption = false;
 	boolean deleteOld = false;
 	String otherOptionType = "";
+	String actualOtherOpType = "";
 	double minSizeAllowed;
 	double maxSizeAllowed;
 	String sizeType = "";
@@ -280,8 +281,12 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 							int otherOpSub = Integer.parseInt(c10.getString(5));
 							if (otherOpSub != -1) {
 								otherOptionType = context.getResources().getString(R.string.exception_case);
+								actualOtherOpType = otherOptionType;
 							} else {
 								otherOptionType = c10.getString(0);
+								int otherOpResId = context.getResources().getIdentifier(otherOptionType, "string",
+										"com.vanderbilt.isis.chew");
+								actualOtherOpType = context.getString(otherOpResId);
 							}
 							Log.d("CURSOR10", "otherOptionType: "
 									+ otherOptionType);
@@ -399,20 +404,25 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 
 			} else {
 
+				// get actual product type from strings.xml
+				int prodTypeResId = context.getResources().getIdentifier(productType, "string",
+				"com.vanderbilt.isis.chew");
+				String actualProdType = context.getString(prodTypeResId);
+				
 				// tell that you already bought enough
 				// set title
 				otherOptionDialog = new AlertDialog.Builder(context);
 				otherOptionDialog.setTitle(context.getResources().getString(R.string.cannot_get_product) 
-						+ " " + productType
+						+ " " + actualProdType
 						+ " " + context.getResources().getString(R.string.because_already_bought)
-						+ " " + otherOptionType);
+						+ " " + actualOtherOpType);
 
 				// set dialog message
 				otherOptionDialog
 						.setMessage(
 								context.getResources().getString(R.string.want_to_replace)
 								+ " "
-										+ otherOptionType.toUpperCase(Locale.getDefault())
+										+ actualOtherOpType.toUpperCase(Locale.getDefault())
 										+ " "
 										+ context.getResources().getString(R.string.will_be_deleted))
 						.setCancelable(false)
@@ -698,12 +708,17 @@ public class InteractiveArrayAdapter extends ArrayAdapter<CheckBoxRowModel> {
 				// show it
 				alertDialog2.show();
 			} else {
+				
+				// get actual product type from strings.xml
+				int prodTypeResId = context.getResources().getIdentifier(productType, "string",
+				"com.vanderbilt.isis.chew");
+				String actualProdType = context.getString(prodTypeResId);
 
 				// tell that you already bought enough
 				// set title
 				noMoreDialog = new AlertDialog.Builder(context);
 				noMoreDialog.setTitle(context.getResources().getString(R.string.cannot_get_anymore)+ " "
-						+ productType + " " + context.getResources().getString(R.string.on_this_voucher));
+						+ actualProdType + " " + context.getResources().getString(R.string.on_this_voucher));
 
 				// set dialog message
 				noMoreDialog

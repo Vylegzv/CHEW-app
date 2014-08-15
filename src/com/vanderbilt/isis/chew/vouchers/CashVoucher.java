@@ -45,7 +45,7 @@ public class CashVoucher extends Voucher{
 		logger.trace("getAmountSpent()");
 		
 		String where = ChewContract.ProduceChosen.MONTH + "='"
-				+ Utils.getMonth() + "'" + " AND "
+				+ Utils.getMonth().getMonthNum() + "'" + " AND "
 				+ ChewContract.ProduceChosen.VOUCHER_CODE + "='"
 				+ voucherCode + "'" + " AND "
 				+ ChewContract.ProduceChosen.MEMBER_NAME + "='"
@@ -58,6 +58,7 @@ public class CashVoucher extends Voucher{
 
 		double spent = 0.0;
 		while (c.moveToNext()) {
+			Log.d("CASH VOUCHER", "cursor is null");
 			spent = spent
 					+ Double.parseDouble(c.getString(0));
 		}

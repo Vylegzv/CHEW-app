@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">CHEW</string>
-    
     <string name="gallery_act">Yummy Snack Gallery</string>
     <string name="favor_snack_act">Favorite Snacks</string>
     <string name="shoplist_act">Snack Shopping List</string>
@@ -16,7 +15,6 @@
     <string name="choose_vouch_act">Choose Voucher</string>
     <string name="regular_act">Regular Voucher: Shopping Cart</string>
     <string name="cash_act">Cash Voucher: Shopping Cart</string>
-    
     <string name="action_settings">Settings</string>
     <string name="ok">OK</string>
     <string name="yes">Yes</string>
@@ -55,7 +53,6 @@
     <string name="delete_item">Delete this item?</string>
     <string name="deleted_success_msg">Item successfully deleted</string>
     <string name="select_delete_quantity">Select number to be deleted</string>
-    <string name="fruit_veg">FRUITS &amp; VEGETABLES</string>
     <string name="spent">Amount Spent:</string>
     <string name="left">Amount Left:</string>
     <string name="calc_price">Calculate Price per Pound</string>
@@ -67,27 +64,24 @@
     <string name="enter_price">Enter the Price</string>
     <string name="select_quantity">Select # of items:</string>
     <string name="clear_shop_list">Clear Shopping List</string>
-    
+
     <!-- NEW -->
     <string name="calculator_title">Cash Value Voucher Calculators</string>
     <string name="caclulator_instructions1">Use these tools to calculate how much fruits and vegetables you can buy with each cash voucher.</string>
     <string name="caclulator_instructions2">Produce may be bought loose or in a package, fresh or frozen. Pick which type of fruit or vegetables you want to buy for the right calculator tool.</string>
     <string name="cash_vs_inuse">Cash Vouchers in use</string>
-    
     <string name="packaged_fresh">Packaged Fresh</string>
     <string name="packaged_frozen">Packaged Frozen</string>
-    
+
     <!-- NEW -->
     <string name="cash_not_found">Not found in database. Please enter name of packaged fruit/vegetable item.</string>
     <string name="packaged_manual2">REMEMBER: Must not have added sugars, fats, oils, herbs or spices.</string>
-    
     <string name="loose_price_per_pound">Loose Produce: Price per Pound</string>
     <string name="loose_price_per_item">Loose Produce: Price per Item</string>
-    
+
     <!-- NEW -->
     <string name="wheel_intro1">Weigh the produce on the scale.</string>
     <string name="wheel_intro2">Then choose weight in pounds.</string>
-    
     <string name="produce_name">Enter Produce Name:</string>
     <string name="price_per_pound">Price per Pound: $</string>
     <string name="dollar_sign">$</string>
@@ -96,10 +90,9 @@
     <string name="done_shop">Done Shopping?</string>
     <string name="sure_done_shop_title">Are you sure want to end this WIC shopping trip?</string>
     <string name="sure_done_shop_msg">All vouchers selected today will be marked as USED.</string>
-    
+
     <!-- NEW -->
     <string name="confirm_done_shop">This shopping trip is now closed. All vouchers from this trip were marked as USED.</string>
-    
     <string name="enter_pwd">Please Enter Password</string>
     <string name="wrong_pwd">Wrong Password</string>
     <string name="pwd">Password:</string>
@@ -108,32 +101,61 @@
     <string name="delete">Delete</string>
     <string name="sure_want_delete">Are you sure you want to delete this voucher?</string>
     <string name="cannot_get_product">You cannot get</string>
-    <string name="because_already_bought">because you already bought</string>
+    <string name="because_already_bought">because you bought</string>
     <string name="want_to_replace">Do you want to replace it? All choices of</string>
     <string name="will_be_deleted">will be DELETED.</string>
     <string name="exception_case">buttermilk and/or evaporated milk and/or tofu</string>
     <string name="cannot_get_anymore">You cannot get anymore of</string>
     <string name="on_this_voucher">on this voucher</string>
     <string name="not_cash">This is not a CASH item!</string>
-	<string name="not_used">not used</string>
-	<string name="in_use">in use</string>
-	<string name="used">used</string>
-	<string name="voucher_status">Status:</string>
-	<string name="cv_not_selected">Please select a CASH voucher for this shopping trip!</string>
-	
-	
-	 <string name="january">January</string>
-	 <string name="february">February</string>
-	 <string name="march">March</string>
-	 <string name="april">April</string>
-	 <string name="may">May</string>
-	 <string name="june">June</string>
-	 <string name="july">July</string>
-	 <string name="august">August</string>
-	 <string name="september">September</string>
-	 <string name="october">October</string>
-	 <string name="november">November</string>
-	 <string name="december">December</string>
+    <string name="not_used">not used</string>
+    <string name="in_use">in use</string>
+    <string name="used">used</string>
+    <string name="voucher_status">Status:</string>
+    <string name="cv_not_selected">Please select a CASH voucher for this shopping trip!</string>
+
+    <!-- Months -->
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+    
+    <!-- Product Types -->
+    <string name="juice_46_48oz">46&#8211;48oz juice</string>
+    <string name="tuna_5oz">5oz tuna</string>
+    <string name="juice_64oz">64oz juice</string>
+    <string name="tuna_6oz">6oz tuna</string>
+    <string name="buttermilk">buttermilk</string>
+    <string name="can_beans">canned beans</string>
+    <string name="cereal">cereal</string>
+    <string name="cheese">cheese</string>
+    <string name="dried_beans_peas">dried beans/peas</string>
+    <string name="eggs">eggs</string>
+    <string name="evap_milk">evaporated milk</string>
+    <string name="frozen_juice">frozen juice</string>
+    <string name="milk">low fat milk</string>
+    <string name="nonfat_dry_milk">nonfat dry milk</string>
+    <string name="peanut_b">peanut butter</string>
+    <string name="salmon">salmon</string>
+    <string name="sardines">sardines</string>
+    <string name="tofu">tofu</string>
+    <string name="whole_grain_prod">whole grain products</string>
+    <string name="whole_milk">whole milk</string>
+    
+    <!--  Product Categories -->
+    <string name="cash_produce">PRODUCE (Cash Voucher)</string>
+    <string name="dairy">DAIRY</string>
+    <string name="fruit_veg">FRUITS &amp; VEGETABLES</string>
+    <string name="grains">GRAINS</string>
+    <string name="protein">PROTEIN</string>
 
     <!-- Recipes -->
     <string name="peach_banana">Peach Banana Drink</string>
@@ -246,7 +268,7 @@
     <string name="whole_grain_cereal_l1">1 1/2 cups whole grain cereal, crushed</string>
     <string name="apple_l1">1 medium apple</string>
     <string name="cinnamon_l1">Cinnamon</string>
-    <string name="whole_wheat_tortilla_l1">1 whole-wheat tortilla (6-8 inch across) </string>
+    <string name="whole_wheat_tortilla_l1">1 whole-wheat tortilla (6&#8211;8 inch across) </string>
     <string name="low_fat_cheese_l1">1 slice low-fat cheese (or 1/4 cup shredded)</string>
     <string name="apple_l2">1/4 small apple, cut into thin bite-sized pieces  </string>
     <string name="grapes_l1">Seedless grapes</string>
@@ -347,24 +369,24 @@
     <string name="peach_banana_1">1.  Place all ingredients in a blender</string>
     <string name="peach_banana_2">2.  Blend until smooth</string>
     <string name="peach_banana_3">3.  Serve right away and enjoy!</string>
-    <string name="peach_banana_4">Child Serving: 1/4 - 1/2 cup of smoothie</string>
+    <string name="peach_banana_4">Child Serving: 1/4 &#8211; 1/2 cup of smoothie</string>
     <string name="peach_banana_5">Note: You can use bananas that are not frozen. The smoothie will not be as thick or cold, but just as delicious!</string>
     <string name="slice_up_1">1.  Place sliced bananas in cereal bowl</string>
     <string name="slice_up_2">2.  Pour milk over bananas and enjoy!</string>
-    <string name="slice_up_3">Child Serving: 1/4 - 1/2 cup</string>
+    <string name="slice_up_3">Child Serving: 1/4 &#8211; 1/2 cup</string>
     <string name="slice_up_4">Variation: Cinnamon Slice-Up: Sprinkle banana slices with cinnamon before topping with milk</string>
     <string name="slice_up_5">Variation: Berry and Banana Slice-Up: Add 1/4 cup sliced strawberries, rasberries, or other berries to bowl</string>
     <string name="ice_cream_1">1.  Peel bananas and cut into slices</string>
     <string name="ice_cream_2">2.  Place banana slices on a plate and freeze for 2 hours</string>
     <string name="ice_cream_3">3.  Place frozen banana slices in blender and blend on high for 3 minutes; serve right away</string>
-    <string name="ice_cream_4">Child Serving: 1/4 - 1/2 cup</string>
+    <string name="ice_cream_4">Child Serving: 1/4 &#8211; 1/2 cup</string>
     <string name="ice_cream_5">Note: Bananas not blending? Add a splash of low-fat or skim milk!</string>
     <string name="crunchers_1">1.  Cover plate with plastic wrap or aluminum foil; set aside</string>
     <string name="crunchers_2">2.  Peel bananas; cut into small bite-sized pieces</string>
     <string name="crunchers_3">3.  Roll banana piece in yogurt, then roll in crushed cereal</string>
     <string name="crunchers_4">4.  Place banana pieces on plate and freeze until firm (about 1 hour)</string>
     <string name="crunchers_5">5.  Thaw banana pieces for a few minutes before serving</string>
-    <string name="crunchers_6">Child Serving: 1/4 - 1/2 cup frozen banana pieces</string>
+    <string name="crunchers_6">Child Serving: 1/4 &#8211; 1/2 cup frozen banana pieces</string>
     <string name="cin_apples_1">1. Slice an apple into thin bite-sized pieces</string>
     <string name="cin_apples_2">2. Place apple pieces on a plate and sprinkle with cinnamon</string>
     <string name="cin_apples_3">3. Cover plate with a paper towel </string>
@@ -382,65 +404,65 @@
     <string name="app_quesadilla_8">Note: Apples can be a choking hazard if not chewed well.  Peeling the apple and slicing it into small, thin pieces can help reduce the choking risk. Always monitor children when they&#144;re eating.</string>
     <string name="grape_dunkers_1">1. Rinse grapes under running water; remove from stem and pat dry </string>
     <string name="grape_dunkers_2">2. Cut each grape into 4 pieces; place grape pieces on a plate</string>
-    <string name="grape_dunkers_3">3. Freeze grapes for 3-4 hours</string>
+    <string name="grape_dunkers_3">3. Freeze grapes for 3&#8211;4 hours</string>
     <string name="grape_dunkers_4">4. Dip grape pieces in your favorite yogurt and enjoy! </string>
     <string name="grape_dunkers_5">Child Serving: 1/2 cup grape pieces </string>
     <string name="sunshine_1">1. Combine all ingredients in a blender</string>
     <string name="sunshine_2">2. Blend until smooth and creamy; serve right away</string>
-    <string name="sunshine_3">Child Serving: 1/4 - 1/2 cup of smoothie</string>
+    <string name="sunshine_3">Child Serving: 1/4 &#8211; 1/2 cup of smoothie</string>
     <string name="strawberry_dippers_1">1. Wash strawberries and cut off stems</string>
     <string name="strawberry_dippers_2">2. Cut strawberries into bite-sized slices or pieces</string>
     <string name="strawberry_dippers_3">3. Dip each strawberry slice into yogurt for a tasty and fun treat!</string>
-    <string name="strawberry_dippers_4">Child Serving: 2-4 medium strawberries with 1/4 cup yogurt </string>
+    <string name="strawberry_dippers_4">Child Serving: 2&#8211;4 medium strawberries with 1/4 cup yogurt </string>
     <string name="strawberry_freezers_1">1. Put strawberries in a blender; mix until strawberries are broken up </string>
     <string name="strawberry_freezers_2">2. Add milk and blend until smooth</string>
     <string name="strawberry_freezers_3">3. Pour mixture into an ice tray and freeze until firm (about 2 hours)</string>
     <string name="strawberry_freezers_4">4. Crush cubes in a bowl and eat with a spoon</string>
-    <string name="strawberry_freezers_5">Child Serving: 1-2 creamy strawberry cubes</string>
+    <string name="strawberry_freezers_5">Child Serving: 1&#8211;2 creamy strawberry cubes</string>
     <string name="smashwich_1">1. Place fruit on plate</string>
     <string name="smashwich_2">2. Have your child smash the fruit with a fork (while supervised)</string>
     <string name="smashwich_3">3. Spread a thin layer of peanut butter on the slice of bread</string>
     <string name="smashwich_4">4. Top with the fruit smash and enjoy as an open face sandwich!</string>
-    <string name="smashwich_5">Child Serving: 1-2 servings per recipe  </string>
+    <string name="smashwich_5">Child Serving: 1&#8211;2 servings per recipe  </string>
     <string name="smashwich_6">Note: Peanut butter can be a choking hazard for children because it\'s sticky. Be sure peanut butter is spread very thinly to keep your child safe! Always monitor young children when they\'re eating.</string>
     <string name="sweet_carrot_1">1. In a large microwave-safe dish, combine carrots and orange juice; cover the dish</string>
     <string name="sweet_carrot_2">2. Microwave on high until carrots are soft (about 5 minutes), stirring halfway through</string>
     <string name="sweet_carrot_3">3. Cool carrots for a few minutes and enjoy!</string>
-    <string name="sweet_carrot_4"> Child Serving: 1/4 - 1/2 cup cooked carrots</string>
+    <string name="sweet_carrot_4"> Child Serving: 1/4 &#8211; 1/2 cup cooked carrots</string>
     <string name="sweet_carrot_5">Note: Carrots will be HOT coming out of the microwave. Let carrots cool a little before serving!</string>
     <string name="carrot_slaw_1">1. Mix all the ingredients together </string>
     <string name="carrot_slaw_2">2. Cover and refrigerate until chilled</string>
-    <string name="carrot_slaw_3">Child Serving: 1/4 - 1/2 cup sweet carrot slaw</string>
+    <string name="carrot_slaw_3">Child Serving: 1/4 &#8211; 1/2 cup sweet carrot slaw</string>
     <string name="carrot_slaw_4">Note: Apples can be a choking hazard if not chewed well.  Peeling the apple and slicing it into small, thin pieces can help reduce the choking risk. Always monitor children when they\'re eating. </string>
     <string name="salsa_1">1. Cut tomatoes into small bite-sized pieces</string>
     <string name="salsa_2">2. Mix all ingredients, stirring gently and enjoy!</string>
-    <string name="salsa_3">Child Serving: 2-4 tablespoons of salsa</string>
+    <string name="salsa_3">Child Serving: 2&#8211;4 tablespoons of salsa</string>
     <string name="salsa_4">Variations: Experiment with different herbs (like cilantro or basil) and spices (like cumin or cayenne) for a new, exciting salsa taste!</string>
     <string name="green_bean_1">1. Cook the green beans according to the package instructions</string>
     <string name="green_bean_2">2. In a large bowl, add cooked green beans and the remaining ingredients</string>
     <string name="green_bean_3">3. Toss to combine and enjoy!</string>
-    <string name="green_bean_4">Child Serving: 1/4 - 1/2 cup green beans </string>
+    <string name="green_bean_4">Child Serving: 1/4 &#8211; 1/2 cup green beans </string>
     <string name="green_bean_5">Note: Be sure to cut green beans into bite-sized pieces for young children. </string>
     <string name="cuke_sandwich_1">1. Spread a thin layer of cream cheese on slice of bread; slice bread in half </string>
     <string name="cuke_sandwich_2">2. Top one half of the bread with cucumber slices; top with other half of bread </string>
     <string name="cuke_sandwich_3">3. Cut sandwich and serve!</string>
-    <string name="cuke_sandwich_4">Child Serving: 1-2 serving per recipe  </string>
+    <string name="cuke_sandwich_4">Child Serving: 1&#8211;2 serving per recipe  </string>
     <string name="cuke_sandwich_5">Note: Cream cheese can be a choking hazard for children because it\'s sticky. Be sure cream cheese is spread very thinly to keep your child safe! Always monitor children when they\'re eating.</string>
     <string name="sushi_1">1. Spread cream cheese on slice of bread</string>
     <string name="sushi_2">2. Spread a line of tuna on top of half of the cream cheese</string>
     <string name="sushi_3">3. Place long slices of cucumber in middle of bread</string>
     <string name="sushi_4">4. Roll bread lengthwise, making a roll</string>
     <string name="sushi_5">5. Slice rolled bread into thin "sushi" coins and serve!</string>
-    <string name="sushi_6">Child Serving: 1-2 serving per recipe  </string>
+    <string name="sushi_6">Child Serving: 1&#8211;2 serving per recipe  </string>
     <string name="slushy_1">1. Place fruit and juice in a blender, and mix until smooth </string>
     <string name="slushy_2">2. Fill ice cube tray with fruit mixture</string>
     <string name="slushy_3">3. Freeze until firm (about 2 hours)</string>
     <string name="slushy_4">4. Crush cubes in a bowl and eat with a spoon</string>
-    <string name="slushy_5">Child Serving: 1-2 fruit slushy cubes</string>
+    <string name="slushy_5">Child Serving: 1&#8211;2 fruit slushy cubes</string>
     <string name="scramble_1">1. Crack egg into a microwave safe cereal bowl; beat with fork</string>
     <string name="scramble_2">2. Add spinach and mix</string>
     <string name="scramble_3">3. Microwave bowl on high for 30 seconds</string>
-    <string name="scramble_4">4. Stir the scramble and microwave until cooked (10-15 seconds)</string>
+    <string name="scramble_4">4. Stir the scramble and microwave until cooked (10&#8211;15 seconds)</string>
     <string name="scramble_5">5. Top with cheese (optional) and enjoy!</string>
     <string name="scramble_6">Child Serving: 1 serving per recipe</string>
     <string name="scramble_7">Note: Scramble will be HOT coming out of the microwave. Let scramble cool a minute or two before serving!</string>
@@ -448,64 +470,64 @@
     <string name="guacamole_2">2. With a spoon, scoop out the avocado pulp; place in a small bowl</string>
     <string name="guacamole_3">3. Mash avocado with fork until almost smooth</string>
     <string name="guacamole_4">4. Sprinkle with lime juice and salt; stir to combine </string>
-    <string name="guacamole_5">Child Serving: 2-4 tablespoons guacamole</string>
+    <string name="guacamole_5">Child Serving: 2&#8211;4 tablespoons guacamole</string>
     <string name="guacamole_6">Note: Use a dip with your favorite veggies or as a spread for tasty sandwiches!</string>
     <string name="toast_1">1. Toast bread to desired darkness</string>
     <string name="toast_2">2. Cut avocado in half, remove pit, and scoop out the avocado pulp</string>
     <string name="toast_3">3. Mash the avocado with a fork, and add a little lime juice</string>
     <string name="toast_4">4. Spread avocado mash on top of toast</string>
     <string name="toast_5">5. Slice toast into bite-sized pieces and enjoy!</string>
-    <string name="toast_6">Child Serving: 1-2 serving per recipe  </string>
+    <string name="toast_6">Child Serving: 1&#8211;2 serving per recipe  </string>
     <string name="filled_avo_1">1. Cut avocado in half, twist open, and remove pit</string>
     <string name="filled_avo_2">2. Fill the hole where the pit was with cottage cheese </string>
     <string name="filled_avo_3">3. Serve right away and eat with a spoon</string>
-    <string name="filled_avo_4">Child Serving: 2-3 serving per recipe  </string>
+    <string name="filled_avo_4">Child Serving: 2&#8211;3 serving per recipe  </string>
     <string name="filled_avo_5">Note: If spoons are too hard for your child to use, mash the avocado and mix it with the cottage cheese!</string>
     <string name="chayote_1">1. Peel chayote, remove seed from center, and cut into small bite-sized pieces</string>
     <string name="chayote_2">2. In a bowl, mix together oil, lime juice, salt, and pepper</string>
     <string name="chayote_3">3. Add chayote and cilantro to bowl and mix</string>
-    <string name="chayote_4">4. Cover and refrigerate for 15-20 minutes before serving  </string>
-    <string name="chayote_5">Child Serving: 2-3 serving per recipe  </string>
+    <string name="chayote_4">4. Cover and refrigerate for 15&#8211;20 minutes before serving  </string>
+    <string name="chayote_5">Child Serving: 2&#8211;3 serving per recipe  </string>
     <string name="monster_smoothie_1">1. If using, cut guava into chunks, with or without the seeds</string>
     <string name="monster_smoothie_2">2. Add all ingredients to a blender and mix until smooth</string>
-    <string name="monster_smoothie_3">Child Serving: 1/4 - 1/2 cup monster smoothie  </string>
+    <string name="monster_smoothie_3">Child Serving: 1/4 &#8211; 1/2 cup monster smoothie  </string>
     <string name="mango_salsa_1">1. Wash the outside of the mango and dry</string>
     <string name="mango_salsa_2">2. Cut around the mango pit, remove skin, and cut into small, bite-size pieces</string>
     <string name="mango_salsa_3">3. Toss mango pieces with lime juice and cilantro</string>
-    <string name="mango_salsa_4">Child Serving: 2-4 tablespoons mango lime</string>
+    <string name="mango_salsa_4">Child Serving: 2&#8211;4 tablespoons mango lime</string>
     <string name="mango_salsa_5">Variation: Add bite-sized pineapple pieces to this recipe for a different twist!</string>
     <string name="mango_parfait_1">1. Wash and peel mango. Cut into squares around the pit, then remove the chunks from the pit. </string>
     <string name="mango_parfait_2">2. Place mango chunks in blender and puree until smooth</string>
     <string name="mango_parfait_3">3. Spoon mango puree into bottom of a bowl; top with yogurt</string>
     <string name="mango_parfait_4">4. Cover and refrigerate</string>
     <string name="mango_parfait_5">5. When ready to serve, top with cereal for a crunchy, sweet treat!</string>
-    <string name="mango_parfait_6">Child Serving: 1/4 - 1/2 cup mango yogurt parfait</string>
+    <string name="mango_parfait_6">Child Serving: 1/4 &#8211; 1/2 cup mango yogurt parfait</string>
     <string name="tropical_fruit_mix_1">1. Place all ingredients in a large bowl</string>
     <string name="tropical_fruit_mix_2">2. Stir to mix the fruit together</string>
     <string name="tropical_fruit_mix_3">3. Keep covered in the fridge for a quick, sweet snack</string>
-    <string name="tropical_fruit_mix_4">Child Serving: 1/4 - 1/2 cup tropical fruit salad</string>
+    <string name="tropical_fruit_mix_4">Child Serving: 1/4 &#8211; 1/2 cup tropical fruit salad</string>
     <string name="pear_fries_1">1. Wash pear under running water; dry</string>
     <string name="pear_fries_2">2. Slice pear in half, remove core</string>
     <string name="pear_fries_3">3. Cut pears into long slices like French fries and enjoy!</string>
-    <string name="pear_fries_4">Child Serving: 2-3 servings per recipe</string>
+    <string name="pear_fries_4">Child Serving: 2&#8211;3 servings per recipe</string>
     <string name="pear_fries_5">Variation: For "ketchup," use a tablespoon of your child\'s favorite low-fat yogurt!</string>
     <string name="fruit_jumble_1">1. Wash the pear, apple, and grapes under running water; pat dry</string>
     <string name="fruit_jumble_2">2. Cut fruit into small, bite-sized pieces</string>
     <string name="fruit_jumble_3">3. Toss with lemon juice and cover, if storing in the fridge </string>
-    <string name="fruit_jumble_4">Child Serving: 1/4 - 1/2 cup sweet \'n crisp fruit jumble</string>
+    <string name="fruit_jumble_4">Child Serving: 1/4 &#8211; 1/2 cup sweet \'n crisp fruit jumble</string>
     <string name="veg_quesadilla_1">1. Place the tortilla on a plate </string>
     <string name="veg_quesadilla_2">2. Place cheese on half of the tortilla</string>
     <string name="veg_quesadilla_3">3. Add mushrooms and spinach on top of the cheese</string>
     <string name="veg_quesadilla_4">4. Fold the tortilla over filling</string>
-    <string name="veg_quesadilla_5">5. Microwave on high until cheese is melted (about 30-45 seconds) </string>
+    <string name="veg_quesadilla_5">5. Microwave on high until cheese is melted (about 30&#8211;45 seconds) </string>
     <string name="veg_quesadilla_6">Child Serving: 1/2 of a quesadilla</string>
     <string name="veg_quesadilla_7">Note: Be sure to let the quesadilla cool. The cheese in the tortillas stays HOT for a few minutes!</string>
     <string name="sweet_potato_1">1. With a small sharp knife, carefully stab the sweet potato in several spots (go about 1/2 inch deep)</string>
     <string name="sweet_potato_2">2. Microwave sweet potato on high for 2 1/2 minutes</string>
-    <string name="sweet_potato_3">3. Flip the sweet potato and microwave until soft (about 1-2 more minutes; time will vary depending on size of the sweet potato)</string>
+    <string name="sweet_potato_3">3. Flip the sweet potato and microwave until soft (about 1&#8211;2 more minutes; time will vary depending on size of the sweet potato)</string>
     <string name="sweet_potato_4">4. When cool enough to touch, remove sweet potato skin with a small sharp knife</string>
     <string name="sweet_potato_5">5. Place sweet potato flesh, butter, and cinnamon in a large bowl and mash with a fork</string>
-    <string name="sweet_potato_6">Child Serving: 1/4 - 1/2 cup sweet potato mash</string>
+    <string name="sweet_potato_6">Child Serving: 1/4 &#8211; 1/2 cup sweet potato mash</string>
     <string name="sweet_potato_7">Note: Sweet potato will be HOT coming out of the microwave. Use caution when handling!</string>
     <string name="butternut_1">1. Cut off stem of the butternut squash</string>
     <string name="butternut_2">2. Cut butternut squash in half lengthwise</string>
@@ -513,13 +535,13 @@
     <string name="butternut_4">4. Add orange juice (or water) to where you scooped out the seeds </string>
     <string name="butternut_5">5. Cover and microwave on high until squash is soft (about 8 minutes); let cool for 2 minutes</string>
     <string name="butternut_6">6. Scoop out the squash; mash squash with fork or serve as bite-size chunks </string>
-    <string name="butternut_7">Child Serving: 1/4 - 1/2 cup butternut squash</string>
+    <string name="butternut_7">Child Serving: 1/4 &#8211; 1/2 cup butternut squash</string>
     <string name="butternut_8">Note: Butternut squash will be HOT coming out of the microwave. Use caution when handling!</string>
     <string name="fast_greens_1">1. Remove stems from collards</string>
     <string name="fast_greens_2">2. Slice collards into thin, small ribbons</string>
     <string name="fast_greens_3">3. Place sliced greens and water (or broth) in a large microwave-safe bowl</string>
-    <string name="fast_greens_4">4. Cover with a microwave-safe plate or lid and microwave on high until soft (3-4 minutes)</string>
-    <string name="fast_greens_5">Child Serving: 1/4 - 1/2 cup collard greens</string>
+    <string name="fast_greens_4">4. Cover with a microwave-safe plate or lid and microwave on high until soft (3&#8211;4 minutes)</string>
+    <string name="fast_greens_5">Child Serving: 1/4 &#8211; 1/2 cup collard greens</string>
     <string name="fast_greens_6">Note: Collard greens will be HOT coming out of the microwave. Use caution when handling!</string>
     <string name="fast_greens_7">Variations: Add your favorite spices to the collards for a different kick!</string>
     <string name="veggie_boats_1">1. Combine tuna or chicken and low-fat mayo</string>
