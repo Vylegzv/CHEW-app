@@ -13,19 +13,19 @@
     <!-- Pankaj Chand's permissions -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <provider
-            android:name="com.vanderbilt.isis.chew.db.ChewContentProvider"
+            android:name=".db.ChewContentProvider"
             android:authorities="com.vanderbilt.isis.chew.provider"
             android:exported="false" />
 
         <activity
-            android:name="com.vanderbilt.isis.chew.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
@@ -34,75 +34,92 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
+        <activity
             android:name=".RecipesActivity"
             android:label="@string/gallery_act" />
-        <activity 
-            android:name=".RecipeActivity" />
-        <activity 
+        <activity android:name=".RecipeActivity" />
+        <activity
             android:name=".ShoppingList"
             android:label="@string/shoplist_act" />
-        <activity 
+        <activity
             android:name=".VoucherUpload"
             android:label="@string/add_vouchers_act" />
-        <activity 
+        <activity
             android:name=".VouchersListView"
             android:label="@string/choose_vouch_act" />
-        <activity 
+        <activity
             android:name=".VoucherDescription"
-            android:label="@string/what_can_get"/>
+            android:label="@string/what_can_get" />
         <activity
             android:name=".GetProducts"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity 
+        <activity
             android:name=".MembersListView"
             android:label="@string/choose_member_act" />
         <activity
             android:name=".Profile"
-            android:label="@string/profile_act"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/profile_act" />
         <activity
             android:name=".InCartRegular"
-            android:label="@string/regular_act"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/regular_act" />
         <activity
             android:name=".InCartCash"
-            android:label="@string/cash_act"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/cash_act" />
         <activity
             android:name=".Produce"
-            android:label="@string/produce_act"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/produce_act" />
         <activity
             android:name=".DeleteVouchers"
-            android:label="@string/del_vouchers_act"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/del_vouchers_act" />
         <!-- Pankaj Chand's Components -->
-        
-        <receiver android:enabled="true" android:name=".notificationmsg.BootCompleteBroadcastReceiver"
-         android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-             <intent-filter>
-	         <action android:name="android.intent.action.BOOT_COMPLETED" />
-	        <category android:name="android.intent.category.DEFAULT" />
-             </intent-filter>
+
+        <receiver
+            android:name=".notificationmsg.BootCompleteBroadcastReceiver"
+            android:enabled="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </receiver>
-        
-        <receiver android:enabled="true" android:name=".notificationmsg.AlarmReceiver">
-             <intent-filter>
-	         <action android:name="com.vanderbilt.isis.chew.notificationmsg.ACTION_SEND_NOTIFICATION" />
-             </intent-filter>
+        <receiver
+            android:name=".notificationmsg.AlarmReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.vanderbilt.isis.chew.notificationmsg.ACTION_SEND_NOTIFICATION" />
+            </intent-filter>
         </receiver>
-        
-        <service android:name=".notificationmsg.SetAlarmService" android:process=":myProcess1"/>
-        <service android:name=".notificationmsg.SendNotificationService" android:process=":myProcess2"/>
-        <provider android:name="com.vanderbilt.isis.chew.notificationmsg.NotificationProvider" android:authorities="com.vanderbilt.isis.chew.notificationmsg.NotificationProvider" />
-        
-        <activity android:name=".notificationmsg.ConfigurationActivity"/>
-        <activity android:name=".notificationmsg.NotificationDialogActivity" android:theme="@android:style/Theme.Translucent"
-            android:excludeFromRecents="true" android:noHistory="true" />
-        <activity 
+
+        <service
+            android:name=".notificationmsg.SetAlarmService"
+            android:process=":myProcess1" />
+        <service
+            android:name=".notificationmsg.SendNotificationService"
+            android:process=":myProcess2" />
+
+        <provider
+            android:name=".notificationmsg.NotificationProvider"
+            android:authorities="com.vanderbilt.isis.chew.notificationmsg.NotificationProvider" />
+
+        <activity android:name=".notificationmsg.ConfigurationActivity" />
+        <activity
+            android:name=".notificationmsg.NotificationDialogActivity"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
             android:name=".notificationmsg.NotificationHistoryActivity"
-            android:label="@string/tips_act"/>
+            android:label="@string/tips_act" />
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help" >
+        </activity>
     </application>
 
 </manifest>

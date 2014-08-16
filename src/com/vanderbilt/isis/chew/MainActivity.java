@@ -242,6 +242,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			
 		case TUTORIAL:
 			logger.info("Clicked Video TUTORIAL on Homepage");
+			intent = new Intent(MainActivity.this, HelpActivity.class);
+			startActivity(intent);
 			break;
 
 		case UPLOAD:
