@@ -455,8 +455,13 @@ public class MainActivity extends Activity implements OnItemClickListener {
 					public void onClick(DialogInterface dialog, int which,
 							boolean isChecked) {
 						logger.trace("showChooseVouchersD().alertDialogBuilder.setSingleMultiChoiceItems().onClick()");
+						String selectedVoucher = voucherCodes[which].toString();
 						if (isChecked) {
-							selected.add(voucherCodes[which].toString());
+							selected.add(selectedVoucher);
+						}else if(!isChecked){
+							if(selected.contains(selectedVoucher)){
+								selected.remove(selectedVoucher);
+							}
 						}
 					}
 				}).setPositiveButton(getString(R.string.ok),

@@ -118,7 +118,7 @@
             android:label="@string/tips_act" />
         <activity
             android:name=".HelpActivity"
-            android:label="@string/title_activity_help" >
+            android:label="@string/help_act" >
         </activity>
     </application>
 
