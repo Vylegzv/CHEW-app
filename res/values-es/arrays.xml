@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string-array name="main_titles_array">        
@@ -104,65 +104,65 @@
         <item>CVV10</item>
     </string-array>
     <string-array name="A2">
-        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dos (2) galones de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
-        <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de 46 a 48 onzas de jugo</item>
+        <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de 48 onzas de jugo</item>
         <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de 15 a 16 onzas de frijoles</item>
         <item>Un (1) frasco de mantequilla de cacahuate (maní)</item>
         <item>16 onzas de pan integral de trigo o producto de grano entero</item>
     </string-array>
     <string-array name="A">
-        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
-        <item>Escoja 3 (cualquier combinación) de: 14 a 16 onzas de tofú, un cuarto de suero de leche, una lata de 12 onzas de leche evaporada o escoja un envase (1) de 9.6 onzas de leche en polvo sin grasa</item>
+        <item>Dos (2) galones de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
+        <item>Escoja 3 (cualquier combinación) de: 16 onzas de tofú, un cuarto de suero de leche, una lata de 12 onzas de leche evaporada o escoja un envase (1) de 9.6 onzas de leche en polvo sin grasa</item>
         <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
-        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de 46 a 48 onzas de jugo</item>
+        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de 48 onzas de jugo</item>
         <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
     </string-array>
     <string-array name="B">
-        <item>Un (1) galón de leche  (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
-        <item>Escoja uno de estos: 1 cuarto de suero de leche bajo en grasa, 1 lata de 12 onzas de leche evaporada o 14 a 16 onzas de tofu</item>
-        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o un envase de jugo de 46 a 48 onzas</item>
+        <item>Un (1) galón de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
+        <item>Escoja uno de estos: 1 cuarto de suero de leche, 1 lata de 12 onzas de leche evaporada o 14 a 16 onzas de tofu</item>
+        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o un envase de jugo de 48 onzas </item>
         <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
     </string-array>
     <string-array name="B2">
-        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dos (2) galones de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
         <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
-        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de 46 a 48 onzas de jugo</item>
+        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de 48 onzas de jugo</item>
         <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de 15 a 16 onzas de frijoles en lata o un (1) frasco de 16 a 18 onzas de mantequilla de cacahuate (maní)</item>
     </string-array>
     <string-array name="L">
-        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
-        <item>Escoja 3 (cualquier combinación) de: 14 a 16 onzas de tofú, un cuarto de suero de leche, una lata de 12 onzas de leche evaporada o escoja un (1) envase de 9.6 onzas de leche en polvo sin grasa</item>
+        <item>Dos (2) galones de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
+        <item>Escoja 3 (cualquier combinación) de: 16 onzas de tofú, un cuarto de suero de leche, una lata de 12 onzas de leche evaporada o escoja un (1) envase de 9.6 onzas de leche en polvo sin grasa</item>
         <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
-        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de jugo de 46 a 48 onzas</item>
+        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de jugo de 48 onzas</item>
         <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
     </string-array>
     <string-array name="L2">
-        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dos (2) galones de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
-        <item>Dos (2) envases de 11.5  a 12 onzas de jugo congelado o dos (2) envases de 46 a 48 onzas de jugo</item>
+        <item>Dos (2) envases de 11.5  a 12 onzas de jugo congelado o dos (2) envases de 48 onzas de jugo</item>
         <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o Cuatro (4) latas de 15 a 16 oz (onzas) de frijoles</item>
         <item>Un (1) envase de 16 a 18 onzas de mantequilla de cacahuate (maní)</item>
         <item>16 onzas de pan integral de trigo/producto de grano entero</item>
     </string-array>
     <string-array name="G">
-        <item>Tres (3) galones de leche (no leche entera)</item>
+        <item>Dos (2) galones de leche (no leche entera o de grasa reducida 2%)</item>
         <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
-        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de jugo de 46 a 48 onzas</item>
+        <item>Un (1) envase de 11.5 a 12 onzas de jugo congelado o envase de jugo de 48 onzas</item>
         <item>Dieciseis (16) onzas de frijoles secos o chícharos (arvejas) o cuatro (4) latas de15 a 16 onzas de frijoles </item>
         <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
         <item>Un (1) frasco de 16 a 18 onzas de mantequilla de cacahuate (maní)</item>
         <item>16 onzas de pan de trigo integral/producto de grano entero</item>
     </string-array>
     <string-array name="G2">
-        <item>Dos (2) galones de leche (no leche entera)</item>
-        <item>Escoja una de estas: 1 cuarto de suero de leche, 1 lata de leche evaporada de 12 onzas o 14 a 16 onzas de tofú</item>
+        <item>Dos (2) galones de leche (no leche entera o de grasa reducida 2%)</item>
+        <item>Escoja una de estas: 1 cuarto de suero de leche, 1 lata de leche evaporada de 12 onzas o 16 onzas de tofú</item>
         <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
         <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de jugo de 46 a 48 onzas </item>
-        <item>Treinta (30) onzas de pescado (6 latas de 5 onzas de atún o dos latas de 14.75 onzas de salmon u 8 latas de 3.75 onzas de sardinas)</item>
+        <item>Treinta (30) onzas de pescado (6 de 5oz, o 5 de 6 oz, o 2 de 14.75 oz, o 2 de 15 oz, o 8 de 3.75 oz)</item>
     </string-array>
     <string-array name="T">
         <item>Un (1) galón de leche entera</item>
@@ -180,14 +180,14 @@
         <item>Dieciseis (16) onzas de pan integral de trigo/producto de grano entero</item>
     </string-array>
     <string-array name="K">
-        <item>Un (1) galón de leche  (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
-        <item>Escoja uno de estos: 1 de cuarto suero de leche bajo en grasa o 1 lata de 12 onzas de leche evaporada</item>
+        <item>Un (1) galón de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
+        <item>Escoja uno de estos: 1 de cuarto suero de leche o 1 lata de 12 onzas de leche evaporada </item>
         <item>Un (1) envase de 64 onzas de jugo</item>
         <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
         <item>16 onzas de pan integral de trigo/producto de grano entero</item>
     </string-array>
     <string-array name="K2">
-        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dos (2) galones de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
         <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
         <item>Un (1) envase de 64 onzas de jugo</item>
@@ -195,14 +195,14 @@
         <item>16 onzas de pan integral de trigo/producto de grano entero</item>
     </string-array>
     <string-array name="E">
-        <item>Un (1) galón de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
-        <item>Escoja uno de estos: 1 cuarto de suero de leche bajo en grasa o 1 lata de 12 onzas de leche evaporada</item>
+        <item>Un (1) galón de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
+        <item>Escoja uno de estos: 1 de cuarto suero de leche o 1 lata de 12 onzas de leche evaporada</item>
         <item>Un (1) envase de 64 onzas de jugo</item>
         <item>Treinta y seis (36) onzas de cereal (compre 11 onzas o más grande)</item>
         <item>16 onzas de pan integral de trigo/producto de grano entero</item>
     </string-array>
     <string-array name="E2">
-        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dos (2) galones de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
         <item>Dieciseis onzas de pan integral de trigo/producto de grano entero</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
         <item>Un (1) envase de 64 onzas de jugo</item>
@@ -210,28 +210,28 @@
         <item>16 onzas de pan integral de trigo/producto de grano entero</item>
     </string-array>
     <string-array name="P">
-        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dos (2) galones de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
         <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
-        <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de 46 a 48 onzas de jugo</item>
+        <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de 48 onzas de jugo</item>
         <item>Dieciocho (18) onzas de cereal (compre 11 onzas of más grande)</item>
         <item>Un (1) frasco de 16 a 18 onzas de mantequilla de cacahuate (maní)</item>
         <item>16 onzas de pan integral de trigo/producto de grano entero</item>
     </string-array>
     <string-array name="P2">
-        <item>Dos (2) galones de leche (no leche entera)</item>
+        <item>Dos (2) galones de leche (no leche entera o de grasa reducida 2%)</item>
         <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
-        <item>Dos (2) envases de 11.5  a 12 onzas de jugo congelado o dos (2) envases de 46 a 48 onzas de jugo</item>
+        <item>Dos (2) envases de 11.5  a 12 onzas de jugo congelado o dos (2) envases de 48 onzas de jugo</item>
         <item>Un (1) frasco de mantequilla de cacahuate (maní)</item>
-        <item>Treinta (30) onzas de pescado (6 latas de 5 onzas de atún o dos latas de 14.75 onzas de salmon u 8 latas de 3.75 onzas de sardinas)</item>
+        <item>Treinta (30) onzas de pescado (6 de 5oz, o 5 de 6 oz, o 2 de 14.75 oz, o 2 de 15 oz, o 8 de 3.75 oz)</item>
         <item>16 onzas de pan integral de trigo/producto de grano entero</item>
     </string-array>
     <string-array name="PPW">
-        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dos (2) galones de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
         <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
-        <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de 46 a 48 onzas de jugo</item>
+        <item>Dos (2) envases de 11.5 a 12 onzas de jugo congelado o dos (2) envases de 48 onzas de jugo</item>
         <item>Dieciocho (18) onzas de cereal (compre 11 onzas of más grande)</item>
         <item>Un (1) frasco de 16 a 18 onzas de mantequilla de cacahuate (maní)</item>
     </string-array>
@@ -245,7 +245,7 @@
         <item>16 onzas de pan integral de trigo/producto de grano entero</item>
     </string-array>
     <string-array name="PC">
-        <item>Dos (2) galones de leche (gasa reducida, baja en grasa, descremada, o acidófilo dulce)</item>
+        <item>Dos (2) galones de leche (baja en grasa 1%, descremada / sin grasa, o acidófilo dulce)</item>
         <item>Dieciseis (16) onzas de queso de la marca de la tienda (paquete de 8 o 16 onzas)</item>
         <item>Una (1) docena de huevos blancos grandes del tipo A</item>
         <item>Un (1) envase de 64 onzas de jugo</item>
